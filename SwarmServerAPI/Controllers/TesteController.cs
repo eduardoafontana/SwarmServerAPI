@@ -16,9 +16,17 @@ namespace SwarmServerAPI.Controllers
 
         public IEnumerable<Teste> Get()
         {
-            return new List<Teste>() { new Teste { Chave = "chave1", Valor = "valor1" }, new Teste { Chave = "chave2", Valor = "valor2" } };
-
-            //throw new ArgumentException("O ano-base informado é inválido.");
+            try
+            {
+                using (SwarmData context = new SwarmData())
+                {
+                    return context.Tables.Select(x => new Teste { Chave = x.Chave, Valor = x.Valor });
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException(ex.ToString());
+            }
         }
     }
 }
