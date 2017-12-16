@@ -20,12 +20,18 @@ namespace SwarmServerAPI.Controllers
             {
                 using (SwarmData context = new SwarmData())
                 {
-                    return context.Tables.Select(x => new Teste { Chave = x.Chave, Valor = x.Valor });
+                    return context.Tables.Select(x => new Teste { Chave = x.Chave, Valor = x.Valor }).ToList();
                 }
             }
             catch (Exception ex)
             {
-                throw new ArgumentException(ex.ToString());
+                var resp = new HttpResponseMessage(HttpStatusCode.InternalServerError)
+                {
+                    Content = new StringContent(ex.ToString()),
+                    ReasonPhrase = "Erro on get data from database."
+                };
+
+                throw new HttpResponseException(resp);
             }
         }
     }
