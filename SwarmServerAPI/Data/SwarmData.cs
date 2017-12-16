@@ -8,7 +8,7 @@ namespace SwarmServerAPI
     public partial class SwarmData : DbContext
     {
         public SwarmData()
-            : base("name=SwarmData")
+            : base(Environment.GetEnvironmentVariable("SQLAZURECONNSTR_defaultConnection"))
         {
         }
 
