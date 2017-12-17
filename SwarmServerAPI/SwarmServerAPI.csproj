@@ -187,13 +187,36 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TesteController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Data\Breakpoint.cs" />
+    <Compile Include="Data\Session.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712171522308_First.cs" />
+    <Compile Include="Migrations\201712171522308_First.Designer.cs">
+      <DependentUpon>201712171522308_First.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712171547330_Second.cs" />
+    <Compile Include="Migrations\201712171547330_Second.Designer.cs">
+      <DependentUpon>201712171547330_Second.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712171608183_3.cs" />
+    <Compile Include="Migrations\201712171608183_3.Designer.cs">
+      <DependentUpon>201712171608183_3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\BreakpointModel.cs" />
+    <Compile Include="Models\CodeMetricModel.cs" />
+    <Compile Include="Models\DeveloperModel.cs" />
+    <Compile Include="Models\EventModel.cs" />
+    <Compile Include="Models\PathNodeModel.cs" />
+    <Compile Include="Models\PathNodeParameterModel.cs" />
+    <Compile Include="Models\ProjectModel.cs" />
+    <Compile Include="Models\SessionModel.cs" />
+    <Compile Include="Models\TaskModel.cs" />
     <Compile Include="Models\Teste.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\SwarmData.cs" />
-    <Compile Include="Data\Table.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -266,6 +289,17 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201712171522308_First.resx">
+      <DependentUpon>201712171522308_First.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712171547330_Second.resx">
+      <DependentUpon>201712171547330_Second.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712171608183_3.resx">
+      <DependentUpon>201712171608183_3.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

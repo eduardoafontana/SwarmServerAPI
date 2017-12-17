@@ -22,7 +22,8 @@ namespace SwarmServerAPI.Controllers
             {
                 using (SwarmData context = new SwarmData())
                 {
-                    return context.Tables.Select(x => new Teste { Chave = x.Chave, Valor = x.Valor }).ToList();
+                    //return context.Tables.Select(x => new Teste { Chave = x.Chave, Valor = x.Valor }).ToList();
+                    return new List<Teste>() { new Teste { Chave = "test", Valor = "test" } };
                 }
             }
             catch (Exception ex)
@@ -37,7 +38,7 @@ namespace SwarmServerAPI.Controllers
             {
                 using (SwarmData context = new SwarmData())
                 {
-                    context.Tables.Add(new Table {  });
+                    //context.Tables.Add(new Table {  });
 
                     context.SaveChanges();
 
