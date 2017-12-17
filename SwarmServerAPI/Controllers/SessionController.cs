@@ -95,7 +95,7 @@ namespace SwarmServerAPI.Controllers
                                 Value = pp.Value
                             }).ToList(),
                             Parent = p.Parent,
-                            ReturnType =p.ReturnType
+                            ReturnType = p.ReturnType
                         }).ToList()
                     }).ToList();
                 }
@@ -112,11 +112,16 @@ namespace SwarmServerAPI.Controllers
             {
                 using (SwarmData context = new SwarmData())
                 {
-                    context.Sessions.Add(session);
+                    Session original = context.Sessions.FirstOrDefault(s => s.Identifier == session.Identifier);
+
+                    if (original == null)
+                        context.Sessions.Add(session);
+                    else
+                        context.Entry(original).CurrentValues.SetValues(session);
 
                     context.SaveChanges();
 
-                    return "Object created!";
+                    return "Object created or updated!";
                 }
             }
             catch (Exception ex)
