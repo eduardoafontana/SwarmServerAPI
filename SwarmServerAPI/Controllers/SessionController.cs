@@ -8,7 +8,7 @@ using SwarmServerAPI.Models;
 
 namespace SwarmServerAPI.Controllers
 {
-    public class TesteController : ApiController
+    public class SessionController : ApiController
     {
         //OBSERVAÇÃO: Por default, métodos declarados em um Controller como públicos e cujos nomes se iniciem por “Get”, “Post”, “Put” e “Delete” são mapeados automaticamente para o processamento das requisições HTTP correspondentes (GET, POST, PUT e DELETE, respectivamente).
         //https://www.devmedia.com.br/asp-net-web-api-implementando-servicos-restful/31024
@@ -16,14 +16,13 @@ namespace SwarmServerAPI.Controllers
         //Best practices
         //https://blog.mwaysolutions.com/2014/06/05/10-best-practices-for-better-restful-api/
 
-        public IEnumerable<Teste> Get()
+        public IEnumerable<Session> Get()
         {
             try
             {
                 using (SwarmData context = new SwarmData())
                 {
-                    //return context.Tables.Select(x => new Teste { Chave = x.Chave, Valor = x.Valor }).ToList();
-                    return new List<Teste>() { new Teste { Chave = "test", Valor = "test" } };
+                    return context.Sessions.ToList();
                 }
             }
             catch (Exception ex)
@@ -32,13 +31,13 @@ namespace SwarmServerAPI.Controllers
             }
         }
 
-        public string Post(SessionModel session)
+        public string Post(Session session)
         {
             try
             {
                 using (SwarmData context = new SwarmData())
                 {
-                    //context.Tables.Add(new Table {  });
+                    context.Sessions.Add(session);
 
                     context.SaveChanges();
 

@@ -17,5 +17,9 @@ namespace SwarmServerAPI
         public DateTime? Finished { get; set; }
 
         public virtual ICollection<Breakpoint> Breakpoints { get; set; }
+        public virtual ICollection<Event> Events { get; set; }
+        public virtual ICollection<PathNode> PathNodes { get; set; }
+        public Task Task { get; set; }
+        public Developer Developer { get; set; }
     }
 }
