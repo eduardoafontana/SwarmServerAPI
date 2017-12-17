@@ -9,20 +9,16 @@ namespace SwarmServerAPI
     {
         public SwarmData()
             : base(Environment.GetEnvironmentVariable("SQLAZURECONNSTR_defaultConnection"))
+            
         {
         }
 
-        public virtual DbSet<Table> Tables { get; set; }
+        public virtual DbSet<Session> Sessions { get; set; }
+        public virtual DbSet<Breakpoint> Breakpoints { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Table>()
-                .Property(e => e.Chave)
-                .IsUnicode(false);
 
-            modelBuilder.Entity<Table>()
-                .Property(e => e.Valor)
-                .IsUnicode(false);
         }
     }
 }
