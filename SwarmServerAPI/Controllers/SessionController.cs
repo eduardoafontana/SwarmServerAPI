@@ -16,13 +16,15 @@ namespace SwarmServerAPI.Controllers
         //Best practices
         //https://blog.mwaysolutions.com/2014/06/05/10-best-practices-for-better-restful-api/
 
-        public IEnumerable<SessionModel> Get()
+        public HttpResponseMessage Get()
         {
             try
             {
+                List<SessionModel> sessionModelCollection = new List<SessionModel>();
+
                 using (SwarmData context = new SwarmData())
                 {
-                    return context.Sessions.Select(s => new SessionModel
+                    sessionModelCollection = context.Sessions.Select(s => new SessionModel
                     {
                         Identifier = s.Identifier,
                         Label = s.Label,
@@ -99,6 +101,8 @@ namespace SwarmServerAPI.Controllers
                         }).ToList()
                     }).ToList();
                 }
+
+                return Request.CreateResponse(HttpStatusCode.OK, sessionModelCollection, "application/json");
             }
             catch (Exception ex)
             {
