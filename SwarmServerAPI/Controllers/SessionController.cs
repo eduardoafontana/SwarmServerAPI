@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -31,7 +32,7 @@ namespace SwarmServerAPI.Controllers
                         Description = s.Description,
                         Purpose = s.Purpose,
                         Started = s.Started,
-                        Finished = s.Finished ?? DateTime.MinValue,
+                        Finished = s.Finished,
                         Task = new TaskModel
                         {
                             Action = s.Task.Action,
@@ -116,6 +117,9 @@ namespace SwarmServerAPI.Controllers
             {
                 using (SwarmData context = new SwarmData())
                 {
+                    if (session.Identifier == new Guid("00000000-0000-0000-0000-000000000000"))
+                        return "Post rejected: session.Identifier equal 00000000-0000-0000-0000-000000000000.";
+
                     Session original = context.Sessions.FirstOrDefault(s => s.Identifier == session.Identifier);
 
                     if (original == null)

@@ -10,7 +10,7 @@ namespace SwarmServerAPI.Models
         public string Description { get; set; }
         public string Purpose { get; set; }
         public DateTime Started { get; set; }
-        public DateTime Finished { get; set; }
+        public DateTime? Finished { get; set; }
 
         public List<BreakpointModel> Breakpoints { get; set; } = new List<BreakpointModel>();
         public List<EventModel> Events { get; set; } = new List<EventModel>();
