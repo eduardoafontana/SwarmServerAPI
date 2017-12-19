@@ -33,22 +33,22 @@ namespace SwarmServerAPI.Controllers
                         Purpose = s.Purpose,
                         Started = s.Started,
                         Finished = s.Finished,
-                        Task = new TaskModel
+                        Task = s.Task != null ? new TaskModel
                         {
                             Action = s.Task.Action,
                             Created = s.Task.Created,
                             Description = s.Task.Description,
                             Name = s.Task.Name,
-                            Project = new ProjectModel
+                            Project = s.Task.Project != null ? new ProjectModel
                             {
                                 Name = s.Task.Project.Name,
                                 Description = s.Task.Project.Description
-                            }
-                        },
-                        Developer = new DeveloperModel
+                            } : null
+                        } : null,
+                        Developer = s.Developer != null ? new DeveloperModel
                         {
                             Name = s.Developer.Name
-                        },
+                        } : null,
                         Breakpoints = s.Breakpoints.Select(b => new BreakpointModel
                         {
                             BreakpointKind = b.BreakpointKind,
@@ -82,14 +82,14 @@ namespace SwarmServerAPI.Controllers
                             Namespace = p.Namespace,
                             Hash = p.Hash,
                             Method = p.Method,
-                            MethodCodeMetric = new CodeMetricModel
+                            MethodCodeMetric = p.MethodCodeMetric != null ? new CodeMetricModel
                             {
                                 ClassCoupling = p.MethodCodeMetric.ClassCoupling,
                                 CyclomaticComplexity = p.MethodCodeMetric.CyclomaticComplexity,
                                 Hash = p.MethodCodeMetric.Hash,
                                 LineOfCode = p.MethodCodeMetric.LineOfCode,
                                 MaintainabilityIndex = p.MethodCodeMetric.MaintainabilityIndex
-                            },
+                            } : null,
                             Origin = p.Origin,
                             Parameters = p.Parameters.Select(pp => new PathNodeParameterModel
                             {
