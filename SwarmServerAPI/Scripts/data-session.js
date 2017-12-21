@@ -1,21 +1,17 @@
 // specify the columns
 var columnDefs = [
-    {headerName: "Make", field: "make"},
-    {headerName: "Model", field: "model"},
-    {headerName: "Price", field: "price"}
-];
-
-// specify the data
-var rowData = [
-    {make: "Toyota", model: "Celica", price: 35000},
-    {make: "Ford", model: "Mondeo", price: 32000},
-    {make: "Porsche", model: "Boxter", price: 72000}
+    { headerName: "Identifier", field: "Identifier"},
+    { headerName: "Label", field: "Label"},
+    { headerName: "Description", field: "Description" },
+    { headerName: "Purpose", field: "Purpose" },
+    { headerName: "Started", field: "Started" },
+    { headerName: "Finished", field: "Finished" }
 ];
 
 // let the grid know which columns and what data to use
 var gridOptions = {
     columnDefs: columnDefs,
-    rowData: rowData,
+    rowData: [],
     onGridReady: function () {
         gridOptions.api.sizeColumnsToFit();
     }
@@ -26,11 +22,14 @@ function selectAllRows() {
     gridOptions.api.selectAll();
 }
 
-// wait for the document to be loaded, otherwise ag-Grid will not find the div in the document.
-document.addEventListener("DOMContentLoaded", function () {
-    // lookup the container we want the Grid to use
-    var eGridDiv = document.querySelector('#myGrid');
+var self = this;
 
-    // create the grid passing in the div to use together with the columns & data we want to use
-    new agGrid.Grid(eGridDiv, gridOptions);
+$(function () {
+    $.get("api/sessiongriddata", function (data) {
+        self.gridOptions.rowData = data;
+
+        var eGridDiv = document.querySelector('#myGrid');
+
+        new agGrid.Grid(eGridDiv, gridOptions);
+    });
 });
