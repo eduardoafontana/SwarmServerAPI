@@ -24,10 +24,11 @@ var columnDefs = [
     { headerName: "PathNodes", field: "PathNodeCount" },
 ];
 
+var rowData = [];
+
 // let the grid know which columns and what data to use
 var gridOptions = {
     columnDefs: columnDefs,
-    rowData: [],
     onGridReady: function () {
         gridOptions.api.sizeColumnsToFit();
     },
@@ -55,14 +56,50 @@ function selectAllRows() {
     gridOptions.api.selectAll();
 }
 
-var self = this;
+function onBtResetGrid() {
+
+    gridOptions.api.destroy();
+
+    createDataGrid();
+}
+
+function onBtReloadFromServer() {
+
+    gridOptions.api.destroy();
+
+    loadDataFromServer();
+}
+
+function createDataGrid() {
+    var eGridDiv = document.querySelector('#sessionDataGrid');
+
+    new agGrid.Grid(eGridDiv, gridOptions);
+
+    gridOptions.api.setRowData(rowData);
+}
+
+function loadDataFromServer() {
+    $.get("api/sessiongriddata", function (data) {
+        rowData = data;
+
+        createDataGrid();
+    });
+}
+
+var btResetGrid;
+var btReloadFromServer;
 
 $(function () {
-    $.get("api/sessiongriddata", function (data) {
-        self.gridOptions.rowData = data;
+    //first load data form server
+    loadDataFromServer();
 
-        var eGridDiv = document.querySelector('#sessionDataGrid');
+    //initializers some grid controls
+    btResetGrid = document.querySelector('#btResetGrid');
+    btReloadFromServer = document.querySelector('#btReloadFromServer');
 
-        new agGrid.Grid(eGridDiv, gridOptions);
-    });
+    if (btResetGrid) 
+        btResetGrid.addEventListener('click', onBtResetGrid);
+
+    if (btReloadFromServer)
+        btReloadFromServer.addEventListener('click', onBtReloadFromServer);
 });
