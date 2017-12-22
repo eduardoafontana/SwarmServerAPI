@@ -4,9 +4,9 @@ var columnDefs = [
     {
         headerName: "Task",
         children: [
-            {
-                headerName: "Name", field: "TaskName"
-            }
+            { headerName: "Name", field: "TaskName" },
+            { headerName: "Action", field: "TaskAction" },
+            { headerName: "Project", field: "TaskProjectName" }
         ]
     },
     {
@@ -18,7 +18,10 @@ var columnDefs = [
         ]
     },
     { headerName: "Started", field: "Started" },
-    { headerName: "Finished", field: "Finished" }
+    { headerName: "Finished", field: "Finished" },
+    { headerName: "Breakpoints", field: "BreakpointCount" },
+    { headerName: "Events", field: "EventCount" },
+    { headerName: "PathNodes", field: "PathNodeCount" },
 ];
 
 // let the grid know which columns and what data to use

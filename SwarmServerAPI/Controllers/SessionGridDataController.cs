@@ -21,9 +21,14 @@ namespace SwarmServerAPI.Controllers
                     {
                         Identifier = s.Identifier,
                         TaskName = s.Task.Name,
+                        TaskAction = s.Task.Action,
+                        TaskProjectName = s.Task.Project.Name,
                         DeveloperName = s.Developer.Name,
                         Started = s.Started,
-                        Finished = s.Finished
+                        Finished = s.Finished,
+                        BreakpointCount = s.Breakpoints.Count,
+                        EventCount = s.Events.Count,
+                        PathNodeCount = s.PathNodes.Count
                     }).ToList();
                 }
             }
