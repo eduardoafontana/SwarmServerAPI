@@ -1,1 +1,7 @@
 ﻿<h1>Code Metrics</h1>
+<br />
+@using (Html.BeginForm("Upload", "CodeMetrics", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="file" />
+    <input type="submit" name="Submit" id="Submit" value="Upload" />
+}
