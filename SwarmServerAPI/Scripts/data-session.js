@@ -1,9 +1,22 @@
 // specify the columns
 var columnDefs = [
     { headerName: "Identifier", field: "Identifier"},
-    { headerName: "Label", field: "Label"},
-    { headerName: "Description", field: "Description" },
-    { headerName: "Purpose", field: "Purpose" },
+    {
+        headerName: "Task",
+        children: [
+            {
+                headerName: "Name", field: "TaskName"
+            }
+        ]
+    },
+    {
+        headerName: "Developer",
+        children: [
+            {
+                headerName: "Nickname", field: "DeveloperName"
+            }
+        ]
+    },
     { headerName: "Started", field: "Started" },
     { headerName: "Finished", field: "Finished" }
 ];

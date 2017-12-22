@@ -10,21 +10,18 @@ namespace SwarmServerAPI.Controllers
 {
     public class SessionGridDataController : ApiController
     {
-        public IEnumerable<SessionModel> Get()
+        public IEnumerable<SessionGridModel> Get()
         {
 
             try
             {
-                List<SessionModel> sessionModelCollection = new List<SessionModel>();
-
                 using (SwarmData context = new SwarmData())
                 {
-                    return sessionModelCollection = context.Sessions.Select(s => new SessionModel
+                    return context.Sessions.Select(s => new SessionGridModel
                     {
                         Identifier = s.Identifier,
-                        Label = s.Label,
-                        Description = s.Description,
-                        Purpose = s.Purpose,
+                        TaskName = s.Task.Name,
+                        DeveloperName = s.Developer.Name,
                         Started = s.Started,
                         Finished = s.Finished
                     }).ToList();
