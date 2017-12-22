@@ -51,9 +51,12 @@ function modelUpdated() {
     eSpan.innerHTML = processedRows.toLocaleString() + ' / ' + totalRows.toLocaleString();
 }
 
-// used in our jasmine test
-function selectAllRows() {
-    gridOptions.api.selectAll();
+function addQuickFilterListener() {
+    var eInput = document.querySelector('#quickFilterInput');
+    eInput.addEventListener("input", function () {
+        var text = eInput.value;
+        gridOptions.api.setQuickFilter(text);
+    });
 }
 
 function onBtResetGrid() {
@@ -102,4 +105,6 @@ $(function () {
 
     if (btReloadFromServer)
         btReloadFromServer.addEventListener('click', onBtReloadFromServer);
+
+    addQuickFilterListener();
 });
