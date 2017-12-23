@@ -15,7 +15,7 @@ namespace SwarmServerAPI.Controllers
             {
                 using (SwarmData context = new SwarmData())
                 {
-                    List<Task> distinctTask = context.Tasks.GroupBy(d => new { d.Name, d.Action }).Select(g => g.FirstOrDefault()).ToList();
+                    List<Task> distinctTask = context.Tasks.GroupBy(d => new { d.Name }).Select(g => g.FirstOrDefault()).ToList();
                     int[] distinctTaskIds = distinctTask.Select(t => t.Id).ToArray();
 
                     return context.Tasks.Where(d => distinctTaskIds.Contains(d.Id)).Select(t => new TaskGridModel

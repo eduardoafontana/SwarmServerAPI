@@ -1,6 +1,10 @@
 ﻿<h1>Tasks</h1>
 <br />
 <h3>Total session elapsed time per task</h3>
+@using (Html.BeginForm("Recalculate", "Tasks", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="submit" name="Submit" id="Submit" value="Recalculate" />
+}
 <hr />
 <style>
     button:disabled {
