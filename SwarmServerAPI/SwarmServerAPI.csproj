@@ -191,6 +191,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Controllers\SessionGridDataController.cs" />
+    <Compile Include="Controllers\TasksController.cs" />
     <Compile Include="Migrations\201712231700205_5.cs" />
     <Compile Include="Migrations\201712231700205_5.Designer.cs">
       <DependentUpon>201712231700205_5.cs</DependentUpon>
@@ -295,6 +296,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\CodeMetrics\Index.cshtml" />
+    <Content Include="Views\Tasks\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
