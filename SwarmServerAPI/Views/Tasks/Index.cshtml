@@ -2,4 +2,26 @@
 <br />
 <h3>Total session elapsed time per task</h3>
 <hr />
-<br />
+<style>
+    button:disabled {
+        color: #a0a0a0;
+    }
+</style>
+
+<div style="padding: 4px">
+    <div style="float: right;">
+        <input type="text" id="quickFilterInput" placeholder="Type text to filter..." />
+        <button id="btResetGrid">Reset Grid</button>
+        <button id="btReloadFromServer">Reload From Server</button>
+    </div>
+    <div style="padding: 4px;">
+        <b>Showing</b> <span id="rowCount"></span> <b>tasks</b>
+    </div>
+    <div style="clear: both;"></div>
+</div>
+<div style="width: 100%; height: 1080px;"
+     id="taskDataGrid"
+     class="ag-theme-fresh ag-basic">
+</div>
+
+@Scripts.Render("~/bundles/data-task")
