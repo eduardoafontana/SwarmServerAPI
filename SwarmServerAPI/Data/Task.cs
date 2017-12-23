@@ -13,6 +13,7 @@ namespace SwarmServerAPI
         public string Description { get; set; }
         public string Action { get; set; }
         public DateTime Created { get; set; }
+        public TimeSpan TotalSessionTime { get; set; }
 
         public Project Project { get; set; }
     }

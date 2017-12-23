@@ -191,6 +191,10 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Controllers\SessionGridDataController.cs" />
+    <Compile Include="Migrations\201712231700205_5.cs" />
+    <Compile Include="Migrations\201712231700205_5.Designer.cs">
+      <DependentUpon>201712231700205_5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\SessionGridModel.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Data\Task.cs" />
@@ -320,6 +324,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712171633492_4.resx">
       <DependentUpon>201712171633492_4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712231700205_5.resx">
+      <DependentUpon>201712231700205_5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
