@@ -1,4 +1,5 @@
-﻿@model SwarmServerAPI.Models.FileModel
+﻿@model SwarmServerAPI.Models.ImportSessionModel
+
 <h1>Import Sessions</h1>
 <br />
 <h3>Import session from local Json text files</h3>
@@ -9,13 +10,12 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.files, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => Model.Files, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.files, "", new { @type = "file", @multiple = "multiple" })
-                @Html.ValidationMessageFor(model => model.files, "", new { @class = "text-danger" })
+                @Html.TextBoxFor(model => Model.Files, "", new { @type = "file", @multiple = "multiple" })
+                @Html.ValidationMessageFor(model => Model.Files, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
@@ -25,9 +25,30 @@
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10 text-success">
-                @ViewBag.UploadStatus
+                @ViewBag.FilesValid
             </div>
         </div>
 
     </div>
 }  
+<table class="table">
+    <tr>
+        <th>File</th>
+        <th>Status</th>
+        <th>Message</th>
+    </tr>
+    @for (int i = 0; i < Model.FilesToUpload.Count; i++)
+    {
+        <tr>
+            <td>
+                @Html.DisplayTextFor(model => Model.FilesToUpload[i].FileName)
+            </td>
+            <td>
+                @Html.DisplayTextFor(model => Model.FilesToUpload[i].Status)
+            </td>
+            <td>
+                @Html.DisplayTextFor(model => Model.FilesToUpload[i].Message)
+            </td>
+        </tr>
+    }
+</table>

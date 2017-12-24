@@ -193,7 +193,7 @@
     <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Controllers\SessionGridDataController.cs" />
     <Compile Include="Controllers\TaskGridDataController.cs" />
-    <Compile Include="Models\FileModel.cs" />
+    <Compile Include="Models\ImportSessionModel.cs" />
     <Compile Include="Models\TaskGridModel.cs" />
     <Compile Include="Controllers\TasksController.cs" />
     <Compile Include="Migrations\201712231700205_5.cs" />

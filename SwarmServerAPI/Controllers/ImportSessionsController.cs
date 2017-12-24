@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SwarmServerAPI.Models;
 
 namespace SwarmServerAPI.Controllers
 {
@@ -12,7 +13,7 @@ namespace SwarmServerAPI.Controllers
         // GET: ImportSessions
         public ActionResult Index()
         {
-            return View();
+            return View(new ImportSessionModel { });
         }
 
         [HttpPost]
@@ -21,40 +22,104 @@ namespace SwarmServerAPI.Controllers
             if (!ModelState.IsValid)
                 return View();
 
-            int fileSuccessfullyUploaded = 0;
+            int filesValid = 0;
+            int totalFiles = files.Length;
+
+            ImportSessionModel importSessionModel = new ImportSessionModel();
 
             foreach (HttpPostedFileBase file in files)
             {
-                if (file == null)
-                    continue;
+                ImportSessionItemModel itemSession = new ImportSessionItemModel { };
 
-                if (file.ContentLength <= 0)
+                if (file == null)
+                {
+                    itemSession.Status = ImportSessionStatus.Fail;
+                    itemSession.Message = "File is null.";
+                    importSessionModel.FilesToUpload.Add(itemSession);
+
                     continue;
+                }
 
                 if (String.IsNullOrWhiteSpace(file.FileName))
-                    continue;
+                {
+                    itemSession.Status = ImportSessionStatus.Fail;
+                    itemSession.Message = "File name is empty.";
+                    importSessionModel.FilesToUpload.Add(itemSession);
 
-                if (!Path.GetExtension(file.FileName).Equals(".txt"))
                     continue;
+                }
+
+                if (file.ContentLength <= 0)
+                {
+                    itemSession.FileName = Path.GetFileName(file.FileName);
+                    itemSession.Status = ImportSessionStatus.Fail;
+                    itemSession.Message = "Content is empty.";
+                    importSessionModel.FilesToUpload.Add(itemSession);
+
+                    continue;
+                }
 
                 if (file.FileName.Length != 29)
+                {
+                    itemSession.FileName = Path.GetFileName(file.FileName);
+                    itemSession.Status = ImportSessionStatus.Fail;
+                    itemSession.Message = "File name has not in a correct format - 29 characters.";
+                    importSessionModel.FilesToUpload.Add(itemSession);
+
                     continue;
+                }
 
                 if (!file.FileName.StartsWith("session-"))
+                {
+                    itemSession.FileName = Path.GetFileName(file.FileName);
+                    itemSession.Status = ImportSessionStatus.Fail;
+                    itemSession.Message = "File name has not in a correct format - start with session-.";
+                    importSessionModel.FilesToUpload.Add(itemSession);
+
                     continue;
+                }
 
-                fileSuccessfullyUploaded++;
+                itemSession.FileName = Path.GetFileName(file.FileName);
+                itemSession.FileStream = file.InputStream;
+                itemSession.Status = ImportSessionStatus.Pending;
+                itemSession.Message = "...";
+                importSessionModel.FilesToUpload.Add(itemSession);
 
-                //var InputFileName = Path.GetFileName(file.FileName);
-                //var ServerSavePath = Path.Combine(Server.MapPath("~/UploadedFiles/") + InputFileName);
-                ////Save file to server folder  
-                //file.SaveAs(ServerSavePath);
+                filesValid++;
             }
 
-            //assigning file uploaded status to ViewBag for showing message to user.  
-            ViewBag.UploadStatus = fileSuccessfullyUploaded + " files uploaded successfully.";
+            ViewBag.FilesValid = filesValid + " files ready to import.";
 
-            return View();
+            return View(importSessionModel);
         }
+
+        //private static bool IsValidJson(string strInput)
+        //{
+        //    strInput = strInput.Trim();
+        //    if ((strInput.StartsWith("{") && strInput.EndsWith("}")) || //For object
+        //        (strInput.StartsWith("[") && strInput.EndsWith("]"))) //For array
+        //    {
+        //        try
+        //        {
+        //            var obj = JToken.Parse(strInput);
+        //            return true;
+        //        }
+        //        catch (JsonReaderException jex)
+        //        {
+        //            //Exception in parsing json
+        //            Console.WriteLine(jex.Message);
+        //            return false;
+        //        }
+        //        catch (Exception ex) //some other exception
+        //        {
+        //            Console.WriteLine(ex.ToString());
+        //            return false;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
     }
 }
