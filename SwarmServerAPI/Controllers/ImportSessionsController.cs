@@ -23,7 +23,6 @@ namespace SwarmServerAPI.Controllers
                 return View();
 
             int filesValid = 0;
-            int totalFiles = files.Length;
 
             ImportSessionModel importSessionModel = new ImportSessionModel();
 
@@ -88,7 +87,11 @@ namespace SwarmServerAPI.Controllers
                 filesValid++;
             }
 
-            ViewBag.FilesValid = filesValid + " files ready to import.";
+            ImportSessionFilesController apiImportSessionFiles = new ImportSessionFilesController();
+            apiImportSessionFiles.ImportFiles(importSessionModel.FilesToUpload);
+
+            ViewBag.FilesValid = filesValid;
+            ViewBag.TotalFiles = files.Length;
 
             return View(importSessionModel);
         }
