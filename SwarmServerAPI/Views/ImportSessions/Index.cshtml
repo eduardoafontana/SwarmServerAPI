@@ -30,7 +30,7 @@
         </div>
 
     </div>
-}  
+}
 <table class="table">
     <tr>
         <th>File</th>
@@ -40,15 +40,40 @@
     @for (int i = 0; i < Model.FilesToUpload.Count; i++)
     {
         <tr>
-            <td>
+            <td class="fileName">
                 @Html.DisplayTextFor(model => Model.FilesToUpload[i].FileName)
             </td>
-            <td>
+            <td class="status">
                 @Html.DisplayTextFor(model => Model.FilesToUpload[i].Status)
             </td>
-            <td>
+            <td class="message">
                 @Html.DisplayTextFor(model => Model.FilesToUpload[i].Message)
             </td>
         </tr>
     }
 </table>
+<script type="text/javascript">
+    $(function () {
+        var delay = 500;
+
+        var tid = setTimeout(callProcessPending, delay);
+
+        function callProcessPending() {
+            processPending();
+
+            if ($(".status:contains('Pending')").length > 0)
+                tid = setTimeout(callProcessPending, delay);
+        }
+
+        function processPending() {
+            $(".status:contains('Pending')").each(function () {
+                var self = this;
+
+                $.get("api/importsessionfiles?fileName=" + $(self).parent().find('.fileName').text().trim(), function (data) {
+                    $(self).parent().find('.message').text(data.Message);
+                    $(self).text(data.StatusName);
+                });
+            });
+        }
+    });
+</script>

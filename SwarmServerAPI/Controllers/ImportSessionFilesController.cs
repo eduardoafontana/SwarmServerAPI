@@ -65,5 +65,29 @@ namespace SwarmServerAPI.Controllers
 
             Singleton.Instance.ProcessImporting();
         }
+
+        public ImportSessionItemModel Get(string fileName)
+        {
+            ImportSessionItemModel importSessionItemModel = Singleton.Instance.ImportSessionList.FirstOrDefault(p => p.FileName.Equals(fileName));
+
+            if (importSessionItemModel == null)
+                return new ImportSessionItemModel
+                {
+                    FileName = fileName,
+                    Message = "Problem on processing. Not found.",
+                    Status = ImportSessionStatus.Fail,
+                    StatusName = ImportSessionStatus.Fail.ToString(),
+                    FileStream = null
+                };
+
+            return new ImportSessionItemModel
+            {
+                FileName = importSessionItemModel.FileName,
+                Message = importSessionItemModel.Message,
+                Status = importSessionItemModel.Status,
+                StatusName = importSessionItemModel.Status.ToString(),
+                FileStream = null
+            };
+        }
     }
 }

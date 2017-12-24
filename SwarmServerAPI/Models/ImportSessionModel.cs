@@ -22,6 +22,7 @@ namespace SwarmServerAPI.Models
         public string FileName { get; set; }
         public Stream FileStream { get; set; }
         public ImportSessionStatus Status { get; set; }
+        public string StatusName { get; set; }
         public string Message { get; set; }
     }
 
