@@ -9,3 +9,26 @@
     <input type="submit" name="Submit" id="Submit" value="Upload" />
 }
 <hr />
+<style>
+    button:disabled {
+        color: #a0a0a0;
+    }
+</style>
+
+<div style="padding: 4px">
+    <div style="float: right;">
+        <input type="text" id="quickFilterInput" placeholder="Type text to filter..." />
+        <button id="btResetGrid">Reset Grid</button>
+        <button id="btReloadFromServer">Reload From Server</button>
+    </div>
+    <div style="padding: 4px;">
+        <b>Showing</b> <span id="rowCount"></span> <b>pathnodes</b>
+    </div>
+    <div style="clear: both;"></div>
+</div>
+<div style="width: 100%; height: 1080px;"
+     id="codemetricDataGrid"
+     class="ag-theme-fresh ag-basic">
+</div>
+
+@Scripts.Render("~/bundles/data-codemetric")

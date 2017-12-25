@@ -193,8 +193,10 @@
     <Compile Include="Controllers\ImportSessionsController.cs" />
     <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Controllers\SessionGridDataController.cs" />
+    <Compile Include="Controllers\CodeMetricGridDataController.cs" />
     <Compile Include="Controllers\TaskGridDataController.cs" />
     <Compile Include="Models\ImportSessionModel.cs" />
+    <Compile Include="Models\CodeMetricGridModel.cs" />
     <Compile Include="Models\TaskGridModel.cs" />
     <Compile Include="Controllers\TasksController.cs" />
     <Compile Include="Migrations\201712231700205_5.cs" />
@@ -278,6 +280,7 @@
     </Content>
     <None Include="Properties\PublishProfiles\SwarmServer - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\data-codemetric.js" />
     <Content Include="Scripts\data-task.js" />
     <Content Include="Scripts\data-session.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
