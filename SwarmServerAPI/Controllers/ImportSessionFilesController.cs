@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading;
 using System.Web.Http;
 using SwarmServerAPI.Models;
@@ -48,9 +50,39 @@ namespace SwarmServerAPI.Controllers
                         if (item == null)
                             continue;
 
-                        Thread.Sleep(10000);
+                        try
+                        {
+                            string jsonObject = String.Empty;
+                            using (StreamReader reader = new StreamReader(item.FileStream, Encoding.UTF8))
+                            {
+                                jsonObject = reader.ReadToEnd();
+                            }
 
-                        item.Status = ImportSessionStatus.Imported;
+                            using (SwarmData context = new SwarmData())
+                            {
+                                Session session = Newtonsoft.Json.JsonConvert.DeserializeObject<Session>(jsonObject);
+
+                                Session original = context.Sessions.FirstOrDefault(s => s.Identifier == session.Identifier);
+
+                                if (original == null)
+                                {
+                                    context.Sessions.Add(session);
+                                    item.Status = ImportSessionStatus.Imported;
+                                }
+                                else
+                                {
+                                    context.Entry(original).CurrentValues.SetValues(session);
+                                    item.Status = ImportSessionStatus.Updated;
+                                }
+
+                                context.SaveChanges();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            item.Status = ImportSessionStatus.Fail;
+                            item.Message = ex.ToString();
+                        }
                     }
                 }
             });
