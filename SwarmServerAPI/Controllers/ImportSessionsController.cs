@@ -85,6 +85,8 @@ namespace SwarmServerAPI.Controllers
                 importSessionModel.FilesToUpload.Add(itemSession);
 
                 filesValid++;
+
+                //TODO: implement later, guid strategy on file to turn exclusively
             }
 
             ImportSessionFilesController apiImportSessionFiles = new ImportSessionFilesController();
@@ -96,6 +98,7 @@ namespace SwarmServerAPI.Controllers
             return View(importSessionModel);
         }
 
+        //TODO: implement later json validation
         //private static bool IsValidJson(string strInput)
         //{
         //    strInput = strInput.Trim();

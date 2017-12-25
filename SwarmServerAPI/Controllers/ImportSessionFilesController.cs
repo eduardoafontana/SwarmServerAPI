@@ -48,7 +48,7 @@ namespace SwarmServerAPI.Controllers
                         if (item == null)
                             continue;
 
-                        Thread.Sleep(2000);
+                        Thread.Sleep(10000);
 
                         item.Status = ImportSessionStatus.Imported;
                     }
@@ -79,6 +79,9 @@ namespace SwarmServerAPI.Controllers
                     StatusName = ImportSessionStatus.Fail.ToString(),
                     FileStream = null
                 };
+
+            if (importSessionItemModel.Status != ImportSessionStatus.Pending)
+                Singleton.Instance.ImportSessionList.Remove(importSessionItemModel);
 
             return new ImportSessionItemModel
             {
