@@ -72,6 +72,13 @@ namespace SwarmServerAPI.Controllers
                                 else
                                 {
                                     context.Entry(original).CurrentValues.SetValues(session);
+
+                                    original.Breakpoints = session.Breakpoints;
+                                    original.Events = session.Events;
+                                    original.PathNodes = session.PathNodes;
+                                    original.Developer = session.Developer;
+                                    original.Task = session.Task;
+
                                     item.Status = ImportSessionStatus.Updated;
                                 }
 
