@@ -4,27 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SwarmServerAPI.AppCode.Repository;
+using SwarmServerAPI.AppCore.Service.DTOModels;
 using SwarmServerAPI.AppCore.Service.ElasticSearch;
 
 namespace SwarmServerAPI.AppCore.Service
 {
     public class ElasticSearchService
     {
-        public void Get()
+        public void ProcessLoad()
         {
-            using (SwarmData context = new SwarmData())
-            {
-                foreach (Project project in context.Projects.ToList())
-                {
-                    var response = ConnectionToES.EsClient().Index(project, i => i
-                        .Index("swarmdb")
-                        .Type("project")
-                        .Id(project.Id)
-                        .Refresh(Elasticsearch.Net.Refresh.True));
+            SessionService sessionService = new SessionService();
+            List<SessionModel> sessionModelCollection = sessionService.GetAll();
 
-                    if (!response.IsValid)
-                        throw response.OriginalException;
-                }
+            foreach (SessionModel session in sessionModelCollection)
+            {
+                var response = ConnectionToES.EsClient().Index(session, i => i
+                    .Index("swarmdb")
+                    .Type("session")
+                    .Id(session.Identifier)
+                    .Refresh(Elasticsearch.Net.Refresh.True));
             }
         }
     }

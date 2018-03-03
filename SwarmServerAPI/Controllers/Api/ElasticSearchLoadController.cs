@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using SwarmServerAPI.AppCode.Repository;
+using SwarmServerAPI.AppCore.Service;
 using SwarmServerAPI.UI.SwarmServerAPI.General;
 
 namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
@@ -15,7 +16,8 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
         {
             try
             {
-                //TODO: Go to service elastic search and do the work.
+                ElasticSearchService elasticSearchService = new ElasticSearchService();
+                elasticSearchService.ProcessLoad();
 
                 return Request.CreateResponse(HttpStatusCode.OK, true, "application/json");
             }
