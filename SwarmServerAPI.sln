@@ -7,6 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwarmServerAPI", "SwarmServ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwarmServerAPI.Tests", "SwarmServerAPI.Tests\SwarmServerAPI.Tests.csproj", "{0877BF21-B3DD-4C8A-8A0E-E6036F5EF311}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppCore", "AppCore", "{C35E7D8C-880A-41BE-B86D-24ECE0C2CCFC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{BFCD9822-CAC7-4AD4-A1A4-6E4F2C6EBA0E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{06D8496D-A6B0-439C-B279-83A459432F42}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +30,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{11AA887B-A501-4B4A-9313-79F3B471FA5F} = {06D8496D-A6B0-439C-B279-83A459432F42}
+		{0877BF21-B3DD-4C8A-8A0E-E6036F5EF311} = {BFCD9822-CAC7-4AD4-A1A4-6E4F2C6EBA0E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {45175325-2908-4288-AE4C-C11E2D612AE5}
