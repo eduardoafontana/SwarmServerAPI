@@ -207,32 +207,11 @@
     <Compile Include="Models\CodeMetricGridModel.cs" />
     <Compile Include="Models\TaskGridModel.cs" />
     <Compile Include="Controllers\TasksController.cs" />
-    <Compile Include="Migrations\201712231700205_5.cs" />
-    <Compile Include="Migrations\201712231700205_5.Designer.cs">
-      <DependentUpon>201712231700205_5.cs</DependentUpon>
-    </Compile>
     <Compile Include="Models\SessionGridModel.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201712171522308_First.cs" />
-    <Compile Include="Migrations\201712171522308_First.Designer.cs">
-      <DependentUpon>201712171522308_First.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712171547330_Second.cs" />
-    <Compile Include="Migrations\201712171547330_Second.Designer.cs">
-      <DependentUpon>201712171547330_Second.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712171608183_3.cs" />
-    <Compile Include="Migrations\201712171608183_3.Designer.cs">
-      <DependentUpon>201712171608183_3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712171633492_4.cs" />
-    <Compile Include="Migrations\201712171633492_4.Designer.cs">
-      <DependentUpon>201712171633492_4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BreakpointModel.cs" />
     <Compile Include="Models\CodeMetricModel.cs" />
     <Compile Include="Models\DeveloperModel.cs" />
@@ -321,23 +300,6 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201712171522308_First.resx">
-      <DependentUpon>201712171522308_First.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712171547330_Second.resx">
-      <DependentUpon>201712171547330_Second.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712171608183_3.resx">
-      <DependentUpon>201712171608183_3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712171633492_4.resx">
-      <DependentUpon>201712171633492_4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712231700205_5.resx">
-      <DependentUpon>201712231700205_5.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">

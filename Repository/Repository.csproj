@@ -51,6 +51,27 @@
     <Compile Include="CodeMetric.cs" />
     <Compile Include="Developer.cs" />
     <Compile Include="Event.cs" />
+    <Compile Include="Migrations\201712171522308_First.cs" />
+    <Compile Include="Migrations\201712171522308_First.Designer.cs">
+      <DependentUpon>201712171522308_First.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712171547330_Second.cs" />
+    <Compile Include="Migrations\201712171547330_Second.Designer.cs">
+      <DependentUpon>201712171547330_Second.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712171608183_3.cs" />
+    <Compile Include="Migrations\201712171608183_3.Designer.cs">
+      <DependentUpon>201712171608183_3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712171633492_4.cs" />
+    <Compile Include="Migrations\201712171633492_4.Designer.cs">
+      <DependentUpon>201712171633492_4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712231700205_5.cs" />
+    <Compile Include="Migrations\201712231700205_5.Designer.cs">
+      <DependentUpon>201712231700205_5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PathNode.cs" />
     <Compile Include="PathNodeParameter.cs" />
     <Compile Include="Project.cs" />
@@ -62,6 +83,23 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201712171522308_First.resx">
+      <DependentUpon>201712171522308_First.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712171547330_Second.resx">
+      <DependentUpon>201712171547330_Second.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712171608183_3.resx">
+      <DependentUpon>201712171608183_3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712171633492_4.resx">
+      <DependentUpon>201712171633492_4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712231700205_5.resx">
+      <DependentUpon>201712231700205_5.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
