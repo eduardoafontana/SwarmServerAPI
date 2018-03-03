@@ -188,20 +188,20 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\CodeMetricsController.cs" />
-    <Compile Include="Controllers\ElasticSearchLoadController.cs" />
+    <Compile Include="Controllers\Api\ElasticSearchLoadController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImportSessionFilesController.cs" />
     <Compile Include="Controllers\ImportSessionsController.cs" />
-    <Compile Include="Controllers\SessionController.cs" />
-    <Compile Include="Controllers\SessionGridDataController.cs" />
-    <Compile Include="Controllers\CodeMetricGridDataController.cs" />
-    <Compile Include="Controllers\TaskGridDataController.cs" />
+    <Compile Include="Controllers\Api\SessionController.cs" />
+    <Compile Include="Controllers\Api\SessionGridDataController.cs" />
+    <Compile Include="Controllers\Api\CodeMetricGridDataController.cs" />
+    <Compile Include="Controllers\Api\TaskGridDataController.cs" />
     <Compile Include="Models\ImportSessionModel.cs" />
     <Compile Include="Models\CodeMetricGridModel.cs" />
     <Compile Include="Models\TaskGridModel.cs" />
     <Compile Include="Controllers\TasksController.cs" />
     <Compile Include="Models\SessionGridModel.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\Api\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
