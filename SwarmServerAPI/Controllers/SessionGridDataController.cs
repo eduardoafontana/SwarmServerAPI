@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using SwarmServerAPI.AppCode.Domain;
+using SwarmServerAPI.AppCode.Repository;
 using SwarmServerAPI.UI.SwarmServerAPI.Models;
 
 namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers

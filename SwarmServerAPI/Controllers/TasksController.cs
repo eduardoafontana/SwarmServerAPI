@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using SwarmServerAPI.AppCode.Domain;
+using SwarmServerAPI.AppCode.Repository;
 
 namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 {

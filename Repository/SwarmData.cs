@@ -1,4 +1,4 @@
-namespace SwarmServerAPI.AppCode.Domain
+namespace SwarmServerAPI.AppCode.Repository
 {
     using System;
     using System.Data.Entity;
