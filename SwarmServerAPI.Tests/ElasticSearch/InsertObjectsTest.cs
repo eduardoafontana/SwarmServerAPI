@@ -10,7 +10,7 @@ using SwarmServerAPI;
 using SwarmServerAPI.Controllers;
 using SwarmServerAPI.ElasticSearch;
 
-namespace SwarmServerAPI.Tests.Controllers
+namespace SwarmServerAPI.Tests.ElasticSearch
 {
     [TestClass]
     public class LoadObjects
