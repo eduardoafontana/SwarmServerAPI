@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Web.Http;
+using SwarmServerAPI.AppCode.Domain;
 using SwarmServerAPI.Models;
 
 namespace SwarmServerAPI.Controllers

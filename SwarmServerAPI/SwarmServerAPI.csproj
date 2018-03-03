@@ -213,15 +213,6 @@
     </Compile>
     <Compile Include="Models\SessionGridModel.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
-    <Compile Include="Data\Task.cs" />
-    <Compile Include="Data\Project.cs" />
-    <Compile Include="Data\PathNodeParameter.cs" />
-    <Compile Include="Data\PathNode.cs" />
-    <Compile Include="Data\Event.cs" />
-    <Compile Include="Data\Developer.cs" />
-    <Compile Include="Data\CodeMetric.cs" />
-    <Compile Include="Data\Breakpoint.cs" />
-    <Compile Include="Data\Session.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -252,7 +243,6 @@
     <Compile Include="Models\SessionModel.cs" />
     <Compile Include="Models\TaskModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Data\SwarmData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -348,6 +338,16 @@
     <EmbeddedResource Include="Migrations\201712231700205_5.resx">
       <DependentUpon>201712231700205_5.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{ad483cf7-d07e-40d6-afb6-8e10c30e3c7c}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Service\Service.csproj">
+      <Project>{c348d006-68aa-491e-a0a5-b5757ad536a1}</Project>
+      <Name>Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

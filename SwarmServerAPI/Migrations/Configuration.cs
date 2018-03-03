@@ -5,14 +5,14 @@ namespace SwarmServerAPI.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<SwarmServerAPI.SwarmData>
+    internal sealed class Configuration : DbMigrationsConfiguration<SwarmServerAPI.AppCode.Domain.SwarmData>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(SwarmServerAPI.SwarmData context)
+        protected override void Seed(SwarmServerAPI.AppCode.Domain.SwarmData context)
         {
             //  This method will be called after migrating to the latest version.
 

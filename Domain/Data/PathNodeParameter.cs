@@ -1,4 +1,4 @@
-namespace SwarmServerAPI
+namespace SwarmServerAPI.AppCode.Domain
 {
     using System;
     using System.Collections.Generic;
