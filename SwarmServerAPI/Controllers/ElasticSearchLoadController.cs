@@ -5,7 +5,6 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using SwarmServerAPI.AppCode.Repository;
-using SwarmServerAPI.AppCore.Service.ElasticSearch;
 
 namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 {
@@ -15,20 +14,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
         {
             try
             {
-                using (SwarmData context = new SwarmData())
-                {
-                    foreach(Project project in context.Projects.ToList())
-                    {
-                        var response = ConnectionToES.EsClient().Index(project, i => i
-                            .Index("swarmdb")
-                            .Type("project")
-                            .Id(project.Id)
-                            .Refresh(Elasticsearch.Net.Refresh.True));
-
-                        if (!response.IsValid)
-                            throw response.OriginalException;
-                    }
-                }
+                //TODO: Go to service elastic search and do the work.
 
                 return Request.CreateResponse(HttpStatusCode.OK, true, "application/json");
             }
