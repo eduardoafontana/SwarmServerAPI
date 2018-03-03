@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using SwarmServerAPI.AppCode.Repository;
-using SwarmServerAPI.UI.SwarmServerAPI.ElasticSearch;
+using SwarmServerAPI.AppCore.Service.ElasticSearch;
 
 namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 {

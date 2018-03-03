@@ -202,7 +202,6 @@
     <Compile Include="Controllers\SessionGridDataController.cs" />
     <Compile Include="Controllers\CodeMetricGridDataController.cs" />
     <Compile Include="Controllers\TaskGridDataController.cs" />
-    <Compile Include="ElasticSearch\ConnectionToES.cs" />
     <Compile Include="Models\ImportSessionModel.cs" />
     <Compile Include="Models\CodeMetricGridModel.cs" />
     <Compile Include="Models\TaskGridModel.cs" />

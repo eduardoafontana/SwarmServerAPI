@@ -128,6 +128,10 @@
       <Project>{8e633b73-8d51-4901-8679-66fbbe45b639}</Project>
       <Name>Repository</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Service\Service.csproj">
+      <Project>{c348d006-68aa-491e-a0a5-b5757ad536a1}</Project>
+      <Name>Service</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SwarmServerAPI\SwarmServerAPI.csproj">
       <Project>{11AA887B-A501-4B4A-9313-79F3B471FA5F}</Project>
       <Name>SwarmServerAPI</Name>
