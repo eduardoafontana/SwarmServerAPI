@@ -1,4 +1,4 @@
-namespace SwarmServerAPI.Migrations
+namespace SwarmServerAPI.AppCore.Repository.Migrations
 {
     using System;
     using System.Data.Entity;
