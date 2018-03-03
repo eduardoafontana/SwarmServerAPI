@@ -7,8 +7,8 @@
     <ProjectGuid>{C348D006-68AA-491E-A0A5-B5757AD536A1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Service</RootNamespace>
-    <AssemblyName>Service</AssemblyName>
+    <RootNamespace>SwarmServerAPI.AppCore.Service</RootNamespace>
+    <AssemblyName>SwarmServerAPI.AppCore.Service</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
