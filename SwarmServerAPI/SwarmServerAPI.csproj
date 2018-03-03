@@ -197,8 +197,8 @@
     <Compile Include="Controllers\Api\CodeMetricGridDataController.cs" />
     <Compile Include="Controllers\Api\TaskGridDataController.cs" />
     <Compile Include="General\InternalError.cs" />
-    <Compile Include="Models\ImportSessionModel.cs" />
     <Compile Include="Models\CodeMetricGridModel.cs" />
+    <Compile Include="Models\ImportSessionModel.cs" />
     <Compile Include="Models\TaskGridModel.cs" />
     <Compile Include="Controllers\TasksController.cs" />
     <Compile Include="Models\SessionGridModel.cs" />
@@ -206,15 +206,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\BreakpointModel.cs" />
-    <Compile Include="Models\CodeMetricModel.cs" />
-    <Compile Include="Models\DeveloperModel.cs" />
-    <Compile Include="Models\EventModel.cs" />
-    <Compile Include="Models\PathNodeModel.cs" />
-    <Compile Include="Models\PathNodeParameterModel.cs" />
-    <Compile Include="Models\ProjectModel.cs" />
-    <Compile Include="Models\SessionModel.cs" />
-    <Compile Include="Models\TaskModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -53,13 +53,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTOModels\BreakpointModel.cs" />
+    <Compile Include="DTOModels\CodeMetricModel.cs" />
+    <Compile Include="DTOModels\DeveloperModel.cs" />
+    <Compile Include="DTOModels\EventModel.cs" />
+    <Compile Include="DTOModels\PathNodeModel.cs" />
+    <Compile Include="DTOModels\PathNodeParameterModel.cs" />
+    <Compile Include="DTOModels\ProjectModel.cs" />
+    <Compile Include="DTOModels\SessionModel.cs" />
+    <Compile Include="DTOModels\TaskModel.cs" />
     <Compile Include="ElasticSearchService.cs" />
     <Compile Include="ElasticSearch\ConnectionToES.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DTOModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />

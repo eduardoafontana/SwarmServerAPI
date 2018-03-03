@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SwarmServerAPI.UI.SwarmServerAPI.Models
+namespace SwarmServerAPI.AppCore.Service.DTOModels
 {
     public class PathNodeParameterModel
     {

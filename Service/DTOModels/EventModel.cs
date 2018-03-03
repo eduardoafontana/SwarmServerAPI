@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SwarmServerAPI.UI.SwarmServerAPI.Models
+namespace SwarmServerAPI.AppCore.Service.DTOModels
 {
     public class EventModel
     {
