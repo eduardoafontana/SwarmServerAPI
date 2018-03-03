@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using SwarmServerAPI.AppCode.Repository;
+using SwarmServerAPI.UI.SwarmServerAPI.General;
 using SwarmServerAPI.UI.SwarmServerAPI.Models;
 
 namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
@@ -108,7 +109,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
             }
             catch (Exception ex)
             {
-                throw ThrowError(ex);
+                throw InternalError.ThrowError(ex);
             }
         }
 
@@ -135,20 +136,8 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
             }
             catch (Exception ex)
             {
-                throw ThrowError(ex);
+                throw InternalError.ThrowError(ex);
             }
-        }
-
-        private HttpResponseException ThrowError(Exception ex)
-        {
-            //TODO: bad smell return internal error. Review later.
-            var resp = new HttpResponseMessage(HttpStatusCode.InternalServerError)
-            {
-                Content = new StringContent(ex.ToString()),
-                ReasonPhrase = "Error!"
-            };
-
-            return new HttpResponseException(resp);
         }
     }
 }
