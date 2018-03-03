@@ -110,9 +110,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ElasticSearchLoadRealTest.cs" />
-    <Compile Include="ElasticSearchLoadTest2.cs" />
-    <Compile Include="ElasticSearchLoadTest.cs" />
+    <Compile Include="ElasticSearch\InsertRealDataTest.cs" />
+    <Compile Include="ElasticSearch\InsertObjectsTest.cs" />
+    <Compile Include="ElasticSearch\InsertUpdateTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
     <Compile Include="Controllers\ValuesControllerTest.cs" />
