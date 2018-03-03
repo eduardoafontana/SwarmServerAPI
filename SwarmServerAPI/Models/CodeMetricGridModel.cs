@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SwarmServerAPI.Controllers
+namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 {
     public class CodeMetricGridModel
     {

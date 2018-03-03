@@ -5,9 +5,9 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using SwarmServerAPI.AppCode.Domain;
-using SwarmServerAPI.Models;
+using SwarmServerAPI.UI.SwarmServerAPI.Models;
 
-namespace SwarmServerAPI.Controllers
+namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 {
     public class SessionGridDataController : ApiController
     {

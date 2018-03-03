@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SwarmServerAPI.Models
+namespace SwarmServerAPI.UI.SwarmServerAPI.Models
 {
     public class SessionModel
     {

@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using SwarmServerAPI.Models;
+using SwarmServerAPI.UI.SwarmServerAPI.Models;
 
-namespace SwarmServerAPI.Controllers
+namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 {
     public class ImportSessionsController : Controller
     {

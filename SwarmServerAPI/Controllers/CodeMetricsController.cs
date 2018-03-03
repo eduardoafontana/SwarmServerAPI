@@ -11,7 +11,7 @@ using System.Xml.Linq;
 using ICSharpCode.SharpZipLib.Zip;
 using SwarmServerAPI.AppCode.Domain;
 
-namespace SwarmServerAPI.Controllers
+namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 {
     public class CodeMetricsController : Controller
     {

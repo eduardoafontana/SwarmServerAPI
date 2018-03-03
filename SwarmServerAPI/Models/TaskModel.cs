@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SwarmServerAPI.Models
+namespace SwarmServerAPI.UI.SwarmServerAPI.Models
 {
     public class TaskModel
     {

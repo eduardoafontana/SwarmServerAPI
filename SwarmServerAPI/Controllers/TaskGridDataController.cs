@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using SwarmServerAPI.AppCode.Domain;
 
-namespace SwarmServerAPI.Controllers
+namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 {
     public class TaskGridDataController : ApiController
     {

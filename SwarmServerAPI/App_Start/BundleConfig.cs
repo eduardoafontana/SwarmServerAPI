@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace SwarmServerAPI
+namespace SwarmServerAPI.UI.SwarmServerAPI
 {
     public class BundleConfig
     {

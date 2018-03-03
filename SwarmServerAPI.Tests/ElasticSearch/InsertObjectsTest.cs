@@ -7,8 +7,7 @@ using System.Text;
 using System.Web.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SwarmServerAPI;
-using SwarmServerAPI.Controllers;
-using SwarmServerAPI.ElasticSearch;
+using SwarmServerAPI.UI.SwarmServerAPI.ElasticSearch;
 
 namespace SwarmServerAPI.Tests.ElasticSearch
 {

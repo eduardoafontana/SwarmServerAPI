@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using SwarmServerAPI.AppCode.Domain;
 
-namespace SwarmServerAPI.Controllers
+namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 {
     public class TasksController : Controller
     {

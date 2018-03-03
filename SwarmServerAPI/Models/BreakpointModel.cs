@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SwarmServerAPI.Models
+namespace SwarmServerAPI.UI.SwarmServerAPI.Models
 {
     public class BreakpointModel
     {

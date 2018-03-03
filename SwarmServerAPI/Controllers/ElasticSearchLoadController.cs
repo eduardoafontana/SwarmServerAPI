@@ -5,9 +5,9 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using SwarmServerAPI.AppCode.Domain;
-using SwarmServerAPI.ElasticSearch;
+using SwarmServerAPI.UI.SwarmServerAPI.ElasticSearch;
 
-namespace SwarmServerAPI.Controllers
+namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 {
     public class ElasticSearchLoadController : ApiController
     {

@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SwarmServerAPI;
-using SwarmServerAPI.Controllers;
+using SwarmServerAPI.UI.SwarmServerAPI.Controllers;
 
 namespace SwarmServerAPI.Tests.Controllers
 {

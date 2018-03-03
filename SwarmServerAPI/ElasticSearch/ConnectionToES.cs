@@ -5,7 +5,7 @@ using System.Web;
 using Elasticsearch.Net;
 using Nest;
 
-namespace SwarmServerAPI.ElasticSearch
+namespace SwarmServerAPI.UI.SwarmServerAPI.ElasticSearch
 {
     public class ConnectionToES
     {
