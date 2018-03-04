@@ -8,6 +8,7 @@ namespace SwarmServerAPI.AppCore.Service.DTOModels
 {
     public class PathNodeModel
     {
+        public int Id { get; set; }
         public string Hash { get; set; }
         public string Namespace { get; set; }
         public string Type { get; set; }

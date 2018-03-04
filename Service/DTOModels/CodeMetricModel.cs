@@ -8,6 +8,7 @@ namespace SwarmServerAPI.AppCore.Service.DTOModels
 {
     public class CodeMetricModel
     {
+        public int Id { get; set; }
         public string Hash { get; set; }
         public string MaintainabilityIndex { get; set; }
         public string CyclomaticComplexity { get; set; }

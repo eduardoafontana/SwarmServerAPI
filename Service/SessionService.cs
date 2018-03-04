@@ -26,22 +26,26 @@ namespace SwarmServerAPI.AppCore.Service
                     Finished = s.Finished,
                     Task = s.Task != null ? new TaskModel
                     {
+                        Id = s.Task.Id,
                         Action = s.Task.Action,
                         Created = s.Task.Created,
                         Description = s.Task.Description,
                         Name = s.Task.Name,
                         Project = s.Task.Project != null ? new ProjectModel
                         {
+                            Id = s.Task.Project.Id,
                             Name = s.Task.Project.Name,
                             Description = s.Task.Project.Description
                         } : null
                     } : null,
                     Developer = s.Developer != null ? new DeveloperModel
                     {
+                        Id = s.Developer.Id,
                         Name = s.Developer.Name
                     } : null,
                     Breakpoints = s.Breakpoints.Select(b => new BreakpointModel
                     {
+                        Id = b.Id,
                         BreakpointKind = b.BreakpointKind,
                         Created = b.Created,
                         LineNumber = b.LineNumber ?? 0,
@@ -52,6 +56,7 @@ namespace SwarmServerAPI.AppCore.Service
                     }).ToList(),
                     Events = s.Events.Select(e => new EventModel
                     {
+                        Id = e.Id,
                         CharEnd = e.CharEnd ?? 0,
                         CharStart = e.CharStart ?? 0,
                         Created = e.Created,
@@ -68,6 +73,7 @@ namespace SwarmServerAPI.AppCore.Service
                     }).ToList(),
                     PathNodes = s.PathNodes.Select(p => new PathNodeModel
                     {
+                        Id = p.Id,
                         Created = p.Created,
                         Type = p.Type,
                         Namespace = p.Namespace,
@@ -75,6 +81,7 @@ namespace SwarmServerAPI.AppCore.Service
                         Method = p.Method,
                         MethodCodeMetric = p.MethodCodeMetric != null ? new CodeMetricModel
                         {
+                            Id = p.MethodCodeMetric.Id,
                             ClassCoupling = p.MethodCodeMetric.ClassCoupling,
                             CyclomaticComplexity = p.MethodCodeMetric.CyclomaticComplexity,
                             Hash = p.MethodCodeMetric.Hash,
@@ -84,6 +91,7 @@ namespace SwarmServerAPI.AppCore.Service
                         Origin = p.Origin,
                         Parameters = p.Parameters.Select(pp => new PathNodeParameterModel
                         {
+                            Id = pp.Id,
                             Name = pp.Name,
                             Type = pp.Type,
                             Value = pp.Value
