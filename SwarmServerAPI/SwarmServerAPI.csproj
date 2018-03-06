@@ -242,6 +242,8 @@
     </Content>
     <None Include="Properties\PublishProfiles\SwarmServer - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\cytoscape.js" />
+    <Content Include="Scripts\cytoscape.min.js" />
     <Content Include="Scripts\data-codemetric.js" />
     <Content Include="Scripts\data-task.js" />
     <Content Include="Scripts\data-session.js" />
