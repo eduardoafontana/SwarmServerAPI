@@ -29,6 +29,9 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
             bundles.Add(new ScriptBundle("~/bundles/data-codemetric").Include(
                       "~/Scripts/data-codemetric.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/cytoscape").Include(
+                      "~/Scripts/cytoscape.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
