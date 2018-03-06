@@ -196,6 +196,7 @@
     <Compile Include="Controllers\Api\SessionGridDataController.cs" />
     <Compile Include="Controllers\Api\CodeMetricGridDataController.cs" />
     <Compile Include="Controllers\Api\TaskGridDataController.cs" />
+    <Compile Include="Controllers\VisualizationController.cs" />
     <Compile Include="General\InternalError.cs" />
     <Compile Include="Models\CodeMetricGridModel.cs" />
     <Compile Include="Models\ImportSessionModel.cs" />
@@ -271,6 +272,7 @@
     <Content Include="Views\CodeMetrics\Index.cshtml" />
     <Content Include="Views\Tasks\Index.cshtml" />
     <Content Include="Views\ImportSessions\Index.cshtml" />
+    <Content Include="Views\Visualization\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
