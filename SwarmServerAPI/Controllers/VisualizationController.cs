@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SwarmServerAPI.UI.SwarmServerAPI.Models;
 
 namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 {
@@ -11,7 +12,12 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
         // GET: Visualization
         public ActionResult Index()
         {
-            return View();
+            ElementModel model = new ElementModel();
+            model.ElementCollection.Add(new ElementModel.Element() { data = new ElementModel.Data() { id = "a"} });
+            model.ElementCollection.Add(new ElementModel.Element() { data = new ElementModel.Data() { id = "b"} });
+            model.ElementCollection.Add(new ElementModel.Element() { data = new ElementModel.Data() { id = "ab", source = "a", target = "b", } });
+
+            return View(model);
         }
     }
 }

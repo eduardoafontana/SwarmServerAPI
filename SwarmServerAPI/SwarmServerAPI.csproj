@@ -200,6 +200,7 @@
     <Compile Include="General\InternalError.cs" />
     <Compile Include="Models\CodeMetricGridModel.cs" />
     <Compile Include="Models\ImportSessionModel.cs" />
+    <Compile Include="Models\ElementModel.cs" />
     <Compile Include="Models\TaskGridModel.cs" />
     <Compile Include="Controllers\TasksController.cs" />
     <Compile Include="Models\SessionGridModel.cs" />
