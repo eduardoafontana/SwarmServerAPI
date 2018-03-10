@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="SwarmServerAPI.WebApiApplication" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="SwarmServerAPI.UI.SwarmServerAPI.WebApiApplication" Language="C#" %>

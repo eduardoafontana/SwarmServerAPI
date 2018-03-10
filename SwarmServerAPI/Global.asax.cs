@@ -6,9 +6,8 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using SwarmServerAPI.UI.SwarmServerAPI;
 
-namespace SwarmServerAPI
+namespace SwarmServerAPI.UI.SwarmServerAPI
 {
     public class WebApiApplication : System.Web.HttpApplication
     {
