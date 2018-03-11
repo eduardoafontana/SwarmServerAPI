@@ -18,7 +18,11 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 
             using (SwarmData context = new SwarmData())
             {
-                pnCollection = context.PathNodes.Where(pn => pn.Session.Identifier.ToString() == "5225722C-CFBB-4CAE-B80D-3AF1566C91AA").ToList();
+                pnCollection = context.PathNodes
+                    .Include("Session")
+                    .Include("Session.Task")
+                    .Include("Session.Task.Project")
+                    .Where(pn => pn.Session.Identifier.ToString() == "8640D350-95B3-4C5E-9C70-031AA0BA13CA").ToList();
             }
 
             //load nodes
@@ -28,8 +32,9 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
                 {
                     data = new ElementModel.Data()
                     {
-                        id = pn.Hash.ToString(),//would be changed in future
-                        internal_id = pn.Id.ToString(),
+                        //TODO: partial implementation, review later
+                        id = CleanHash(pn.Session.Task.Project.Name, pn.Namespace, pn.Hash.ToString()),//would be changed in future
+                        internal_id = pn.Id.ToString()
                     }
                 });
             }
@@ -49,9 +54,10 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
                 {
                     data = new ElementModel.Data()
                     {
-                        id = pn.Parent + "-" + pn.Hash.ToString(),
+                        //TODO: partial implementation, review later
+                        id = pn.Parent + "-" + element.data.id,
                         source = pn.Parent,
-                        target = pn.Hash
+                        target = element.data.id
                     }
                 });
             }
@@ -64,6 +70,28 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
             model.ElementCollection.AddRange(edgesCollection);
 
             return View(model);
+        }
+
+        //TODO: partial implementation, review later
+        private string CleanHash(string projectName, string @namespace, string hash)
+        {
+            string cleanProjectName = projectName.Replace(".sln", "");
+
+            if (String.IsNullOrWhiteSpace(@namespace))
+                return hash.Replace(cleanProjectName, "").Trim('.');
+
+            return hash.Replace(cleanProjectName, "").Replace(@namespace, "").Trim('.').Trim('.');
+        }
+
+        private string GetHashFromProjecAndNamespace(string projectName, string pNamespace, string parent)
+        {
+            if (parent == null)
+                return null;
+
+            if(String.IsNullOrWhiteSpace(pNamespace))
+                return String.Format("{0}.{1}", projectName.Replace(".sln", ""), parent);
+
+            return String.Format("{0}.{1}.{2}", projectName.Replace(".sln", ""), pNamespace, parent);
         }
     }
 }

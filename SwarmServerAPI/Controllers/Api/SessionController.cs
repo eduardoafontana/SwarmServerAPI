@@ -35,25 +35,67 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
             }
         }
 
+        private static object syncPost = new Object();
+
         public string Post(Session session)
         {
             try
             {
-                using (SwarmData context = new SwarmData())
+                lock (syncPost)
                 {
-                    if (session.Identifier == new Guid("00000000-0000-0000-0000-000000000000"))
-                        return "Post rejected: session.Identifier equal 00000000-0000-0000-0000-000000000000.";
+                    using (SwarmData context = new SwarmData())
+                    {
+                        if (session.Identifier == new Guid("00000000-0000-0000-0000-000000000000"))
+                            return "Post rejected: session.Identifier equal 00000000-0000-0000-0000-000000000000.";
 
-                    Session original = context.Sessions.FirstOrDefault(s => s.Identifier == session.Identifier);
+                        //TODO: partial implementation, review later
+                        Session original = context.Sessions
+                            .Include("Breakpoints")
+                            .Include("Events")
+                            .Include("PathNodes")
+                            .Include("Developer")
+                            .Include("Task")
+                            .FirstOrDefault(s => s.Identifier == session.Identifier);
 
-                    if (original == null)
-                        context.Sessions.Add(session);
-                    else
-                        context.Entry(original).CurrentValues.SetValues(session);
+                        if (original == null)
+                            context.Sessions.Add(session);
+                        else
+                        {
+                            context.Entry(original).CurrentValues.SetValues(session);
 
-                    context.SaveChanges();
+                            //TODO: partial implementation, review later
+                            foreach (Breakpoint item in session.Breakpoints)
+                            {
+                                if (item.Id == 0)
+                                    original.Breakpoints.Add(item);
+                            }
 
-                    return "Object created or updated!";
+                            foreach (Event item in session.Events)
+                            {
+                                if (item.Id == 0)
+                                    original.Events.Add(item);
+                            }
+
+                            foreach (PathNode item in session.PathNodes)
+                            {
+                                if (item.Id == 0)
+                                    original.PathNodes.Add(item);
+                            }
+
+                            //TODO: partial implementation, review later
+                            if (session.Developer != null)
+                                if (session.Developer.Id == 0)
+                                    original.Developer = session.Developer;
+
+                            if (session.Task != null)
+                                if (session.Task.Id == 0)
+                                    original.Task = session.Task;
+                        }
+
+                        context.SaveChanges();
+
+                        return "Object created or updated!";
+                    }
                 }
             }
             catch (Exception ex)
