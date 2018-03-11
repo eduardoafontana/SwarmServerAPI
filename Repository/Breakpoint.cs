@@ -18,7 +18,6 @@ namespace SwarmServerAPI.AppCode.Repository
         public string Origin { get; set; }
         public DateTime Created { get; set; }
 
-        public Guid Session_Id { get; set; }
         public Session Session { get; set; }
     }
 }

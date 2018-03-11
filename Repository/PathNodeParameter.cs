@@ -14,7 +14,6 @@ namespace SwarmServerAPI.AppCode.Repository
         public string Name { get; set; }
         public string Value { get; set; }
 
-        public Guid PathNode_Id { get; set; }
         public PathNode PathNode { get; set; }
     }
 }

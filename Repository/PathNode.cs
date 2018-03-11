@@ -22,7 +22,6 @@ namespace SwarmServerAPI.AppCode.Repository
         public DateTime Created { get; set; }
         public CodeMetric MethodCodeMetric { get; set; }
 
-        public Guid Session_Id { get; set; }
         public Session Session { get; set; }
     }
 }
