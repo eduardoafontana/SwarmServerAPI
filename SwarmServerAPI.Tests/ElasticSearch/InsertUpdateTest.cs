@@ -15,30 +15,30 @@ namespace SwarmServerAPI.Tests.ElasticSearch
     [TestClass]
     public class ElasticSearchLoadTest
     {
-        public List<Project> lstProject;
-        public List<Project> Projects
+        public List<PathNode> lstPathNode;
+        public List<PathNode> PathNodes
         {
             get
             {
-                if (lstProject == null)
+                if (lstPathNode == null)
                 {
                     using (SwarmData context = new SwarmData())
                     {
-                        lstProject = context.Projects.OrderBy(p => p.Id).ToList();
+                        lstPathNode = context.PathNodes.OrderBy(p => p.Id).ToList();
                     }
                 }
 
-                return lstProject;
+                return lstPathNode;
             }
         }
 
         [TestMethod]
         public void InsertFirst()
         {
-            var response = ConnectionToES.EsClient().Index(Projects[0], i => i
+            var response = ConnectionToES.EsClient().Index(PathNodes[0], i => i
                 .Index("swarmdb")
-                .Type("project")
-                .Id(Projects[0].Id)
+                .Type("pathNode")
+                .Id(PathNodes[0].Id)
                 .Refresh(Elasticsearch.Net.Refresh.True));
 
             if (!response.IsValid)
@@ -48,10 +48,10 @@ namespace SwarmServerAPI.Tests.ElasticSearch
         [TestMethod]
         public void InsertSecond()
         {
-            var response = ConnectionToES.EsClient().Index(Projects[1], i => i
+            var response = ConnectionToES.EsClient().Index(PathNodes[1], i => i
                 .Index("swarmdb")
-                .Type("project")
-                .Id(Projects[1].Id)
+                .Type("pathNode")
+                .Id(PathNodes[1].Id)
                 .Refresh(Elasticsearch.Net.Refresh.True));
 
             if (!response.IsValid)
@@ -61,12 +61,12 @@ namespace SwarmServerAPI.Tests.ElasticSearch
         [TestMethod]
         public void InsertFirstTen()
         {
-            foreach (Project project in Projects.Take(10))
+            foreach (PathNode pathNode in PathNodes.Take(10))
             {
-                var response = ConnectionToES.EsClient().Index(project, i => i
+                var response = ConnectionToES.EsClient().Index(pathNode, i => i
                     .Index("swarmdb")
-                    .Type("project")
-                    .Id(project.Id)
+                    .Type("pathNode")
+                    .Id(pathNode.Id)
                     .Refresh(Elasticsearch.Net.Refresh.True));
 
                 if (!response.IsValid)
@@ -77,12 +77,12 @@ namespace SwarmServerAPI.Tests.ElasticSearch
         [TestMethod]
         public void InsertAll()
         {
-            foreach (Project project in Projects)
+            foreach (PathNode pathNode in PathNodes)
             {
-                var response = ConnectionToES.EsClient().Index(project, i => i
+                var response = ConnectionToES.EsClient().Index(pathNode, i => i
                     .Index("swarmdb")
-                    .Type("project")
-                    .Id(project.Id)
+                    .Type("pathNode")
+                    .Id(pathNode.Id)
                     .Refresh(Elasticsearch.Net.Refresh.True));
 
                 if (!response.IsValid)
@@ -93,13 +93,13 @@ namespace SwarmServerAPI.Tests.ElasticSearch
         [TestMethod]
         public void InsertFirstAltered()
         {
-            Project project = Projects[0];
-            project.Description = "description test aaaaa";
+            PathNode pathNode = PathNodes[0];
+            pathNode.Method = "description test aaaaa";
 
-            var response = ConnectionToES.EsClient().Index(project, i => i
+            var response = ConnectionToES.EsClient().Index(pathNode, i => i
                 .Index("swarmdb")
-                .Type("project")
-                .Id(project.Id)
+                .Type("pathNode")
+                .Id(pathNode.Id)
                 .Refresh(Elasticsearch.Net.Refresh.True));
 
             if (!response.IsValid)

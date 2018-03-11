@@ -45,7 +45,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
                 {
                     using (SwarmData context = new SwarmData())
                     {
-                        if (session.Identifier == new Guid("00000000-0000-0000-0000-000000000000"))
+                        if (session.Id == new Guid("00000000-0000-0000-0000-000000000000"))
                             return "Post rejected: session.Identifier equal 00000000-0000-0000-0000-000000000000.";
 
                         //TODO: partial implementation, review later
@@ -55,7 +55,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
                             .Include("PathNodes")
                             .Include("Developer")
                             .Include("Task")
-                            .FirstOrDefault(s => s.Identifier == session.Identifier);
+                            .FirstOrDefault(s => s.Id == session.Id);
 
                         if (original == null)
                             context.Sessions.Add(session);
@@ -66,30 +66,21 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
                             //TODO: partial implementation, review later
                             foreach (Breakpoint item in session.Breakpoints)
                             {
-                                if (item.Id == 0)
+                                if (item.Id == Guid.Empty)
                                     original.Breakpoints.Add(item);
                             }
 
                             foreach (Event item in session.Events)
                             {
-                                if (item.Id == 0)
+                                if (item.Id == Guid.Empty)
                                     original.Events.Add(item);
                             }
 
                             foreach (PathNode item in session.PathNodes)
                             {
-                                if (item.Id == 0)
+                                if (item.Id == Guid.Empty)
                                     original.PathNodes.Add(item);
                             }
-
-                            //TODO: partial implementation, review later
-                            if (session.Developer != null)
-                                if (session.Developer.Id == 0)
-                                    original.Developer = session.Developer;
-
-                            if (session.Task != null)
-                                if (session.Task.Id == 0)
-                                    original.Task = session.Task;
                         }
 
                         context.SaveChanges();

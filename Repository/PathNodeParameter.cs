@@ -8,9 +8,13 @@ namespace SwarmServerAPI.AppCode.Repository
 
     public partial class PathNodeParameter
     {
-        public int Id { get; set; }
+        [Key]
+        public Guid Id { get; set; }
         public string Type { get; set; }
         public string Name { get; set; }
         public string Value { get; set; }
+
+        public Guid PathNode_Id { get; set; }
+        public PathNode PathNode { get; set; }
     }
 }

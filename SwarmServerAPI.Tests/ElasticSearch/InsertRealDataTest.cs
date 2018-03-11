@@ -22,45 +22,45 @@ namespace SwarmServerAPI.Tests.ElasticSearch
             {
                 System.Diagnostics.Debug.WriteLine("Started.");
 
-                foreach (Project project in context.Projects.ToList())
+                foreach (PathNode pathNode in context.PathNodes.ToList())
                 {
-                    var response = ConnectionToES.EsClient().Index(project, i => i
+                    var response = ConnectionToES.EsClient().Index(pathNode, i => i
                         .Index("swarmdb")
-                        .Type("project")
-                        .Id(project.Id)
+                        .Type("pathNode")
+                        .Id(pathNode.Id)
                         .Refresh(Elasticsearch.Net.Refresh.True));
                 }
 
-                System.Diagnostics.Debug.WriteLine("Projects finished.");
+                System.Diagnostics.Debug.WriteLine("PathNodes finished.");
 
-                foreach (Task task in context.Tasks.ToList())
-                {
-                    var response = ConnectionToES.EsClient().Index(task, i => i
-                        .Index("swarmdb")
-                        .Type("task")
-                        .Id(task.Id)
-                        .Refresh(Elasticsearch.Net.Refresh.True));
-                }
+                //foreach (Task task in context.Tasks.ToList())
+                //{
+                //    var response = ConnectionToES.EsClient().Index(task, i => i
+                //        .Index("swarmdb")
+                //        .Type("task")
+                //        .Id(task.Id)
+                //        .Refresh(Elasticsearch.Net.Refresh.True));
+                //}
 
-                System.Diagnostics.Debug.WriteLine("Tasks finished.");
+                //System.Diagnostics.Debug.WriteLine("Tasks finished.");
 
-                foreach (Developer developer in context.Developers.ToList())
-                {
-                    var response = ConnectionToES.EsClient().Index(developer, i => i
-                        .Index("swarmdb")
-                        .Type("developer")
-                        .Id(developer.Id)
-                        .Refresh(Elasticsearch.Net.Refresh.True));
-                }
+                //foreach (Developer developer in context.Developers.ToList())
+                //{
+                //    var response = ConnectionToES.EsClient().Index(developer, i => i
+                //        .Index("swarmdb")
+                //        .Type("developer")
+                //        .Id(developer.Id)
+                //        .Refresh(Elasticsearch.Net.Refresh.True));
+                //}
 
-                System.Diagnostics.Debug.WriteLine("Developers finished.");
+                //System.Diagnostics.Debug.WriteLine("Developers finished.");
 
                 foreach (Session session in context.Sessions.ToList())
                 {
                     var response = ConnectionToES.EsClient().Index(session, i => i
                         .Index("swarmdb")
                         .Type("session")
-                        .Id(session.Identifier)
+                        .Id(session.Id)
                         .Refresh(Elasticsearch.Net.Refresh.True));
                 }
 

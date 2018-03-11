@@ -59,7 +59,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
         {
             using (SwarmData context = new SwarmData())
             {
-                List<Session> sessionList = context.Sessions.Where(s=> s.Task.Project.Name.Equals("Contencioso.sln")).ToList();
+                List<Session> sessionList = context.Sessions.Where(s=> s.ProjectName.Equals("Contencioso.sln")).ToList();
 
                 foreach (Session session in sessionList)
                 {

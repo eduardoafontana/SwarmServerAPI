@@ -63,7 +63,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
                             {
                                 Session session = Newtonsoft.Json.JsonConvert.DeserializeObject<Session>(jsonObject);
 
-                                Session original = context.Sessions.FirstOrDefault(s => s.Identifier == session.Identifier);
+                                Session original = context.Sessions.FirstOrDefault(s => s.Id == session.Id);
 
                                 if (original == null)
                                 {
@@ -77,8 +77,6 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
                                     original.Breakpoints = session.Breakpoints;
                                     original.Events = session.Events;
                                     original.PathNodes = session.PathNodes;
-                                    original.Developer = session.Developer;
-                                    original.Task = session.Task;
 
                                     item.Status = ImportSessionStatus.Updated;
                                 }

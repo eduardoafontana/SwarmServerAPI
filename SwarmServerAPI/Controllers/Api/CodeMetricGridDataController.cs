@@ -19,9 +19,9 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
                 {
                     return context.PathNodes.Select(pn => new CodeMetricGridModel
                     {
-                        SessionIdentifier = pn.Session.Identifier.ToString(),
-                        TaskName = pn.Session.Task.Name,
-                        TaskProject = pn.Session.Task.Project.Name,
+                        SessionIdentifier = pn.Session.Id.ToString(),
+                        TaskName = pn.Session.TaskName,
+                        TaskProject = pn.Session.ProjectName,
                         Hash = pn.Hash,
                         MaintainabilityIndex = pn.MethodCodeMetric.MaintainabilityIndex,
                         CyclomaticComplexity = pn.MethodCodeMetric.CyclomaticComplexity,

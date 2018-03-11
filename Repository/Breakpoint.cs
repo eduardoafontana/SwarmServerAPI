@@ -8,7 +8,8 @@ namespace SwarmServerAPI.AppCode.Repository
 
     public partial class Breakpoint
     {
-        public int Id { get; set; }
+        [Key]
+        public Guid Id { get; set; }
         public string BreakpointKind { get; set; }
         public string Namespace { get; set; }
         public string Type { get; set; }
@@ -16,5 +17,8 @@ namespace SwarmServerAPI.AppCode.Repository
         public string LineOfCode { get; set; }
         public string Origin { get; set; }
         public DateTime Created { get; set; }
+
+        public Guid Session_Id { get; set; }
+        public Session Session { get; set; }
     }
 }

@@ -21,7 +21,7 @@ namespace SwarmServerAPI.AppCore.Service
                 var response = ConnectionToES.EsClient().Index(session, i => i
                     .Index("swarmdb")
                     .Type("session")
-                    .Id(session.Identifier)
+                    .Id(session.Id)
                     .Refresh(Elasticsearch.Net.Refresh.True));
             }
         }

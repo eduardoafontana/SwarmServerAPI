@@ -8,7 +8,8 @@ namespace SwarmServerAPI.AppCode.Repository
 
     public partial class Event
     {
-        public int Id { get; set; }
+        [Key]
+        public Guid Id { get; set; }
         public string EventKind { get; set; }
         public string Detail { get; set; }
         public string Namespace { get; set; }
@@ -22,5 +23,8 @@ namespace SwarmServerAPI.AppCode.Repository
         public int? LineNumber { get; set; }
         public string LineOfCode { get; set; }
         public DateTime Created { get; set; }
+
+        public Guid Session_Id { get; set; }
+        public Session Session { get; set; }
     }
 }

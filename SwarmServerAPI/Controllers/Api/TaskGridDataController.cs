@@ -17,17 +17,18 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
             {
                 using (SwarmData context = new SwarmData())
                 {
-                    List<Task> distinctTask = context.Tasks.GroupBy(d => new { d.Name }).Select(g => g.FirstOrDefault()).ToList();
-                    int[] distinctTaskIds = distinctTask.Select(t => t.Id).ToArray();
+                    //TODO: review logic later, data model changes
+                    List<Session> distinctTask = context.Sessions.GroupBy(d => new { d.TaskName }).Select(g => g.FirstOrDefault()).ToList();
+                    Guid[] distinctTaskIds = distinctTask.Select(t => t.Id).ToArray();
 
-                    return context.Tasks.Where(d => distinctTaskIds.Contains(d.Id)).Select(t => new TaskGridModel
+                    return context.Sessions.Where(d => distinctTaskIds.Contains(d.Id)).Select(t => new TaskGridModel
                     {
-                        ProjectName = t.Project.Name,
-                        Name = t.Name,
-                        Description = t.Description,
-                        Action = t.Action,
-                        Created = t.Created,
-                        TotalSessionTime = t.TotalSessionTime
+                        ProjectName = t.ProjectName,
+                        Name = t.TaskName,
+                        Description = t.TaskDescription,
+                        Action = t.TaskAction,
+                        Created = t.TaskCreated,
+                        TotalSessionTime = t.TaskTotalSessionTime
                     }).ToList();
                 }
             }

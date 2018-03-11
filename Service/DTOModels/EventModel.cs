@@ -8,7 +8,7 @@ namespace SwarmServerAPI.AppCore.Service.DTOModels
 {
     public class EventModel
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string EventKind { get; set; }
         public string Detail { get; set; }
         public string Namespace { get; set; }

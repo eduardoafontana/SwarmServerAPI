@@ -18,31 +18,16 @@ namespace SwarmServerAPI.AppCore.Service
             {
                 sessionModelCollection = context.Sessions.Select(s => new SessionModel
                 {
-                    Identifier = s.Identifier,
-                    Label = s.Label,
+                    Id = s.Id,
                     Description = s.Description,
-                    Purpose = s.Purpose,
                     Started = s.Started,
                     Finished = s.Finished,
-                    Task = s.Task != null ? new TaskModel
-                    {
-                        Id = s.Task.Id,
-                        Action = s.Task.Action,
-                        Created = s.Task.Created,
-                        Description = s.Task.Description,
-                        Name = s.Task.Name,
-                        Project = s.Task.Project != null ? new ProjectModel
-                        {
-                            Id = s.Task.Project.Id,
-                            Name = s.Task.Project.Name,
-                            Description = s.Task.Project.Description
-                        } : null
-                    } : null,
-                    Developer = s.Developer != null ? new DeveloperModel
-                    {
-                        Id = s.Developer.Id,
-                        Name = s.Developer.Name
-                    } : null,
+                    TaskName = s.TaskName,
+                    TaskDescription = s.TaskDescription,
+                    TaskAction = s.TaskAction,
+                    TaskCreated = s.TaskCreated,
+                    ProjectName = s.ProjectName,
+                    DeveloperName = s.DeveloperName,
                     Breakpoints = s.Breakpoints.Select(b => new BreakpointModel
                     {
                         Id = b.Id,
@@ -97,6 +82,7 @@ namespace SwarmServerAPI.AppCore.Service
                             Value = pp.Value
                         }).ToList(),
                         Parent = p.Parent,
+                        Parent_Id = p.Parent_Id,
                         ReturnType = p.ReturnType
                     }).ToList()
                 }).ToList();

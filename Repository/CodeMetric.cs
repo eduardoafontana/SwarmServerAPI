@@ -8,11 +8,15 @@ namespace SwarmServerAPI.AppCode.Repository
 
     public partial class CodeMetric
     {
-        public int Id { get; set; }
+        [Key]
+        public Guid Id { get; set; }
         public string Hash { get; set; }
         public string MaintainabilityIndex { get; set; }
         public string CyclomaticComplexity { get; set; }
         public string ClassCoupling { get; set; }
         public string LineOfCode { get; set; }
+
+        public Guid PathNode_Id { get; set; }
+        public PathNode PathNode { get; set; }
     }
 }

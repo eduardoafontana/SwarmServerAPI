@@ -22,7 +22,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
                     .Include("Session")
                     .Include("Session.Task")
                     .Include("Session.Task.Project")
-                    .Where(pn => pn.Session.Identifier.ToString() == "8640D350-95B3-4C5E-9C70-031AA0BA13CA").ToList();
+                    .Where(pn => pn.Session.Id.ToString() == "8640D350-95B3-4C5E-9C70-031AA0BA13CA").ToList();
             }
 
             //load nodes
@@ -33,7 +33,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
                     data = new ElementModel.Data()
                     {
                         //TODO: partial implementation, review later
-                        id = CleanHash(pn.Session.Task.Project.Name, pn.Namespace, pn.Hash.ToString()),//would be changed in future
+                        id = CleanHash(pn.Session.ProjectName, pn.Namespace, pn.Hash.ToString()),//would be changed in future
                         internal_id = pn.Id.ToString()
                     }
                 });

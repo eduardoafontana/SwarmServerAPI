@@ -21,11 +21,11 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
                 {
                     return context.Sessions.Select(s => new SessionGridModel
                     {
-                        Identifier = s.Identifier,
-                        TaskName = s.Task.Name,
-                        TaskAction = s.Task.Action,
-                        TaskProjectName = s.Task.Project.Name,
-                        DeveloperName = s.Developer.Name,
+                        Identifier = s.Id,
+                        TaskName = s.TaskName,
+                        TaskAction = s.TaskAction,
+                        TaskProjectName = s.ProjectName,
+                        DeveloperName = s.DeveloperName,
                         Started = s.Started,
                         Finished = s.Finished,
                         BreakpointCount = s.Breakpoints.Count,

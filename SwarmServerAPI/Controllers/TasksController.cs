@@ -22,12 +22,12 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
         {
             using (SwarmData context = new SwarmData())
             {
-                List<Task> distinctTask = context.Tasks.GroupBy(d => new { d.Name }).Select(g => g.FirstOrDefault()).ToList();
-                string[] distinctTaskNames = distinctTask.Select(t => t.Name).ToArray();
+                List<Session> distinctTask = context.Sessions.GroupBy(d => new { d.TaskName }).Select(g => g.FirstOrDefault()).ToList();
+                string[] distinctTaskNames = distinctTask.Select(t => t.TaskName).ToArray();
 
                 foreach (string taskName in distinctTaskNames)
                 {
-                    List<Session> taskSessions = context.Sessions.Where(x => x.Task.Name.Equals(taskName)).ToList();
+                    List<Session> taskSessions = context.Sessions.Where(x => x.TaskName.Equals(taskName)).ToList();
 
                     double totalMiliTask = 0;
 
@@ -41,9 +41,10 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
                         }
                     }
 
-                    foreach (Task task in context.Tasks.Where(t => t.Name.Equals(taskName)))
+                    //TODO: review logic later, data model changes
+                    foreach (Session task in context.Sessions.Where(t => t.TaskName.Equals(taskName)))
                     {
-                        task.TotalSessionTime = TimeSpan.FromMilliseconds(totalMiliTask);
+                        task.TaskTotalSessionTime = TimeSpan.FromMilliseconds(totalMiliTask);
                     }
                 }
 
