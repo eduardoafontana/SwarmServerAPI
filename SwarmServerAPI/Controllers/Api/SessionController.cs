@@ -48,13 +48,10 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
                         if (session.Id == new Guid("00000000-0000-0000-0000-000000000000"))
                             return "Post rejected: session.Identifier equal 00000000-0000-0000-0000-000000000000.";
 
-                        //TODO: partial implementation, review later
                         Session original = context.Sessions
                             .Include("Breakpoints")
                             .Include("Events")
                             .Include("PathNodes")
-                            .Include("Developer")
-                            .Include("Task")
                             .FirstOrDefault(s => s.Id == session.Id);
 
                         if (original == null)
@@ -63,22 +60,21 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
                         {
                             context.Entry(original).CurrentValues.SetValues(session);
 
-                            //TODO: partial implementation, review later
                             foreach (Breakpoint item in session.Breakpoints)
                             {
-                                if (item.Id == Guid.Empty)
+                                if (!original.Breakpoints.Any(x => x.Id == item.Id))
                                     original.Breakpoints.Add(item);
                             }
 
                             foreach (Event item in session.Events)
                             {
-                                if (item.Id == Guid.Empty)
+                                if (!original.Events.Any(x => x.Id == item.Id))
                                     original.Events.Add(item);
                             }
 
                             foreach (PathNode item in session.PathNodes)
                             {
-                                if (item.Id == Guid.Empty)
+                                if (!original.PathNodes.Any(x => x.Id == item.Id))
                                     original.PathNodes.Add(item);
                             }
                         }
