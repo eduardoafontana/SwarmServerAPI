@@ -14,10 +14,10 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Models
 
         public class Data
         {
-            public string internal_id { get; set; }
             public string id { get; set; }
             public string source { get; set; }
             public string target { get; set; }
+            public string parent_id { get; set; }
         }
     }
 }

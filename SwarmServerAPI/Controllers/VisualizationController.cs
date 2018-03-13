@@ -10,7 +10,6 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 {
     public class VisualizationController : Controller
     {
-        // GET: Visualization
         public ActionResult Index()
         {
             ElementModel model = new ElementModel();
@@ -19,10 +18,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
             using (SwarmData context = new SwarmData())
             {
                 pnCollection = context.PathNodes
-                    .Include("Session")
-                    .Include("Session.Task")
-                    .Include("Session.Task.Project")
-                    .Where(pn => pn.Session.Id.ToString() == "8640D350-95B3-4C5E-9C70-031AA0BA13CA").ToList();
+                    .Where(pn => pn.Session.Id.ToString() == "CDBB8E57-2E0B-420A-84A1-F5B744CA178B").ToList();
             }
 
             //load nodes
@@ -32,66 +28,31 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
                 {
                     data = new ElementModel.Data()
                     {
-                        //TODO: partial implementation, review later
-                        id = CleanHash(pn.Session.ProjectName, pn.Namespace, pn.Hash.ToString()),//would be changed in future
-                        internal_id = pn.Id.ToString()
+                        id = pn.Id.ToString(),
+                        parent_id = pn.Parent_Id.ToString()
                     }
                 });
             }
-
 
             //load edges
             List<ElementModel.Element> edgesCollection = new List<ElementModel.Element>();
 
             foreach (ElementModel.Element element in model.ElementCollection)
             {
-                PathNode pn = pnCollection.FirstOrDefault(p => p.Id.ToString() == element.data.internal_id);
-
-                if (pn.Parent == null)
-                    continue;
-
                 edgesCollection.Add(new ElementModel.Element()
                 {
                     data = new ElementModel.Data()
                     {
-                        //TODO: partial implementation, review later
-                        id = pn.Parent + "-" + element.data.id,
-                        source = pn.Parent,
+                        id = element.data.id + "-" + element.data.id,
+                        source = element.data.parent_id,
                         target = element.data.id
                     }
                 });
             }
 
-            //ElementModel model = new ElementModel();
-            //model.ElementCollection.Add();
-            //model.ElementCollection.Add(new ElementModel.Element() { data = new ElementModel.Data() { id = "b"} });
-            //model.ElementCollection.Add(new ElementModel.Element() { data = new ElementModel.Data() { id = "ab", source = "a", target = "b", } });
-
             model.ElementCollection.AddRange(edgesCollection);
 
             return View(model);
-        }
-
-        //TODO: partial implementation, review later
-        private string CleanHash(string projectName, string @namespace, string hash)
-        {
-            string cleanProjectName = projectName.Replace(".sln", "");
-
-            if (String.IsNullOrWhiteSpace(@namespace))
-                return hash.Replace(cleanProjectName, "").Trim('.');
-
-            return hash.Replace(cleanProjectName, "").Replace(@namespace, "").Trim('.').Trim('.');
-        }
-
-        private string GetHashFromProjecAndNamespace(string projectName, string pNamespace, string parent)
-        {
-            if (parent == null)
-                return null;
-
-            if(String.IsNullOrWhiteSpace(pNamespace))
-                return String.Format("{0}.{1}", projectName.Replace(".sln", ""), parent);
-
-            return String.Format("{0}.{1}.{2}", projectName.Replace(".sln", ""), pNamespace, parent);
         }
     }
 }
