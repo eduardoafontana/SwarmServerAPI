@@ -18,7 +18,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
             using (SwarmData context = new SwarmData())
             {
                 pnCollection = context.PathNodes
-                    .Where(pn => pn.Session.Id.ToString() == "CDBB8E57-2E0B-420A-84A1-F5B744CA178B").ToList();
+                    .Where(pn => pn.Session.Id.ToString() == "20a33d75-a3db-4602-b356-9b9f551f9fe2").OrderBy(pn => pn.Created).ToList();
             }
 
             //load nodes
