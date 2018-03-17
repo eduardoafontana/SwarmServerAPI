@@ -18,7 +18,7 @@ namespace SwarmServerAPI.AppCore.Service.DTOModels
         public string TaskName { get; set; }
         public string TaskAction { get; set; }
         public string TaskDescription { get; set; }
-        public DateTime TaskCreated { get; set; }
+        public DateTime? TaskCreated { get; set; }
         public string ProjectName { get; set; }
     }
 }

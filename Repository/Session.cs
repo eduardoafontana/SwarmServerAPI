@@ -22,7 +22,7 @@ namespace SwarmServerAPI.AppCode.Repository
         public string TaskName { get; set; }
         public string TaskAction { get; set; }
         public string TaskDescription { get; set; }
-        public DateTime TaskCreated { get; set; }
+        public DateTime? TaskCreated { get; set; }
         public TimeSpan TaskTotalSessionTime { get; set; }
         public string ProjectName { get; set; }
     }
