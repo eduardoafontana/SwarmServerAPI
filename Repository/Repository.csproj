@@ -54,6 +54,10 @@
     <Compile Include="Migrations\201803112214367_1.Designer.cs">
       <DependentUpon>201803112214367_1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803162349062_2.cs" />
+    <Compile Include="Migrations\201803162349062_2.Designer.cs">
+      <DependentUpon>201803162349062_2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PathNode.cs" />
     <Compile Include="PathNodeParameter.cs" />
@@ -68,6 +72,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201803112214367_1.resx">
       <DependentUpon>201803112214367_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803162349062_2.resx">
+      <DependentUpon>201803162349062_2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
