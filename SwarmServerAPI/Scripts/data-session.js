@@ -1,6 +1,12 @@
 // specify the columns
 var columnDefs = [
-    { headerName: "Identifier", field: "Identifier"},
+    {
+        headerName: "Identifier",
+        field: "Identifier",
+        cellRenderer: function (params) {
+            return '<a href="Visualization/Index/' + params.value + '" target="_blank">' + params.value + '</a>'
+        }
+    },
     {
         headerName: "Task",
         children: [

@@ -10,7 +10,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 {
     public class VisualizationController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(string id)
         {
             ElementModel model = new ElementModel();
             List<PathNode> pnCollection = new List<PathNode>();
@@ -18,7 +18,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
             using (SwarmData context = new SwarmData())
             {
                 pnCollection = context.PathNodes
-                    .Where(pn => pn.Session.Id.ToString() == "20a33d75-a3db-4602-b356-9b9f551f9fe2").OrderBy(pn => pn.Created).ToList();
+                    .Where(pn => pn.Session.Id.ToString() == id).OrderBy(pn => pn.Created).ToList();
             }
 
             //load nodes
