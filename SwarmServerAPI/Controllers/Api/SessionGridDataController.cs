@@ -19,7 +19,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
             {
                 using (SwarmData context = new SwarmData())
                 {
-                    return context.Sessions.Select(s => new SessionGridModel
+                    return context.Sessions.OrderByDescending(s => s.Started).Select(s => new SessionGridModel
                     {
                         Identifier = s.Id,
                         TaskName = s.TaskName,
