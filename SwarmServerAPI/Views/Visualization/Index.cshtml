@@ -5,6 +5,8 @@
 }
 
 @Scripts.Render("~/bundles/cytoscape")
+@Scripts.Render("~/bundles/dagre")
+@Scripts.Render("~/bundles/cytoscape-dagre")
 
 <style>
     #cy {
@@ -59,8 +61,7 @@
             ],
 
             layout: {
-                name: 'grid',
-                rows: 1
+                name: 'dagre'
             }
         });
 
