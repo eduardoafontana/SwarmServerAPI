@@ -18,6 +18,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Models
             public string source { get; set; }
             public string target { get; set; }
             public string parent_id { get; set; }
+            public string method { get; set; }
         }
     }
 }

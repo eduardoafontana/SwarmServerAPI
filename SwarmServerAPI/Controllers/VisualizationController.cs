@@ -29,7 +29,8 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
                     data = new ElementModel.Data()
                     {
                         id = pn.Id.ToString(),
-                        parent_id = pn.Parent_Id.ToString()
+                        parent_id = pn.Parent_Id.ToString(),
+                        method = pn.Method
                     }
                 });
             }
