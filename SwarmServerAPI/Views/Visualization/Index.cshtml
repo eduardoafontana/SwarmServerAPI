@@ -7,6 +7,7 @@
 @Scripts.Render("~/bundles/cytoscape")
 @Scripts.Render("~/bundles/dagre")
 @Scripts.Render("~/bundles/cytoscape-dagre")
+@Scripts.Render("~/bundles/cytoscape-qtip")
 
 <style>
     #cy {
@@ -19,7 +20,7 @@
 </style>
 <script language="javascript">
 
-    window.onload = function () {
+    $(function () {
         var cy = cytoscape({
             container: document.getElementById('cy'), // container to render in
 
@@ -62,6 +63,10 @@
 
             layout: {
                 name: 'dagre'
+            },
+
+            ready: function () {
+                window.cy = this;
             }
         });
 
@@ -70,9 +75,24 @@
             zoom: 1
         },
         {
-            duration: 1000
+        duration: 1000
         });
-    };
+
+        cy.$('#b03163e5-624e-4e9a-86d5-e6b89e6f74d4').qtip({
+            content: 'Hello world!',
+            position: {
+                my: 'top center',
+                at: 'bottom center'
+            },
+            style: {
+                classes: 'qtip-bootstrap',
+                tip: {
+                    width: 16,
+                    height: 8
+                }
+            }
+        });
+    });
 </script>
 
 <h2>Visualization</h2>

@@ -38,9 +38,14 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
             bundles.Add(new ScriptBundle("~/bundles/cytoscape-dagre").Include(
                       "~/Scripts/cytoscape-dagre.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/cytoscape-qtip").Include(
+                      "~/Scripts/jquery.qtip.js",
+                      "~/Scripts/cytoscape-qtip.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/jquery.qtip.css"));
         }
     }
 }
