@@ -40,6 +40,9 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 
             foreach (ElementModel.Element element in model.ElementCollection)
             {
+                if (element.data.parent_id == Guid.Empty.ToString())
+                    continue;
+
                 edgesCollection.Add(new ElementModel.Element()
                 {
                     data = new ElementModel.Data()
