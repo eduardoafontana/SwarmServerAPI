@@ -22,25 +22,11 @@
 
     $(function () {
         var cy = cytoscape({
-            container: document.getElementById('cy'), // container to render in
+            container: document.getElementById('cy'),
 
-            //elements: [ // list of graph elements to start with
-            //    { // node a
-            //        data: { id: 'a' }
-            //    },
-            //    { // node b
-            //        data: { id: 'b' }
-            //    },
-            //    {
-            //        data: { id: 'c' }
-            //    },
-            //    { // edge ab
-            //        data: { id: 'ab', source: 'a', target: 'b' }
-            //    }
-            //],
             elements: @Html.Raw(Json.Encode(Model.ElementCollection)),
 
-            style: [ // the stylesheet for the graph
+            style: [
                 {
                     selector: 'node',
                     style: {
@@ -78,20 +64,23 @@
         duration: 1000
         });
 
-        cy.$('#b03163e5-624e-4e9a-86d5-e6b89e6f74d4').qtip({
-            content: 'Hello world!',
-            position: {
-                my: 'top center',
-                at: 'bottom center'
-            },
-            style: {
-                classes: 'qtip-bootstrap',
-                tip: {
-                    width: 16,
-                    height: 8
+        $(cy.filter('node')).each(function () {
+            this.qtip({
+                content: this.id(),
+                position: {
+                    my: 'top center',
+                    at: 'bottom center'
+                },
+                style: {
+                    classes: 'qtip-bootstrap',
+                    tip: {
+                        width: 16,
+                        height: 8
+                    }
                 }
-            }
+            });
         });
+
     });
 </script>
 
