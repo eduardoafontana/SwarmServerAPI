@@ -30,7 +30,16 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
                     {
                         id = pn.Id.ToString(),
                         parent_id = pn.Parent_Id.ToString(),
-                        method = pn.Method
+                        method = pn.Method,
+                        nodeinfo = new ElementModel.NodeInfo()
+                        {
+                            name_space = pn.Namespace,
+                            type = pn.Type,
+                            method = pn.Method,
+                            returntype = pn.ReturnType,
+                            origin = pn.Origin,
+                            created = pn.Created.ToShortDateString()
+                        }
                     }
                 });
             }

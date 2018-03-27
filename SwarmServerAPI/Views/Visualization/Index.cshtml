@@ -17,6 +17,11 @@
 
         border: 1px solid black;
     }
+
+    .qtip {
+        max-width: none !important;
+        font-size: 12px;
+    }
 </style>
 <script language="javascript">
 
@@ -66,20 +71,25 @@
 
         $(cy.filter('node')).each(function () {
             this.qtip({
-                content: this.id(),
+                content: renderNodeInfo(this.data().nodeinfo),
                 position: {
                     my: 'top center',
                     at: 'bottom center'
                 },
                 style: {
-                    classes: 'qtip-bootstrap',
-                    tip: {
-                        width: 16,
-                        height: 8
-                    }
+                    classes: 'qtip-bootstrap'
                 }
             });
         });
+
+        function renderNodeInfo(node) {
+            return '<b>Namespace:</b> ' + node.name_space + '<br />' +
+                '<b>Type:</b> ' + node.type + '<br />' +
+                '<b>Method:</b> ' + node.method + '<br />' +
+                '<b>Origin:</b> ' + node.origin + '<br />' +
+                '<b>ReturnType:</b> ' + node.returtype + '<br />' +
+                '<b>Created:</b> ' + node.created + '<br />';
+        }
 
     });
 </script>
