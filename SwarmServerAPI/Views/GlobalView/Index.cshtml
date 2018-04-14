@@ -66,6 +66,11 @@
         duration: 1000
         });
 
+        $(cy.filter('node')).each(function () {
+            this.style('height', this.data().size);
+            this.style('width', this.data().size);
+        });
+
     });
 </script>
 

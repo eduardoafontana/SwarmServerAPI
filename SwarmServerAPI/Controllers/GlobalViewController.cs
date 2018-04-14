@@ -40,11 +40,17 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
                         id = pn.Id.ToString(),
                         parent_id = pn.Parent_Id.ToString(),
                         method = pn.Type + " - " + bCollection.Where(b => b.Type == pn.Type).Count().ToString(),
+                        size = generateSize(bCollection.Where(b => b.Type == pn.Type).Count())
                     }
                 });
             }
 
             return View(model);
+        }
+
+        private int generateSize(int breakpointsCount)
+        {
+            return breakpointsCount + 10;
         }
     }
 }
