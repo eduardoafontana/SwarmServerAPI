@@ -10,7 +10,13 @@ var columnDefs = [
     {
         headerName: "Task",
         children: [
-            { headerName: "Name", field: "TaskName" },
+            {
+                headerName: "Name",
+                field: "TaskName",
+                cellRenderer: function (params) {
+                    return '<a href="GlobalView/Index/' + params.data.Identifier + '" target="_blank">' + params.value + '</a>'
+                }
+            },
             { headerName: "Action", field: "TaskAction" },
             { headerName: "Project", field: "TaskProjectName" }
         ]

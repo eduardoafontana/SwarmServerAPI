@@ -24,7 +24,8 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 
             using (SwarmData context = new SwarmData())
             {
-                Guid[] sessionIds = context.Sessions.Where(s => s.ProjectName == "SGE.sln").Select(s => s.Id).ToArray();
+                var sessionFilter = context.Sessions.Where(s => s.Id.ToString() == id).Select(s => new { TaskName = s.TaskName, ProjectName = s.ProjectName }).FirstOrDefault();
+                Guid[] sessionIds = context.Sessions.Where(s => s.TaskName == sessionFilter.TaskName && s.ProjectName == sessionFilter.ProjectName).Select(s => s.Id).ToArray();
 
                 pnCollection = context.PathNodes.Where(pn => sessionIds.Contains(pn.Session.Id)).GroupBy(pn => pn.Type).Select(pn => pn.FirstOrDefault()).ToList();
                 bCollection = context.Breakpoints.Where(b => sessionIds.Contains(b.Session.Id)).ToList();
