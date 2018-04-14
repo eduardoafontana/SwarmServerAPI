@@ -1,6 +1,74 @@
-﻿<h1>Global View</h1>
-<br />
-<h3>...</h3>
-<hr />
-<br />
+﻿
+@{
+    ViewBag.Title = "Global View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
+@Scripts.Render("~/bundles/cytoscape")
+
+<style>
+    #cy {
+        width: 1200px;
+        height: 600px;
+        display: block;
+        border: 1px solid black;
+    }
+
+    .qtip {
+        max-width: none !important;
+        font-size: 12px;
+    }
+</style>
+<script language="javascript">
+
+    $(function () {
+        var cy = cytoscape({
+            container: document.getElementById('cy'),
+
+            elements: @Html.Raw(Json.Encode(Model.ElementCollection)),
+
+            style: [
+                {
+                    selector: 'node',
+                    style: {
+                    'background-color': '#666',
+                    'label': 'data(method)',
+                    'width': 10,
+                    'height': 10,
+                    }
+                },
+                {
+                    selector: 'edge',
+                    style: {
+                    'width': 2,
+                    'line-color': '#ccc',
+                    'target-arrow-color': '#ccc',
+                    'target-arrow-shape': 'triangle'
+                    }
+                }
+            ],
+
+            layout: {
+                name: 'grid',
+                rows: 20
+            },
+
+            ready: function () {
+                window.cy = this;
+            }
+        });
+
+        cy.animate({
+            pan: { x: 50, y: 50},
+            zoom: 1
+        },
+        {
+        duration: 1000
+        });
+
+    });
+</script>
+
+<h2>Global View</h2>
+
+<div id="cy"></div>

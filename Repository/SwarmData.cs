@@ -9,11 +9,12 @@ namespace SwarmServerAPI.AppCode.Repository
     {
         public SwarmData()
             : base(Environment.GetEnvironmentVariable("SQLAZURECONNSTR_defaultConnection"))
-            
+
         {
         }
 
         public virtual DbSet<Session> Sessions { get; set; }
+        public virtual DbSet<Breakpoint> Breakpoints { get; set; }
         public virtual DbSet<CodeMetric> CodeMetrics { get; set; }
         public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<PathNode> PathNodes { get; set; }
