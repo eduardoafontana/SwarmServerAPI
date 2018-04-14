@@ -26,7 +26,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
             {
                 Guid[] sessionIds = context.Sessions.Where(s => s.ProjectName == "SGE.sln").Select(s => s.Id).ToArray();
 
-                pnCollection = context.PathNodes.Where(pn => sessionIds.Contains(pn.Session.Id)).OrderByDescending(pn => pn.Created).ToList();
+                pnCollection = context.PathNodes.Where(pn => sessionIds.Contains(pn.Session.Id)).GroupBy(pn => pn.Type).Select(pn => pn.FirstOrDefault()).ToList();
                 bCollection = context.Breakpoints.Where(b => sessionIds.Contains(b.Session.Id)).ToList();
             }
 
@@ -39,16 +39,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
                     {
                         id = pn.Id.ToString(),
                         parent_id = pn.Parent_Id.ToString(),
-                        method = pn.Type + " - " + bCollection.Where(b => b.Namespace == pn.Namespace && b.Type == pn.Type).Count().ToString(),
-                        nodeinfo = new ElementModel.NodeInfo()
-                        {
-                            name_space = pn.Namespace,
-                            type = pn.Type,
-                            method = pn.Method,
-                            returntype = pn.ReturnType,
-                            origin = pn.Origin,
-                            created = pn.Created.ToShortDateString()
-                        }
+                        method = pn.Type + " - " + bCollection.Where(b => b.Type == pn.Type).Count().ToString(),
                     }
                 });
             }
