@@ -12,11 +12,8 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 {
     public class SessionGridDataController : ApiController
     {
-        [HttpGet]
-        [Route("api/SessionGridData")]
         public IEnumerable<SessionGridModel> Get()
         {
-
             try
             {
                 using (SwarmData context = new SwarmData())

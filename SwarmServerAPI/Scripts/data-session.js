@@ -4,7 +4,7 @@ var columnDefs = [
         headerName: "-",
         field: "Identifier",
         cellRenderer: function (params) {
-            return '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"></button >'
+            return '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" data-identifier="' + params.value + '"></button >'
         }
     },
     {
