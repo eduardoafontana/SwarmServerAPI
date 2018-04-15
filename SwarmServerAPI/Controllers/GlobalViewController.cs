@@ -82,14 +82,35 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
                 {
                     data = new ElementModel.Data()
                     {
-                        id = pn.Id.ToString(),
-                        parent_id = pn.Parent_Id.ToString(),
+                        id = pn.Hash,
+                        parent_id = pn.Parent,
                         method = pn.Type + " - " + bCollection.Where(b => b.Type == pn.Type).Count().ToString(),
                         size = GenerateSize(bCollection.Where(b => b.Type == pn.Type).Count()),
                         color = nodeColor.GetColor(pn.Type)
                     }
                 });
             }
+
+            //load edges
+            List<ElementModel.Element> edgesCollection = new List<ElementModel.Element>();
+
+            foreach (ElementModel.Element element in model.ElementCollection)
+            {
+                if (String.IsNullOrWhiteSpace(element.data.parent_id))
+                    continue;
+
+                edgesCollection.Add(new ElementModel.Element()
+                {
+                    data = new ElementModel.Data()
+                    {
+                        id = element.data.id + "-" + element.data.id,
+                        source = element.data.parent_id,
+                        target = element.data.id
+                    }
+                });
+            }
+
+            model.ElementCollection.AddRange(edgesCollection);
 
             return View(model);
         }
