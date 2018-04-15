@@ -69,6 +69,8 @@
         $(cy.filter('node')).each(function () {
             this.style('height', this.data().size);
             this.style('width', this.data().size);
+
+            this.style('background-color', '#' + this.data().color);
         });
 
     });
