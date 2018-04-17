@@ -1,10 +1,11 @@
 // specify the columns
 var columnDefs = [
     {
-        headerName: "-",
+        headerName: "",
         field: "Identifier",
+        width: 80,
         cellRenderer: function (params) {
-            return '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" data-identifier="' + params.value + '"></button >'
+            return '<span class="glyphicon glyphicon-eye-open" aria-hidden="true" data-toggle="modal" data-target="#myModal" data-identifier="' + params.value + '"></span >'
         }
     },
     {
