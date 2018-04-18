@@ -9,7 +9,7 @@ using SwarmServerAPI.UI.SwarmServerAPI.General;
 
 namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 {
-    public class TaskGridDataController : ApiController
+    public class TaskTimeGridDataController : ApiController
     {
         public IEnumerable<TaskGridModel> Get()
         {

@@ -1,7 +1,7 @@
 ﻿<h1>Tasks</h1>
 <br />
 <h3>Total session elapsed time per task</h3>
-@using (Html.BeginForm("Recalculate", "Tasks", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Recalculate", "TasksTime", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <input type="submit" name="Submit" id="Submit" value="Recalculate" />
 }
@@ -28,4 +28,4 @@
      class="ag-theme-fresh ag-basic">
 </div>
 
-@Scripts.Render("~/bundles/data-task")
+@Scripts.Render("~/bundles/data-tasktime")

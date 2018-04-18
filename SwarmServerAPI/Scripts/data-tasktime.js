@@ -66,7 +66,7 @@ function createDataGrid() {
 }
 
 function loadDataFromServer() {
-    $.get("api/taskgriddata", function (data) {
+    $.get("api/tasktimegriddata", function (data) {
         rowData = data;
 
         createDataGrid();

@@ -7,7 +7,7 @@ using SwarmServerAPI.AppCode.Repository;
 
 namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 {
-    public class TasksController : Controller
+    public class TasksTimeController : Controller
     {
         // GET: Tasks
         public ActionResult Index()
