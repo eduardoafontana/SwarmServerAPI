@@ -209,7 +209,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controllers\SessionsController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -279,9 +278,8 @@
     <Content Include="Views\CodeMetrics\Index.cshtml" />
     <Content Include="Views\TasksTime\Index.cshtml" />
     <Content Include="Views\ImportSessions\Index.cshtml" />
-    <Content Include="Views\Visualization\Index.cshtml" />
     <Content Include="Views\GlobalView\Index.cshtml" />
-    <Content Include="Views\Sessions\Index.cshtml" />
+    <Content Include="Views\Visualization\Session.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
