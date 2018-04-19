@@ -1,5 +1,13 @@
 // specify the columns
 var columnDefs = [
+    {
+        headerName: "",
+        field: "Identifier",
+        width: 80,
+        cellRenderer: function (params) {
+            return '<span class="glyphicon glyphicon-eye-open" aria-hidden="true" data-toggle="modal" data-target="#myModal" data-identifier="' + params.value + '"></span >'
+        }
+    },
     { headerName: "ProjectName", field: "ProjectName" },
     { headerName: "Name", field: "Name" },
     { headerName: "Description", field: "Description" },

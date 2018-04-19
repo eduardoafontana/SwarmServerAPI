@@ -4,6 +4,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 {
     public class TaskGridModel
     {
+        public string Identifier { get; set; }
         public string ProjectName { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
