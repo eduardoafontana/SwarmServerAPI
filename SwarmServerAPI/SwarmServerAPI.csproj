@@ -251,6 +251,7 @@
     <Content Include="Scripts\dagre.min.js" />
     <Content Include="Scripts\data-codemetric.js" />
     <Content Include="Scripts\cytoscape-dagre.js" />
+    <Content Include="Scripts\data-task.js" />
     <Content Include="Scripts\data-tasktime.js" />
     <Content Include="Scripts\data-session.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -280,6 +281,7 @@
     <Content Include="Views\ImportSessions\Index.cshtml" />
     <Content Include="Views\GlobalView\Index.cshtml" />
     <Content Include="Views\Visualization\Session.cshtml" />
+    <Content Include="Views\Visualization\Task.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

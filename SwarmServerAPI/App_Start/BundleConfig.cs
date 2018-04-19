@@ -23,6 +23,9 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
             bundles.Add(new ScriptBundle("~/bundles/data-session").Include(
                       "~/Scripts/data-session.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/data-task").Include(
+                      "~/Scripts/data-task.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/data-tasktime").Include(
                       "~/Scripts/data-tasktime.js"));
 

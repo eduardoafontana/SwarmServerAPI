@@ -100,5 +100,34 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 
             return model.ElementCollection;
         }
+
+        [HttpGet]
+        [Route("api/Visualization/Task")]
+        public IEnumerable<TaskGridModel> GetTaskGrid()
+        {
+            try
+            {
+                using (SwarmData context = new SwarmData())
+                {
+                    //TODO: review logic later, data model changes
+                    List<Session> distinctTask = context.Sessions.GroupBy(d => new { d.TaskName }).Select(g => g.FirstOrDefault()).ToList();
+                    Guid[] distinctTaskIds = distinctTask.Select(t => t.Id).ToArray();
+
+                    return context.Sessions.Where(d => distinctTaskIds.Contains(d.Id)).Select(t => new TaskGridModel
+                    {
+                        ProjectName = t.ProjectName,
+                        Name = t.TaskName,
+                        Description = t.TaskDescription,
+                        Action = t.TaskAction,
+                        Created = t.TaskCreated,
+                        TotalSessionTime = t.TaskTotalSessionTime
+                    }).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw InternalError.ThrowError(ex);
+            }
+        }
     }
 }

@@ -10,9 +10,16 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 {
     public class VisualizationController : Controller
     {
-        public ActionResult Session(string id)
+        public ActionResult Session()
         {
             ViewBag.Title = "Sessions Page";
+
+            return View();
+        }
+
+        public ActionResult Task()
+        {
+            ViewBag.Title = "Task Page";
 
             return View();
         }
