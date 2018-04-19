@@ -102,7 +102,7 @@ function createDataGrid() {
 }
 
 function loadDataFromServer() {
-    $.get(location.origin + '/api/sessiongriddata', function (data) {
+    $.get(location.origin + '/api/Visualization/Session', function (data) {
         rowData = data;
 
         createDataGrid();

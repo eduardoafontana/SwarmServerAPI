@@ -10,9 +10,11 @@ using SwarmServerAPI.UI.SwarmServerAPI.Models;
 
 namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 {
-    public class SessionGridDataController : ApiController
+    public class VisualizationDataController : ApiController
     {
-        public IEnumerable<SessionGridModel> Get()
+        [HttpGet]
+        [Route("api/Visualization/Session")]
+        public IEnumerable<SessionGridModel> GetSessionGrid()
         {
             try
             {
@@ -40,7 +42,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
         }
 
         [HttpGet]
-        [Route("api/SessionGridData/SessionVisualization/{id}")]
+        [Route("api/Visualization/Session/{id}")]
         public List<ElementModel.Element> GetSessionVisualization(string id)
         {
             ElementModel model = new ElementModel();

@@ -193,7 +193,7 @@
     <Compile Include="Controllers\ImportSessionFilesController.cs" />
     <Compile Include="Controllers\ImportSessionsController.cs" />
     <Compile Include="Controllers\Api\SessionController.cs" />
-    <Compile Include="Controllers\Api\SessionGridDataController.cs" />
+    <Compile Include="Controllers\Api\VisualizationDataController.cs" />
     <Compile Include="Controllers\Api\CodeMetricGridDataController.cs" />
     <Compile Include="Controllers\Api\TaskTimeGridDataController.cs" />
     <Compile Include="Controllers\VisualizationController.cs" />

@@ -82,7 +82,7 @@
         var identifier = button.data('identifier');
 
         //Modal content visualization
-        $.get(location.origin + '/api/SessionGridData/SessionVisualization/' + identifier, function (data) {
+        $.get(location.origin + '/api/Visualization/Session/' + identifier, function (data) {
 
             var cy = cytoscape({
                 container: document.getElementById('cy'),
