@@ -15,3 +15,11 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.view-button-eye {
+    cursor: pointer;
+    font-size: 18px;
+}
+.view-button-eye:hover {
+    font-size: 20px;
+}

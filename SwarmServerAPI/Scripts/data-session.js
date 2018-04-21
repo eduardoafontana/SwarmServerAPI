@@ -3,9 +3,9 @@ var columnDefs = [
     {
         headerName: "",
         field: "Identifier",
-        width: 80,
+        width: 50,
         cellRenderer: function (params) {
-            return '<span class="glyphicon glyphicon-eye-open" aria-hidden="true" data-toggle="modal" data-target="#myModal" data-identifier="' + params.value + '"></span >'
+            return '<span class="glyphicon glyphicon-eye-open view-button-eye" aria-hidden="true" data-toggle="modal" data-target="#myModal" data-identifier="' + params.value + '"></span >'
         }
     },
     { headerName: "Identifier", field: "Identifier" },
