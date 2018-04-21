@@ -8,23 +8,11 @@ var columnDefs = [
             return '<span class="glyphicon glyphicon-eye-open" aria-hidden="true" data-toggle="modal" data-target="#myModal" data-identifier="' + params.value + '"></span >'
         }
     },
-    {
-        headerName: "Identifier",
-        field: "Identifier",
-        cellRenderer: function (params) {
-            return '<a href="Visualization/Index/' + params.value + '" target="_blank">' + params.value + '</a>'
-        }
-    },
+    { headerName: "Identifier", field: "Identifier" },
     {
         headerName: "Task",
         children: [
-            {
-                headerName: "Name",
-                field: "TaskName",
-                cellRenderer: function (params) {
-                    return '<a href="GlobalView/Index/' + params.data.Identifier + '" target="_blank">' + params.value + '</a>'
-                }
-            },
+            { headerName: "Name", field: "TaskName" },
             { headerName: "Action", field: "TaskAction" },
             { headerName: "Project", field: "TaskProjectName" }
         ]
