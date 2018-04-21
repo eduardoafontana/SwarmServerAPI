@@ -8,8 +8,24 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     <script src="https://www.ag-grid.com/dist/ag-grid/ag-grid.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var $loading = $('#loading').hide();
+
+            $(document)
+                .ajaxStart(function () {
+                    $loading.show();
+                })
+                .ajaxStop(function () {
+                    $loading.hide();
+                });
+        });
+    </script>
 </head>
 <body>
+    <div id="loading">
+        <div class="loader"></div>
+    </div>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
