@@ -250,6 +250,7 @@
     <Content Include="Scripts\dagre.min.js" />
     <Content Include="Scripts\data-codemetric.js" />
     <Content Include="Scripts\cytoscape-dagre.js" />
+    <Content Include="Scripts\ag-grid-hack.js" />
     <Content Include="Scripts\data-task.js" />
     <Content Include="Scripts\data-tasktime.js" />
     <Content Include="Scripts\data-session.js" />

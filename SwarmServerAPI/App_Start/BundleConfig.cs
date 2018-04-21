@@ -20,11 +20,13 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/data-session").Include(
-                      "~/Scripts/data-session.js"));
+            bundles.Add(new ScriptBundle("~/bundles/data-session")
+                .Include("~/Scripts/ag-grid-hack.js")
+                .Include("~/Scripts/data-session.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/data-task").Include(
-                      "~/Scripts/data-task.js"));
+            bundles.Add(new ScriptBundle("~/bundles/data-task")
+                .Include("~/Scripts/ag-grid-hack.js")
+                .Include("~/Scripts/data-task.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/data-tasktime").Include(
                       "~/Scripts/data-tasktime.js"));

@@ -41,6 +41,8 @@ function modelUpdated() {
     var processedRows = model.getRowCount();
     var eSpan = document.querySelector('#rowCount');
     eSpan.innerHTML = processedRows.toLocaleString() + ' / ' + totalRows.toLocaleString();
+
+    setDynamicGridHeight(processedRows);
 }
 
 function addQuickFilterListener() {

@@ -4,6 +4,12 @@
     button:disabled {
         color: #a0a0a0;
     }
+
+    body > div.container {
+        max-width: 100%;
+        margin-left: 50px;
+        margin-right: 50px;
+    }
 </style>
 
 <div style="padding: 4px">
@@ -17,9 +23,7 @@
     </div>
     <div style="clear: both;"></div>
 </div>
-<div style="width: 100%; height: 1080px;"
-     id="taskDataGrid"
-     class="ag-theme-fresh ag-basic">
+<div id="taskDataGrid" class="ag-theme-fresh ag-basic">
 </div>
 
 @Scripts.Render("~/bundles/data-task")
