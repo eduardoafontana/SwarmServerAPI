@@ -42,7 +42,7 @@ namespace SwarmServerAPI.AppCore.Service
                 Guid[] sessionIds = context.Sessions.Where(s => s.TaskName == sessionFilter.TaskName && s.ProjectName == sessionFilter.ProjectName).Select(s => s.Id).ToArray();
 
                 pnCollection = context.PathNodes.Where(pn => sessionIds.Contains(pn.Session.Id)).GroupBy(pn => pn.Type).Select(pn => pn.FirstOrDefault()).ToList();
-                bCollection = context.Breakpoints.Where(b => sessionIds.Contains(b.Session.Id)).ToList();
+                bCollection = context.Breakpoints.Where(b => sessionIds.Contains(b.Session.Id)).GroupBy(b => new { b.Namespace, b.Type, b.LineNumber }).Select(b => b.FirstOrDefault()).ToList();
             }
 
             NodeColor nodeColor = new NodeColor(bCollection);
