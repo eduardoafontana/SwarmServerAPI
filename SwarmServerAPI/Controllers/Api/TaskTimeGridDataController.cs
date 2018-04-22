@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using SwarmServerAPI.AppCode.Repository;
+using SwarmServerAPI.AppCore.Service.DTOModels;
 using SwarmServerAPI.UI.SwarmServerAPI.General;
 
 namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers

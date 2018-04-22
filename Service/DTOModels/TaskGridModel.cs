@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
+namespace SwarmServerAPI.AppCore.Service.DTOModels
 {
     public class TaskGridModel
     {

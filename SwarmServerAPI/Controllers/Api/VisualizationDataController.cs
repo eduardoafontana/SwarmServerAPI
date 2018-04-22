@@ -5,8 +5,9 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using SwarmServerAPI.AppCode.Repository;
+using SwarmServerAPI.AppCore.Service;
+using SwarmServerAPI.AppCore.Service.DTOModels;
 using SwarmServerAPI.UI.SwarmServerAPI.General;
-using SwarmServerAPI.UI.SwarmServerAPI.Models;
 
 namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 {
@@ -18,22 +19,8 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
         {
             try
             {
-                using (SwarmData context = new SwarmData())
-                {
-                    return context.Sessions.OrderByDescending(s => s.Started).Select(s => new SessionGridModel
-                    {
-                        Identifier = s.Id,
-                        TaskName = s.TaskName,
-                        TaskAction = s.TaskAction,
-                        TaskProjectName = s.ProjectName,
-                        DeveloperName = s.DeveloperName,
-                        Started = s.Started,
-                        Finished = s.Finished,
-                        BreakpointCount = s.Breakpoints.Count,
-                        EventCount = s.Events.Count,
-                        PathNodeCount = s.PathNodes.Count
-                    }).ToList();
-                }
+                SessionService sessionService = new SessionService();
+                return sessionService.GetSessionGrid();
             }
             catch (Exception ex)
             {
@@ -45,60 +32,15 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
         [Route("api/Visualization/Session/{id}")]
         public List<ElementModel.Element> GetSessionVisualization(string id)
         {
-            ElementModel model = new ElementModel();
-            List<PathNode> pnCollection = new List<PathNode>();
-
-            using (SwarmData context = new SwarmData())
+            try
             {
-                pnCollection = context.PathNodes
-                    .Where(pn => pn.Session.Id.ToString() == id).OrderBy(pn => pn.Created).ToList();
+                SessionService sessionService = new SessionService();
+                return sessionService.GetSessionVisualization(id);
             }
-
-            //load nodes
-            foreach (PathNode pn in pnCollection)
+            catch (Exception ex)
             {
-                model.ElementCollection.Add(new ElementModel.Element()
-                {
-                    data = new ElementModel.Data()
-                    {
-                        id = pn.Id.ToString(),
-                        parent_id = pn.Parent_Id.ToString(),
-                        method = pn.Method,
-                        nodeinfo = new ElementModel.NodeInfo()
-                        {
-                            name_space = pn.Namespace,
-                            type = pn.Type,
-                            method = pn.Method,
-                            returntype = pn.ReturnType,
-                            origin = pn.Origin,
-                            created = pn.Created.ToShortDateString()
-                        }
-                    }
-                });
+                throw InternalError.ThrowError(ex);
             }
-
-            //load edges
-            List<ElementModel.Element> edgesCollection = new List<ElementModel.Element>();
-
-            foreach (ElementModel.Element element in model.ElementCollection)
-            {
-                if (element.data.parent_id == Guid.Empty.ToString())
-                    continue;
-
-                edgesCollection.Add(new ElementModel.Element()
-                {
-                    data = new ElementModel.Data()
-                    {
-                        id = element.data.id + "-" + element.data.id,
-                        source = element.data.parent_id,
-                        target = element.data.id
-                    }
-                });
-            }
-
-            model.ElementCollection.AddRange(edgesCollection);
-
-            return model.ElementCollection;
         }
 
         [HttpGet]
@@ -107,23 +49,8 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
         {
             try
             {
-                using (SwarmData context = new SwarmData())
-                {
-                    //TODO: review logic later, data model changes
-                    List<Session> distinctTask = context.Sessions.GroupBy(d => new { d.TaskName }).Select(g => g.FirstOrDefault()).ToList();
-                    Guid[] distinctTaskIds = distinctTask.Select(t => t.Id).ToArray();
-
-                    return context.Sessions.Where(d => distinctTaskIds.Contains(d.Id)).Select(t => new TaskGridModel
-                    {
-                        Identifier = t.Id.ToString(),
-                        ProjectName = t.ProjectName,
-                        Name = t.TaskName,
-                        Description = t.TaskDescription,
-                        Action = t.TaskAction,
-                        Created = t.TaskCreated,
-                        TotalSessionTime = t.TaskTotalSessionTime
-                    }).ToList();
-                }
+                TaskService taskService = new TaskService();
+                return taskService.GetTaskGrid();
             }
             catch (Exception ex)
             {
@@ -131,110 +58,21 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
             }
         }
 
-        public class NodeColor
-        {
-            private static readonly List<string> ColorMap = new List<string>()
-            { "004BE5" , "0349E1" , "0748DD" , "0B47DA" , "0F46D6" , "1345D2" , "1644CF" , "1A43CB" , "1E42C7" , "2241C4"
-            , "2640C0" , "293FBD" , "2D3EB9" , "313DB5" , "353CB2" , "393BAE" , "3C39AA" , "4038A7" , "4437A3" , "48369F"
-            , "4C359C" , "503498" , "533395" , "573291" , "5B318D" , "5F308A" , "632F86" , "662E82" , "6A2D7F" , "6E2C7B"
-            , "722B77" , "762A74" , "792870" , "7D276D" , "812669" , "852565" , "892462" , "8C235E" , "90225A" , "942157"
-            , "982053" , "9C1F4F" , "A01E4C" , "A31D48" , "A71C45" , "AB1B41" , "AF1A3D" , "B3193A" , "B61736" , "BA1632"
-            , "BE152F" , "C2142B" , "C61327" , "C91224" , "CD1120" , "D1101D" , "D50F19" , "D90E15" , "DC0D12" , "E00C0E"
-            , "E40B0A", "E80A07", "EC0903", "F00800" };
 
-            private int MaxQuantity { get; set; }
-            private List<Breakpoint> BreakpointList { get; set; }
-
-            public NodeColor(List<Breakpoint> bCollection)
-            {
-                var groupTypes = bCollection.GroupBy(b => b.Type).Select(b => new { Quantity = b.Count() });
-
-                MaxQuantity = groupTypes.Max(x => x.Quantity);
-
-                BreakpointList = bCollection;
-            }
-
-            public string GetColor(string nodeType)
-            {
-                int quantityBreakpoint = BreakpointList.Where(b => b.Type == nodeType).Count();
-
-                if (quantityBreakpoint == 0)
-                    return ColorMap.First();
-
-                if (quantityBreakpoint == MaxQuantity)
-                    return ColorMap.Last();
-
-                int intermediateValue = Convert.ToInt32((ColorMap.Count() * quantityBreakpoint) / MaxQuantity);
-
-                if (intermediateValue >= ColorMap.Count())
-                    return ColorMap.Last();
-
-                return ColorMap[intermediateValue];
-            }
-        }
 
         [HttpGet]
         [Route("api/Visualization/Task/{id}")]
         public List<ElementModel.Element> GetTaskVisualization(string id)
         {
-            ElementModel model = new ElementModel();
-            List<PathNode> pnCollection = new List<PathNode>();
-            List<Breakpoint> bCollection = new List<Breakpoint>();
-
-            using (SwarmData context = new SwarmData())
+            try
             {
-                var sessionFilter = context.Sessions.Where(s => s.Id.ToString() == id).Select(s => new { TaskName = s.TaskName, ProjectName = s.ProjectName }).FirstOrDefault();
-                Guid[] sessionIds = context.Sessions.Where(s => s.TaskName == sessionFilter.TaskName && s.ProjectName == sessionFilter.ProjectName).Select(s => s.Id).ToArray();
-
-                pnCollection = context.PathNodes.Where(pn => sessionIds.Contains(pn.Session.Id)).GroupBy(pn => pn.Type).Select(pn => pn.FirstOrDefault()).ToList();
-                bCollection = context.Breakpoints.Where(b => sessionIds.Contains(b.Session.Id)).ToList();
+                TaskService taskService = new TaskService();
+                return taskService.GetTaskVisualization(id);
             }
-
-            NodeColor nodeColor = new NodeColor(bCollection);
-
-            //load nodes
-            foreach (PathNode pn in pnCollection)
+            catch (Exception ex)
             {
-                model.ElementCollection.Add(new ElementModel.Element()
-                {
-                    data = new ElementModel.Data()
-                    {
-                        id = pn.Hash,
-                        parent_id = pn.Parent,
-                        method = pn.Type + " - " + bCollection.Where(b => b.Type == pn.Type).Count().ToString(),
-                        size = GenerateSize(bCollection.Where(b => b.Type == pn.Type).Count()),
-                        color = nodeColor.GetColor(pn.Type)
-                    }
-                });
+                throw InternalError.ThrowError(ex);
             }
-
-            //load edges
-            List<ElementModel.Element> edgesCollection = new List<ElementModel.Element>();
-
-            foreach (ElementModel.Element element in model.ElementCollection)
-            {
-                if (String.IsNullOrWhiteSpace(element.data.parent_id))
-                    continue;
-
-                edgesCollection.Add(new ElementModel.Element()
-                {
-                    data = new ElementModel.Data()
-                    {
-                        id = element.data.id + "-" + element.data.id,
-                        source = element.data.parent_id,
-                        target = element.data.id
-                    }
-                });
-            }
-
-            model.ElementCollection.AddRange(edgesCollection);
-
-            return model.ElementCollection;
-        }
-
-        private int GenerateSize(int breakpointsCount)
-        {
-            return breakpointsCount + 10;
         }
     }
 }
