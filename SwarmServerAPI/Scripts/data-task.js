@@ -13,7 +13,6 @@ var columnDefs = [
     { headerName: "Description", field: "Description" },
     { headerName: "Action", field: "Action" },
     { headerName: "Created", field: "Created" },
-    { headerName: "TotalSessionTime", field: "TotalSessionTime" },
 ];
 
 var rowData = [];

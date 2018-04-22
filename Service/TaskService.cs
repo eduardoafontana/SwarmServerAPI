@@ -15,8 +15,7 @@ namespace SwarmServerAPI.AppCore.Service
         {
             using (SwarmData context = new SwarmData())
             {
-                //TODO: review logic later, data model changes
-                List<Session> distinctTask = context.Sessions.GroupBy(d => new { d.TaskName }).Select(g => g.FirstOrDefault()).ToList();
+                List<Session> distinctTask = context.Sessions.GroupBy(d => new { d.ProjectName, d.TaskName }).Select(g => g.FirstOrDefault()).ToList();
                 Guid[] distinctTaskIds = distinctTask.Select(t => t.Id).ToArray();
 
                 return context.Sessions.Where(d => distinctTaskIds.Contains(d.Id)).Select(t => new TaskGridModel
@@ -26,8 +25,7 @@ namespace SwarmServerAPI.AppCore.Service
                     Name = t.TaskName,
                     Description = t.TaskDescription,
                     Action = t.TaskAction,
-                    Created = t.TaskCreated,
-                    TotalSessionTime = t.TaskTotalSessionTime
+                    Created = t.TaskCreated
                 }).ToList();
             }
         }
