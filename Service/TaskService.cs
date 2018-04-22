@@ -30,6 +30,28 @@ namespace SwarmServerAPI.AppCore.Service
             }
         }
 
+        //public List<PathNode> MountTreeByType(List<PathNode> pnCollection)
+        //{
+        //    List<PathNode> tree = new List<PathNode>();
+
+        //    List<PathNode> roots = pnCollection.Where(pn => pn.Parent_Id == Guid.Empty).ToList();
+
+        //    tree.AddRange(roots);
+
+        //    foreach (PathNode root in roots)
+        //    {
+        //        foreach (PathNode child in pnCollection.Where(pn => pn.Parent_Id == root.Id).ToList())
+        //        {
+        //            if (tree.Any(pn => pn.Type == child.Type))
+        //                continue;
+
+        //            tree.Add(child);
+                    
+        //            PathNode parent = tree
+        //        }
+        //    }
+        //}
+
         public List<ElementModel.Element> GetTaskVisualization(string id)
         {
             ElementModel model = new ElementModel();
@@ -41,7 +63,7 @@ namespace SwarmServerAPI.AppCore.Service
                 var sessionFilter = context.Sessions.Where(s => s.Id.ToString() == id).Select(s => new { TaskName = s.TaskName, ProjectName = s.ProjectName }).FirstOrDefault();
                 Guid[] sessionIds = context.Sessions.Where(s => s.TaskName == sessionFilter.TaskName && s.ProjectName == sessionFilter.ProjectName).Select(s => s.Id).ToArray();
 
-                pnCollection = context.PathNodes.Where(pn => sessionIds.Contains(pn.Session.Id)).GroupBy(pn => pn.Type).Select(pn => pn.FirstOrDefault()).ToList();
+                pnCollection = context.PathNodes.Where(pn => sessionIds.Contains(pn.Session.Id)).GroupBy(pn => pn.Type).Select(pn => pn.FirstOrDefault()).OrderBy(pn => pn.Created).ToList();
                 bCollection = context.Breakpoints.Where(b => sessionIds.Contains(b.Session.Id)).GroupBy(b => new { b.Namespace, b.Type, b.LineNumber }).Select(b => b.FirstOrDefault()).ToList();
             }
 
@@ -54,8 +76,8 @@ namespace SwarmServerAPI.AppCore.Service
                 {
                     data = new ElementModel.Data()
                     {
-                        id = pn.Hash,
-                        parent_id = pn.Parent,
+                        id = pn.Id.ToString(),
+                        parent_id = model.ElementCollection.Count() == 0 ? null : model.ElementCollection.Last().data.id,
                         method = pn.Type + " - " + bCollection.Where(b => b.Type == pn.Type).Count().ToString(),
                         size = bCollection.Where(b => b.Type == pn.Type).Count() + 10,
                         color = nodeColor.GetColor(pn.Type)
