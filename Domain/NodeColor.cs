@@ -23,11 +23,12 @@ namespace SwarmServerAPI.AppCore.Domain
 
         public NodeColor(List<Breakpoint> bCollection)
         {
+            BreakpointList = bCollection;
+
             var groupTypes = bCollection.GroupBy(b => b.Type).Select(b => new { Quantity = b.Count() });
 
-            MaxQuantity = groupTypes.Max(x => x.Quantity);
-
-            BreakpointList = bCollection;
+            if (groupTypes.Count() != 0)
+                MaxQuantity = groupTypes.Max(x => x.Quantity);
         }
 
         public string GetColor(string nodeType)
