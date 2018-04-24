@@ -278,6 +278,7 @@
     <Content Include="Views\ImportSessions\Index.cshtml" />
     <Content Include="Views\Visualization\Session.cshtml" />
     <Content Include="Views\Visualization\Task.cshtml" />
+    <Content Include="Views\Visualization\Global.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

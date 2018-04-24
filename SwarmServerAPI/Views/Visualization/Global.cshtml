@@ -1,0 +1,85 @@
+﻿
+@Scripts.Render("~/bundles/cytoscape")
+
+<style>
+    #cy {
+        width: 1200px;
+        height: 600px;
+        display: block;
+        border: 1px solid black;
+    }
+
+    .qtip {
+        max-width: none !important;
+        font-size: 12px;
+    }
+</style>
+<script language="javascript">
+
+    $(function () {
+
+        var identifier = 'dc804e5a-ad49-46b9-a431-eedd41c99be7';
+
+        //Modal content visualization
+        $.get(location.origin + '/api/Visualization/Task/' + identifier, function (data) {
+
+            var cy = cytoscape({
+                container: document.getElementById('cy'),
+
+                elements: data,
+
+                style: [
+                    {
+                        selector: 'node',
+                        style: {
+                            'background-color': '#666',
+                            'label': 'data(method)',
+                            'width': 10,
+                            'height': 10,
+                        }
+                    },
+                    {
+                        selector: 'edge',
+                        style: {
+                            'width': 2,
+                            'line-color': '#ccc',
+                            'target-arrow-color': '#ccc',
+                            'target-arrow-shape': 'triangle'
+                        }
+                    }
+                ],
+
+                layout: {
+                    name: 'grid'
+                    //, rows: 20
+                },
+
+                ready: function () {
+                    window.cy = this;
+                },
+
+                wheelSensitivity: 0.1
+            });
+
+            cy.animate({
+                pan: { x: 50, y: 50 },
+                zoom: 1
+            },
+                {
+                    duration: 1000
+                });
+
+            $(cy.filter('node')).each(function () {
+                this.style('height', this.data().size);
+                this.style('width', this.data().size);
+
+                this.style('background-color', '#' + this.data().color);
+            });
+
+        });
+    });
+</script>
+
+<h2>Global View</h2>
+
+<div id="cy"></div>

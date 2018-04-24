@@ -23,5 +23,12 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 
             return View();
         }
+
+        public ActionResult Global()
+        {
+            ViewBag.Title = "Global Page";
+
+            return View();
+        }
     }
 }
