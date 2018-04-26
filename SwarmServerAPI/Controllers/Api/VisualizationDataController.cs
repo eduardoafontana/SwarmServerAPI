@@ -58,8 +58,6 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
             }
         }
 
-
-
         [HttpGet]
         [Route("api/Visualization/Task/{id}")]
         public List<ElementModel.Element> GetTaskVisualization(string id)
@@ -68,6 +66,21 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
             {
                 TaskService taskService = new TaskService();
                 return taskService.GetTaskVisualization(id);
+            }
+            catch (Exception ex)
+            {
+                throw InternalError.ThrowError(ex);
+            }
+        }
+
+        [HttpGet]
+        [Route("api/Visualization/Global/")]
+        public List<ElementModel.Element> GetGlobalVisualization()
+        {
+            try
+            {
+                TaskService taskService = new TaskService();
+                return taskService.GetGlobalVisualization();
             }
             catch (Exception ex)
             {

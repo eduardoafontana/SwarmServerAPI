@@ -2,26 +2,24 @@
 @Scripts.Render("~/bundles/cytoscape")
 
 <style>
-    #cy {
-        width: 1200px;
-        height: 600px;
-        display: block;
-        border: 1px solid black;
+    body, html {
+        height: 100%;
+        padding-bottom: 70px;
     }
+    body > div.container {
+        max-width: 100%;
+        margin-left: 50px;
+        margin-right: 50px;
 
-    .qtip {
-        max-width: none !important;
-        font-size: 12px;
+        height: 100%;
     }
 </style>
 <script language="javascript">
 
     $(function () {
 
-        var identifier = 'dc804e5a-ad49-46b9-a431-eedd41c99be7';
-
         //Modal content visualization
-        $.get(location.origin + '/api/Visualization/Task/' + identifier, function (data) {
+        $.get(location.origin + '/api/Visualization/Global/', function (data) {
 
             var cy = cytoscape({
                 container: document.getElementById('cy'),
@@ -51,7 +49,7 @@
 
                 layout: {
                     name: 'grid'
-                    //, rows: 20
+                    , rows: 40
                 },
 
                 ready: function () {
