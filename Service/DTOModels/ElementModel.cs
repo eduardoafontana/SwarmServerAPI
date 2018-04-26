@@ -22,6 +22,7 @@ namespace SwarmServerAPI.AppCore.Service.DTOModels
             public int size { get; set; }
             public string color { get; set; }
             public NodeInfo nodeinfo { get; set; }
+            public string project { get; set; }
         }
 
         public class NodeInfo

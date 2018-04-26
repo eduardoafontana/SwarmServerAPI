@@ -47,7 +47,7 @@ namespace SwarmServerAPI.AppCore.Service
         //                continue;
 
         //            tree.Add(child);
-                    
+
         //            PathNode parent = tree
         //        }
         //    }
@@ -113,53 +113,53 @@ namespace SwarmServerAPI.AppCore.Service
         public List<ElementModel.Element> GetGlobalVisualization()
         {
             ElementModel model = new ElementModel();
-            List<PathNode> pnCollection = new List<PathNode>();
             List<Breakpoint> bCollection = new List<Breakpoint>();
 
             using (SwarmData context = new SwarmData())
             {
-                pnCollection = context.PathNodes.GroupBy(pn => new { pn.Session.ProjectName, pn.Type }).Select(pn => pn.FirstOrDefault()).OrderBy(pn => new { pn.Session.ProjectName, pn.Created }).ToList();
+                var pnCollection = context.PathNodes.GroupBy(pn => new { pn.Session.ProjectName, pn.Type }).Select(pn => pn.FirstOrDefault()).OrderBy(pn => new { pn.Session.ProjectName, pn.Created }).Select(pn => new { PathNode = pn, Session = pn.Session });
                 bCollection = context.Breakpoints.GroupBy(b => new { b.Session.ProjectName, b.Namespace, b.Type, b.LineNumber }).Select(b => b.FirstOrDefault()).ToList();
+
+                NodeColor nodeColor = new NodeColor(bCollection);
+
+                //load nodes
+                foreach (var item in pnCollection)
+                {
+                    model.ElementCollection.Add(new ElementModel.Element()
+                    {
+                        data = new ElementModel.Data()
+                        {
+                            id = item.PathNode.Id.ToString(),
+                            parent_id = model.ElementCollection.Count() == 0 ? null : model.ElementCollection.Last().data.project != item.Session.ProjectName ? null : model.ElementCollection.Last().data.id,
+                            method = item.PathNode.Type + " - " + bCollection.Where(b => b.Type == item.PathNode.Type).Count().ToString(),
+                            size = bCollection.Where(b => b.Type == item.PathNode.Type).Count() + 10,
+                            color = nodeColor.GetColor(item.PathNode.Type),
+                            project = item.Session.ProjectName
+                        }
+                    });
+                }
             }
 
-            NodeColor nodeColor = new NodeColor(bCollection);
+            //load edges
+            List<ElementModel.Element> edgesCollection = new List<ElementModel.Element>();
 
-            //load nodes
-            foreach (PathNode pn in pnCollection)
+            foreach (ElementModel.Element element in model.ElementCollection)
             {
-                model.ElementCollection.Add(new ElementModel.Element()
+                if (String.IsNullOrWhiteSpace(element.data.parent_id))
+                    continue;
+
+                edgesCollection.Add(new ElementModel.Element()
                 {
                     data = new ElementModel.Data()
                     {
-                        id = pn.Id.ToString(),
-                        parent_id = model.ElementCollection.Count() == 0 ? null : model.ElementCollection.Last().data.id,
-                        method = pn.Type + " - " + bCollection.Where(b => b.Type == pn.Type).Count().ToString(),
-                        size = bCollection.Where(b => b.Type == pn.Type).Count() + 10,
-                        color = nodeColor.GetColor(pn.Type)
+                        id = element.data.id + "-" + element.data.id,
+                        source = element.data.parent_id,
+                        target = element.data.id
                     }
                 });
             }
 
-            //load edges
-            //List<ElementModel.Element> edgesCollection = new List<ElementModel.Element>();
-
-            //foreach (ElementModel.Element element in model.ElementCollection)
-            //{
-            //    if (String.IsNullOrWhiteSpace(element.data.parent_id))
-            //        continue;
-
-            //    edgesCollection.Add(new ElementModel.Element()
-            //    {
-            //        data = new ElementModel.Data()
-            //        {
-            //            id = element.data.id + "-" + element.data.id,
-            //            source = element.data.parent_id,
-            //            target = element.data.id
-            //        }
-            //    });
-            //}
-
-            //model.ElementCollection.AddRange(edgesCollection);
+            model.ElementCollection.AddRange(edgesCollection);
 
             return model.ElementCollection;
         }
