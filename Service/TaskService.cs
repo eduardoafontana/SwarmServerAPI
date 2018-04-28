@@ -114,30 +114,33 @@ namespace SwarmServerAPI.AppCore.Service
         {
             ElementModel model = new ElementModel();
             List<Breakpoint> bCollection = new List<Breakpoint>();
+            List<PathNode> pnCollection = new List<PathNode>();
 
             using (SwarmData context = new SwarmData())
             {
-                var pnCollection = context.PathNodes.GroupBy(pn => new { pn.Session.ProjectName, pn.Type }).Select(pn => pn.FirstOrDefault()).OrderBy(pn => new { pn.Session.ProjectName, pn.Created }).Select(pn => new { PathNode = pn, Session = pn.Session });
-                bCollection = context.Breakpoints.GroupBy(b => new { b.Session.ProjectName, b.Namespace, b.Type, b.LineNumber }).Select(b => b.FirstOrDefault()).ToList();
+                var sessionFilter = context.Sessions.Where(s => s.Id.ToString() == id).Select(s => new { ProjectName = s.ProjectName }).FirstOrDefault();
+                Guid[] sessionIds = context.Sessions.Where(s => s.ProjectName == sessionFilter.ProjectName).Select(s => s.Id).ToArray();
 
-                NodeColor nodeColor = new NodeColor(bCollection);
+                pnCollection = context.PathNodes.Where(pn => sessionIds.Contains(pn.Session.Id)).GroupBy(pn => pn.Type).Select(pn => pn.FirstOrDefault()).OrderBy(pn => pn.Created).ToList();
+                bCollection = context.Breakpoints.Where(b => sessionIds.Contains(b.Session.Id)).GroupBy(b => new { b.Namespace, b.Type, b.LineNumber }).Select(b => b.FirstOrDefault()).ToList();
+            }
 
-                //load nodes
-                foreach (var item in pnCollection)
+            NodeColor nodeColor = new NodeColor(bCollection);
+
+            //load nodes
+            foreach (var pn in pnCollection)
+            {
+                model.ElementCollection.Add(new ElementModel.Element()
                 {
-                    model.ElementCollection.Add(new ElementModel.Element()
+                    data = new ElementModel.Data()
                     {
-                        data = new ElementModel.Data()
-                        {
-                            id = item.PathNode.Id.ToString(),
-                            parent_id = model.ElementCollection.Count() == 0 ? null : model.ElementCollection.Last().data.project != item.Session.ProjectName ? null : model.ElementCollection.Last().data.id,
-                            method = item.PathNode.Type + " - " + bCollection.Where(b => b.Type == item.PathNode.Type).Count().ToString(),
-                            size = bCollection.Where(b => b.Type == item.PathNode.Type).Count() + 10,
-                            color = nodeColor.GetColor(item.PathNode.Type),
-                            project = item.Session.ProjectName
-                        }
-                    });
-                }
+                        id = pn.Id.ToString(),
+                        parent_id = model.ElementCollection.Count() == 0 ? null : model.ElementCollection.Last().data.id,
+                        method = pn.Type + " - " + bCollection.Where(b => b.Type == pn.Type).Count().ToString(),
+                        size = bCollection.Where(b => b.Type == pn.Type).Count() + 10,
+                        color = nodeColor.GetColor(pn.Type)
+                    }
+                });
             }
 
             //load edges
