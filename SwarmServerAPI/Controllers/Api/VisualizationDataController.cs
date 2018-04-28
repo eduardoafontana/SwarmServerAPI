@@ -74,6 +74,23 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
         }
 
         [HttpGet]
+        [Route("api/Visualization/Global/Projects")]
+        public HttpResponseMessage GetGlobalProjects()
+        {
+            try
+            {
+                ProjectService projectService = new ProjectService();
+                var projects = projectService.GetDistinctProjects();
+
+                return Request.CreateResponse(HttpStatusCode.OK, projects, "application/json");
+            }
+            catch (Exception ex)
+            {
+                throw InternalError.ThrowError(ex);
+            }
+        }
+
+        [HttpGet]
         [Route("api/Visualization/Global/")]
         public List<ElementModel.Element> GetGlobalVisualization()
         {

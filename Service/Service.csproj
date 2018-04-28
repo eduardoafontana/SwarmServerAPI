@@ -57,6 +57,7 @@
     <Compile Include="DTOModels\SessionModel.cs" />
     <Compile Include="DTOModels\TaskGridModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProjectService.cs" />
     <Compile Include="TaskService.cs" />
     <Compile Include="SessionService.cs" />
   </ItemGroup>
