@@ -91,13 +91,13 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
         }
 
         [HttpGet]
-        [Route("api/Visualization/Global/")]
-        public List<ElementModel.Element> GetGlobalVisualization()
+        [Route("api/Visualization/Global/{id}")]
+        public List<ElementModel.Element> GetGlobalVisualization(string id)
         {
             try
             {
                 TaskService taskService = new TaskService();
-                return taskService.GetGlobalVisualization();
+                return taskService.GetGlobalVisualization(id);
             }
             catch (Exception ex)
             {

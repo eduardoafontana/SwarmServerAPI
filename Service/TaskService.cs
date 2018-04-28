@@ -110,7 +110,7 @@ namespace SwarmServerAPI.AppCore.Service
             return model.ElementCollection;
         }
 
-        public List<ElementModel.Element> GetGlobalVisualization()
+        public List<ElementModel.Element> GetGlobalVisualization(string id)
         {
             ElementModel model = new ElementModel();
             List<Breakpoint> bCollection = new List<Breakpoint>();
