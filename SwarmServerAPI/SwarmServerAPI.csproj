@@ -353,11 +353,11 @@
     <Content Include="Scripts\bootstrap.js.map" />
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
     <Content Include="Scripts\bootstrap.bundle.js.map" />
-    <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
-    <Content Include="Scripts\jquery-3.0.0.js" />
-    <Content Include="Scripts\jquery-3.0.0.min.js" />
-    <Content Include="Scripts\jquery-3.0.0.slim.js" />
-    <Content Include="Scripts\jquery-3.0.0.slim.min.js" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <Content Include="Scripts\jquery.qtip.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\popper-utils.js" />
@@ -392,8 +392,6 @@
     <Content Include="Views\Visualization\Session.cshtml" />
     <Content Include="Views\Visualization\Task.cshtml" />
     <Content Include="Views\Visualization\Global.cshtml" />
-    <Content Include="Scripts\jquery-3.0.0.slim.min.map" />
-    <Content Include="Scripts\jquery-3.0.0.min.map" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
@@ -403,12 +401,16 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">
