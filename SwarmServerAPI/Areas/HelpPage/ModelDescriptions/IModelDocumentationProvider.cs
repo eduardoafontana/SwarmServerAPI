@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace SwarmServerAPI.Areas.HelpPage.ModelDescriptions
+namespace SwarmServerAPI.UI.SwarmServerAPI.Areas.HelpPage.ModelDescriptions
 {
     public interface IModelDocumentationProvider
     {

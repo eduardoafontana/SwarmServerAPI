@@ -1,7 +1,7 @@
 using System.Web.Http;
 using System.Web.Mvc;
 
-namespace SwarmServerAPI.Areas.HelpPage
+namespace SwarmServerAPI.UI.SwarmServerAPI.Areas.HelpPage
 {
     public class HelpPageAreaRegistration : AreaRegistration
     {

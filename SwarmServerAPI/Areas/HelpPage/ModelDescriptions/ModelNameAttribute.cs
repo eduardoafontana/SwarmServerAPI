@@ -1,6 +1,6 @@
 using System;
 
-namespace SwarmServerAPI.Areas.HelpPage.ModelDescriptions
+namespace SwarmServerAPI.UI.SwarmServerAPI.Areas.HelpPage.ModelDescriptions
 {
     /// <summary>
     /// Use this attribute to change the name of the <see cref="ModelDescription"/> generated for a type.

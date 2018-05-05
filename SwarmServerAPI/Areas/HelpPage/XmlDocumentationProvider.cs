@@ -5,9 +5,9 @@ using System.Reflection;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
 using System.Xml.XPath;
-using SwarmServerAPI.Areas.HelpPage.ModelDescriptions;
+using SwarmServerAPI.UI.SwarmServerAPI.Areas.HelpPage.ModelDescriptions;
 
-namespace SwarmServerAPI.Areas.HelpPage
+namespace SwarmServerAPI.UI.SwarmServerAPI.Areas.HelpPage
 {
     /// <summary>
     /// A custom <see cref="IDocumentationProvider"/> that reads the API documentation from an XML documentation file.

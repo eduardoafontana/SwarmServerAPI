@@ -3,7 +3,7 @@ using System.Text;
 using System.Web;
 using System.Web.Http.Description;
 
-namespace SwarmServerAPI.Areas.HelpPage
+namespace SwarmServerAPI.UI.SwarmServerAPI.Areas.HelpPage
 {
     public static class ApiDescriptionExtensions
     {

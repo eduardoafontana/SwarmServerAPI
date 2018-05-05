@@ -1,4 +1,4 @@
-namespace SwarmServerAPI.Areas.HelpPage.ModelDescriptions
+namespace SwarmServerAPI.UI.SwarmServerAPI.Areas.HelpPage.ModelDescriptions
 {
     public class SimpleTypeModelDescription : ModelDescription
     {

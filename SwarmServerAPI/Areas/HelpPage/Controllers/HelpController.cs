@@ -1,10 +1,10 @@
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using SwarmServerAPI.Areas.HelpPage.ModelDescriptions;
-using SwarmServerAPI.Areas.HelpPage.Models;
+using SwarmServerAPI.UI.SwarmServerAPI.Areas.HelpPage.ModelDescriptions;
+using SwarmServerAPI.UI.SwarmServerAPI.Areas.HelpPage.Models;
 
-namespace SwarmServerAPI.Areas.HelpPage.Controllers
+namespace SwarmServerAPI.UI.SwarmServerAPI.Areas.HelpPage.Controllers
 {
     /// <summary>
     /// The controller that will handle requests for the help page.

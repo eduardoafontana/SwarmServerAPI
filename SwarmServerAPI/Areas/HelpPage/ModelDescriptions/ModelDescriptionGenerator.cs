@@ -11,7 +11,7 @@ using System.Web.Http.Description;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
 
-namespace SwarmServerAPI.Areas.HelpPage.ModelDescriptions
+namespace SwarmServerAPI.UI.SwarmServerAPI.Areas.HelpPage.ModelDescriptions
 {
     /// <summary>
     /// Generates model descriptions for given types.

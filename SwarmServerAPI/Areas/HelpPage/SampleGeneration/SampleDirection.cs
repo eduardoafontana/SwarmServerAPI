@@ -1,4 +1,4 @@
-namespace SwarmServerAPI.Areas.HelpPage
+namespace SwarmServerAPI.UI.SwarmServerAPI.Areas.HelpPage
 {
     /// <summary>
     /// Indicates whether the sample is used for request or response

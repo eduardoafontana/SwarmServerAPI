@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace SwarmServerAPI.Areas.HelpPage.ModelDescriptions
+namespace SwarmServerAPI.UI.SwarmServerAPI.Areas.HelpPage.ModelDescriptions
 {
     public class ParameterDescription
     {

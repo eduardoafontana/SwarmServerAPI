@@ -11,10 +11,10 @@ using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
-using SwarmServerAPI.Areas.HelpPage.ModelDescriptions;
-using SwarmServerAPI.Areas.HelpPage.Models;
+using SwarmServerAPI.UI.SwarmServerAPI.Areas.HelpPage.ModelDescriptions;
+using SwarmServerAPI.UI.SwarmServerAPI.Areas.HelpPage.Models;
 
-namespace SwarmServerAPI.Areas.HelpPage
+namespace SwarmServerAPI.UI.SwarmServerAPI.Areas.HelpPage
 {
     public static class HelpPageConfigurationExtensions
     {

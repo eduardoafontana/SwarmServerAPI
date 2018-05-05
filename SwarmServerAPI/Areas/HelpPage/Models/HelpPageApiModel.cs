@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
 using System.Web.Http.Description;
-using SwarmServerAPI.Areas.HelpPage.ModelDescriptions;
+using SwarmServerAPI.UI.SwarmServerAPI.Areas.HelpPage.ModelDescriptions;
 
-namespace SwarmServerAPI.Areas.HelpPage.Models
+namespace SwarmServerAPI.UI.SwarmServerAPI.Areas.HelpPage.Models
 {
     /// <summary>
     /// The model that represents an API displayed on the help page.
