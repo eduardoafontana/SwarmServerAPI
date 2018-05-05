@@ -56,7 +56,8 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
                       "~/Content/bootstrap-select.css",
                       "~/Content/bootstrap-grid.css",
                       "~/Content/bootstrap-reboot.css",
-                      "~/Content/dashboard.css"));
+                      "~/Content/dashboard.css",
+                      "~/Content/font-awesome.css"));
 
             BundleTable.EnableOptimizations = true;
         }
