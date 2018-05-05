@@ -19,7 +19,8 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js",
-                      "~/Scripts/bootstrap-select.min.js"));
+                      "~/Scripts/bootstrap-select.js",
+                      "~/Scripts/bootstrap.bundle.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/data-session")
                 .Include("~/Scripts/ag-grid-hack.js")
@@ -52,7 +53,12 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
                       "~/Content/jquery.qtip.css",
-                      "~/Content/bootstrap-select.min.css"));
+                      "~/Content/bootstrap-select.css",
+                      "~/Content/bootstrap-grid.css",
+                      "~/Content/bootstrap-reboot.css",
+                      "~/Content/dashboard.css"));
+
+            BundleTable.EnableOptimizations = true;
         }
     }
 }
