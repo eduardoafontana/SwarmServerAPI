@@ -7,6 +7,7 @@
     <meta name="author" content="Eduardo Andreetta Fontana">
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     <script src="https://www.ag-grid.com/dist/ag-grid/ag-grid.js"></script>
@@ -51,13 +52,30 @@
                                 Home <span class="sr-only">(current)</span>
                             </a>
                         </li>
-
-                        <li class="nav-item">@Html.ActionLink("Code Metrics", "Index", "CodeMetrics", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li class="nav-item">@Html.ActionLink("Import Sessions", "Index", "ImportSessions", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li class="nav-item">@Html.ActionLink("Tasks Time", "Index", "TasksTime", new { area = "" }, new { @class = "nav-link" })</li>
-
-                        <li class="nav-item">@Html.ActionLink("API", "Index", "Help", new { area = "" }, new { @class = "nav-link" })</li>
-                        <!--itens de menu-->
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index", "CodeMetrics")">
+                                <i class="fas fa-code fa-lg feather"></i>
+                                Code Metrics
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index", "ImportSessions")">
+                                <i class="far fa-arrow-alt-circle-up fa-lg feather"></i>
+                                Import Sessions
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index", "TasksTime")">
+                                <i class="far fa-clock fa-lg feather"></i>
+                                Tasks Time
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index", "Help")">
+                                <i class="fas fa-globe fa-lg feather"></i>
+                                API
+                            </a>
+                        </li>
                     </ul>
 
                     <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
@@ -68,17 +86,23 @@
                     </h6>
                     <ul class="nav flex-column mb-2">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="file-text"></span>
-                                Current month
+                            <a class="nav-link" href="@Url.Action("Task", "Visualization")">
+                                <i class="far fa-eye fa-lg feather"></i>
+                                Tasks
                             </a>
                         </li>
-
-                        <li class="nav-item">@Html.ActionLink("Tasks", "Task", "Visualization", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li class="nav-item">@Html.ActionLink("Sessions", "Session", "Visualization", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li class="nav-item">@Html.ActionLink("Global", "Global", "Visualization", new { area = "" }, new { @class = "nav-link" })</li>
-
-                        <!--itens de menu-->
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Session", "Visualization")">
+                                <i class="far fa-eye fa-lg feather"></i>
+                                Sessions
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Global", "Visualization")">
+                                <i class="far fa-eye fa-lg feather"></i>
+                                Global
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </nav>
