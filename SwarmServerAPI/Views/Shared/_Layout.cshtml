@@ -47,31 +47,31 @@
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Home" ? "active" : "")" href="#">
                                 <i class="fas fa-home fa-lg feather"></i>
-                                Home <span class="sr-only">(current)</span>
+                                Home
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Index", "CodeMetrics")">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "CodeMetrics" ? "active" : "")" href="@Url.Action("Index", "CodeMetrics")">
                                 <i class="fas fa-code fa-lg feather"></i>
                                 Code Metrics
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Index", "ImportSessions")">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "ImportSessions" ? "active" : "")" href="@Url.Action("Index", "ImportSessions")">
                                 <i class="far fa-arrow-alt-circle-up fa-lg feather"></i>
                                 Import Sessions
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Index", "TasksTime")">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "TasksTime" ? "active" : "")" href="@Url.Action("Index", "TasksTime")">
                                 <i class="far fa-clock fa-lg feather"></i>
                                 Tasks Time
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Index", "Help")">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Help" ? "active" : "")" href="@Url.Action("Index", "Help")">
                                 <i class="fas fa-globe fa-lg feather"></i>
                                 API
                             </a>
@@ -86,19 +86,19 @@
                     </h6>
                     <ul class="nav flex-column mb-2">
                         <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Task", "Visualization")">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "Task" ? "active" : "")" href="@Url.Action("Task", "Visualization")">
                                 <i class="far fa-eye fa-lg feather"></i>
                                 Tasks
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Session", "Visualization")">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "Session" ? "active" : "")" href="@Url.Action("Session", "Visualization")">
                                 <i class="far fa-eye fa-lg feather"></i>
                                 Sessions
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Global", "Visualization")">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "Global" ? "active" : "")" href="@Url.Action("Global", "Visualization")">
                                 <i class="far fa-eye fa-lg feather"></i>
                                 Global
                             </a>
