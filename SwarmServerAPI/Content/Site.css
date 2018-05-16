@@ -82,3 +82,8 @@ textarea {
     font-size: 12px;
 }
 /* cytoscape visualization - end */
+
+main 
+{
+    padding-top: 60px !important;
+}
