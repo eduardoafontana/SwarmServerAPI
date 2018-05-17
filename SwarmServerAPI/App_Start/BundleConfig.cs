@@ -17,10 +17,12 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+                      "~/Scripts/popper.js",
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js",
                       "~/Scripts/bootstrap-select.js",
-                      "~/Scripts/bootstrap.bundle.js"));
+                      "~/Scripts/bootstrap.bundle.js"
+                      ));
 
             bundles.Add(new ScriptBundle("~/bundles/data-session")
                 .Include("~/Scripts/ag-grid-hack.js")
