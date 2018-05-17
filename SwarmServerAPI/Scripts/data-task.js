@@ -5,7 +5,7 @@ var columnDefs = [
         field: "Identifier",
         width: 50,
         cellRenderer: function (params) {
-            return '<span class="glyphicon glyphicon-eye-open view-button-eye" aria-hidden="true" data-toggle="modal" data-target="#myModal" data-identifier="' + params.value + '"></span >'
+            return '<span class="view-button-eye" aria-hidden="true" data-toggle="modal" data-target="#myModal" data-identifier="' + params.value + '"><i class="fas fa-external-link-alt"></i></span >'
         }
     },
     { headerName: "ProjectName", field: "ProjectName" },
