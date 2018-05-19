@@ -87,3 +87,10 @@ main
 {
     padding-top: 60px !important;
 }
+
+/* Fix on modaldialog because reboot*/
+@media (min-width: 576px) {
+    .modal-dialog {
+        max-width : 100%;
+    }
+}
