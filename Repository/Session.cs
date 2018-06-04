@@ -15,6 +15,7 @@ namespace SwarmServerAPI.AppCode.Repository
         public DateTime? Finished { get; set; }
 
         public virtual ICollection<Breakpoint> Breakpoints { get; set; }
+        public ICollection<CodeFile> CodeFiles { get; set; }
         public virtual ICollection<Event> Events { get; set; }
         public virtual ICollection<PathNode> PathNodes { get; set; }
 
