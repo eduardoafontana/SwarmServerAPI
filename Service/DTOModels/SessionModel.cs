@@ -11,6 +11,7 @@ namespace SwarmServerAPI.AppCore.Service.DTOModels
         public DateTime? Finished { get; set; }
 
         public List<BreakpointModel> Breakpoints { get; set; } = new List<BreakpointModel>();
+        public List<CodeFileModel> CodeFiles { get; set; } = new List<CodeFileModel>();
         public List<EventModel> Events { get; set; } = new List<EventModel>();
         public List<PathNodeModel> PathNodes { get; set; } = new List<PathNodeModel>();
 

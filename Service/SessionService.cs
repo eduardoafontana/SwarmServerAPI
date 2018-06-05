@@ -39,6 +39,13 @@ namespace SwarmServerAPI.AppCore.Service
                         Origin = b.Origin,
                         Type = b.Type
                     }).ToList(),
+                    CodeFiles = s.CodeFiles.Select(c => new CodeFileModel
+                    {
+                        Id = c.Id,
+                        Path = c.Path,
+                        Content = c.Content,
+                        Created = c.Created
+                    }).ToList(),
                     Events = s.Events.Select(e => new EventModel
                     {
                         Id = e.Id,

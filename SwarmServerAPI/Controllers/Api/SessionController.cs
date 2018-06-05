@@ -83,6 +83,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
                                         .Include("Breakpoints")
                                         .Include("Events")
                                         .Include("PathNodes")
+                                        .Include("CodeFiles")
                                         .FirstOrDefault(s => s.Id == session.Id);
 
                                 if (original == null)
@@ -95,6 +96,12 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
                                     {
                                         if (!original.Breakpoints.Any(x => x.Id == item.Id))
                                             original.Breakpoints.Add(item);
+                                    }
+
+                                    foreach (CodeFile item in session.CodeFiles)
+                                    {
+                                        if (!original.CodeFiles.Any(x => x.Id == item.Id))
+                                            original.CodeFiles.Add(item);
                                     }
 
                                     foreach (Event item in session.Events)
