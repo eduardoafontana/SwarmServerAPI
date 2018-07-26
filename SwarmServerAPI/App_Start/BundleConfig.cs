@@ -51,6 +51,11 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
                       "~/Scripts/jquery.qtip.js",
                       "~/Scripts/cytoscape-qtip.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/threejs").Include(
+                      "~/Scripts/three.js/build/three.min.js",
+                      "~/Scripts/three.js/build/OrbitControls.js",
+                      "~/Scripts/three.js/build/dat.gui.min.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
