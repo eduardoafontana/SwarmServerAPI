@@ -30,5 +30,12 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 
             return View();
         }
+
+        public ActionResult Prototype()
+        {
+            ViewBag.Title = "Prototype";
+
+            return View();
+        }
     }
 }

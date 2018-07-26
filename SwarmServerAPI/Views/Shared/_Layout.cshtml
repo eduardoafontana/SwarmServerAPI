@@ -106,6 +106,12 @@
                                 Global
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "Prototype" ? "active" : "")" href="@Url.Action("Prototype", "Visualization")">
+                                <i class="far fa-eye fa-lg feather"></i>
+                                Prototype
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </nav>
