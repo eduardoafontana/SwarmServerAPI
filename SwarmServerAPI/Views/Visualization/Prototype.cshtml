@@ -2,11 +2,12 @@
 @Scripts.Render("~/bundles/threejs")
 
 <style>
-    /*
+    
     body, html {
         height: 100%;
-        padding-bottom: 110px;
+        padding-bottom: 50px;
     }
+    /*
     body > div.container {
         max-width: 100%;
         margin-left: 50px;
@@ -17,10 +18,12 @@
     html, body, .container-fluid, .row, main, .canvasRenderRelativeSize {
         height: 100%;
     }
+    /*
     .canvasRenderRelativeSize{
         margin-top: -100px;
         padding-top: 100px;
     }
+        */
     .sidebar{
         position: initial !important;
     }
@@ -220,8 +223,8 @@
     }
 
     function getRelativeHeight() {
-        return document.body.getElementsByClassName("canvasRenderRelativeSize")[0].offsetHeight - 100; //window.innerHeight
-        //-100 é valor para adaptação ao problema de layout do contexto do site.
+        return document.body.getElementsByClassName("canvasRenderRelativeSize")[0].offsetHeight; //window.innerHeight
+        //pode-se colocar -100 para adaptação ao problema de layout do contexto do site quando usado margin no style inicial da div
     }
 
     function getRelativeWidth() {
