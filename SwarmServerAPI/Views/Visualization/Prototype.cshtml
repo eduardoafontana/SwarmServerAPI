@@ -14,6 +14,16 @@
 
         height: 100%;
     }*/
+    html, body, .container-fluid, .row, main, .canvasRenderRelativeSize {
+        height: 100%;
+    }
+    .canvasRenderRelativeSize{
+        margin-top: -100px;
+        padding-top: 100px;
+    }
+    .sidebar{
+        position: initial !important;
+    }
 </style>
 <style>
 			body { margin: 0; }
@@ -209,17 +219,43 @@
         }
     }
 
-    var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 500);
+    function getRelativeHeight() {
+        return document.body.getElementsByClassName("canvasRenderRelativeSize")[0].offsetHeight - 100; //window.innerHeight
+        //-100 é valor para adaptação ao problema de layout do contexto do site.
+    }
+
+    function getRelativeWidth() {
+        return document.body.getElementsByClassName("canvasRenderRelativeSize")[0].offsetWidth; //window.innerWidth
+    }
+
+    function onWindowResize() {
+        //document.body.getElementsByClassName("canvasRenderRelativeSize")[0].style.height = getRelativeHeight() + 'px';
+        console.log('getRelativeHeight: ' + getRelativeHeight());
+        console.log('getRelativeWidth: ' + getRelativeWidth());
+
+        camera.aspect = getRelativeWidth() / getRelativeHeight();
+        camera.updateProjectionMatrix();
+
+        renderer.setSize(getRelativeWidth(), getRelativeHeight());
+    }
+
+    var camera = new THREE.PerspectiveCamera(45, 0, 1, 500);
     var scene = new THREE.Scene();
     var mouse = new THREE.Vector2();
     var raycaster = new THREE.Raycaster();
+    var renderer = new THREE.WebGLRenderer();
 
     document.addEventListener("DOMContentLoaded", function () {
-        var renderer = new THREE.WebGLRenderer();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
+        //console.log('window.innerWidth: ' + window.innerWidth);
+        //console.log('window.innerHeight: ' + window.innerHeight);
+        //console.log('getRelativeHeight: ' + getRelativeHeight());
 
-        camera.position.set(0, 0, 100);
+        //document.body.getElementsByClassName("canvasRenderRelativeSize")[0].style.height = document.body.getElementsByClassName("canvasRenderRelativeSize")[0].offsetHeight - 100 + 'px';
+
+        renderer.setSize(getRelativeWidth(), getRelativeHeight());
+        document.body.getElementsByClassName("canvasRenderRelativeSize")[0].appendChild(renderer.domElement);
+
+        camera.position.set(60, 60, 60);
         camera.lookAt(new THREE.Vector3(0, 0, 0));
 
         var orbit = new THREE.OrbitControls(camera, renderer.domElement);
@@ -308,8 +344,12 @@
         document.addEventListener('mousedown', onDocumentMouseDown, false);
 
         //--
+        window.addEventListener('resize', onWindowResize, false);
+        //--
         var animate = function () {
             requestAnimationFrame(animate);
+
+            //console.log('x:' + camera.position.x + ' Y: ' + camera.position.y + ' z: ' + camera.position.z);
 
             //--
             raycaster.setFromCamera(mouse, camera);
@@ -350,14 +390,12 @@
             renderer.render(scene, camera);
         };
 
+        onWindowResize();
         animate();
     });
 </script>
-
-
 <h2>Prototype</h2>
 <br />
-
 <div class="detail-box fade-in">
     <div class="detail-box-header">
         Click here to move
@@ -370,3 +408,4 @@
     <p>parágrafo</p>
     <p>parágrafo</p>
 </div>
+<div class="canvasRenderRelativeSize"></div>
