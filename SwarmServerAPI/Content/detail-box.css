@@ -1,8 +1,7 @@
 ﻿.detail-box {
     display: block;
-    border: 2px solid #fff;
+    border: 1px solid #224377;
     padding: 5px;
-    width: 250px;
     background-color: rgba(0, 0, 0, 0.90);
     color: #eee;
     font: 11px Lucida Grande,sans-serif;
@@ -13,10 +12,19 @@
     overflow: auto;
     position: absolute;
     visibility: hidden;
+    float: right;
+
+    /*Review later*/
+    width: 250px;
+    right: 25px;
+}
+
+.detail-box hr {
+    border: 1px solid;
 }
 
 .detail-box-header {
-    padding: 5px;
+    padding: 2px;
     cursor: move;
     z-index: 10;
     background-color: #2196F3;
@@ -27,6 +35,7 @@
     float: right;
     width: 20px;
     cursor: pointer;
+    text-align:center;
 }
 
 .fade-in {
@@ -34,10 +43,10 @@
     animation-name: fadeInOpacity;
     animation-iteration-count: 1;
     animation-timing-function: ease-in;
-    animation-duration: 2s;
+    animation-duration: 5s;
 }
 
-@@keyframes fadeInOpacity {
+@keyframes fadeInOpacity {
     0% {
         opacity: 0;
     }
