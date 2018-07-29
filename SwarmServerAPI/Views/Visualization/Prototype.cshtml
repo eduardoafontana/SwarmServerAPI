@@ -196,8 +196,8 @@
 
         var positions = document.body.getElementsByClassName("canvasRenderRelativeSize")[0].getBoundingClientRect();
 
-        mouse.x = ((event.clientX - positions.x) / getRelativeWidth()) * 2 - 1;
-        mouse.y = - ((event.clientY - positions.y) / getRelativeHeight()) * 2 + 1;
+        setMouseRelativePosition(event, positions);
+
         //mouse.x = (event.clientX / getRelativeWidth()) * 2 - 1;
         //mouse.y = - (event.clientY / getRelativeHeight()) * 2 + 1;
         //mouse.x = event.clientX - (getRelativeWidth() / 2);
@@ -209,10 +209,16 @@
         //console.log('getRelativeWidth: ' + getRelativeWidth());
     }
 
+    function setMouseRelativePosition(eventAbsolute, relativePositions) {
+        mouse.x = ((eventAbsolute.clientX - relativePositions.x) / getRelativeWidth()) * 2 - 1;
+        mouse.y = - ((eventAbsolute.clientY - relativePositions.y) / getRelativeHeight()) * 2 + 1;
+    }
+
     function onDocumentMouseDown(event) {
         //event.preventDefault();
 
-        mouse.set((event.clientX / getRelativeWidth()) * 2 - 1, - (event.clientY / getRelativeHeight()) * 2 + 1);
+        var positions = document.body.getElementsByClassName("canvasRenderRelativeSize")[0].getBoundingClientRect();
+        setMouseRelativePosition(event, positions);
 
         raycaster.setFromCamera(mouse, camera);
 
