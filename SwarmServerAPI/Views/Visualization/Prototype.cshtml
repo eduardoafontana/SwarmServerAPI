@@ -194,14 +194,25 @@
     function onDocumentMouseMove(event) {
         //event.preventDefault();
 
-        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-        mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+        var positions = document.body.getElementsByClassName("canvasRenderRelativeSize")[0].getBoundingClientRect();
+
+        mouse.x = ((event.clientX - positions.x) / getRelativeWidth()) * 2 - 1;
+        mouse.y = - ((event.clientY - positions.y) / getRelativeHeight()) * 2 + 1;
+        //mouse.x = (event.clientX / getRelativeWidth()) * 2 - 1;
+        //mouse.y = - (event.clientY / getRelativeHeight()) * 2 + 1;
+        //mouse.x = event.clientX - (getRelativeWidth() / 2);
+        //mouse.y = event.clientY - (getRelativeHeight() / 2);
+
+        //console.log('event.clientX: ' + event.clientX);
+        //console.log('event.clientY: ' + event.clientY);
+        //console.log('getRelativeHeight: ' + getRelativeHeight());
+        //console.log('getRelativeWidth: ' + getRelativeWidth());
     }
 
     function onDocumentMouseDown(event) {
         //event.preventDefault();
 
-        mouse.set((event.clientX / window.innerWidth) * 2 - 1, - (event.clientY / window.innerHeight) * 2 + 1);
+        mouse.set((event.clientX / getRelativeWidth()) * 2 - 1, - (event.clientY / getRelativeHeight()) * 2 + 1);
 
         raycaster.setFromCamera(mouse, camera);
 
@@ -325,7 +336,7 @@
         //var mouse = new THREE.Vector2()
         var intersected = null;
 
-        document.addEventListener('mousemove', onDocumentMouseMove, false);
+        document.body.getElementsByClassName("canvasRenderRelativeSize")[0].addEventListener('mousemove', onDocumentMouseMove, false);
 
         //passei para declaração global
         //var raycaster = new THREE.Raycaster();
