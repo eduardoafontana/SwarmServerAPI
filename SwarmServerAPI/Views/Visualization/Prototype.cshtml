@@ -1,4 +1,6 @@
 ﻿
+@Styles.Render("~/Content/detail-box")
+@Scripts.Render("~/bundles/detail-box")
 @Scripts.Render("~/bundles/threejs")
 
 <style>
@@ -10,128 +12,6 @@
         height: 100%;
     }
 </style>
-<style>
-	.detail-box {
-		display: block;
-		border: 2px solid #fff;
-		padding: 5px;
-		width: 250px;
-		background-color: rgba(0, 0, 0, 0.90);
-
-		color: #eee;
-		font: 11px Lucida Grande,sans-serif;
-		text-shadow: 0 -1px 0 #111;
-
-		transition: opacity .1s linear;
-		transition: height .1s linear;
-
-		resize: both;
-		overflow: auto;
-
-		position: absolute;
-
-		visibility:hidden;
-	}
-
-	.detail-box-header {
-		padding: 5px;
-		cursor: move;
-		z-index: 10;
-		background-color: #2196F3;
-		color: #fff;
-	}
-
-	.detail-box-minimize {
-		float: right;
-		width: 20px;
-		cursor: pointer;
-	}
-
-	.fade-in {
-		opacity: 1;
-		animation-name: fadeInOpacity;
-		animation-iteration-count: 1;
-		animation-timing-function: ease-in;
-		animation-duration: 2s;
-	}
-
-	@@keyframes fadeInOpacity {
-		0% {
-			opacity: 0;
-		}
-		100% {
-			opacity: 1;
-		}
-	}
-</style>
-<script>
-    var detailBoxHeight = '';
-
-    document.addEventListener("DOMContentLoaded", function () {
-        dragElement(document.getElementsByClassName("detail-box")[0], "detail-box-header");
-
-        document.getElementsByClassName("detail-box-minimize")[0].addEventListener("click", function () {
-            var box = document.getElementsByClassName("detail-box")[0];
-
-            if (this.innerText == "-") {
-                this.innerText = '+';
-
-                detailBoxHeight = box.style.height;
-                box.style.height = '30px';
-                box.style.overflow = 'hidden';
-                box.style.resize = 'none';
-            } else {
-                this.innerText = '-';
-
-                box.style.height = detailBoxHeight;
-                box.style.resize = 'both';
-                box.style.overflow = 'auto';
-            }
-        });
-    });
-
-    function dragElement(elmnt, dragBoxName) {
-        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-
-        if (document.getElementsByClassName(dragBoxName)[0]) {
-            /* if present, the header is where you move the DIV from:*/
-            document.getElementsByClassName(dragBoxName)[0].onmousedown = dragMouseDown;
-        } else {
-            /* otherwise, move the DIV from anywhere inside the DIV:*/
-            elmnt.onmousedown = dragMouseDown;
-        }
-
-        function dragMouseDown(e) {
-            e = e || window.event;
-            e.preventDefault();
-            // get the mouse cursor position at startup:
-            pos3 = e.clientX;
-            pos4 = e.clientY;
-            document.onmouseup = closeDragElement;
-            // call a function whenever the cursor moves:
-            document.onmousemove = elementDrag;
-        }
-
-        function elementDrag(e) {
-            e = e || window.event;
-            e.preventDefault();
-            // calculate the new cursor position:
-            pos1 = pos3 - e.clientX;
-            pos2 = pos4 - e.clientY;
-            pos3 = e.clientX;
-            pos4 = e.clientY;
-            // set the element's new position:
-            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-        }
-
-        function closeDragElement() {
-            /* stop moving when mouse button is released:*/
-            document.onmouseup = null;
-            document.onmousemove = null;
-        }
-    }
-</script>
 <script>
     function drawLine(x1, y1, z1, x2, y2, z2, hexColor) {
         var geometry = new THREE.Geometry();

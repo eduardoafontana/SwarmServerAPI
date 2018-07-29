@@ -56,6 +56,9 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
                       "~/Scripts/three.js/build/OrbitControls.js",
                       "~/Scripts/three.js/build/dat.gui.min.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/detail-box").Include(
+                      "~/Scripts/detail-box.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
@@ -64,6 +67,9 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
                       "~/Content/bootstrap-grid.css",
                       "~/Content/bootstrap-reboot.css",
                       "~/Content/dashboard.css"));
+
+            bundles.Add(new StyleBundle("~/Content/detail-box").Include(
+                      "~/Content/detail-box.css"));
 
             BundleTable.EnableOptimizations = true;
         }

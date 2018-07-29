@@ -1,0 +1,48 @@
+﻿.detail-box {
+    display: block;
+    border: 2px solid #fff;
+    padding: 5px;
+    width: 250px;
+    background-color: rgba(0, 0, 0, 0.90);
+    color: #eee;
+    font: 11px Lucida Grande,sans-serif;
+    text-shadow: 0 -1px 0 #111;
+    transition: opacity .1s linear;
+    transition: height .1s linear;
+    resize: both;
+    overflow: auto;
+    position: absolute;
+    visibility: hidden;
+}
+
+.detail-box-header {
+    padding: 5px;
+    cursor: move;
+    z-index: 10;
+    background-color: #2196F3;
+    color: #fff;
+}
+
+.detail-box-minimize {
+    float: right;
+    width: 20px;
+    cursor: pointer;
+}
+
+.fade-in {
+    opacity: 1;
+    animation-name: fadeInOpacity;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 2s;
+}
+
+@@keyframes fadeInOpacity {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

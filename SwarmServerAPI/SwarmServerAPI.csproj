@@ -217,6 +217,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\jquery.qtip.css" />
     <Content Include="Content\dashboard.css" />
+    <Content Include="Content\detail-box.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap-select.js" />
@@ -264,6 +265,7 @@
     <Content Include="Scripts\data-codemetric.js" />
     <Content Include="Scripts\cytoscape-dagre.js" />
     <Content Include="Scripts\ag-grid-hack.js" />
+    <Content Include="Scripts\detail-box.js" />
     <Content Include="Scripts\data-task.js" />
     <Content Include="Scripts\data-tasktime.js" />
     <Content Include="Scripts\data-session.js" />
