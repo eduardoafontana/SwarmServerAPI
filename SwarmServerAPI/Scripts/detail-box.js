@@ -64,3 +64,25 @@ function dragElement(elmnt, dragBoxName) {
         document.onmousemove = null;
     }
 }
+
+/*too-box*/
+var toolBoxWidth = '';
+
+document.addEventListener("DOMContentLoaded", function () {
+    dragElement(document.getElementsByClassName("tool-box")[0], "tool-box-header");
+
+    document.getElementsByClassName("tool-box-minimize")[0].addEventListener("click", function () {
+        var box = document.getElementsByClassName("tool-box")[0];
+
+        if (this.innerText == "-") {
+            this.innerText = '+';
+
+            toolBoxWidth = box.style.width;
+            box.style.width = '40px';
+        } else {
+            this.innerText = '-';
+
+            box.style.width = toolBoxWidth;
+        }
+    });
+});

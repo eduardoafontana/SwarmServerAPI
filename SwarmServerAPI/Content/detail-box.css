@@ -43,7 +43,7 @@
     animation-name: fadeInOpacity;
     animation-iteration-count: 1;
     animation-timing-function: ease-in;
-    animation-duration: 5s;
+    animation-duration: 3s;
 }
 
 @keyframes fadeInOpacity {
@@ -54,4 +54,46 @@
     100% {
         opacity: 1;
     }
+}
+
+/*tool-box*/
+.tool-box {
+    display: block;
+    border: 1px solid #224377;
+    padding: 2px;
+    background-color: rgba(0, 0, 0, 0.90);
+    color: #eee;
+    font: 11px Lucida Grande,sans-serif;
+    text-shadow: 0 -1px 0 #111;
+    transition: opacity .1s linear;
+    transition: height .1s linear;
+    position: absolute;
+    height: 30px;
+    /*Review later*/
+    width: 300px;
+    /*margin: 5px;*/
+}
+
+.tool-box-header {
+    padding: 2px;
+    cursor: move;
+    z-index: 10;
+    background-color: #2196F3;
+    color: #fff;
+    width: 15px;
+    height: 100%;
+    float: left;
+    vertical-align: middle;
+    line-height: 20px;
+}
+
+.tool-box-minimize {
+    float: right;
+    width: 15px;
+    cursor: pointer;
+    text-align: center;
+    height: 100%;
+    background-color: #2196F3;
+    vertical-align: middle;
+    line-height: 20px;
 }
