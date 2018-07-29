@@ -73,16 +73,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.getElementsByClassName("tool-box-minimize")[0].addEventListener("click", function () {
         var box = document.getElementsByClassName("tool-box")[0];
+        var boxMain = document.getElementsByClassName("tool-box-main")[0];
 
         if (this.innerText == "-") {
             this.innerText = '+';
 
             toolBoxWidth = box.style.width;
             box.style.width = '40px';
+            boxMain.style.display = 'none';
         } else {
             this.innerText = '-';
 
             box.style.width = toolBoxWidth;
+            boxMain.style.display = 'block';
         }
     });
 });

@@ -68,11 +68,28 @@
     transition: opacity .1s linear;
     transition: height .1s linear;
     position: absolute;
-    height: 30px;
+    height: 35px;
     /*Review later*/
-    width: 300px;
+    width: 150px;
     /*margin: 5px;*/
 }
+
+.tool-box-main {
+    float: left;
+    padding: 2px;
+    height: 100%;
+    vertical-align: middle;
+    line-height: 25px;
+}
+    .tool-box-main .icon {
+        margin-left:5px;
+        margin-right:5px;
+    }
+
+    .tool-box-main .icon:hover {
+        font-size: 18px;
+        cursor:pointer;
+    }
 
 .tool-box-header {
     padding: 2px;
@@ -84,7 +101,7 @@
     height: 100%;
     float: left;
     vertical-align: middle;
-    line-height: 20px;
+    line-height: 25px;
 }
 
 .tool-box-minimize {
@@ -95,5 +112,5 @@
     height: 100%;
     background-color: #2196F3;
     vertical-align: middle;
-    line-height: 20px;
+    line-height: 25px;
 }
