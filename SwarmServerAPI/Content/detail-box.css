@@ -12,11 +12,11 @@
     overflow: auto;
     position: absolute;
     visibility: hidden;
-    float: right;
+    border-radius: 1px;
 
-    /*Review later*/
-    width: 250px;
-    right: 25px;
+    width: 250px; /*Review later*/
+    top: 180px;
+    left: 30px;
 }
 
 .detail-box hr {
@@ -27,8 +27,9 @@
     padding: 2px;
     cursor: move;
     z-index: 10;
-    background-color: #2196F3;
+    background-color: #224377;
     color: #fff;
+    border-radius: 3px;
 }
 
 .detail-box-minimize {
@@ -69,39 +70,50 @@
     transition: height .1s linear;
     position: absolute;
     height: 35px;
+    border-radius: 1px;
     /*Review later*/
     width: 150px;
     /*margin: 5px;*/
+    top:135px;
+    left:30px;
 }
 
 .tool-box-main {
     float: left;
     padding: 2px;
-    height: 100%;
-    vertical-align: middle;
-    line-height: 25px;
+    line-height:29px;
 }
-    .tool-box-main .icon {
-        margin-left:5px;
-        margin-right:5px;
+    .tool-box-main {
+        padding:unset;
+        margin:unset;
+    }
+    .tool-box-main li {
+        margin-left: 5px;
+        margin-right: 5px;
+        list-style-type: none;
+        display: inline;
+        padding:5px;
     }
 
-    .tool-box-main .icon:hover {
-        font-size: 18px;
-        cursor:pointer;
-    }
+        .tool-box-main li:hover {
+            font-size: 12px;
+            cursor: pointer;
+            background-color: #4286f4;
+            border-radius:5px;
+        }
 
 .tool-box-header {
     padding: 2px;
     cursor: move;
     z-index: 10;
-    background-color: #2196F3;
+    background-color: #224377;
     color: #fff;
     width: 15px;
     height: 100%;
     float: left;
     vertical-align: middle;
     line-height: 25px;
+    border-radius: 3px;
 }
 
 .tool-box-minimize {
@@ -110,7 +122,8 @@
     cursor: pointer;
     text-align: center;
     height: 100%;
-    background-color: #2196F3;
+    background-color: #224377;
     vertical-align: middle;
     line-height: 25px;
+    border-radius: 3px;
 }
