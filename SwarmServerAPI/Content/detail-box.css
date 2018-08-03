@@ -128,3 +128,40 @@
     line-height: 25px;
     border-radius: 3px;
 }
+
+/*tooltip-text*/
+.tooltip-text {
+    display: block;
+    border: 1px solid #4286f4;
+    border-radius: 1px;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.90);
+    color: #eee;
+    font: 11px Lucida Grande,sans-serif;
+    text-shadow: 0 -1px 0 #111;
+    transition: opacity .1s linear;
+    transition: height .1s linear;
+    visibility:hidden;
+    position: absolute;
+    width: 250px; /*Review later*/
+    top: 55px;
+    left: 115px;
+}
+    .tooltip-text:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 40px;
+        width: 0;
+        height: 0;
+        border: 18px solid transparent;
+        border-bottom-color: #4286f4;
+        border-top: 0;
+        border-left: 0;
+        margin-left: -9px;
+        margin-top: -18px;
+    }
+
+.tooltip-info:hover .tooltip-text {
+    visibility:visible;
+}
