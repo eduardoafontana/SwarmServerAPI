@@ -42,6 +42,27 @@
         return cube;
     }
 
+    function drawHideCubeButton(positionX, positionZ, height, hexColor) {
+        var radius = 0.3;
+        var graphPositionMarginFix = 0.3
+        var topMargin = 0.3;
+        var positionY = height;
+
+        var geometry = new THREE.SphereGeometry(radius, 20, 20);
+        var material = new THREE.MeshBasicMaterial({ color: hexColor });
+        var sphere = new THREE.Mesh(geometry, material);
+
+        material.opacity = 0.5;
+        material.transparent = true;
+        material.representation = 'sphereOfTheCube';
+
+        sphere.position.y = radius + topMargin + positionY;
+        sphere.position.x = radius + graphPositionMarginFix + positionX;
+        sphere.position.z = radius + graphPositionMarginFix + positionZ;
+
+        return sphere;
+    }
+
     function getRamdomColor() {
         return '#' + Math.floor(Math.random() * 16777215).toString(16);
     }
@@ -139,18 +160,25 @@
         scene.add(gridHelper);
         //--
 
-        scene.add(drawCubeOnGraph(0, 9, Math.floor(Math.random() * 31), getRamdomColor()));
-        scene.add(drawCubeOnGraph(1, 9, Math.floor(Math.random() * 31), getRamdomColor()));
-        scene.add(drawCubeOnGraph(2, 9, Math.floor(Math.random() * 31), getRamdomColor()));
-        scene.add(drawCubeOnGraph(0, 10, Math.floor(Math.random() * 31), getRamdomColor()));
-        scene.add(drawCubeOnGraph(1, 10, Math.floor(Math.random() * 31), getRamdomColor()));
-        scene.add(drawCubeOnGraph(2, 10, Math.floor(Math.random() * 31), getRamdomColor()));
-        scene.add(drawCubeOnGraph(0, 11, Math.floor(Math.random() * 31), getRamdomColor()));
-        scene.add(drawCubeOnGraph(1, 11, Math.floor(Math.random() * 31), getRamdomColor()));
-        scene.add(drawCubeOnGraph(2, 11, Math.floor(Math.random() * 31), getRamdomColor()));
-        scene.add(drawCubeOnGraph(3, 2, Math.floor(Math.random() * 31), getRamdomColor()));
-        scene.add(drawCubeOnGraph(7, 4, Math.floor(Math.random() * 31), getRamdomColor()));
-        scene.add(drawCubeOnGraph(1, 20, Math.floor(Math.random() * 31), getRamdomColor()));
+        var cubes = [
+            { x: 0, z: 9, height: Math.floor(Math.random() * 31), color: getRamdomColor() },
+            { x: 1, z: 9, height: Math.floor(Math.random() * 31), color: getRamdomColor() },
+            { x: 2, z: 9, height: Math.floor(Math.random() * 31), color: getRamdomColor() },
+            { x: 0, z: 10, height: Math.floor(Math.random() * 31), color: getRamdomColor() },
+            { x: 1, z: 10, height: Math.floor(Math.random() * 31), color: getRamdomColor() },
+            { x: 2, z: 10, height: Math.floor(Math.random() * 31), color: getRamdomColor() },
+            { x: 0, z: 11, height: Math.floor(Math.random() * 31), color: getRamdomColor() },
+            { x: 1, z: 11, height: Math.floor(Math.random() * 31), color: getRamdomColor() },
+            { x: 2, z: 11, height: Math.floor(Math.random() * 31), color: getRamdomColor() },
+            { x: 3, z: 2, height: Math.floor(Math.random() * 31), color: getRamdomColor() },
+            { x: 7, z: 4, height: Math.floor(Math.random() * 31), color: getRamdomColor() },
+            { x: 1, z: 20, height: Math.floor(Math.random() * 31), color: getRamdomColor() },
+        ];
+
+        for (var i = 0; i < cubes.length; i++){
+            scene.add(drawCubeOnGraph(cubes[i].x, cubes[i].z, cubes[i].height, cubes[i].color));
+            scene.add(drawHideCubeButton(cubes[i].x, cubes[i].z, cubes[i].height, cubes[i].color));
+        }
 
         var cubeWithRintHeight = Math.floor(Math.random() * 31);
         scene.add(drawCubeOnGraph(12, 15, cubeWithRintHeight, getRamdomColor()));
@@ -168,14 +196,10 @@
         scene.add(sphere);
         //--
 
-        //passei para declaração global
-        //var mouse = new THREE.Vector2()
         var intersected = null;
 
         document.body.getElementsByClassName("canvasRenderRelativeSize")[0].addEventListener('mousemove', onDocumentMouseMove, false);
 
-        //passei para declaração global
-        //var raycaster = new THREE.Raycaster();
         //--
 
         var geometryTorus = new THREE.TorusGeometry(0.5, 0.2, 10, 30); //Ring 3d
@@ -250,7 +274,6 @@
         };
 
         function changeColor() {
-            //renderer.setClearColor(colorOptions.Background, 0);
             scene.background = new THREE.Color(colorOptions.Background);
         };
 
