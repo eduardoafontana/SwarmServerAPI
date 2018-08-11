@@ -98,6 +98,15 @@
                 else
                     box.style.visibility = 'visible';
             }
+
+            if (intersect.object.material.representation == 'sphereOfTheCube') {
+                var cubeFromSphere = scene.getObjectById(intersect.object.cubeId, true);
+
+                if (cubeFromSphere.visible)
+                    cubeFromSphere.visible = false;
+                else
+                    cubeFromSphere.visible = true;
+            }
         }
     }
 
@@ -176,8 +185,13 @@
         ];
 
         for (var i = 0; i < cubes.length; i++){
-            scene.add(drawCubeOnGraph(cubes[i].x, cubes[i].z, cubes[i].height, cubes[i].color));
-            scene.add(drawHideCubeButton(cubes[i].x, cubes[i].z, cubes[i].height, cubes[i].color));
+            var cube = drawCubeOnGraph(cubes[i].x, cubes[i].z, cubes[i].height, cubes[i].color);
+            var hideButton = drawHideCubeButton(cubes[i].x, cubes[i].z, cubes[i].height, cubes[i].color);
+
+            hideButton.cubeId = cube.id;
+
+            scene.add(cube);
+            scene.add(hideButton);
         }
 
         var cubeWithRintHeight = Math.floor(Math.random() * 31);
@@ -231,7 +245,7 @@
             if (intersects.length > 0) {
                 var iCubeOnGraph = -1;
                 for (var i = 0; i < intersects.length; i++) {
-                    if (intersects[i].object.material.representation == 'cubeOnGraph'
+                    if (intersects[i].object.material.representation == 'sphereOfTheCube'
                         || intersects[i].object.material.representation == 'ringOnGraph') {
                         iCubeOnGraph = i;
                         break;
