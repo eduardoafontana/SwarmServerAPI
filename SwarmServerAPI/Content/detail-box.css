@@ -103,6 +103,13 @@
             border-radius:5px;
         }
 
+        .tool-box-main li.selected {
+            font-size: 12px;
+            cursor: pointer;
+            background-color: #4286f4;
+            border-radius: 5px;
+        }
+
 .tool-box-header {
     padding: 2px;
     cursor: move;
@@ -165,3 +172,34 @@
 .tooltip-info:hover .tooltip-text {
     visibility:visible;
 }
+
+/*tool-colorchange*/
+.tool-box > div.main {
+    display: block;
+    visibility: hidden;
+    position: absolute;
+    top: 35px;
+    left: 0px;
+}
+
+.tool-box div.main .close-button {
+    display: none;
+}
+
+.tool-box div.main li {
+    margin: unset;
+    list-style-type: unset;
+    display: list-item;
+    padding: 0 4px 0 5px;
+}
+
+    .tool-box div.main li:hover {
+        font-size: unset;
+        cursor: unset;
+        background-color: unset;
+        border-radius: unset;
+    }
+
+    .tool-box div.main li input {
+        line-height: 15px;
+    }
