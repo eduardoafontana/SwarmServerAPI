@@ -84,6 +84,26 @@
         return torus;
     }
 
+    function drawTorusSquareOnGraph(positionX, positionZ, line, mostHighFileLine) {
+        var height = line * 50 / mostHighFileLine;
+        var graphPositionMarginFix = 0.1;
+        var radius = 0.4;
+
+        var geometryTorus = new THREE.TorusGeometry(radius, 0.05, 100, 4);
+        var materialTorus = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+        var torus = new THREE.Mesh(geometryTorus, materialTorus);
+
+        materialTorus.representation = 'ringSquareOnGraph';
+
+        torus.position.y = 0.5 + height / 2;
+        torus.position.x = 0.5 + graphPositionMarginFix + positionX;
+        torus.position.z = 0.5 + graphPositionMarginFix + positionZ;
+        torus.rotation.x = 1.6; //flip to horizontal
+        torus.rotation.z = 0.8; //rotate to equal cube node
+
+        return torus;
+    }
+
     function getRamdomColor() {
         return '#' + Math.floor(Math.random() * 16777215).toString(16);
     }
@@ -127,6 +147,15 @@
                     cubeFromSphere.visible = false;
                 else
                     cubeFromSphere.visible = true;
+            }
+
+            if (intersect.object.material.representation == 'ringSquareOnGraph') {
+                var box = document.getElementsByClassName("detail-box")[0];
+
+                if (box.style.visibility == 'visible')
+                    box.style.visibility = 'hidden';
+                else
+                    box.style.visibility = 'visible';
             }
         }
     }
@@ -194,32 +223,39 @@
             {
                 x: 0, z: 9, lines: 1300, color: getRamdomColor(), breakpoints: [
                     { line: 20 }
-                ]
+                ], events: []
             },
             {
                 x: 1, z: 9, lines: 210, color: getRamdomColor(), breakpoints: [
                     { line: 30 },
                     { line: 40 }
+                ], events: []
+            },
+            {
+                x: 2, z: 9, lines: 489, color: getRamdomColor(), breakpoints: [
+                ], events: [
+                    { line: 100 },
+                    { line: 300 },
+                    { line: 350 },
                 ]
             },
-            { x: 2, z: 9, lines: 489, color: getRamdomColor(), breakpoints : [] },
-            { x: 0, z: 10, lines: 10, color: getRamdomColor(), breakpoints: [] },
-            { x: 1, z: 10, lines: 890, color: getRamdomColor(), breakpoints: [] },
+            { x: 0, z: 10, lines: 10, color: getRamdomColor(), breakpoints: [], events: [] },
+            { x: 1, z: 10, lines: 890, color: getRamdomColor(), breakpoints: [], events: [] },
             {
                 x: 2, z: 10, lines: 2200, color: getRamdomColor(), breakpoints: [
                     { line: 478 },
                     { line: 510 },
                     { line: 515 },
-                ]
+                ], events: []
             },
-            { x: 0, z: 11, lines: 25, color: getRamdomColor(), breakpoints: [] },
-            { x: 1, z: 11, lines: 245, color: getRamdomColor(), breakpoints: [] },
-            { x: 2, z: 11, lines: 459, color: getRamdomColor(), breakpoints: [] },
+            { x: 0, z: 11, lines: 25, color: getRamdomColor(), breakpoints: [], events: [] },
+            { x: 1, z: 11, lines: 245, color: getRamdomColor(), breakpoints: [], events: [] },
+            { x: 2, z: 11, lines: 459, color: getRamdomColor(), breakpoints: [], events: [] },
             {
                 x: 3, z: 2, lines: 31, color: getRamdomColor(), breakpoints: [
                     { line: 2 },
                     { line: 31 },
-                ]
+                ], events: []
             },
             {
                 x: 7, z: 4, lines: 357, color: getRamdomColor(), breakpoints: [
@@ -227,9 +263,9 @@
                     { line: 211 },
                     { line: 213 },
                     { line: 355 },
-                ]
+                ], events: []
             },
-            { x: 1, z: 20, lines: 1672, color: getRamdomColor(), breakpoints: [] },
+            { x: 1, z: 20, lines: 1672, color: getRamdomColor(), breakpoints: [], events: [] },
         ];
 
         //Math.floor(Math.random() * 31)
@@ -248,6 +284,10 @@
 
             for (var j = 0; j < files[i].breakpoints.length; j++) {
                 scene.add(drawTorusOnGraph(files[i].x, files[i].z, files[i].breakpoints[j].line, mostHighFileLine));
+            }
+
+            for (var j = 0; j < files[i].events.length; j++) {
+                scene.add(drawTorusSquareOnGraph(files[i].x, files[i].z, files[i].events[j].line, mostHighFileLine));
             }
 
             scene.add(cube);
@@ -306,7 +346,8 @@
                 var iCubeOnGraph = -1;
                 for (var i = 0; i < intersects.length; i++) {
                     if (intersects[i].object.material.representation == 'sphereOfTheCube'
-                        || intersects[i].object.material.representation == 'ringOnGraph') {
+                        || intersects[i].object.material.representation == 'ringOnGraph'
+                        || intersects[i].object.material.representation == 'ringSquareOnGraph') {
                         iCubeOnGraph = i;
                         break;
                     }
