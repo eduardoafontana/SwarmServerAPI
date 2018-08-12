@@ -46,7 +46,7 @@
 
     function drawHideCubeButton(positionX, positionZ, height, hexColor) {
         var radius = 0.3;
-        var graphPositionMarginFix = 0.3
+        var spherePositionMarginFix = 0.3
         var topMargin = 0.3;
         var positionY = height;
 
@@ -59,10 +59,29 @@
         material.representation = 'sphereOfTheCube';
 
         sphere.position.y = radius + topMargin + positionY;
-        sphere.position.x = radius + graphPositionMarginFix + positionX;
-        sphere.position.z = radius + graphPositionMarginFix + positionZ;
+        sphere.position.x = radius + spherePositionMarginFix + positionX;
+        sphere.position.z = radius + spherePositionMarginFix + positionZ;
 
         return sphere;
+    }
+
+    function drawTorusOnGraph(positionX, positionZ, line, mostHighFileLine) {
+        var height = line * 50 / mostHighFileLine;
+        var graphPositionMarginFix = 0.1;
+        var radius = 0.4;
+
+        var geometryTorus = new THREE.TorusGeometry(radius, 0.05, 100, 100);
+        var materialTorus = new THREE.MeshBasicMaterial({ color: 0x0000ff });
+        var torus = new THREE.Mesh(geometryTorus, materialTorus);
+
+        materialTorus.representation = 'ringOnGraph';
+
+        torus.position.y = 0.5 + height / 2;
+        torus.position.x = 0.5 + graphPositionMarginFix + positionX;
+        torus.position.z = 0.5 + graphPositionMarginFix + positionZ;
+        torus.rotation.x = 1.6; //flip to horizontal
+
+        return torus;
     }
 
     function getRamdomColor() {
@@ -171,34 +190,65 @@
         scene.add(gridHelper);
         //--
 
-        var cubes = [
-            { x: 0, z: 9, lines: 1300, color: getRamdomColor() },
-            { x: 1, z: 9, lines: 210, color: getRamdomColor() },
-            { x: 2, z: 9, lines: 489, color: getRamdomColor() },
-            { x: 0, z: 10, lines: 10, color: getRamdomColor() },
-            { x: 1, z: 10, lines: 890, color: getRamdomColor() },
-            { x: 2, z: 10, lines: 2200, color: getRamdomColor() },
-            { x: 0, z: 11, lines: 25, color: getRamdomColor() },
-            { x: 1, z: 11, lines: 245, color: getRamdomColor() },
-            { x: 2, z: 11, lines: 459, color: getRamdomColor() },
-            { x: 3, z: 2, lines: 31, color: getRamdomColor() },
-            { x: 7, z: 4, lines: 357, color: getRamdomColor() },
-            { x: 1, z: 20, lines: 1672, color: getRamdomColor() },
+        var files = [
+            {
+                x: 0, z: 9, lines: 1300, color: getRamdomColor(), breakpoints: [
+                    { line: 20 }
+                ]
+            },
+            {
+                x: 1, z: 9, lines: 210, color: getRamdomColor(), breakpoints: [
+                    { line: 30 },
+                    { line: 40 }
+                ]
+            },
+            { x: 2, z: 9, lines: 489, color: getRamdomColor(), breakpoints : [] },
+            { x: 0, z: 10, lines: 10, color: getRamdomColor(), breakpoints: [] },
+            { x: 1, z: 10, lines: 890, color: getRamdomColor(), breakpoints: [] },
+            {
+                x: 2, z: 10, lines: 2200, color: getRamdomColor(), breakpoints: [
+                    { line: 478 },
+                    { line: 510 },
+                    { line: 515 },
+                ]
+            },
+            { x: 0, z: 11, lines: 25, color: getRamdomColor(), breakpoints: [] },
+            { x: 1, z: 11, lines: 245, color: getRamdomColor(), breakpoints: [] },
+            { x: 2, z: 11, lines: 459, color: getRamdomColor(), breakpoints: [] },
+            {
+                x: 3, z: 2, lines: 31, color: getRamdomColor(), breakpoints: [
+                    { line: 2 },
+                    { line: 31 },
+                ]
+            },
+            {
+                x: 7, z: 4, lines: 357, color: getRamdomColor(), breakpoints: [
+                    { line: 210 },
+                    { line: 211 },
+                    { line: 213 },
+                    { line: 355 },
+                ]
+            },
+            { x: 1, z: 20, lines: 1672, color: getRamdomColor(), breakpoints: [] },
         ];
 
         //Math.floor(Math.random() * 31)
 
         var mostHighFileLine = 0;
-        for (var i = 0; i < cubes.length; i++) {
-            if (cubes[i].lines > mostHighFileLine)
-                mostHighFileLine = cubes[i].lines;
+        for (var i = 0; i < files.length; i++) {
+            if (files[i].lines > mostHighFileLine)
+                mostHighFileLine = files[i].lines;
         }
 
-        for (var i = 0; i < cubes.length; i++) {
-            var cube = drawCubeOnGraph(cubes[i].x, cubes[i].z, cubes[i].lines, cubes[i].color, mostHighFileLine);
-            var hideButton = drawHideCubeButton(cubes[i].x, cubes[i].z, cube.geometry.parameters.height, cubes[i].color);
+        for (var i = 0; i < files.length; i++) {
+            var cube = drawCubeOnGraph(files[i].x, files[i].z, files[i].lines, files[i].color, mostHighFileLine);
+            var hideButton = drawHideCubeButton(files[i].x, files[i].z, cube.geometry.parameters.height, files[i].color);
 
             hideButton.cubeId = cube.id;
+
+            for (var j = 0; j < files[i].breakpoints.length; j++) {
+                scene.add(drawTorusOnGraph(files[i].x, files[i].z, files[i].breakpoints[j].line, mostHighFileLine));
+            }
 
             scene.add(cube);
             scene.add(hideButton);
