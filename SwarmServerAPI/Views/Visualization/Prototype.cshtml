@@ -65,7 +65,7 @@
         return sphere;
     }
 
-    function drawTorusOnGraph(positionX, positionZ, line, mostHighFileLine) {
+    function drawTorusOnGraph(positionX, positionZ, line, mostHighFileLine, data) {
         var height = line * 50 / mostHighFileLine;
         var graphPositionMarginFix = 0.1;
         var radius = 0.4;
@@ -75,6 +75,7 @@
         var torus = new THREE.Mesh(geometryTorus, materialTorus);
 
         materialTorus.representation = 'ringOnGraph';
+        torus.data = data;
 
         torus.position.y = 0.5 + height / 2;
         torus.position.x = 0.5 + graphPositionMarginFix + positionX;
@@ -134,10 +135,15 @@
             if (intersect.object.material.representation == 'ringOnGraph') {
                 var box = document.getElementsByClassName("detail-box")[0];
 
-                if (box.style.visibility == 'visible')
-                    box.style.visibility = 'hidden';
-                else
-                    box.style.visibility = 'visible';
+                box.style.visibility = 'visible';
+
+                var boxMain = box.getElementsByClassName("detail-box-main")[0];
+
+                var wrapper = document.createElement('div');
+                wrapper.innerHTML = intersect.object.data;
+
+                boxMain.innerHTML = '';
+                boxMain.appendChild(wrapper);
             }
 
             if (intersect.object.material.representation == 'sphereOfTheCube') {
@@ -222,13 +228,13 @@
         var files = [
             {
                 x: 0, z: 9, lines: 1300, color: getRamdomColor(), breakpoints: [
-                    { line: 20 }
+                    { line: 20, data: '<h4>título 20</h4><p>20 lines</p>' }
                 ], events: []
             },
             {
                 x: 1, z: 9, lines: 210, color: getRamdomColor(), breakpoints: [
-                    { line: 30 },
-                    { line: 40 }
+                    { line: 30, data: '<h4>título 30</h4><p>30 lines</p>' },
+                    { line: 40, data: '<h4>título 40</h4><p>40 lines</p>' }
                 ], events: []
             },
             {
@@ -243,9 +249,9 @@
             { x: 1, z: 10, lines: 890, color: getRamdomColor(), breakpoints: [], events: [] },
             {
                 x: 2, z: 10, lines: 2200, color: getRamdomColor(), breakpoints: [
-                    { line: 478 },
-                    { line: 510 },
-                    { line: 515 },
+                    { line: 478, data: '<h4>título 478</h4><p>478 lines</p>' },
+                    { line: 510, data: '<h4>título 510</h4><p>510 lines</p>' },
+                    { line: 515, data: '<h4>título 515</h4><p>515 lines</p>' },
                 ], events: []
             },
             { x: 0, z: 11, lines: 25, color: getRamdomColor(), breakpoints: [], events: [] },
@@ -253,16 +259,16 @@
             { x: 2, z: 11, lines: 459, color: getRamdomColor(), breakpoints: [], events: [] },
             {
                 x: 3, z: 2, lines: 31, color: getRamdomColor(), breakpoints: [
-                    { line: 2 },
-                    { line: 31 },
+                    { line: 2, data: '<h4>título 2</h4><p>2 lines</p>' },
+                    { line: 31, data: '<h4>título 31</h4><p>31 lines</p>' },
                 ], events: []
             },
             {
                 x: 7, z: 4, lines: 357, color: getRamdomColor(), breakpoints: [
-                    { line: 210 },
-                    { line: 211 },
-                    { line: 213 },
-                    { line: 355 },
+                    { line: 210, data: '<h4>título 210</h4><p>210 lines</p>' },
+                    { line: 211, data: '<h4>título 211</h4><p>211 lines</p>' },
+                    { line: 213, data: '<h4>título 213</h4><p>213 lines</p>' },
+                    { line: 355, data: '<h4>título 355</h4><p>355 lines</p>' },
                 ], events: []
             },
             { x: 1, z: 20, lines: 1672, color: getRamdomColor(), breakpoints: [], events: [] },
@@ -283,7 +289,7 @@
             hideButton.cubeId = cube.id;
 
             for (var j = 0; j < files[i].breakpoints.length; j++) {
-                scene.add(drawTorusOnGraph(files[i].x, files[i].z, files[i].breakpoints[j].line, mostHighFileLine));
+                scene.add(drawTorusOnGraph(files[i].x, files[i].z, files[i].breakpoints[j].line, mostHighFileLine, files[i].breakpoints[j].data));
             }
 
             for (var j = 0; j < files[i].events.length; j++) {
@@ -439,12 +445,6 @@
         <i class="fas fa-arrows-alt" aria-hidden="true"></i>
         <div class="detail-box-minimize">-</div>
     </div>
-    <!---->
-    <h4>título</h4>
-    <p>parágrafo</p>
-    <p>parágrafo</p>
-    <hr>
-    <p>parágrafo</p>
-    <p>parágrafo</p>
+    <div class="detail-box-main"></div>
 </div>
 <div class="canvasRenderRelativeSize"></div>
