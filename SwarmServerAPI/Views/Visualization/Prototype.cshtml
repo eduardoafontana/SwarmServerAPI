@@ -23,7 +23,9 @@
         return new THREE.Line(geometry, material);
     }
 
-    function drawCubeOnGraph(positionX, positionZ, height, hexColor) {
+    function drawCubeOnGraph(positionX, positionZ, lines, hexColor, mostHighFileLine) {
+        var height = lines * 50 / mostHighFileLine;
+
         var ySize = height;
         var xSize = 0.6;
         var zSize = 0.6;
@@ -170,23 +172,31 @@
         //--
 
         var cubes = [
-            { x: 0, z: 9, height: Math.floor(Math.random() * 31), color: getRamdomColor() },
-            { x: 1, z: 9, height: Math.floor(Math.random() * 31), color: getRamdomColor() },
-            { x: 2, z: 9, height: Math.floor(Math.random() * 31), color: getRamdomColor() },
-            { x: 0, z: 10, height: Math.floor(Math.random() * 31), color: getRamdomColor() },
-            { x: 1, z: 10, height: Math.floor(Math.random() * 31), color: getRamdomColor() },
-            { x: 2, z: 10, height: Math.floor(Math.random() * 31), color: getRamdomColor() },
-            { x: 0, z: 11, height: Math.floor(Math.random() * 31), color: getRamdomColor() },
-            { x: 1, z: 11, height: Math.floor(Math.random() * 31), color: getRamdomColor() },
-            { x: 2, z: 11, height: Math.floor(Math.random() * 31), color: getRamdomColor() },
-            { x: 3, z: 2, height: Math.floor(Math.random() * 31), color: getRamdomColor() },
-            { x: 7, z: 4, height: Math.floor(Math.random() * 31), color: getRamdomColor() },
-            { x: 1, z: 20, height: Math.floor(Math.random() * 31), color: getRamdomColor() },
+            { x: 0, z: 9, lines: 1300, color: getRamdomColor() },
+            { x: 1, z: 9, lines: 210, color: getRamdomColor() },
+            { x: 2, z: 9, lines: 489, color: getRamdomColor() },
+            { x: 0, z: 10, lines: 10, color: getRamdomColor() },
+            { x: 1, z: 10, lines: 890, color: getRamdomColor() },
+            { x: 2, z: 10, lines: 2200, color: getRamdomColor() },
+            { x: 0, z: 11, lines: 25, color: getRamdomColor() },
+            { x: 1, z: 11, lines: 245, color: getRamdomColor() },
+            { x: 2, z: 11, lines: 459, color: getRamdomColor() },
+            { x: 3, z: 2, lines: 31, color: getRamdomColor() },
+            { x: 7, z: 4, lines: 357, color: getRamdomColor() },
+            { x: 1, z: 20, lines: 1672, color: getRamdomColor() },
         ];
 
-        for (var i = 0; i < cubes.length; i++){
-            var cube = drawCubeOnGraph(cubes[i].x, cubes[i].z, cubes[i].height, cubes[i].color);
-            var hideButton = drawHideCubeButton(cubes[i].x, cubes[i].z, cubes[i].height, cubes[i].color);
+        //Math.floor(Math.random() * 31)
+
+        var mostHighFileLine = 0;
+        for (var i = 0; i < cubes.length; i++) {
+            if (cubes[i].lines > mostHighFileLine)
+                mostHighFileLine = cubes[i].lines;
+        }
+
+        for (var i = 0; i < cubes.length; i++) {
+            var cube = drawCubeOnGraph(cubes[i].x, cubes[i].z, cubes[i].lines, cubes[i].color, mostHighFileLine);
+            var hideButton = drawHideCubeButton(cubes[i].x, cubes[i].z, cube.geometry.parameters.height, cubes[i].color);
 
             hideButton.cubeId = cube.id;
 
@@ -195,7 +205,7 @@
         }
 
         var cubeWithRintHeight = Math.floor(Math.random() * 31);
-        scene.add(drawCubeOnGraph(12, 15, cubeWithRintHeight, getRamdomColor()));
+        scene.add(drawCubeOnGraph(12, 15, 100, getRamdomColor()));
 
         //--
 
@@ -305,6 +315,15 @@
                 this.className = 'selected';
             }
         });
+
+        //-------------------------------
+
+        var scaleOptions = {
+            Scale: 50
+        };
+        //TODO: continue scale here
+
+
     });
 </script>
 <h2>Prototype</h2>
