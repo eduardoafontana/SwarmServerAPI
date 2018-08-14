@@ -219,52 +219,60 @@
         //--
 
         var files = [
+            { x: 0, z: 0, lines: 150, group: 2, breakpoints: [], events: [] },
+            { x: 1, z: 0, lines: 160, group: 2, breakpoints: [], events: [] },
+            { x: 2, z: 0, lines: 130, group: 2, breakpoints: [], events: [] },
+            { x: 3, z: 0, lines: 170, group: 2, breakpoints: [], events: [] },
+            { x: 0, z: 1, lines: 140, group: 2, breakpoints: [], events: [] },
+            { x: 1, z: 1, lines: 180, group: 2, breakpoints: [], events: [] },
+            { x: 2, z: 1, lines: 200, group: 2, breakpoints: [], events: [] },
+            { x: 3, z: 1, lines: 76, group: 2, breakpoints: [], events: [] },
             {
-                x: 0, z: 9, lines: 1300, color: getRamdomColor(), breakpoints: [
+                x: 0, z: 3, lines: 1300, group: 1, breakpoints: [
                     { line: 20, data: '<h4>título 20</h4><p>20 lines</p><p>breakpoint</p>' }
                 ], events: []
             },
             {
-                x: 1, z: 9, lines: 210, color: getRamdomColor(), breakpoints: [
+                x: 1, z: 3, lines: 210, group: 1, breakpoints: [
                     { line: 30, data: '<h4>título 30</h4><p>30 lines</p><p>breakpoint</p>' },
                     { line: 40, data: '<h4>título 40</h4><p>40 lines</p><p>breakpoint</p>' }
                 ], events: []
             },
             {
-                x: 2, z: 9, lines: 489, color: getRamdomColor(), breakpoints: [
+                x: 2, z: 3, lines: 489, group: 1, breakpoints: [
                 ], events: [
                     { line: 100, data: '<h4>título 100</h4><p>100 lines</p><p>event</p>' },
                     { line: 300, data: '<h4>título 300</h4><p>300 lines</p><p>event</p>' },
                     { line: 350, data: '<h4>título 350</h4><p>350 lines</p><p>event</p>' },
                 ]
             },
-            { x: 0, z: 10, lines: 10, color: getRamdomColor(), breakpoints: [], events: [] },
-            { x: 1, z: 10, lines: 890, color: getRamdomColor(), breakpoints: [], events: [] },
+            { x: 0, z: 4, lines: 10, group: 1, breakpoints: [], events: [] },
+            { x: 1, z: 4, lines: 890, group: 1, breakpoints: [], events: [] },
             {
-                x: 2, z: 10, lines: 2200, color: getRamdomColor(), breakpoints: [
+                x: 2, z: 4, lines: 2200, group: 1, breakpoints: [
                     { line: 478, data: '<h4>título 478</h4><p>478 lines</p><p>breakpoint</p>' },
                     { line: 510, data: '<h4>título 510</h4><p>510 lines</p><p>breakpoint</p>' },
                     { line: 515, data: '<h4>título 515</h4><p>515 lines</p><p>breakpoint</p>' },
                 ], events: []
             },
-            { x: 0, z: 11, lines: 25, color: getRamdomColor(), breakpoints: [], events: [] },
-            { x: 1, z: 11, lines: 245, color: getRamdomColor(), breakpoints: [], events: [] },
-            { x: 2, z: 11, lines: 459, color: getRamdomColor(), breakpoints: [], events: [] },
+            { x: 0, z: 5, lines: 25, group: 1, breakpoints: [], events: [] },
+            { x: 1, z: 5, lines: 245, group: 1, breakpoints: [], events: [] },
+            { x: 2, z: 5, lines: 459, group: 1, breakpoints: [], events: [] },
             {
-                x: 3, z: 2, lines: 31, color: getRamdomColor(), breakpoints: [
+                x: 0, z: 7, lines: 31, group: 3, breakpoints: [
                     { line: 2, data: '<h4>título 2</h4><p>2 lines</p><p>breakpoint</p>' },
                     { line: 31, data: '<h4>título 31</h4><p>31 lines</p><p>breakpoint</p>' },
                 ], events: []
             },
             {
-                x: 7, z: 4, lines: 357, color: getRamdomColor(), breakpoints: [
+                x: 1, z: 7, lines: 357, group: 3, breakpoints: [
                     { line: 210, data: '<h4>título 210</h4><p>210 lines</p><p>breakpoint</p>' },
                     { line: 211, data: '<h4>título 211</h4><p>211 lines</p><p>breakpoint</p>' },
                     { line: 213, data: '<h4>título 213</h4><p>213 lines</p><p>breakpoint</p>' },
                     { line: 355, data: '<h4>título 355</h4><p>355 lines</p><p>breakpoint</p>' },
                 ], events: []
             },
-            { x: 1, z: 20, lines: 1672, color: getRamdomColor(), breakpoints: [], events: [] },
+            { x: 2, z: 7, lines: 1672, group: 3, breakpoints: [], events: [] },
         ];
 
         //Math.floor(Math.random() * 31)
@@ -275,9 +283,16 @@
                 mostHighFileLine = files[i].lines;
         }
 
+        var color = '';
+
         for (var i = 0; i < files.length; i++) {
-            var cube = drawCubeOnGraph(files[i].x, files[i].z, files[i].lines, files[i].color, mostHighFileLine);
-            var hideButton = drawHideCubeButton(files[i].x, files[i].z, cube.geometry.parameters.height, files[i].color);
+            if (i == 0)
+                color = getRamdomColor();
+            else if (files[i - 1].group != files[i].group)
+                color = getRamdomColor();
+
+            var cube = drawCubeOnGraph(files[i].x, files[i].z, files[i].lines, color, mostHighFileLine);
+            var hideButton = drawHideCubeButton(files[i].x, files[i].z, cube.geometry.parameters.height, color);
 
             hideButton.cubeId = cube.id;
 
@@ -293,20 +308,20 @@
             scene.add(hideButton);
         }
 
-        var cubeWithRintHeight = Math.floor(Math.random() * 31);
-        scene.add(drawCubeOnGraph(12, 15, 100, getRamdomColor()));
+        //var cubeWithRintHeight = Math.floor(Math.random() * 31);
+        //scene.add(drawCubeOnGraph(12, 15, 100, getRamdomColor()));
 
         //--
 
-        var geometrySphere = new THREE.SphereGeometry(0.5, 20, 20);
-        var materialSphere = new THREE.MeshBasicMaterial({ color: 0xffff00 });
-        var sphere = new THREE.Mesh(geometrySphere, materialSphere);
+        //var geometrySphere = new THREE.SphereGeometry(0.5, 20, 20);
+        //var materialSphere = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+        //var sphere = new THREE.Mesh(geometrySphere, materialSphere);
 
-        sphere.position.y = 0.5;
-        sphere.position.x = 0.5 + 0.1 + 3;
-        sphere.position.z = 0.5 + 0.1 + 2;
+        //sphere.position.y = 0.5;
+        //sphere.position.x = 0.5 + 0.1 + 3;
+        //sphere.position.z = 0.5 + 0.1 + 2;
 
-        scene.add(sphere);
+        //scene.add(sphere);
         //--
 
         var intersected = null;
@@ -315,17 +330,17 @@
 
         //--
 
-        var geometryTorus = new THREE.TorusGeometry(0.5, 0.2, 10, 30); //Ring 3d
-        var materialTorus = new THREE.MeshBasicMaterial({ color: 0x0000ff });
-        materialTorus.representation = 'ringOnGraph';
-        var torus = new THREE.Mesh(geometryTorus, materialTorus);
+        //var geometryTorus = new THREE.TorusGeometry(0.5, 0.2, 10, 30); //Ring 3d
+        //var materialTorus = new THREE.MeshBasicMaterial({ color: 0x0000ff });
+        //materialTorus.representation = 'ringOnGraph';
+        //var torus = new THREE.Mesh(geometryTorus, materialTorus);
 
-        torus.position.y = 0.5 + cubeWithRintHeight / 2;
-        torus.position.x = 0.5 + 0.1 + 12;
-        torus.position.z = 0.5 + 0.1 + 15;
-        torus.rotation.x = 1.6;//flip to horizontal
+        //torus.position.y = 0.5 + cubeWithRintHeight / 2;
+        //torus.position.x = 0.5 + 0.1 + 12;
+        //torus.position.z = 0.5 + 0.1 + 15;
+        //torus.rotation.x = 1.6;//flip to horizontal
 
-        scene.add(torus);
+        //scene.add(torus);
         //--
 
         document.addEventListener('mousedown', onDocumentMouseDown, false);
