@@ -26,9 +26,11 @@
     function drawCubeOnGraph(positionX, positionZ, lines, hexColor, mostHighFileLine) {
         var height = lines * 50 / mostHighFileLine;
 
+        var squareSize = 1;
+
         var ySize = height;
-        var xSize = 0.6;
-        var zSize = 0.6;
+        var xSize = squareSize;
+        var zSize = squareSize;
 
         var geometry = new THREE.BoxGeometry(xSize, ySize, zSize);
         var material = new THREE.MeshBasicMaterial({ color: hexColor });
@@ -37,20 +39,24 @@
         material.opacity = 0.5;
         material.transparent = true;
 
-        cube.position.y = ySize / 2;
-        cube.position.x = xSize / 2 + (1 - xSize) / 2 + 0.1 + positionX;
-        cube.position.z = zSize / 2 + (1 - zSize) / 2 + 0.1 + positionZ;
+        var adjustToZeroAxisY = ySize / 2
+        var margin = 0.5;
+        var sizeWithMargin = margin + squareSize;
+
+        cube.position.y = adjustToZeroAxisY;
+        cube.position.x = sizeWithMargin * positionX;
+        cube.position.z = sizeWithMargin * positionZ;
 
         cube.initialPositionX = positionX;
+        cube.initialPositionZ = positionZ;
         cube.canScaleChange = true;
 
         return cube;
     }
 
     function drawHideCubeButton(positionX, positionZ, height, hexColor) {
-        var radius = 0.3;
-        var spherePositionMarginFix = 0.3
-        var topMargin = 0.3;
+        var radius = 0.5;
+        var topMargin = 0.5;
         var positionY = height;
 
         var geometry = new THREE.SphereGeometry(radius, 20, 20);
@@ -60,11 +66,16 @@
         material.opacity = 0.5;
         material.transparent = true;
 
+        var margin = 0.5;
+        var sphereSize = radius * 2; //diameter
+        var sizeWithMargin = margin + sphereSize;
+
         sphere.position.y = radius + topMargin + positionY;
-        sphere.position.x = radius + spherePositionMarginFix + positionX;
-        sphere.position.z = radius + spherePositionMarginFix + positionZ;
+        sphere.position.x = sizeWithMargin * positionX;
+        sphere.position.z = sizeWithMargin * positionZ;
 
         sphere.initialPositionX = positionX;
+        sphere.initialPositionZ = positionZ;
         sphere.canHideRelated = true;
         sphere.canHighlightOnMouseOver = true;
         sphere.canScaleChange = true;
@@ -74,19 +85,24 @@
 
     function drawTorusOnGraph(positionX, positionZ, line, mostHighFileLine, data) {
         var height = line * 50 / mostHighFileLine;
-        var graphPositionMarginFix = 0.1;
-        var radius = 0.4;
+        var radius = 0.7;
 
-        var geometryTorus = new THREE.TorusGeometry(radius, 0.05, 100, 100);
+        var geometryTorus = new THREE.TorusGeometry(radius, 0.1, 100, 100);
         var materialTorus = new THREE.MeshBasicMaterial({ color: 0x0000ff });
         var torus = new THREE.Mesh(geometryTorus, materialTorus);
 
+        var margin = 0.1;
+        var torusSize = radius * 2; //diameter
+        var sizeWithMargin = margin + torusSize;
+
         torus.position.y = 0.5 + height / 2;
-        torus.position.x = 0.5 + graphPositionMarginFix + positionX;
-        torus.position.z = 0.5 + graphPositionMarginFix + positionZ;
+        torus.position.x = sizeWithMargin * positionX;
+        torus.position.z = sizeWithMargin * positionZ;
+
         torus.rotation.x = 1.6; //flip to horizontal
 
         torus.initialPositionX = positionX;
+        torus.initialPositionZ = positionZ;
         torus.canOpenDetailBox = true;
         torus.data = data;
         torus.canHighlightOnMouseOver = true;
@@ -97,20 +113,25 @@
 
     function drawTorusSquareOnGraph(positionX, positionZ, line, mostHighFileLine, data) {
         var height = line * 50 / mostHighFileLine;
-        var graphPositionMarginFix = 0.1;
-        var radius = 0.4;
+        var radius = 0.7;
 
-        var geometryTorus = new THREE.TorusGeometry(radius, 0.05, 100, 4);
+        var geometryTorus = new THREE.TorusGeometry(radius, 0.1, 100, 4);
         var materialTorus = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
         var torus = new THREE.Mesh(geometryTorus, materialTorus);
 
+        var margin = 0.1;
+        var torusSize = radius * 2; //diameter
+        var sizeWithMargin = margin + torusSize;
+
         torus.position.y = 0.5 + height / 2;
-        torus.position.x = 0.5 + graphPositionMarginFix + positionX;
-        torus.position.z = 0.5 + graphPositionMarginFix + positionZ;
+        torus.position.x = sizeWithMargin * positionX;
+        torus.position.z = sizeWithMargin * positionZ;
+
         torus.rotation.x = 1.6; //flip to horizontal
         torus.rotation.z = 0.8; //rotate to equal cube node
 
         torus.initialPositionX = positionX;
+        torus.initialPositionZ = positionZ;
         torus.canOpenDetailBox = true;
         torus.data = data;
         torus.canHighlightOnMouseOver = true;
@@ -185,13 +206,11 @@
     }
 
     function loadGraph() {
-        //--
-        //scene.add( drawLine(0, 0, 0, 30, 0, 0, 0x0000ff) ); //x axis is blue
-        //scene.add( drawLine(0, 0, 0, 0, 30, 0, 0x00ff00) ); //y axis is green
-        //scene.add( drawLine(0, 0, 0, 0, 0, 30, 0xff0000) ); //z axis is red
-
-        scene.add(new THREE.AxesHelper(30));
-        //--
+        var axesHelper = new THREE.AxesHelper(50);
+        //console.log(axesHelper.position.x);
+        //console.log(axesHelper.position.y);
+        //console.log(axesHelper.position.z);
+        scene.add(axesHelper);
 
         //var geometryPlane = new THREE.PlaneGeometry( 5, 5 );
         //var materialPlane = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
@@ -203,18 +222,14 @@
         //scene.add( plane );
         //--
 
-        var ghSize = 30;
-
-        var gridHelper = new THREE.GridHelper(ghSize, 30);
-        gridHelper.position.x = ghSize / 2 + 0.1;
-        gridHelper.position.y = 0;
-        gridHelper.position.z = ghSize / 2 + 0.1;
-
+        var gridHelper = new THREE.GridHelper(100, 10);
+        //gridHelper.position.x = ghSize / 2 + 0.1;
+        //gridHelper.position.y = 0;
+        //gridHelper.position.z = ghSize / 2 + 0.1;
         scene.add(gridHelper);
-        //--
-
+ 
         var files = [
-            { x: 0, z: 0, lines: 150, group: 2, breakpoints: [], events: [] },
+            { x: 0, z: 0, lines: 150, group: 2, breakpoints: [{ line: 10, data: '<h4>título 10</h4><p>10 lines</p><p>breakpoint</p>' }], events: [] },
             { x: 1, z: 0, lines: 160, group: 2, breakpoints: [], events: [] },
             { x: 2, z: 0, lines: 130, group: 2, breakpoints: [], events: [] },
             { x: 3, z: 0, lines: 170, group: 2, breakpoints: [], events: [] },
@@ -443,6 +458,7 @@
                 if (node instanceof THREE.Mesh) {
                     if (node.canScaleChange) {
                         node.position.x = node.initialPositionX * scaleOptions.cubeSpace;
+                        node.position.z = node.initialPositionZ * scaleOptions.cubeSpace;
                     }
                 }
             });
