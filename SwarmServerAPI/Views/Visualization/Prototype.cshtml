@@ -23,7 +23,7 @@
         return new THREE.Line(geometry, material);
     }
 
-    function drawCubeOnGraph(positionX, positionZ, lines, hexColor, mostHighFileLine) {
+    function drawCubeOnGraph(positionX, positionZ, lines, hexColor, mostHighFileLine, group) {
         var height = lines * 50 / mostHighFileLine;
 
         var squareSize = 1;
@@ -47,14 +47,17 @@
         cube.position.x = sizeWithMargin * positionX;
         cube.position.z = sizeWithMargin * positionZ;
 
+        cube.group = group;
         cube.initialPositionX = positionX;
         cube.initialPositionZ = positionZ;
+        cube.initialCalculatedPositionX = cube.position.x;
+        cube.initialCalculatedPositionZ = cube.position.z;
         cube.canScaleChange = true;
 
         return cube;
     }
 
-    function drawHideCubeButton(positionX, positionZ, height, hexColor) {
+    function drawHideCubeButton(positionX, positionZ, height, hexColor, group) {
         var radius = 0.5;
         var topMargin = 0.5;
         var positionY = height;
@@ -74,8 +77,11 @@
         sphere.position.x = sizeWithMargin * positionX;
         sphere.position.z = sizeWithMargin * positionZ;
 
+        sphere.group = group;
         sphere.initialPositionX = positionX;
         sphere.initialPositionZ = positionZ;
+        sphere.initialCalculatedPositionX = sphere.position.x;
+        sphere.initialCalculatedPositionZ = sphere.position.z;
         sphere.canHideRelated = true;
         sphere.canHighlightOnMouseOver = true;
         sphere.canScaleChange = true;
@@ -83,7 +89,7 @@
         return sphere;
     }
 
-    function drawTorusOnGraph(positionX, positionZ, line, mostHighFileLine, data) {
+    function drawTorusOnGraph(positionX, positionZ, line, mostHighFileLine, data, group) {
         var height = line * 50 / mostHighFileLine;
         var radius = 0.7;
 
@@ -101,8 +107,11 @@
 
         torus.rotation.x = 1.6; //flip to horizontal
 
+        torus.group = group;
         torus.initialPositionX = positionX;
         torus.initialPositionZ = positionZ;
+        torus.initialCalculatedPositionX = torus.position.x;
+        torus.initialCalculatedPositionZ = torus.position.z;
         torus.canOpenDetailBox = true;
         torus.data = data;
         torus.canHighlightOnMouseOver = true;
@@ -111,7 +120,7 @@
         return torus;
     }
 
-    function drawTorusSquareOnGraph(positionX, positionZ, line, mostHighFileLine, data) {
+    function drawTorusSquareOnGraph(positionX, positionZ, line, mostHighFileLine, data, group) {
         var height = line * 50 / mostHighFileLine;
         var radius = 0.7;
 
@@ -130,8 +139,11 @@
         torus.rotation.x = 1.6; //flip to horizontal
         torus.rotation.z = 0.8; //rotate to equal cube node
 
+        torus.group = group;
         torus.initialPositionX = positionX;
         torus.initialPositionZ = positionZ;
+        torus.initialCalculatedPositionX = torus.position.x;
+        torus.initialCalculatedPositionZ = torus.position.z;
         torus.canOpenDetailBox = true;
         torus.data = data;
         torus.canHighlightOnMouseOver = true;
@@ -283,6 +295,7 @@
                 ], events: []
             },
             { x: 2, z: 7, lines: 1672, group: 3, breakpoints: [], events: [] },
+            { x: 5, z: 0, lines: 100, group: 4, breakpoints: [], events: [] },
         ];
 
         //Math.floor(Math.random() * 31)
@@ -301,17 +314,17 @@
             else if (files[i - 1].group != files[i].group)
                 color = getRamdomColor();
 
-            var cube = drawCubeOnGraph(files[i].x, files[i].z, files[i].lines, color, mostHighFileLine);
-            var hideButton = drawHideCubeButton(files[i].x, files[i].z, cube.geometry.parameters.height, color);
+            var cube = drawCubeOnGraph(files[i].x, files[i].z, files[i].lines, color, mostHighFileLine, files[i].group);
+            var hideButton = drawHideCubeButton(files[i].x, files[i].z, cube.geometry.parameters.height, color, files[i].group);
 
             hideButton.cubeId = cube.id;
 
             for (var j = 0; j < files[i].breakpoints.length; j++) {
-                scene.add(drawTorusOnGraph(files[i].x, files[i].z, files[i].breakpoints[j].line, mostHighFileLine, files[i].breakpoints[j].data));
+                scene.add(drawTorusOnGraph(files[i].x, files[i].z, files[i].breakpoints[j].line, mostHighFileLine, files[i].breakpoints[j].data, files[i].group));
             }
 
             for (var j = 0; j < files[i].events.length; j++) {
-                scene.add(drawTorusSquareOnGraph(files[i].x, files[i].z, files[i].events[j].line, mostHighFileLine, files[i].events[j].data));
+                scene.add(drawTorusSquareOnGraph(files[i].x, files[i].z, files[i].events[j].line, mostHighFileLine, files[i].events[j].data, files[i].group));
             }
 
             scene.add(cube);
@@ -450,10 +463,11 @@
         //-------------------------------
 
         var scaleOptions = {
-            cubeSpace: 1
+            cubeSpace: 1,
+            groupSpace: 1,
         };
 
-        function changeScale() {
+        function changeCubeScale() {
             scene.traverse(function (node) {
                 if (node instanceof THREE.Mesh) {
                     if (node.canScaleChange) {
@@ -464,8 +478,36 @@
             });
         };
 
+        function changeGroupScale() {
+            var groupBefore = undefined;
+            var firstNodeOfGroup = undefined;
+
+            scene.traverse(function (node) {
+                if (node instanceof THREE.Mesh && node.canScaleChange) {
+
+                    if (groupBefore == undefined) {
+                        groupBefore = node.group;
+                        firstNodeOfGroup = node;
+
+                        node.position.x = node.initialCalculatedPositionX * scaleOptions.groupSpace;
+                        node.position.z = node.initialCalculatedPositionZ * scaleOptions.groupSpace;
+                    } else if (groupBefore != node.group) {
+                        groupBefore = node.group;
+                        firstNodeOfGroup = node;
+
+                        node.position.x = node.initialCalculatedPositionX * scaleOptions.groupSpace;
+                        node.position.z = node.initialCalculatedPositionZ * scaleOptions.groupSpace;
+                    } else {
+                        node.position.x = (firstNodeOfGroup.position.x - firstNodeOfGroup.initialCalculatedPositionX) + node.initialCalculatedPositionX;
+                        node.position.z = (firstNodeOfGroup.position.z - firstNodeOfGroup.initialCalculatedPositionZ) + node.initialCalculatedPositionZ;
+                    }
+                }
+            });
+        };
+
         var guiScaleOtions = new dat.GUI({ autoPlace: false });
-        guiScaleOtions.add(scaleOptions, 'cubeSpace', 0.8, 5).onChange(changeScale);
+        guiScaleOtions.add(scaleOptions, 'cubeSpace', 0.8, 5).onChange(changeCubeScale);
+        guiScaleOtions.add(scaleOptions, 'groupSpace', 0.8, 5).onChange(changeGroupScale);
 
         document.getElementsByClassName("tool-box")[0].appendChild(guiScaleOtions.domElement);
 
