@@ -241,64 +241,109 @@
         scene.add(gridHelper);
  
         var files = [
-            { x: 0, z: 0, lines: 150, group: 2, breakpoints: [{ line: 10, data: '<h4>título 10</h4><p>10 lines</p><p>breakpoint</p>' }], events: [] },
-            { x: 1, z: 0, lines: 160, group: 2, breakpoints: [], events: [] },
-            { x: 2, z: 0, lines: 130, group: 2, breakpoints: [], events: [] },
-            { x: 3, z: 0, lines: 170, group: 2, breakpoints: [], events: [] },
-            { x: 0, z: 1, lines: 140, group: 2, breakpoints: [], events: [] },
-            { x: 1, z: 1, lines: 180, group: 2, breakpoints: [], events: [] },
-            { x: 2, z: 1, lines: 200, group: 2, breakpoints: [], events: [] },
-            { x: 3, z: 1, lines: 76, group: 2, breakpoints: [], events: [] },
+            { lines: 150, group: 2, breakpoints: [{ line: 10, data: '<h4>título 10</h4><p>10 lines</p><p>breakpoint</p>' }], events: [] },
+            { lines: 160, group: 2, breakpoints: [], events: [] },
+            { lines: 130, group: 2, breakpoints: [], events: [] },
+            { lines: 170, group: 2, breakpoints: [], events: [] },
+            { lines: 140, group: 2, breakpoints: [], events: [] },
+            { lines: 180, group: 2, breakpoints: [], events: [] },
+            { lines: 200, group: 2, breakpoints: [], events: [] },
+            { lines: 76, group: 2, breakpoints: [], events: [] },
             {
-                x: 0, z: 3, lines: 1300, group: 1, breakpoints: [
+                lines: 1300, group: 1, breakpoints: [
                     { line: 20, data: '<h4>título 20</h4><p>20 lines</p><p>breakpoint</p>' }
                 ], events: []
             },
             {
-                x: 1, z: 3, lines: 210, group: 1, breakpoints: [
+                lines: 210, group: 1, breakpoints: [
                     { line: 30, data: '<h4>título 30</h4><p>30 lines</p><p>breakpoint</p>' },
                     { line: 40, data: '<h4>título 40</h4><p>40 lines</p><p>breakpoint</p>' }
                 ], events: []
             },
             {
-                x: 2, z: 3, lines: 489, group: 1, breakpoints: [
+                lines: 489, group: 1, breakpoints: [
                 ], events: [
                     { line: 100, data: '<h4>título 100</h4><p>100 lines</p><p>event</p>' },
                     { line: 300, data: '<h4>título 300</h4><p>300 lines</p><p>event</p>' },
                     { line: 350, data: '<h4>título 350</h4><p>350 lines</p><p>event</p>' },
                 ]
             },
-            { x: 0, z: 4, lines: 10, group: 1, breakpoints: [], events: [] },
-            { x: 1, z: 4, lines: 890, group: 1, breakpoints: [], events: [] },
+            { lines: 10, group: 1, breakpoints: [], events: [] },
+            { lines: 890, group: 1, breakpoints: [], events: [] },
             {
-                x: 2, z: 4, lines: 2200, group: 1, breakpoints: [
+                lines: 2200, group: 1, breakpoints: [
                     { line: 478, data: '<h4>título 478</h4><p>478 lines</p><p>breakpoint</p>' },
                     { line: 510, data: '<h4>título 510</h4><p>510 lines</p><p>breakpoint</p>' },
                     { line: 515, data: '<h4>título 515</h4><p>515 lines</p><p>breakpoint</p>' },
                 ], events: []
             },
-            { x: 0, z: 5, lines: 25, group: 1, breakpoints: [], events: [] },
-            { x: 1, z: 5, lines: 245, group: 1, breakpoints: [], events: [] },
-            { x: 2, z: 5, lines: 459, group: 1, breakpoints: [], events: [] },
+            { lines: 25, group: 1, breakpoints: [], events: [] },
+            { lines: 245, group: 1, breakpoints: [], events: [] },
+            { lines: 459, group: 1, breakpoints: [], events: [] },
             {
-                x: 0, z: 7, lines: 31, group: 3, breakpoints: [
+                lines: 31, group: 3, breakpoints: [
                     { line: 2, data: '<h4>título 2</h4><p>2 lines</p><p>breakpoint</p>' },
                     { line: 31, data: '<h4>título 31</h4><p>31 lines</p><p>breakpoint</p>' },
                 ], events: []
             },
             {
-                x: 1, z: 7, lines: 357, group: 3, breakpoints: [
+                lines: 357, group: 3, breakpoints: [
                     { line: 210, data: '<h4>título 210</h4><p>210 lines</p><p>breakpoint</p>' },
                     { line: 211, data: '<h4>título 211</h4><p>211 lines</p><p>breakpoint</p>' },
                     { line: 213, data: '<h4>título 213</h4><p>213 lines</p><p>breakpoint</p>' },
                     { line: 355, data: '<h4>título 355</h4><p>355 lines</p><p>breakpoint</p>' },
                 ], events: []
             },
-            { x: 2, z: 7, lines: 1672, group: 3, breakpoints: [], events: [] },
-            { x: 5, z: 0, lines: 100, group: 4, breakpoints: [], events: [] },
+            { lines: 1672, group: 3, breakpoints: [], events: [] },
+            { lines: 100, group: 4, breakpoints: [], events: [] },
         ];
 
-        //Math.floor(Math.random() * 31)
+        var filesGroupOrdered = files.sort(function (a, b) { return a.group - b.group });
+
+        var groups = [];
+        filesGroupOrdered.forEach(function(file) {
+            if (groups.indexOf(file.group) == -1)
+                groups.push(file.group);
+        });
+
+        var cGroupLimit = Math.ceil(Math.sqrt(groups.length));
+
+        var lTotal = 0, cTotal = 0, higherL = 0, cG = 0;
+        groups.forEach(function(group) {
+            var filesOfGroup = files.filter(function(file) {
+                return file.group == group;
+            });
+
+            var cLimit = Math.ceil(Math.sqrt(filesOfGroup.length));
+            cLimit = cLimit + cTotal;
+
+            var l = lTotal, c = cTotal;
+            filesOfGroup.forEach(function(file) {
+                if (c == cLimit) {
+                    l++;
+                    c = cTotal;
+                }
+
+                if (l > higherL)
+                    higherL = l;
+
+                file.x = c;
+                file.z = l;
+
+                c++;
+            });
+
+            cTotal = cTotal + cLimit + 1;
+
+            cG++;
+
+            if (cG == cGroupLimit) {
+                lTotal = higherL + 1 + 1;
+                higherL = 0;
+                cTotal = 0;
+                cG = 0;
+            }
+        });
 
         var mostHighFileLine = 0;
         for (var i = 0; i < files.length; i++) {
