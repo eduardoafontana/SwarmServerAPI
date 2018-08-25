@@ -258,6 +258,7 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\color-palettes.js" />
     <Content Include="Scripts\cytoscape-qtip.js" />
     <Content Include="Scripts\cytoscape.js" />
     <Content Include="Scripts\cytoscape.min.js" />

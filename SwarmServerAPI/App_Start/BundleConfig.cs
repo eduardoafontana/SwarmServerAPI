@@ -59,6 +59,9 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
             bundles.Add(new ScriptBundle("~/bundles/detail-box").Include(
                       "~/Scripts/detail-box.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/3dview").Include(
+                      "~/Scripts/color-palettes.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",

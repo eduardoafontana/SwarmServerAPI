@@ -2,6 +2,7 @@
 @Styles.Render("~/Content/detail-box")
 @Scripts.Render("~/bundles/detail-box")
 @Scripts.Render("~/bundles/threejs")
+@Scripts.Render("~/bundles/3dview")
 
 <style>
     body, html {
@@ -144,9 +145,9 @@
         return torus;
     }
 
-    function getRamdomColor() {
-        return '#' + Math.floor(Math.random() * 16777215).toString(16);
-    }
+    //function getRamdomColor() {
+    //    return '#' + Math.floor(Math.random() * 16777215).toString(16);
+    //}
 
     function onDocumentMouseMove(event) {
         var positions = document.body.getElementsByClassName("canvasRenderRelativeSize")[0].getBoundingClientRect();
@@ -517,12 +518,11 @@
         }
 
         var color = '';
-
         for (var i = 0; i < files.length; i++) {
             if (i == 0)
-                color = getRamdomColor();
+                color = colorPalette.pickUpColor();
             else if (files[i - 1].group != files[i].group)
-                color = getRamdomColor();
+                color = colorPalette.pickUpColor();
 
             var cube = drawCubeOnGraph(files[i].x, files[i].z, files[i].lines, color, mostHighFileLine, files[i].group);
             var hideButton = drawHideCubeButton(files[i].x, files[i].z, cube.geometry.parameters.height, color, files[i].group);
@@ -648,14 +648,41 @@
         //------------------------------
 
         var colorOptions = {
-            Background: "#000000"
+            Background: "#000000",
+            Groups: colorPalette.defaultColorPaletteName
         };
 
         function changeColor() {
             scene.background = new THREE.Color(colorOptions.Background);
         };
 
+        function changeGroupColor() {
+            var groupBefore = undefined;
+            var firstNodeOfGroup = undefined;
+            var color = '';
+
+            scene.traverse(function (node) {
+                if (node instanceof THREE.Mesh && node.canScaleChange) {
+
+                    if (groupBefore == undefined) {
+                        groupBefore = node.group;
+                        firstNodeOfGroup = node;
+
+                        color = colorPalette.pickUpColor(colorOptions.Groups);
+                    } else if (groupBefore != node.group) {
+                        groupBefore = node.group;
+                        firstNodeOfGroup = node;
+
+                        color = colorPalette.pickUpColor(colorOptions.Groups);
+                    } 
+
+                    node.material.color = new THREE.Color(color);
+                }
+            });            
+        };
+
         var guiColorOtions = new dat.GUI({ autoPlace: false });
+        guiColorOtions.add(colorOptions, 'Groups', colorPalette.getColorPalatteArray()).onChange(changeGroupColor);
         guiColorOtions.addColor(colorOptions, 'Background').onChange(changeColor);
 
         document.getElementsByClassName("tool-box")[0].appendChild(guiColorOtions.domElement);
