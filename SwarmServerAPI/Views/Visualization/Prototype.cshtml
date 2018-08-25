@@ -48,8 +48,6 @@
         cube.position.z = sizeWithMargin * positionZ;
 
         cube.group = group;
-        cube.initialPositionX = positionX;
-        cube.initialPositionZ = positionZ;
         cube.initialCalculatedPositionX = cube.position.x;
         cube.initialCalculatedPositionZ = cube.position.z;
         cube.canScaleChange = true;
@@ -78,8 +76,6 @@
         sphere.position.z = sizeWithMargin * positionZ;
 
         sphere.group = group;
-        sphere.initialPositionX = positionX;
-        sphere.initialPositionZ = positionZ;
         sphere.initialCalculatedPositionX = sphere.position.x;
         sphere.initialCalculatedPositionZ = sphere.position.z;
         sphere.canHideRelated = true;
@@ -108,8 +104,6 @@
         torus.rotation.x = 1.6; //flip to horizontal
 
         torus.group = group;
-        torus.initialPositionX = positionX;
-        torus.initialPositionZ = positionZ;
         torus.initialCalculatedPositionX = torus.position.x;
         torus.initialCalculatedPositionZ = torus.position.z;
         torus.canOpenDetailBox = true;
@@ -140,8 +134,6 @@
         torus.rotation.z = 0.8; //rotate to equal cube node
 
         torus.group = group;
-        torus.initialPositionX = positionX;
-        torus.initialPositionZ = positionZ;
         torus.initialCalculatedPositionX = torus.position.x;
         torus.initialCalculatedPositionZ = torus.position.z;
         torus.canOpenDetailBox = true;
@@ -454,22 +446,22 @@
             { lines: 1, group: 7, breakpoints: [], events: [] },
         ];
 
-        var files = [
-            { lines: 1, group: 2, breakpoints: [], events: [] },
-            { lines: 1, group: 2, breakpoints: [], events: [] },
-            { lines: 1, group: 2, breakpoints: [], events: [] },
-            { lines: 1, group: 2, breakpoints: [], events: [] },
-            { lines: 1, group: 1, breakpoints: [], events: [] },
-            { lines: 1, group: 3, breakpoints: [], events: [] },
-            { lines: 1, group: 4, breakpoints: [], events: [] },
-            { lines: 1, group: 5, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 7, breakpoints: [], events: [] },
-            { lines: 1, group: 8, breakpoints: [], events: [] },
-            { lines: 1, group: 9, breakpoints: [], events: [] },
-            { lines: 1, group: 10, breakpoints: [], events: [] },
-            { lines: 1, group: 11, breakpoints: [], events: [] },
-        ]
+        //var files = [
+        //    { lines: 1, group: 2, breakpoints: [], events: [] },
+        //    { lines: 1, group: 2, breakpoints: [], events: [] },
+        //    { lines: 1, group: 2, breakpoints: [], events: [] },
+        //    { lines: 1, group: 2, breakpoints: [], events: [] },
+        //    { lines: 1, group: 1, breakpoints: [], events: [] },
+        //    { lines: 1, group: 3, breakpoints: [], events: [] },
+        //    { lines: 1, group: 4, breakpoints: [], events: [] },
+        //    { lines: 1, group: 5, breakpoints: [], events: [] },
+        //    { lines: 1, group: 6, breakpoints: [], events: [] },
+        //    { lines: 1, group: 7, breakpoints: [], events: [] },
+        //    { lines: 1, group: 8, breakpoints: [], events: [] },
+        //    { lines: 1, group: 9, breakpoints: [], events: [] },
+        //    { lines: 1, group: 10, breakpoints: [], events: [] },
+        //    { lines: 1, group: 11, breakpoints: [], events: [] },
+        //]
 
         var filesGroupOrdered = files.sort(function (a, b) { return a.group - b.group });
 
@@ -689,8 +681,8 @@
             scene.traverse(function (node) {
                 if (node instanceof THREE.Mesh) {
                     if (node.canScaleChange) {
-                        node.position.x = node.initialPositionX * scaleOptions.cubeSpace;
-                        node.position.z = node.initialPositionZ * scaleOptions.cubeSpace;
+                        node.position.x = node.initialCalculatedPositionX * scaleOptions.cubeSpace;
+                        node.position.z = node.initialCalculatedPositionZ * scaleOptions.cubeSpace;
                     }
                 }
             });
@@ -724,8 +716,8 @@
         };
 
         var guiScaleOtions = new dat.GUI({ autoPlace: false });
-        guiScaleOtions.add(scaleOptions, 'cubeSpace', 0.8, 5).onChange(changeCubeScale);
-        guiScaleOtions.add(scaleOptions, 'groupSpace', 0.8, 5).onChange(changeGroupScale);
+        guiScaleOtions.add(scaleOptions, 'cubeSpace', 1, 5).onChange(changeCubeScale);
+        guiScaleOtions.add(scaleOptions, 'groupSpace', 1, 5).onChange(changeGroupScale);
 
         document.getElementsByClassName("tool-box")[0].appendChild(guiScaleOtions.domElement);
 
