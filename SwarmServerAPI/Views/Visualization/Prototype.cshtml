@@ -51,6 +51,11 @@
         cube.group = group;
         cube.initialCalculatedPositionX = cube.position.x;
         cube.initialCalculatedPositionZ = cube.position.z;
+        cube.lines = lines;
+        cube.xSize = xSize;
+        cube.zSize = zSize;
+        cube.isCube = true;
+        cube.mostHighFileLine = mostHighFileLine;
         cube.canScaleChange = true;
 
         return cube;
@@ -79,6 +84,9 @@
         sphere.group = group;
         sphere.initialCalculatedPositionX = sphere.position.x;
         sphere.initialCalculatedPositionZ = sphere.position.z;
+        sphere.radius = radius;
+        sphere.topMargin = topMargin;
+        sphere.isSphere = true;
         sphere.canHideRelated = true;
         sphere.canHighlightOnMouseOver = true;
         sphere.canScaleChange = true;
@@ -86,9 +94,9 @@
         return sphere;
     }
 
-    function drawTorusOnGraph(positionX, positionZ, line, mostHighFileLine, data, group) {
-        var height = line * 50 / mostHighFileLine;
+    function drawTorusOnGraph(positionX, positionZ, height, data, group) {
         var radius = 0.7;
+        var topMargin = 0.5;
 
         var geometryTorus = new THREE.TorusGeometry(radius, 0.1, 100, 100);
         var materialTorus = new THREE.MeshBasicMaterial({ color: 0x0000ff });
@@ -97,8 +105,9 @@
         var margin = 0.1;
         var torusSize = radius * 2; //diameter
         var sizeWithMargin = margin + torusSize;
+        var adjustToZeroAxisY = height / 2;
 
-        torus.position.y = 0.5 + height / 2;
+        torus.position.y = topMargin + adjustToZeroAxisY;
         torus.position.x = sizeWithMargin * positionX;
         torus.position.z = sizeWithMargin * positionZ;
 
@@ -107,17 +116,19 @@
         torus.group = group;
         torus.initialCalculatedPositionX = torus.position.x;
         torus.initialCalculatedPositionZ = torus.position.z;
-        torus.canOpenDetailBox = true;
         torus.data = data;
+        torus.topMargin = topMargin;
+        torus.isTorus = true;
+        torus.canOpenDetailBox = true;
         torus.canHighlightOnMouseOver = true;
         torus.canScaleChange = true;
 
         return torus;
     }
 
-    function drawTorusSquareOnGraph(positionX, positionZ, line, mostHighFileLine, data, group) {
-        var height = line * 50 / mostHighFileLine;
+    function drawTorusSquareOnGraph(positionX, positionZ, height, data, group) {
         var radius = 0.7;
+        var topMargin = 0.5;
 
         var geometryTorus = new THREE.TorusGeometry(radius, 0.1, 100, 4);
         var materialTorus = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
@@ -126,8 +137,9 @@
         var margin = 0.1;
         var torusSize = radius * 2; //diameter
         var sizeWithMargin = margin + torusSize;
+        var adjustToZeroAxisY = height / 2;
 
-        torus.position.y = 0.5 + height / 2;
+        torus.position.y = topMargin + adjustToZeroAxisY;
         torus.position.x = sizeWithMargin * positionX;
         torus.position.z = sizeWithMargin * positionZ;
 
@@ -137,8 +149,10 @@
         torus.group = group;
         torus.initialCalculatedPositionX = torus.position.x;
         torus.initialCalculatedPositionZ = torus.position.z;
-        torus.canOpenDetailBox = true;
         torus.data = data;
+        torus.topMargin = topMargin;
+        torus.isTorus = true;
+        torus.canOpenDetailBox = true;
         torus.canHighlightOnMouseOver = true;
         torus.canScaleChange = true;
 
@@ -301,11 +315,17 @@
             hideButton.cubeId = cube.id;
 
             for (var j = 0; j < files[i].breakpoints.length; j++) {
-                scene.add(drawTorusOnGraph(files[i].x, files[i].z, files[i].breakpoints[j].line, mostHighFileLine, files[i].breakpoints[j].data, files[i].group));
+                var torus = drawTorusOnGraph(files[i].x, files[i].z, cube.geometry.parameters.height, files[i].breakpoints[j].data, files[i].group);
+                torus.cubeId = cube.id;
+
+                scene.add(torus);
             }
 
             for (var j = 0; j < files[i].events.length; j++) {
-                scene.add(drawTorusSquareOnGraph(files[i].x, files[i].z, files[i].events[j].line, mostHighFileLine, files[i].events[j].data, files[i].group));
+                var square = drawTorusSquareOnGraph(files[i].x, files[i].z, cube.geometry.parameters.height, files[i].events[j].data, files[i].group);
+                square.cubeId = cube.id;
+
+                scene.add(square);
             }
 
             scene.add(cube);
@@ -477,6 +497,7 @@
         var scaleOptions = {
             cubeSpace: 1,
             groupSpace: 1,
+            fileScale: 50
         };
 
         function changeCubeScale() {
@@ -517,9 +538,38 @@
             });
         };
 
+        function changeFileScale() {
+            scene.traverse(function (node) {
+                if (node instanceof THREE.Mesh && node.canScaleChange) {
+
+                    if (node.isCube != undefined) {
+                        var height = node.lines * scaleOptions.fileScale / node.mostHighFileLine;
+
+                        node.geometry = new THREE.BoxGeometry(node.xSize, height, node.zSize);;
+
+                        var adjustToZeroAxisY = height / 2;
+                        node.position.y = adjustToZeroAxisY;
+                    } else if (node.isSphere != undefined) {
+                        var relativeCube = scene.getObjectById(node.cubeId, true);
+                        var height = relativeCube.geometry.parameters.height;
+
+                        node.position.y = node.radius + node.topMargin + height;
+                    } else if (node.isTorus != undefined) {
+                        var relativeCube = scene.getObjectById(node.cubeId, true);
+                        var height = relativeCube.geometry.parameters.height;
+
+                        var adjustToZeroAxisY = height / 2;
+
+                        node.position.y = node.topMargin + adjustToZeroAxisY;
+                    }
+                }
+            });
+        };
+
         var guiScaleOtions = new dat.GUI({ autoPlace: false });
         guiScaleOtions.add(scaleOptions, 'cubeSpace', 1, 5).onChange(changeCubeScale);
         guiScaleOtions.add(scaleOptions, 'groupSpace', 1, 5).onChange(changeGroupScale);
+        guiScaleOtions.add(scaleOptions, 'fileScale', 10, 100).onChange(changeFileScale);
 
         document.getElementsByClassName("tool-box")[0].appendChild(guiScaleOtions.domElement);
 
