@@ -352,6 +352,7 @@
 
         var orbit = new THREE.OrbitControls(camera, renderer.domElement);
         orbit.enableZoom = true;
+        orbit.maxPolarAngle = Math.PI * 0.5;
 
         loadGraph();
 
