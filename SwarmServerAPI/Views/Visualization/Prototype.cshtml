@@ -342,10 +342,20 @@
     var mouse = new THREE.Vector2();
     var raycaster = new THREE.Raycaster();
     var renderer = new THREE.WebGLRenderer();
+    var stats = new Stats();
 
     document.addEventListener("DOMContentLoaded", function () {
         renderer.setSize(getRelativeWidth(), getRelativeHeight());
-        document.body.getElementsByClassName("canvasRenderRelativeSize")[0].appendChild(renderer.domElement);
+
+        var canvasRenderRelativeSize = document.body.getElementsByClassName("canvasRenderRelativeSize")[0];
+        canvasRenderRelativeSize.appendChild(renderer.domElement);
+        canvasRenderRelativeSize.appendChild(stats.dom);
+
+        stats.dom.style.position = 'static';
+        stats.dom.style.top = 'auto';
+        stats.dom.style.left = 'auto';
+        stats.dom.style.float = 'right';
+        stats.dom.style.marginTop = '-55px';
 
         camera.position.set(60, 60, 60);
         camera.lookAt(new THREE.Vector3(0, 0, 0));
@@ -429,6 +439,7 @@
             //--
 
             renderer.render(scene, camera);
+            stats.update();
         };
 
         onWindowResize();

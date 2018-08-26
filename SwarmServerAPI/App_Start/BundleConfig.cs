@@ -53,8 +53,9 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
 
             bundles.Add(new ScriptBundle("~/bundles/threejs").Include(
                       "~/Scripts/three.js/build/three.min.js",
-                      "~/Scripts/three.js/build/OrbitControls.js",
-                      "~/Scripts/three.js/build/dat.gui.min.js"));
+                      "~/Scripts/three.js/OrbitControls.js",
+                      "~/Scripts/three.js/dat.gui.min.js",
+                      "~/Scripts/three.js/stats.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/detail-box").Include(
                       "~/Scripts/detail-box.js"));
