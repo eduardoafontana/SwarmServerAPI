@@ -233,236 +233,7 @@
         //gridHelper.position.z = ghSize / 2 + 0.1;
         scene.add(gridHelper);
 
-        var files = [
-            { lines: 150, group: 2, breakpoints: [{ line: 10, data: '<h4>título 10</h4><p>10 lines</p><p>breakpoint</p>' }], events: [] },
-            { lines: 160, group: 2, breakpoints: [], events: [] },
-            { lines: 130, group: 2, breakpoints: [], events: [] },
-            { lines: 170, group: 2, breakpoints: [], events: [] },
-            { lines: 140, group: 2, breakpoints: [], events: [] },
-            { lines: 180, group: 2, breakpoints: [], events: [] },
-            { lines: 200, group: 2, breakpoints: [], events: [] },
-            { lines: 76, group: 2, breakpoints: [], events: [] },
-            {
-                lines: 1300, group: 1, breakpoints: [
-                    { line: 20, data: '<h4>título 20</h4><p>20 lines</p><p>breakpoint</p>' }
-                ], events: []
-            },
-            {
-                lines: 210, group: 1, breakpoints: [
-                    { line: 30, data: '<h4>título 30</h4><p>30 lines</p><p>breakpoint</p>' },
-                    { line: 40, data: '<h4>título 40</h4><p>40 lines</p><p>breakpoint</p>' }
-                ], events: []
-            },
-            {
-                lines: 489, group: 1, breakpoints: [
-                ], events: [
-                    { line: 100, data: '<h4>título 100</h4><p>100 lines</p><p>event</p>' },
-                    { line: 300, data: '<h4>título 300</h4><p>300 lines</p><p>event</p>' },
-                    { line: 350, data: '<h4>título 350</h4><p>350 lines</p><p>event</p>' },
-                ]
-            },
-            { lines: 10, group: 1, breakpoints: [], events: [] },
-            { lines: 890, group: 1, breakpoints: [], events: [] },
-            {
-                lines: 2200, group: 1, breakpoints: [
-                    { line: 478, data: '<h4>título 478</h4><p>478 lines</p><p>breakpoint</p>' },
-                    { line: 510, data: '<h4>título 510</h4><p>510 lines</p><p>breakpoint</p>' },
-                    { line: 515, data: '<h4>título 515</h4><p>515 lines</p><p>breakpoint</p>' },
-                ], events: []
-            },
-            { lines: 25, group: 1, breakpoints: [], events: [] },
-            { lines: 245, group: 1, breakpoints: [], events: [] },
-            { lines: 459, group: 1, breakpoints: [], events: [] },
-            {
-                lines: 31, group: 3, breakpoints: [
-                    { line: 2, data: '<h4>título 2</h4><p>2 lines</p><p>breakpoint</p>' },
-                    { line: 31, data: '<h4>título 31</h4><p>31 lines</p><p>breakpoint</p>' },
-                ], events: []
-            },
-            {
-                lines: 357, group: 3, breakpoints: [
-                    { line: 210, data: '<h4>título 210</h4><p>210 lines</p><p>breakpoint</p>' },
-                    { line: 211, data: '<h4>título 211</h4><p>211 lines</p><p>breakpoint</p>' },
-                    { line: 213, data: '<h4>título 213</h4><p>213 lines</p><p>breakpoint</p>' },
-                    { line: 355, data: '<h4>título 355</h4><p>355 lines</p><p>breakpoint</p>' },
-                ], events: []
-            },
-            { lines: 1672, group: 3, breakpoints: [], events: [] },
-            { lines: 100, group: 4, breakpoints: [], events: [] },
-        ];
-
-        var files = [
-            { lines: 1, group: 1, breakpoints: [], events: [] },
-            { lines: 1, group: 1, breakpoints: [], events: [] },
-            { lines: 1, group: 1, breakpoints: [], events: [] },
-            { lines: 1, group: 1, breakpoints: [], events: [] },
-            { lines: 1, group: 1, breakpoints: [], events: [] },
-            { lines: 1, group: 1, breakpoints: [], events: [] },
-            { lines: 1, group: 1, breakpoints: [], events: [] },
-            { lines: 1, group: 1, breakpoints: [], events: [] },
-            { lines: 1, group: 1, breakpoints: [], events: [] },
-            { lines: 1, group: 1, breakpoints: [], events: [] },
-            { lines: 1, group: 1, breakpoints: [], events: [] },
-            { lines: 1, group: 1, breakpoints: [], events: [] },
-            { lines: 1, group: 1, breakpoints: [], events: [] },
-            { lines: 1, group: 2, breakpoints: [], events: [] },
-            { lines: 1, group: 1, breakpoints: [], events: [] },
-            { lines: 1, group: 1, breakpoints: [], events: [] },
-            { lines: 1, group: 1, breakpoints: [], events: [] },
-            { lines: 1, group: 1, breakpoints: [], events: [] },
-            { lines: 1, group: 1, breakpoints: [], events: [] },
-            { lines: 1, group: 1, breakpoints: [], events: [] },
-            { lines: 1, group: 1, breakpoints: [], events: [] },
-            { lines: 1, group: 1, breakpoints: [], events: [] },
-            { lines: 1, group: 1, breakpoints: [], events: [] },
-            { lines: 1, group: 1, breakpoints: [], events: [] },
-            { lines: 1, group: 1, breakpoints: [], events: [] },
-            { lines: 1, group: 1, breakpoints: [], events: [] },
-            { lines: 1, group: 1, breakpoints: [], events: [] },
-            { lines: 1, group: 1, breakpoints: [], events: [] },
-            { lines: 1, group: 1, breakpoints: [], events: [] },
-            { lines: 1, group: 1, breakpoints: [], events: [] },
-            { lines: 1, group: 1, breakpoints: [], events: [] },
-            { lines: 1, group: 1, breakpoints: [], events: [] },
-            { lines: 10, group: 1, breakpoints: [], events: [] },
-            { lines: 1, group: 4, breakpoints: [], events: [] },
-            { lines: 1, group: 3, breakpoints: [], events: [] },
-            { lines: 1, group: 3, breakpoints: [], events: [] },
-            { lines: 1, group: 3, breakpoints: [], events: [] },
-            { lines: 1, group: 3, breakpoints: [], events: [] },
-            { lines: 1, group: 5, breakpoints: [], events: [] },
-            { lines: 1, group: 5, breakpoints: [], events: [] },
-            { lines: 1, group: 5, breakpoints: [], events: [] },
-            { lines: 1, group: 5, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 5, breakpoints: [], events: [] },
-            { lines: 1, group: 5, breakpoints: [], events: [] },
-            { lines: 1, group: 5, breakpoints: [], events: [] },
-            { lines: 1, group: 5, breakpoints: [], events: [] },
-            { lines: 1, group: 5, breakpoints: [], events: [] },
-            { lines: 1, group: 5, breakpoints: [], events: [] },
-            { lines: 1, group: 5, breakpoints: [], events: [] },
-            { lines: 1, group: 5, breakpoints: [], events: [] },
-            { lines: 1, group: 5, breakpoints: [], events: [] },
-            { lines: 1, group: 5, breakpoints: [], events: [] },
-            { lines: 1, group: 5, breakpoints: [], events: [] },
-            { lines: 1, group: 5, breakpoints: [], events: [] },
-            { lines: 1, group: 5, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 6, breakpoints: [], events: [] },
-            { lines: 1, group: 7, breakpoints: [], events: [] },
-        ];
-
-        //var files = [
-        //    { lines: 1, group: 2, breakpoints: [], events: [] },
-        //    { lines: 1, group: 2, breakpoints: [], events: [] },
-        //    { lines: 1, group: 2, breakpoints: [], events: [] },
-        //    { lines: 1, group: 2, breakpoints: [], events: [] },
-        //    { lines: 1, group: 1, breakpoints: [], events: [] },
-        //    { lines: 1, group: 3, breakpoints: [], events: [] },
-        //    { lines: 1, group: 4, breakpoints: [], events: [] },
-        //    { lines: 1, group: 5, breakpoints: [], events: [] },
-        //    { lines: 1, group: 6, breakpoints: [], events: [] },
-        //    { lines: 1, group: 7, breakpoints: [], events: [] },
-        //    { lines: 1, group: 8, breakpoints: [], events: [] },
-        //    { lines: 1, group: 9, breakpoints: [], events: [] },
-        //    { lines: 1, group: 10, breakpoints: [], events: [] },
-        //    { lines: 1, group: 11, breakpoints: [], events: [] },
-        //]
+        var files = sessionData.getSessionData();
 
         var filesGroupOrdered = files.sort(function (a, b) { return a.group - b.group });
 
@@ -540,6 +311,10 @@
             scene.add(cube);
             scene.add(hideButton);
         }
+    }
+
+    function resetGraph() {
+        scene.remove.apply(scene, scene.children);
     }
 
     var camera = new THREE.PerspectiveCamera(45, 0, 1, 500);
@@ -637,9 +412,9 @@
 
         onWindowResize();
         animate();
-    });
 
-    document.addEventListener("DOMContentLoaded", function () {
+        //-----
+
         document.getElementsByClassName("reset-camera-button")[0].addEventListener("click", function () {
             camera.position.set(60, 60, 60);
             camera.lookAt(new THREE.Vector3(0, 0, 0));
@@ -758,11 +533,36 @@
             }
         });
 
+        //--
 
+        var sessionSelect = document.getElementById("session-select");
+        var sessionArray = sessionData.getSessionArray();
+        for (let i = 0; i < sessionArray.length; i++) {
+            var option = document.createElement('option');
+
+            option.text = sessionArray[i];
+            option.value = sessionArray[i];
+
+            if (sessionArray[i] == sessionData.getDefaultSessionName())
+                option.selected = true;
+
+            sessionSelect.add(option);
+        }
+
+        sessionSelect.addEventListener("change", function () {
+            sessionData.setDefaultSession(sessionSelect.selectedIndex);
+
+            resetGraph();
+            loadGraph();
+        });
     });
 </script>
 <h2>Prototype</h2>
 <br />
+<label for="session-select">Sessions: </label>
+<select id="session-select">
+</select>
+<br /><br />
 <div class="tool-box fade-in">
     <div class="tool-box-header">
         <i class="fas fa-arrows-alt" aria-hidden="true" title="Move box."></i>

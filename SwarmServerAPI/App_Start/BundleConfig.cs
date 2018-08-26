@@ -60,7 +60,8 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
                       "~/Scripts/detail-box.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/3dview").Include(
-                      "~/Scripts/color-palettes.js"));
+                      "~/Scripts/3dview/color-palettes.js",
+                      "~/Scripts/3dview/session-data.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
@@ -74,7 +75,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
             bundles.Add(new StyleBundle("~/Content/detail-box").Include(
                       "~/Content/detail-box.css"));
 
-            BundleTable.EnableOptimizations = true;
+            //BundleTable.EnableOptimizations = true;
         }
     }
 }
