@@ -247,7 +247,7 @@
         //gridHelper.position.z = ghSize / 2 + 0.1;
         scene.add(gridHelper);
 
-        var files = sessionData.getSessionData();
+        var files = sessionData.getData();
 
         var filesGroupOrdered = files.sort(function (a, b) { return a.group - b.group });
 
@@ -364,8 +364,6 @@
         orbit.enableZoom = true;
         orbit.maxPolarAngle = Math.PI * 0.5;
 
-        loadGraph();
-
         //var cubeWithRintHeight = Math.floor(Math.random() * 31);
         //scene.add(drawCubeOnGraph(12, 15, 100, getRamdomColor()));
 
@@ -442,6 +440,7 @@
             stats.update();
         };
 
+        loadGraph();
         onWindowResize();
         animate();
 
@@ -595,32 +594,72 @@
             }
         });
 
+        loadProjectSelect();
+        loadSessionSelect(document.getElementById("project-select").value);
+
         //--
+        function loadSessionSelect(projectGuid) {
+            var sessionSelect = document.getElementById("session-select");
 
-        var sessionSelect = document.getElementById("session-select");
-        var sessionArray = sessionData.getSessionArray();
-        for (let i = 0; i < sessionArray.length; i++) {
-            var option = document.createElement('option');
+            do {
+                sessionSelect.remove(0);
+            } while (sessionSelect.length > 0);
 
-            option.text = sessionArray[i];
-            option.value = sessionArray[i];
+            var dataOfProject = projectData.getDataByGuid(projectGuid);
 
-            if (sessionArray[i] == sessionData.getDefaultSessionName())
-                option.selected = true;
+            for (let i = 0; i < dataOfProject.length; i++) {
+                var session = sessionData.getByGuid(dataOfProject[i]);
+                var option = document.createElement('option');
 
-            sessionSelect.add(option);
-        }
+                option.text = session.name;
+                option.value = session.guid;
 
-        sessionSelect.addEventListener("change", function () {
-            sessionData.setDefaultSession(sessionSelect.selectedIndex);
+                if (session.guid == sessionData.getDefault())
+                    option.selected = true;
+
+                sessionSelect.add(option);
+            }
+
+            sessionData.setDefault(sessionSelect.value);
 
             resetGraph();
             loadGraph();
-        });
+
+            sessionSelect.addEventListener("change", function () {
+                sessionData.setDefault(sessionSelect.value);
+
+                resetGraph();
+                loadGraph();
+            });
+        }
+
+        function loadProjectSelect() {
+            var projectSelect = document.getElementById("project-select");
+            var projectArray = projectData.getArray();
+
+            for (let i = 0; i < projectArray.length; i++) {
+                var option = document.createElement('option');
+
+                option.text = projectArray[i].name;
+                option.value = projectArray[i].guid;
+
+                if (projectArray[i].guid == projectData.getDefault())
+                    option.selected = true;
+
+                projectSelect.add(option);
+            }
+
+            projectSelect.addEventListener("change", function () {
+                loadSessionSelect(document.getElementById("project-select").value);
+            });
+        }
     });
 </script>
 <h2>Prototype</h2>
 <br />
+<label for="project-select">Projects: </label>
+<select id="project-select"></select>
+&nbsp;&nbsp;&nbsp;
 <label for="session-select">Sessions: </label>
 <select id="session-select">
 </select>

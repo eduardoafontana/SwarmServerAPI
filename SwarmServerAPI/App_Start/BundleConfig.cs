@@ -62,7 +62,8 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
 
             bundles.Add(new ScriptBundle("~/bundles/3dview").Include(
                       "~/Scripts/3dview/color-palettes.js",
-                      "~/Scripts/3dview/session-data.js"));
+                      "~/Scripts/3dview/session-data.js",
+                      "~/Scripts/3dview/project-data.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",

@@ -1,9 +1,9 @@
 ﻿var sessionData = (function () {
-    var defaultSession = 2;
+    var defaultGuid = '8ab5c019-fdf8-4b4f-8c79-286372200417';
 
-    var sessions = [
+    var dataArray = [
         {
-            session: 'Session Example 1', files: [
+            guid: 'a98f0e6a-e632-48b1-9ab1-34c5d85a41ac', name: 'Session Example 1', data: [
                 { lines: 150, group: 2, breakpoints: [{ line: 10, data: '<h4>título 10</h4><p>10 lines</p><p>breakpoint</p>' }], events: [] },
                 { lines: 160, group: 2, breakpoints: [], events: [] },
                 { lines: 130, group: 2, breakpoints: [], events: [] },
@@ -62,7 +62,7 @@
             ]
         },
         {
-            session: 'Session Example 2', files: [
+            guid: '8ab5c019-fdf8-4b4f-8c79-286372200417', name: 'Session Example 2', data: [
                 { lines: 1, group: 1, breakpoints: [], events: [] },
                 { lines: 1, group: 1, breakpoints: [], events: [] },
                 { lines: 1, group: 1, breakpoints: [], events: [] },
@@ -219,7 +219,7 @@
             ]
         },
         {
-            session: 'Session Example 3', files: [
+            guid: '2ec1fae8-d615-4190-8d7d-3c6d22ea9bec', name: 'Session Example 3', data: [
                 { lines: 1, group: 2, breakpoints: [], events: [] },
                 { lines: 1, group: 2, breakpoints: [], events: [] },
                 { lines: 1, group: 2, breakpoints: [], events: [] },
@@ -238,33 +238,52 @@
         }
     ];
 
-    var getDefaultSessionName = function () {
-        return sessions[defaultSession].session;
+    var getDefault = function () {
+        return defaultGuid;
     };
 
-    var getSessionData = function () {
-        return sessions[defaultSession].files;
+    var setDefault = function (guid) {
+        defaultGuid = guid;
     };
 
-    var getSessionArray = function () {
+    var getData = function () {
+        for (var i = 0; i < dataArray.length; i++) {
+            if (dataArray[i].guid == defaultGuid)
+                return dataArray[i].data;
+        }
+    };
+
+    var getDataByGuid = function (guid) {
+        for (var i = 0; i < dataArray.length; i++) {
+            if (dataArray[i].guid == guid)
+                return dataArray[i].data;
+        }
+    };
+
+    var getByGuid = function (guid) {
+        for (var i = 0; i < dataArray.length; i++) {
+            if (dataArray[i].guid == guid)
+                return dataArray[i];
+        }
+    };
+
+    var getArray = function () {
         var array = [];
 
-        for (var i = 0; i < sessions.length; i++) {
-            array.push(sessions[i].session);
+        for (var i = 0; i < dataArray.length; i++) {
+            array.push({ 'name': dataArray[i].name, 'guid': dataArray[i].guid });
         }
 
         return array;
     };
 
-    var setDefaultSession = function (index) {
-        defaultSession = index;
-    };
-
     return {
-        getSessionData: getSessionData,
-        getSessionArray: getSessionArray,
-        getDefaultSessionName: getDefaultSessionName,
-        setDefaultSession: setDefaultSession
+        getData: getData,
+        getDataByGuid: getDataByGuid,
+        getArray: getArray,
+        getByGuid: getByGuid,
+        getDefault: getDefault,
+        setDefault: setDefault
     };
 
 }());
