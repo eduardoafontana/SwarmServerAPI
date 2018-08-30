@@ -225,120 +225,112 @@
     }
 
     function loadGraph() {
-        var axesHelper = new THREE.AxesHelper(50);
-        //console.log(axesHelper.position.x);
-        //console.log(axesHelper.position.y);
-        //console.log(axesHelper.position.z);
-        scene.add(axesHelper);
+        var sessionArray = sessionData.getArray();
 
-        //var geometryPlane = new THREE.PlaneGeometry( 5, 5 );
-        //var materialPlane = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
-        //var plane = new THREE.Mesh( geometryPlane, materialPlane );
+        for (var s = 0; s < sessionArray.length; s++) {
 
-        //plane.position.y = 10;
-        //plane.position.x = 10;
+            var lScene = new THREE.Scene();
 
-        //scene.add( plane );
-        //--
+            var axesHelper = new THREE.AxesHelper(50);
+            lScene.add(axesHelper);
 
-        var gridHelper = new THREE.GridHelper(100, 10);
-        //gridHelper.position.x = ghSize / 2 + 0.1;
-        //gridHelper.position.y = 0;
-        //gridHelper.position.z = ghSize / 2 + 0.1;
-        scene.add(gridHelper);
+            var gridHelper = new THREE.GridHelper(100, 10);
+            lScene.add(gridHelper);
 
-        var files = sessionData.getData();
+            var files = sessionData.getDataByGuid(sessionArray[s]);
 
-        var filesGroupOrdered = files.sort(function (a, b) { return a.group - b.group });
+            var filesGroupOrdered = files.sort(function (a, b) { return a.group - b.group });
 
-        var groups = [];
-        filesGroupOrdered.forEach(function(file) {
-            if (groups.indexOf(file.group) == -1)
-                groups.push(file.group);
-        });
-
-        var cGroupLimit = Math.ceil(Math.sqrt(groups.length));
-
-        var lTotal = 0, cTotal = 0, higherL = 0, cG = 0;
-        groups.forEach(function(group) {
-            var filesOfGroup = files.filter(function(file) {
-                return file.group == group;
+            var groups = [];
+            filesGroupOrdered.forEach(function (file) {
+                if (groups.indexOf(file.group) == -1)
+                    groups.push(file.group);
             });
 
-            var cLimit = Math.ceil(Math.sqrt(filesOfGroup.length));
-            cLimit = cLimit + cTotal;
+            var cGroupLimit = Math.ceil(Math.sqrt(groups.length));
 
-            var l = lTotal, c = cTotal;
-            filesOfGroup.forEach(function(file) {
-                if (c == cLimit) {
-                    l++;
-                    c = cTotal;
+            var lTotal = 0, cTotal = 0, higherL = 0, cG = 0;
+            groups.forEach(function (group) {
+                var filesOfGroup = files.filter(function (file) {
+                    return file.group == group;
+                });
+
+                var cLimit = Math.ceil(Math.sqrt(filesOfGroup.length));
+                cLimit = cLimit + cTotal;
+
+                var l = lTotal, c = cTotal;
+                filesOfGroup.forEach(function (file) {
+                    if (c == cLimit) {
+                        l++;
+                        c = cTotal;
+                    }
+
+                    if (l > higherL)
+                        higherL = l;
+
+                    file.x = c;
+                    file.z = l;
+
+                    c++;
+                });
+
+                cTotal = cLimit + 1;
+
+                cG++;
+
+                if (cG == cGroupLimit) {
+                    lTotal = higherL + 1 + 1;
+                    higherL = 0;
+                    cTotal = 0;
+                    cG = 0;
+                }
+            });
+
+            var mostHighFileLine = 0;
+            for (var i = 0; i < files.length; i++) {
+                if (files[i].lines > mostHighFileLine)
+                    mostHighFileLine = files[i].lines;
+            }
+
+            var color = '';
+            for (var i = 0; i < files.length; i++) {
+                if (i == 0)
+                    color = colorPalette.pickUpColor();
+                else if (files[i - 1].group != files[i].group)
+                    color = colorPalette.pickUpColor();
+
+                var cube = drawCubeOnGraph(files[i].x, files[i].z, files[i].lines, color, mostHighFileLine, files[i].group);
+                var hideButton = drawHideCubeButton(files[i].x, files[i].z, cube.geometry.parameters.height, color, files[i].group);
+
+                hideButton.cubeId = cube.id;
+
+                for (var j = 0; j < files[i].breakpoints.length; j++) {
+                    var torus = drawTorusOnGraph(files[i].x, files[i].z, cube.geometry.parameters.height, files[i].breakpoints[j].data, files[i].group);
+                    torus.cubeId = cube.id;
+
+                    lScene.add(torus);
                 }
 
-                if (l > higherL)
-                    higherL = l;
+                for (var j = 0; j < files[i].events.length; j++) {
+                    var square = drawTorusSquareOnGraph(files[i].x, files[i].z, cube.geometry.parameters.height, files[i].events[j].data, files[i].group);
+                    square.cubeId = cube.id;
 
-                file.x = c;
-                file.z = l;
+                    lScene.add(square);
+                }
 
-                c++;
-            });
-
-            cTotal = cLimit + 1;
-
-            cG++;
-
-            if (cG == cGroupLimit) {
-                lTotal = higherL + 1 + 1;
-                higherL = 0;
-                cTotal = 0;
-                cG = 0;
+                lScene.add(cube);
+                lScene.add(hideButton);
             }
-        });
 
-        var mostHighFileLine = 0;
-        for (var i = 0; i < files.length; i++) {
-            if (files[i].lines > mostHighFileLine)
-                mostHighFileLine = files[i].lines;
+            lScene.sessionGuid = sessionArray[s];
+
+            scenes.push(lScene);
         }
-
-        var color = '';
-        for (var i = 0; i < files.length; i++) {
-            if (i == 0)
-                color = colorPalette.pickUpColor();
-            else if (files[i - 1].group != files[i].group)
-                color = colorPalette.pickUpColor();
-
-            var cube = drawCubeOnGraph(files[i].x, files[i].z, files[i].lines, color, mostHighFileLine, files[i].group);
-            var hideButton = drawHideCubeButton(files[i].x, files[i].z, cube.geometry.parameters.height, color, files[i].group);
-
-            hideButton.cubeId = cube.id;
-
-            for (var j = 0; j < files[i].breakpoints.length; j++) {
-                var torus = drawTorusOnGraph(files[i].x, files[i].z, cube.geometry.parameters.height, files[i].breakpoints[j].data, files[i].group);
-                torus.cubeId = cube.id;
-
-                scene.add(torus);
-            }
-
-            for (var j = 0; j < files[i].events.length; j++) {
-                var square = drawTorusSquareOnGraph(files[i].x, files[i].z, cube.geometry.parameters.height, files[i].events[j].data, files[i].group);
-                square.cubeId = cube.id;
-
-                scene.add(square);
-            }
-
-            scene.add(cube);
-            scene.add(hideButton);
-        }
-    }
-
-    function resetGraph() {
-        scene.remove.apply(scene, scene.children);
     }
 
     var camera = new THREE.PerspectiveCamera(45, 0, 1, 500);
-    var scene = new THREE.Scene();
+    var scene = undefined;
+    var scenes = [];
     var mouse = new THREE.Vector2();
     var raycaster = new THREE.Raycaster();
     var renderer = new THREE.WebGLRenderer();
@@ -364,45 +356,14 @@
         orbit.enableZoom = true;
         orbit.maxPolarAngle = Math.PI * 0.5;
 
-        //var cubeWithRintHeight = Math.floor(Math.random() * 31);
-        //scene.add(drawCubeOnGraph(12, 15, 100, getRamdomColor()));
-
-        //--
-
-        //var geometrySphere = new THREE.SphereGeometry(0.5, 20, 20);
-        //var materialSphere = new THREE.MeshBasicMaterial({ color: 0xffff00 });
-        //var sphere = new THREE.Mesh(geometrySphere, materialSphere);
-
-        //sphere.position.y = 0.5;
-        //sphere.position.x = 0.5 + 0.1 + 3;
-        //sphere.position.z = 0.5 + 0.1 + 2;
-
-        //scene.add(sphere);
-        //--
-
         var intersected = null;
 
         document.body.getElementsByClassName("canvasRenderRelativeSize")[0].addEventListener('mousemove', onDocumentMouseMove, false);
 
-        //--
-
-        //var geometryTorus = new THREE.TorusGeometry(0.5, 0.2, 10, 30); //Ring 3d
-        //var materialTorus = new THREE.MeshBasicMaterial({ color: 0x0000ff });
-        //var torus = new THREE.Mesh(geometryTorus, materialTorus);
-
-        //torus.position.y = 0.5 + cubeWithRintHeight / 2;
-        //torus.position.x = 0.5 + 0.1 + 12;
-        //torus.position.z = 0.5 + 0.1 + 15;
-        //torus.rotation.x = 1.6;//flip to horizontal
-
-        //scene.add(torus);
-        //--
-
         document.addEventListener('mousedown', onDocumentMouseDown, false);
 
-        //--
         window.addEventListener('resize', onWindowResize, false);
-        //--
+
         var animate = function () {
             requestAnimationFrame(animate);
 
@@ -440,8 +401,13 @@
             stats.update();
         };
 
-        loadGraph();
         onWindowResize();
+
+        loadGraph();
+
+        loadProjectSelect();
+        loadSessionSelect(document.getElementById("project-select").value);
+
         animate();
 
         //-----
@@ -594,8 +560,14 @@
             }
         });
 
-        loadProjectSelect();
-        loadSessionSelect(document.getElementById("project-select").value);
+        function resetSessionScene() {
+            for (var i = 0; i < scenes.length; i++) {
+                if (scenes[i].sessionGuid == sessionData.getDefault()) {
+                    scene = scenes[i];
+                    break;
+                }
+            }
+        }
 
         //--
         function loadSessionSelect(projectGuid) {
@@ -621,15 +593,11 @@
             }
 
             sessionData.setDefault(sessionSelect.value);
-
-            resetGraph();
-            loadGraph();
+            resetSessionScene();
 
             sessionSelect.addEventListener("change", function () {
                 sessionData.setDefault(sessionSelect.value);
-
-                resetGraph();
-                loadGraph();
+                resetSessionScene();
             });
         }
 
@@ -650,7 +618,7 @@
             }
 
             projectSelect.addEventListener("change", function () {
-                loadSessionSelect(document.getElementById("project-select").value);
+                loadSessionSelect(projectSelect.value);
             });
         }
     });

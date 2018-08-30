@@ -271,7 +271,7 @@
         var array = [];
 
         for (var i = 0; i < dataArray.length; i++) {
-            array.push({ 'name': dataArray[i].name, 'guid': dataArray[i].guid });
+            array.push(dataArray[i].guid);
         }
 
         return array;
