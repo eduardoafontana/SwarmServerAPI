@@ -122,6 +122,7 @@
         torus.topMargin = topMargin;
         torus.mostHighFileLine = mostHighFileLine;
         torus.line = line;
+        torus.radius = radius;
         torus.isTorus = true;
         torus.canOpenDetailBox = true;
         torus.canHighlightOnMouseOver = true;
@@ -159,7 +160,7 @@
         torus.topMargin = topMargin;
         torus.mostHighFileLine = mostHighFileLine;
         torus.line = line;
-        torus.isTorus = true;
+        torus.isTorusSquare = true;
         torus.canOpenDetailBox = true;
         torus.canHighlightOnMouseOver = true;
         torus.canScaleChange = true;
@@ -482,7 +483,8 @@
         var scaleOptions = {
             cubeSpace: 1,
             groupSpace: 1,
-            fileScale: 50
+            fileScale: 50,
+            breakpointScale: 0.1
         };
 
         function changeCubeScale() {
@@ -539,7 +541,7 @@
                         var height = relativeCube.geometry.parameters.height;
 
                         node.position.y = node.radius + node.topMargin + height;
-                    } else if (node.isTorus != undefined) {
+                    } else if (node.isTorus != undefined || node.isTorusSquare != undefined) {
                         var height = node.line * scaleOptions.fileScale / node.mostHighFileLine;
 
                         var adjustToZeroAxisY = height / 2;
@@ -550,10 +552,19 @@
             });
         };
 
+        function changeBreakpointScale() {
+            scene.traverse(function (node) {
+                if (node instanceof THREE.Mesh && node.canScaleChange && node.isTorus) {
+                    node.geometry = new THREE.TorusBufferGeometry(node.radius, scaleOptions.breakpointScale, 100, 100);
+                }
+            });
+        };
+
         var guiScaleOtions = new dat.GUI({ autoPlace: false });
         guiScaleOtions.add(scaleOptions, 'cubeSpace', 1, 5).onChange(changeCubeScale);
         guiScaleOtions.add(scaleOptions, 'groupSpace', 1, 5).onChange(changeGroupScale);
         guiScaleOtions.add(scaleOptions, 'fileScale', 10, 100).onChange(changeFileScale);
+        guiScaleOtions.add(scaleOptions, 'breakpointScale', 0.03, 0.3).onChange(changeBreakpointScale);
 
         document.getElementsByClassName("tool-box")[0].appendChild(guiScaleOtions.domElement);
 
