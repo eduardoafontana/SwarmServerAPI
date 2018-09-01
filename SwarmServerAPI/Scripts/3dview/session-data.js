@@ -233,7 +233,23 @@
                 { lines: 1, group: 8, breakpoints: [], events: [] },
                 { lines: 1, group: 9, breakpoints: [], events: [] },
                 { lines: 1, group: 10, breakpoints: [], events: [] },
-                { lines: 1, group: 11, breakpoints: [], events: [] },
+                {
+                    lines: 120, group: 11, breakpoints: [], events: [
+                        { line: 100, data: '<h4>título 100</h4><p>100 lines</p><p>event</p>' },
+                        { line: 20, data: '<h4>título 20</h4><p>20 lines</p><p>event</p>' },
+                        { line: 50, data: '<h4>título 50</h4><p>50 lines</p><p>event</p>' },
+                    ]
+                },
+            ]
+        },
+        {
+            guid: 'lk06oiam-e632-48b1-9ab1-35buka091509', name: 'Session Example 1', data: [
+                {
+                    lines: 402, group: 1, breakpoints: [
+                        { line: 200, data: '<h4>título 200</h4><p>200 lines</p><p>breakpoint 35buka091509</p>' },
+                        { line: 10, data: '<h4>título 10</h4><p>10 lines</p><p>breakpoint 35buka091509</p>' }
+                    ], events: []
+                },
             ]
         }
     ];

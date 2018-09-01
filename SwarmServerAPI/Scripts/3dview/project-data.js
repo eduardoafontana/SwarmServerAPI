@@ -7,6 +7,9 @@
         },
         {
             guid: '46cadc3c-a962-4440-bd14-db70b34aa712', name: 'Project Example 2', data: ['a98f0e6a-e632-48b1-9ab1-34c5d85a41ac']
+        },
+        {
+            guid: 'ef2adb89-b6d3-4565-9e83-eb9cab9cca10', name: 'Project Test Over Breakpoint', data: ['lk06oiam-e632-48b1-9ab1-35buka091509']
         }
     ];
 

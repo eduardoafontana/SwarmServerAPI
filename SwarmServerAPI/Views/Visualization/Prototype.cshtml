@@ -94,7 +94,9 @@
         return sphere;
     }
 
-    function drawTorusOnGraph(positionX, positionZ, height, data, group) {
+    function drawTorusOnGraph(positionX, positionZ, line, data, mostHighFileLine, group) {
+        var height = line * 50 / mostHighFileLine;
+
         var radius = 0.7;
         var topMargin = 0.5;
 
@@ -118,6 +120,8 @@
         torus.initialCalculatedPositionZ = torus.position.z;
         torus.data = data;
         torus.topMargin = topMargin;
+        torus.mostHighFileLine = mostHighFileLine;
+        torus.line = line;
         torus.isTorus = true;
         torus.canOpenDetailBox = true;
         torus.canHighlightOnMouseOver = true;
@@ -126,7 +130,9 @@
         return torus;
     }
 
-    function drawTorusSquareOnGraph(positionX, positionZ, height, data, group) {
+    function drawTorusSquareOnGraph(positionX, positionZ, line, data, mostHighFileLine, group) {
+        var height = line * 50 / mostHighFileLine;
+
         var radius = 0.7;
         var topMargin = 0.5;
 
@@ -151,6 +157,8 @@
         torus.initialCalculatedPositionZ = torus.position.z;
         torus.data = data;
         torus.topMargin = topMargin;
+        torus.mostHighFileLine = mostHighFileLine;
+        torus.line = line;
         torus.isTorus = true;
         torus.canOpenDetailBox = true;
         torus.canHighlightOnMouseOver = true;
@@ -305,14 +313,14 @@
                 hideButton.cubeId = cube.id;
 
                 for (var j = 0; j < files[i].breakpoints.length; j++) {
-                    var torus = drawTorusOnGraph(files[i].x, files[i].z, cube.geometry.parameters.height, files[i].breakpoints[j].data, files[i].group);
+                    var torus = drawTorusOnGraph(files[i].x, files[i].z, files[i].breakpoints[j].line, files[i].breakpoints[j].data, mostHighFileLine, files[i].group);
                     torus.cubeId = cube.id;
 
                     lScene.add(torus);
                 }
 
                 for (var j = 0; j < files[i].events.length; j++) {
-                    var square = drawTorusSquareOnGraph(files[i].x, files[i].z, cube.geometry.parameters.height, files[i].events[j].data, files[i].group);
+                    var square = drawTorusSquareOnGraph(files[i].x, files[i].z, files[i].events[j].line, files[i].events[j].data, mostHighFileLine, files[i].group);
                     square.cubeId = cube.id;
 
                     lScene.add(square);
@@ -532,8 +540,7 @@
 
                         node.position.y = node.radius + node.topMargin + height;
                     } else if (node.isTorus != undefined) {
-                        var relativeCube = scene.getObjectById(node.cubeId, true);
-                        var height = relativeCube.geometry.parameters.height;
+                        var height = node.line * scaleOptions.fileScale / node.mostHighFileLine;
 
                         var adjustToZeroAxisY = height / 2;
 
