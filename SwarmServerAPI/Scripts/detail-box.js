@@ -1,7 +1,22 @@
 var detailBoxHeight = '';
+var detailBoxWidth = 400;
+var marginLeftHoldAdjustment = 20;
+var marginTopHoldAdjustment = 110;
+var detailBoxTop = 250;
 
-document.addEventListener("DOMContentLoaded", function () {
-    dragElement(document.getElementsByClassName("detail-box")[0], "detail-box-header");
+function relocateDetailBox(box, canvasWidth, canvasHeight) {
+    box.style.width = detailBoxWidth + 'px';
+    box.style.height = (canvasHeight - marginTopHoldAdjustment) + 'px';
+    box.style.top = detailBoxTop + 'px';
+    box.style.left = (canvasWidth - detailBoxWidth + marginLeftHoldAdjustment) + 'px';
+}
+
+function initDetailBox(canvasWidth, canvasHeight) {
+    var box = document.getElementsByClassName("detail-box")[0];
+
+    relocateDetailBox(box, canvasWidth, canvasHeight);
+
+    dragElement(box, "detail-box-header");
 
     document.getElementsByClassName("detail-box-minimize")[0].addEventListener("click", function () {
         var box = document.getElementsByClassName("detail-box")[0];
@@ -21,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
             box.style.overflow = 'auto';
         }
     });
-});
+}
 
 function dragElement(elmnt, dragBoxName) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;

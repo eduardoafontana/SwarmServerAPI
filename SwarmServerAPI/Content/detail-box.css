@@ -13,10 +13,6 @@
     position: absolute;
     visibility: hidden;
     border-radius: 1px;
-
-    width: 250px; /*Review later*/
-    top: 200px;
-    left: 30px;
 }
 
 .detail-box hr {
@@ -26,7 +22,6 @@
 .detail-box-header {
     padding: 2px;
     cursor: move;
-    z-index: 10;
     background-color: #224377;
     color: #fff;
     border-radius: 3px;

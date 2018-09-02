@@ -226,6 +226,10 @@
         camera.updateProjectionMatrix();
 
         renderer.setSize(getRelativeWidth(), getRelativeHeight());
+
+        //--
+        var box = document.getElementsByClassName("detail-box")[0];
+        relocateDetailBox(box, renderer.getSize().width, renderer.getSize().height);
     }
 
     function loadGraph() {
@@ -350,7 +354,10 @@
         stats.dom.style.position = 'static';
         stats.dom.style.top = 'auto';
         stats.dom.style.left = 'auto';
+        stats.dom.style.float = 'left';
         stats.dom.style.marginTop = '-55px';
+
+        initDetailBox(renderer.getSize().width, renderer.getSize().height);
 
         camera.position.set(60, 60, 60);
         camera.lookAt(new THREE.Vector3(0, 0, 0));
