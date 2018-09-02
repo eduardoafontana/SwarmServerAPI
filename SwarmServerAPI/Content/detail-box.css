@@ -131,6 +131,22 @@
     border-radius: 3px;
 }
 
+/*info-box*/
+.info-box {
+    display: block;
+    border: 1px solid #224377;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.90);
+    color: #eee;
+    font: 11px Lucida Grande,sans-serif;
+    text-shadow: 0 -1px 0 #111;
+    transition: opacity .1s linear;
+    transition: height .1s linear;
+    overflow: auto;
+    position: absolute;
+    border-radius: 1px;
+}
+
 /*tooltip-text*/
 .tooltip-text {
     display: block;

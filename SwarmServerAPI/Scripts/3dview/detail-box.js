@@ -1,8 +1,8 @@
 var detailBoxHeight = '';
 var detailBoxWidth = 400;
 var marginLeftHoldAdjustment = 20;
-var marginTopHoldAdjustment = 110;
-var detailBoxTop = 250;
+var marginTopHoldAdjustment = 45;
+var detailBoxTop = 185;
 
 function relocateDetailBox(box, canvasWidth, canvasHeight) {
     box.style.width = detailBoxWidth + 'px';

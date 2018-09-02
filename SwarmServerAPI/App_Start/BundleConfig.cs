@@ -57,10 +57,9 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
                       "~/Scripts/three.js/dat.gui.min.js",
                       "~/Scripts/three.js/stats.min.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/detail-box").Include(
-                      "~/Scripts/detail-box.js"));
-
             bundles.Add(new ScriptBundle("~/bundles/3dview").Include(
+                      "~/Scripts/3dview/detail-box.js",
+                      "~/Scripts/3dview/info-box.js",
                       "~/Scripts/3dview/color-palettes.js",
                       "~/Scripts/3dview/session-data.js",
                       "~/Scripts/3dview/project-data.js"));
@@ -74,7 +73,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
                       "~/Content/bootstrap-reboot.css",
                       "~/Content/dashboard.css"));
 
-            bundles.Add(new StyleBundle("~/Content/detail-box").Include(
+            bundles.Add(new StyleBundle("~/Content/3dview").Include(
                       "~/Content/detail-box.css"));
 
             BundleTable.EnableOptimizations = true;

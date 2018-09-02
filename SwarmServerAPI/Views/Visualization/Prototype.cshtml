@@ -1,6 +1,5 @@
 ﻿
-@Styles.Render("~/Content/detail-box")
-@Scripts.Render("~/bundles/detail-box")
+@Styles.Render("~/Content/3dview")
 @Scripts.Render("~/bundles/threejs")
 @Scripts.Render("~/bundles/3dview")
 
@@ -230,6 +229,10 @@
         //--
         var box = document.getElementsByClassName("detail-box")[0];
         relocateDetailBox(box, renderer.getSize().width, renderer.getSize().height);
+
+        //--
+        var boxInfo = document.getElementsByClassName("info-box")[0];
+        relocateInfoBox(boxInfo, renderer.getSize().width, renderer.getSize().height);
     }
 
     function loadGraph() {
@@ -358,6 +361,7 @@
         stats.dom.style.marginTop = '-55px';
 
         initDetailBox(renderer.getSize().width, renderer.getSize().height);
+        initInfoBox(renderer.getSize().width, renderer.getSize().height);
 
         camera.position.set(60, 60, 60);
         camera.lookAt(new THREE.Vector3(0, 0, 0));
@@ -392,16 +396,34 @@
                 }
 
                 if (iCubeOnGraph != -1 && intersected != intersects[iCubeOnGraph].object) {
-                    if (intersected != null)
+                    var boxInfo = document.getElementsByClassName("info-box")[0];
+
+                    if (intersected != null) {
                         intersected.material.color.setHex(intersected.currentHex);
+                        boxInfo.innerHTML = '';
+                    }
 
                     intersected = intersects[iCubeOnGraph].object;
                     intersected.currentHex = intersected.material.color.getHex();
                     intersected.material.color.setHex(0xff0000);
+
+                    if (intersected.isSphere) {
+                        boxInfo.innerHTML = 'Click to hide and show the cube file.';                        
+                    } else if (intersected.isTorus) {
+                        boxInfo.innerHTML = 'Click to open breakpoint details on information window.';
+                    } else if (intersected.isTorusSquare) {
+                        boxInfo.innerHTML = 'Click to open event details on information window.';
+                    } else {
+                        boxInfo.innerHTML = '';
+                    }
                 }
             } else {
-                if (intersected != null)
+                if (intersected != null) {
                     intersected.material.color.setHex(intersected.currentHex);
+
+                    var boxInfo = document.getElementsByClassName("info-box")[0];
+                    boxInfo.innerHTML = '';
+                }
 
                 intersected = null;
             }
@@ -669,5 +691,7 @@
         <div class="detail-box-minimize">-</div>
     </div>
     <div class="detail-box-main"></div>
+</div>
+<div class="info-box fade-in">
 </div>
 <div class="canvasRenderRelativeSize"></div>
