@@ -94,3 +94,8 @@ main
         max-width : 100%;
     }
 }
+
+.view3d-title
+{
+    margin-bottom: 20px;
+}
