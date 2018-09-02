@@ -95,7 +95,11 @@
                 { lines: 1, group: 1, breakpoints: [], events: [] },
                 { lines: 1, group: 1, breakpoints: [], events: [] },
                 { lines: 1, group: 1, breakpoints: [], events: [] },
-                { lines: 10, group: 1, breakpoints: [], events: [] },
+                {
+                    lines: 1000, group: 1, breakpoints: [
+                        { line: 1, data: '<h4>título 1 teste</h4>' }
+                    ], events: []
+                },
                 { lines: 1, group: 4, breakpoints: [], events: [] },
                 { lines: 1, group: 3, breakpoints: [], events: [] },
                 { lines: 1, group: 3, breakpoints: [], events: [] },
@@ -212,9 +216,21 @@
                 { lines: 1, group: 6, breakpoints: [], events: [] },
                 { lines: 1, group: 6, breakpoints: [], events: [] },
                 { lines: 1, group: 6, breakpoints: [], events: [] },
-                { lines: 1, group: 6, breakpoints: [], events: [] },
-                { lines: 1, group: 6, breakpoints: [], events: [] },
-                { lines: 1, group: 6, breakpoints: [], events: [] },
+                {
+                    lines: 50, group: 6, breakpoints: [
+                        { line: 1, data: '<h4>título 1 teste</h4>' }
+                    ], events: []
+                },
+                {
+                    lines: 1, group: 6, breakpoints: [
+                        { line: 1, data: '<h4>título 1 teste</h4>' }
+                    ], events: []
+                },
+                {
+                    lines: 10, group: 6, breakpoints: [
+                        { line: 1, data: '<h4>título 1 teste</h4>'}
+                    ], events: []
+                },
                 { lines: 1, group: 7, breakpoints: [], events: [] },
             ]
         },
