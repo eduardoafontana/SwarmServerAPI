@@ -479,7 +479,8 @@
             cubeSpace: 1,
             groupSpace: 1,
             fileScale: 1,
-            breakpointScale: 0.1
+            breakpointScale: 0.1,
+            eventScale: 0.1
         };
 
         function changeCubeScale() {
@@ -543,11 +544,20 @@
             });
         };
 
+        function changeEventScale() {
+            scene.traverse(function (node) {
+                if (node instanceof THREE.Mesh && node.canScaleChange && node.isTorusSquare) {
+                    node.geometry = new THREE.TorusBufferGeometry(node.radius, scaleOptions.eventScale, 100, 4);
+                }
+            });
+        };
+
         var guiScaleOtions = new dat.GUI({ autoPlace: false });
         guiScaleOtions.add(scaleOptions, 'cubeSpace', 1, 5).onChange(changeCubeScale);
         guiScaleOtions.add(scaleOptions, 'groupSpace', 1, 5).onChange(changeGroupScale);
         guiScaleOtions.add(scaleOptions, 'fileScale', 0.1, 3).onChange(changeFileScale);
         guiScaleOtions.add(scaleOptions, 'breakpointScale', 0.03, 0.3).onChange(changeBreakpointScale);
+        guiScaleOtions.add(scaleOptions, 'eventScale', 0.03, 0.3).onChange(changeEventScale);
 
         document.getElementsByClassName("tool-box")[0].appendChild(guiScaleOtions.domElement);
 
