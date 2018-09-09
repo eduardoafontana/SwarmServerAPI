@@ -8,21 +8,12 @@
         height: 100%;
         padding-bottom: 50px;
     }
+
     html, body, .container-fluid, .row, main, .canvasRenderRelativeSize {
         height: 100%;
     }
 </style>
 <script>
-    function drawLine(x1, y1, z1, x2, y2, z2, hexColor) {
-        var geometry = new THREE.Geometry();
-        geometry.vertices.push(new THREE.Vector3(x1, y1, z1));
-        geometry.vertices.push(new THREE.Vector3(x2, y2, z2));
-
-        var material = new THREE.LineBasicMaterial({ color: hexColor });
-
-        return new THREE.Line(geometry, material);
-    }
-
     function drawCubeOnGraph(positionX, positionZ, lines, hexColor, mostHighFileLine, group) {
         var height = lines * 50 / mostHighFileLine;
 
@@ -335,6 +326,50 @@
 
             lScene.sessionGuid = sessionArray[s];
 
+            //--
+            function searchPointX(variable, value) {
+                for (var j = 0; j < files.length; j++) {
+                    if (files[j].point != undefined && files[j].point[variable] == value)
+                        return files[j];
+                }
+            }
+
+            var vertices = [];
+
+            //buscar o ponto X, sem refFrom
+            xFile = searchPointX('fromRef', '');
+            drawLine(xFile);
+
+            function drawLine(xFile) {
+                if (xFile == undefined)
+                    return;
+
+                //desenhar o ponto X no gráfico
+                vertices.push(new THREE.Vector3(xFile.x * 1.5, 0, xFile.z * 1.5));
+
+                if (lScene.sessionGuid == '5a5a2f2c-f8a2-4f4f-98ef-713afb528da3') {
+                    console.log('xFile.x: ' + (xFile.x * 1.5), ' xFile.z: ' + (xFile.z * 1.5));
+                }
+
+                //verificar se o refTo do ponto X é vazio
+                if (xFile.point.toRef == '')
+                    return;
+
+                //se for diferente buscar o ponto Y, refTo do X
+                yFile = searchPointX('fromRef', xFile.point.toRef);
+                drawLine(yFile);
+            }
+
+            if (vertices.length > 0) {
+                var curveTube = new THREE.CatmullRomCurve3(vertices);
+
+                var geometryTube = new THREE.TubeGeometry(curveTube, 100, 0.1, 20, false);
+                var materialTube = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+                var tube = new THREE.Mesh(geometryTube, materialTube);
+                lScene.add(tube);
+            }
+            //--
+
             scenes.push(lScene);
         }
     }
@@ -408,7 +443,7 @@
                     intersected.material.color.setHex(0xff0000);
 
                     if (intersected.isSphere) {
-                        boxInfo.innerHTML = 'Click to hide and show the cube file.';                        
+                        boxInfo.innerHTML = 'Click to hide and show the cube file.';
                     } else if (intersected.isTorus) {
                         boxInfo.innerHTML = 'Click to open breakpoint details on information window.';
                     } else if (intersected.isTorusSquare) {
@@ -478,11 +513,11 @@
                         firstNodeOfGroup = node;
 
                         color = colorPalette.pickUpColor(colorOptions.Groups);
-                    } 
+                    }
 
                     node.material.color = new THREE.Color(color);
                 }
-            });            
+            });
         };
 
         var guiColorOtions = new dat.GUI({ autoPlace: false });
@@ -667,8 +702,7 @@
 <select id="project-select"></select>
 &nbsp;&nbsp;&nbsp;
 <label for="session-select">Sessions: </label>
-<select id="session-select">
-</select>
+<select id="session-select"></select>
 <br />
 <div class="tool-box fade-in">
     <div class="tool-box-header">
