@@ -153,9 +153,22 @@
         return torus;
     }
 
-    //function getRamdomColor() {
-    //    return '#' + Math.floor(Math.random() * 16777215).toString(16);
-    //}
+    function drawTube(vertices) {
+
+        if (vertices == undefined)
+            return new THREE.Object3D();
+
+        if (vertices.length == 0)
+            return new THREE.Object3D();
+
+        var curveTube = new THREE.CatmullRomCurve3(vertices);
+
+        var geometryTube = new THREE.TubeGeometry(curveTube, 100, 0.1, 20, false);
+        var materialTube = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+        var tube = new THREE.Mesh(geometryTube, materialTube);
+
+        return tube;
+    }
 
     function onDocumentMouseMove(event) {
         var positions = document.body.getElementsByClassName("canvasRenderRelativeSize")[0].getBoundingClientRect();
@@ -324,51 +337,37 @@
                 lScene.add(hideButton);
             }
 
-            lScene.sessionGuid = sessionArray[s];
-
-            //--
-            function searchPointX(variable, value) {
-                for (var j = 0; j < files.length; j++) {
-                    if (files[j].point != undefined && files[j].point[variable] == value)
-                        return files[j];
+            function searchPoint(guid) {
+                for (var i = 0; i < files.length; i++) {
+                    if (files[i].point != undefined && files[i].point.fromRef == guid)
+                        return files[i];
                 }
             }
 
             var vertices = [];
 
-            //buscar o ponto X, sem refFrom
-            xFile = searchPointX('fromRef', '');
-            drawLine(xFile);
+            xFile = searchPoint('');
+            assemblyTubeVertices(xFile);
 
-            function drawLine(xFile) {
+            function assemblyTubeVertices(xFile) {
                 if (xFile == undefined)
                     return;
 
-                //desenhar o ponto X no gráfico
-                vertices.push(new THREE.Vector3(xFile.x * 1.5, 0, xFile.z * 1.5));
+                var height = xFile.point.line * 50 / mostHighFileLine;
 
-                if (lScene.sessionGuid == '5a5a2f2c-f8a2-4f4f-98ef-713afb528da3') {
-                    console.log('xFile.x: ' + (xFile.x * 1.5), ' xFile.z: ' + (xFile.z * 1.5));
-                }
+                vertices.push(new THREE.Vector3(xFile.x * 1.5, height / 2, xFile.z * 1.5));
 
-                //verificar se o refTo do ponto X é vazio
                 if (xFile.point.toRef == '')
                     return;
 
-                //se for diferente buscar o ponto Y, refTo do X
-                yFile = searchPointX('fromRef', xFile.point.toRef);
-                drawLine(yFile);
+                yFile = searchPoint(xFile.point.toRef);
+                assemblyTubeVertices(yFile);
             }
 
-            if (vertices.length > 0) {
-                var curveTube = new THREE.CatmullRomCurve3(vertices);
+            var tube = drawTube(vertices);
+            lScene.add(tube);
 
-                var geometryTube = new THREE.TubeGeometry(curveTube, 100, 0.1, 20, false);
-                var materialTube = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-                var tube = new THREE.Mesh(geometryTube, materialTube);
-                lScene.add(tube);
-            }
-            //--
+            lScene.sessionGuid = sessionArray[s];
 
             scenes.push(lScene);
         }
