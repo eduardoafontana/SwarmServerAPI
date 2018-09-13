@@ -60,7 +60,7 @@
         return sphere;
     }
 
-    var drawTorus = function (positionX, positionZ, line, data, mostHighFileLine, group) {
+    var drawTorus = function (positionX, positionZ, line, mostHighFileLine) {
         var height = line * 50 / mostHighFileLine;
 
         var radius = 0.7;
@@ -81,22 +81,16 @@
 
         torus.rotation.x = 1.6; //flip to horizontal
 
-        torus.group = group;
         torus.initialCalculatedPositionX = torus.position.x;
         torus.initialCalculatedPositionZ = torus.position.z;
         torus.initialHeight = adjustToZeroAxisY;
-        torus.data = data;
         torus.topMargin = topMargin;
         torus.radius = radius;
-        torus.isTorus = true;
-        torus.canOpenDetailBox = true;
-        torus.canHighlightOnMouseOver = true;
-        torus.canScaleChange = true;
 
         return torus;
     }
 
-    var drawTorusSquare = function (positionX, positionZ, line, data, mostHighFileLine, group) {
+    var drawTorusSquare = function (positionX, positionZ, line, mostHighFileLine) {
         var height = line * 50 / mostHighFileLine;
 
         var radius = 0.7;
@@ -118,16 +112,10 @@
         torus.rotation.x = 1.6; //flip to horizontal
         torus.rotation.z = 0.8; //rotate to equal cube node
 
-        torus.group = group;
         torus.initialCalculatedPositionX = torus.position.x;
         torus.initialCalculatedPositionZ = torus.position.z;
         torus.initialHeight = adjustToZeroAxisY;
-        torus.data = data;
         torus.topMargin = topMargin;
-        torus.isTorusSquare = true;
-        torus.canOpenDetailBox = true;
-        torus.canHighlightOnMouseOver = true;
-        torus.canScaleChange = true;
 
         return torus;
     }

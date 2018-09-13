@@ -161,15 +161,29 @@
                 hideButton.canScaleChange = true;
 
                 for (var j = 0; j < files[i].breakpoints.length; j++) {
-                    var torus = graph.drawTorus(files[i].x, files[i].z, files[i].breakpoints[j].line, files[i].breakpoints[j].data, mostHighFileLine, files[i].group);
+                    var torus = graph.drawTorus(files[i].x, files[i].z, files[i].breakpoints[j].line, mostHighFileLine);
+
                     torus.cubeId = cube.id;
+                    torus.group = files[i].group;
+                    torus.data = files[i].breakpoints[j].data;
+                    torus.isTorus = true;
+                    torus.canOpenDetailBox = true;
+                    torus.canHighlightOnMouseOver = true;
+                    torus.canScaleChange = true;
 
                     lScene.add(torus);
                 }
 
                 for (var j = 0; j < files[i].events.length; j++) {
-                    var square = graph.drawTorusSquare(files[i].x, files[i].z, files[i].events[j].line, files[i].events[j].data, mostHighFileLine, files[i].group);
+                    var square = graph.drawTorusSquare(files[i].x, files[i].z, files[i].events[j].line, mostHighFileLine);
+
                     square.cubeId = cube.id;
+                    square.group = files[i].group;
+                    square.data = files[i].events[j].data;
+                    square.isTorus = true;
+                    square.canOpenDetailBox = true;
+                    square.canHighlightOnMouseOver = true;
+                    square.canScaleChange = true;
 
                     lScene.add(square);
                 }
