@@ -222,6 +222,8 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\3dview\info-box.js" />
     <Content Include="Scripts\3dview\project-data.js" />
+    <Content Include="Scripts\3dview\graph.js" />
+    <Content Include="Scripts\3dview\view3d.js" />
     <Content Include="Scripts\3dview\session-data.js" />
     <Content Include="Scripts\bootstrap-select.js" />
     <Content Include="Scripts\bootstrap-select.min.js" />
