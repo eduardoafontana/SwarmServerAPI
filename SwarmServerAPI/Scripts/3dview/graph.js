@@ -1,5 +1,15 @@
 ﻿var graph = (function () {
-   
+
+    var camera = new THREE.PerspectiveCamera(45, 0, 1, 500);
+    var scene;
+    var scenes = [];
+    var mouse = new THREE.Vector2();
+    var raycaster = new THREE.Raycaster();
+    var renderer = new THREE.WebGLRenderer();
+    var stats = new Stats();
+
+    var colorOptions;
+    var scaleOptions;
 
     var drawCube = function (positionX, positionZ, lines, hexColor, mostHighFileLine) {
         var height = lines * 50 / mostHighFileLine;
@@ -137,12 +147,127 @@
         return tube;
     }
 
+    var changeTorusScale = function (scaleOptions) {
+        graph.scene.traverse(function (node) {
+            if (node instanceof THREE.Mesh && node.canScaleChange && node.isTorus) {
+                node.geometry = new THREE.TorusBufferGeometry(node.radius, scaleOptions.breakpointScale, 100, 100);
+            }
+        });
+    };
+
+    var changeTorusSquereScale = function (scaleOptions) {
+        graph.scene.traverse(function (node) {
+            if (node instanceof THREE.Mesh && node.canScaleChange && node.isTorusSquare) {
+                node.geometry = new THREE.TorusBufferGeometry(node.radius, scaleOptions.eventScale, 100, 4);
+            }
+        });
+    };
+
+    var changeCubeScale = function (scaleOptions) {
+        graph.scene.traverse(function (node) {
+            if (node instanceof THREE.Mesh) {
+                if (node.canScaleChange) {
+                    node.position.x = node.initialCalculatedPositionX * scaleOptions.cubeSpace;
+                    node.position.z = node.initialCalculatedPositionZ * scaleOptions.cubeSpace;
+                }
+            }
+        });
+    };
+
+    var changeGroupScale = function (scaleOptions) {
+        var groupBefore = undefined;
+        var firstNodeOfGroup = undefined;
+
+        graph.scene.traverse(function (node) {
+            if (node instanceof THREE.Mesh && node.canScaleChange) {
+
+                if (groupBefore == undefined) {
+                    groupBefore = node.group;
+                    firstNodeOfGroup = node;
+
+                    node.position.x = node.initialCalculatedPositionX * scaleOptions.groupSpace;
+                    node.position.z = node.initialCalculatedPositionZ * scaleOptions.groupSpace;
+                } else if (groupBefore != node.group) {
+                    groupBefore = node.group;
+                    firstNodeOfGroup = node;
+
+                    node.position.x = node.initialCalculatedPositionX * scaleOptions.groupSpace;
+                    node.position.z = node.initialCalculatedPositionZ * scaleOptions.groupSpace;
+                } else {
+                    node.position.x = (firstNodeOfGroup.position.x - firstNodeOfGroup.initialCalculatedPositionX) + node.initialCalculatedPositionX;
+                    node.position.z = (firstNodeOfGroup.position.z - firstNodeOfGroup.initialCalculatedPositionZ) + node.initialCalculatedPositionZ;
+                }
+            }
+        });
+    };
+
+    var changeFileScale = function (scaleOptions) {
+        graph.scene.traverse(function (node) {
+            if (node instanceof THREE.Mesh && node.canScaleChange) {
+                if (node.isCube != undefined) {
+                    node.scale.y = scaleOptions.fileScale;
+                    node.position.y = node.initialCalculatedPositionY * scaleOptions.fileScale;
+                } else if (node.isSphere != undefined) {
+                    node.position.y = (node.initialHeight * scaleOptions.fileScale) + node.topMargin + node.radius;
+                } else if (node.isTorus != undefined || node.isTorusSquare != undefined) {
+                    node.position.y = (node.initialHeight * scaleOptions.fileScale) + node.topMargin;
+                }
+            }
+        });
+    };
+
+    var changeColor = function (colorOptions) {
+        graph.scene.background = new THREE.Color(colorOptions.Background);
+    };
+
+    var changeGroupColor = function (colorOptions) {
+        var groupBefore = undefined;
+        var firstNodeOfGroup = undefined;
+        var color = '';
+
+        graph.scene.traverse(function (node) {
+            if (node instanceof THREE.Mesh && node.canScaleChange) {
+
+                if (groupBefore == undefined) {
+                    groupBefore = node.group;
+                    firstNodeOfGroup = node;
+
+                    color = colorPalette.pickUpColor(colorOptions.Groups);
+                } else if (groupBefore != node.group) {
+                    groupBefore = node.group;
+                    firstNodeOfGroup = node;
+
+                    color = colorPalette.pickUpColor(colorOptions.Groups);
+                }
+
+                node.material.color = new THREE.Color(color);
+            }
+        });
+    };
+
     return {
+        camera: camera,
+        scene: scene,
+        scenes: scenes,
+        mouse: mouse,
+        raycaster: raycaster,
+        renderer: renderer,
+        stats: stats,
+        //--
         drawCube: drawCube,
         drawSphere: drawSphere,
         drawTorus: drawTorus,
         drawTorusSquare: drawTorusSquare,
-        drawTube: drawTube
+        drawTube: drawTube,
+        //--
+        changeTorusScale: changeTorusScale,
+        changeTorusSquereScale: changeTorusSquereScale,
+        changeCubeScale: changeCubeScale,
+        changeGroupScale: changeGroupScale,
+        changeFileScale: changeFileScale,
+        //--
+        changeColor: changeColor,
+        changeGroupColor: changeGroupColor
     };
 
 }());

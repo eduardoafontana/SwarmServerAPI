@@ -78,7 +78,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
             bundles.Add(new StyleBundle("~/Content/3dview").Include(
                       "~/Content/detail-box.css"));
 
-            BundleTable.EnableOptimizations = true;
+            //BundleTable.EnableOptimizations = true;
         }
     }
 }

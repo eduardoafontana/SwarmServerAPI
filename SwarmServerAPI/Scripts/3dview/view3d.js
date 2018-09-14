@@ -8,17 +8,17 @@
     }
 
     function setMouseRelativePosition(eventAbsolute, relativePositions) {
-        mouse.x = ((eventAbsolute.clientX - relativePositions.x) / getRelativeWidth()) * 2 - 1;
-        mouse.y = - ((eventAbsolute.clientY - relativePositions.y) / getRelativeHeight()) * 2 + 1;
+        graph.mouse.x = ((eventAbsolute.clientX - relativePositions.x) / getRelativeWidth()) * 2 - 1;
+        graph.mouse.y = - ((eventAbsolute.clientY - relativePositions.y) / getRelativeHeight()) * 2 + 1;
     }
 
     function onDocumentMouseDown(event) {
         var positions = document.body.getElementsByClassName("canvasRenderRelativeSize")[0].getBoundingClientRect();
         setMouseRelativePosition(event, positions);
 
-        raycaster.setFromCamera(mouse, camera);
+        graph.raycaster.setFromCamera(graph.mouse, graph.camera);
 
-        var intersects = raycaster.intersectObjects(scene.children);
+        var intersects = graph.raycaster.intersectObjects(graph.scene.children);
         if (intersects.length > 0) {
             var intersect = intersects[0];
 
@@ -37,7 +37,7 @@
             }
 
             if (intersect.object.canHideRelated) {
-                var cubeFromSphere = scene.getObjectById(intersect.object.cubeId, true);
+                var cubeFromSphere = graph.scene.getObjectById(intersect.object.cubeId, true);
 
                 if (cubeFromSphere.visible)
                     cubeFromSphere.visible = false;
@@ -56,18 +56,18 @@
     }
 
     function onWindowResize() {
-        camera.aspect = getRelativeWidth() / getRelativeHeight();
-        camera.updateProjectionMatrix();
+        graph.camera.aspect = getRelativeWidth() / getRelativeHeight();
+        graph.camera.updateProjectionMatrix();
 
-        renderer.setSize(getRelativeWidth(), getRelativeHeight());
+        graph.renderer.setSize(getRelativeWidth(), getRelativeHeight());
 
         //--
         var box = document.getElementsByClassName("detail-box")[0];
-        relocateDetailBox(box, renderer.getSize().width, renderer.getSize().height);
+        relocateDetailBox(box, graph.renderer.getSize().width, graph.renderer.getSize().height);
 
         //--
         var boxInfo = document.getElementsByClassName("info-box")[0];
-        relocateInfoBox(boxInfo, renderer.getSize().width, renderer.getSize().height);
+        relocateInfoBox(boxInfo, graph.renderer.getSize().width, graph.renderer.getSize().height);
     }
 
     function loadGraph() {
@@ -180,7 +180,7 @@
                     square.cubeId = cube.id;
                     square.group = files[i].group;
                     square.data = files[i].events[j].data;
-                    square.isTorus = true;
+                    square.isTorusSquare = true;
                     square.canOpenDetailBox = true;
                     square.canHighlightOnMouseOver = true;
                     square.canScaleChange = true;
@@ -224,38 +224,30 @@
 
             lScene.sessionGuid = sessionArray[s];
 
-            scenes.push(lScene);
+            graph.scenes.push(lScene);
         }
     }
 
-    var camera = new THREE.PerspectiveCamera(45, 0, 1, 500);
-    var scene = undefined;
-    var scenes = [];
-    var mouse = new THREE.Vector2();
-    var raycaster = new THREE.Raycaster();
-    var renderer = new THREE.WebGLRenderer();
-    var stats = new Stats();
-
     document.addEventListener("DOMContentLoaded", function () {
-        renderer.setSize(getRelativeWidth(), getRelativeHeight());
+        graph.renderer.setSize(getRelativeWidth(), getRelativeHeight());
 
         var canvasRenderRelativeSize = document.body.getElementsByClassName("canvasRenderRelativeSize")[0];
-        canvasRenderRelativeSize.appendChild(renderer.domElement);
-        canvasRenderRelativeSize.appendChild(stats.dom);
+        canvasRenderRelativeSize.appendChild(graph.renderer.domElement);
+        canvasRenderRelativeSize.appendChild(graph.stats.dom);
 
-        stats.dom.style.position = 'static';
-        stats.dom.style.top = 'auto';
-        stats.dom.style.left = 'auto';
-        stats.dom.style.float = 'left';
-        stats.dom.style.marginTop = '-55px';
+        graph.stats.dom.style.position = 'static';
+        graph.stats.dom.style.top = 'auto';
+        graph.stats.dom.style.left = 'auto';
+        graph.stats.dom.style.float = 'left';
+        graph.stats.dom.style.marginTop = '-55px';
 
-        initDetailBox(renderer.getSize().width, renderer.getSize().height);
-        initInfoBox(renderer.getSize().width, renderer.getSize().height);
+        initDetailBox(graph.renderer.getSize().width, graph.renderer.getSize().height);
+        initInfoBox(graph.renderer.getSize().width, graph.renderer.getSize().height);
 
-        camera.position.set(60, 60, 60);
-        camera.lookAt(new THREE.Vector3(0, 0, 0));
+        graph.camera.position.set(60, 60, 60);
+        graph.camera.lookAt(new THREE.Vector3(0, 0, 0));
 
-        var orbit = new THREE.OrbitControls(camera, renderer.domElement);
+        var orbit = new THREE.OrbitControls(graph.camera, graph.renderer.domElement);
         orbit.enableZoom = true;
         orbit.maxPolarAngle = Math.PI * 0.5;
 
@@ -271,9 +263,9 @@
             requestAnimationFrame(animate);
 
             //--
-            raycaster.setFromCamera(mouse, camera);
+            graph.raycaster.setFromCamera(graph.mouse, graph.camera);
 
-            var intersects = raycaster.intersectObjects(scene.children);
+            var intersects = graph.raycaster.intersectObjects(graph.scene.children);
 
             if (intersects.length > 0) {
                 var iCubeOnGraph = -1;
@@ -318,8 +310,8 @@
             }
             //--
 
-            renderer.render(scene, camera);
-            stats.update();
+            graph.renderer.render(graph.scene, graph.camera);
+            graph.stats.update();
         };
 
         onWindowResize();
@@ -334,8 +326,8 @@
         //-----
 
         document.getElementsByClassName("reset-camera-button")[0].addEventListener("click", function () {
-            camera.position.set(60, 60, 60);
-            camera.lookAt(new THREE.Vector3(0, 0, 0));
+            graph.camera.position.set(60, 60, 60);
+            graph.camera.lookAt(new THREE.Vector3(0, 0, 0));
         });
 
         //------------------------------
@@ -345,38 +337,11 @@
             Groups: colorPalette.defaultColorPaletteName
         };
 
-        function changeColor() {
-            scene.background = new THREE.Color(colorOptions.Background);
-        };
-
-        function changeGroupColor() {
-            var groupBefore = undefined;
-            var firstNodeOfGroup = undefined;
-            var color = '';
-
-            scene.traverse(function (node) {
-                if (node instanceof THREE.Mesh && node.canScaleChange) {
-
-                    if (groupBefore == undefined) {
-                        groupBefore = node.group;
-                        firstNodeOfGroup = node;
-
-                        color = colorPalette.pickUpColor(colorOptions.Groups);
-                    } else if (groupBefore != node.group) {
-                        groupBefore = node.group;
-                        firstNodeOfGroup = node;
-
-                        color = colorPalette.pickUpColor(colorOptions.Groups);
-                    }
-
-                    node.material.color = new THREE.Color(color);
-                }
-            });
-        };
+        graph.colorOptions = colorOptions;
 
         var guiColorOtions = new dat.GUI({ autoPlace: false });
-        guiColorOtions.add(colorOptions, 'Groups', colorPalette.getColorPalatteArray()).onChange(changeGroupColor);
-        guiColorOtions.addColor(colorOptions, 'Background').onChange(changeColor);
+        guiColorOtions.add(colorOptions, 'Groups', colorPalette.getColorPalatteArray()).onChange(function () { graph.changeGroupColor(colorOptions) });
+        guiColorOtions.addColor(colorOptions, 'Background').onChange(function () { graph.changeColor(colorOptions) });
 
         document.getElementsByClassName("tool-box")[0].appendChild(guiColorOtions.domElement);
 
@@ -400,81 +365,14 @@
             eventScale: 0.1
         };
 
-        function changeCubeScale() {
-            scene.traverse(function (node) {
-                if (node instanceof THREE.Mesh) {
-                    if (node.canScaleChange) {
-                        node.position.x = node.initialCalculatedPositionX * scaleOptions.cubeSpace;
-                        node.position.z = node.initialCalculatedPositionZ * scaleOptions.cubeSpace;
-                    }
-                }
-            });
-        };
-
-        function changeGroupScale() {
-            var groupBefore = undefined;
-            var firstNodeOfGroup = undefined;
-
-            scene.traverse(function (node) {
-                if (node instanceof THREE.Mesh && node.canScaleChange) {
-
-                    if (groupBefore == undefined) {
-                        groupBefore = node.group;
-                        firstNodeOfGroup = node;
-
-                        node.position.x = node.initialCalculatedPositionX * scaleOptions.groupSpace;
-                        node.position.z = node.initialCalculatedPositionZ * scaleOptions.groupSpace;
-                    } else if (groupBefore != node.group) {
-                        groupBefore = node.group;
-                        firstNodeOfGroup = node;
-
-                        node.position.x = node.initialCalculatedPositionX * scaleOptions.groupSpace;
-                        node.position.z = node.initialCalculatedPositionZ * scaleOptions.groupSpace;
-                    } else {
-                        node.position.x = (firstNodeOfGroup.position.x - firstNodeOfGroup.initialCalculatedPositionX) + node.initialCalculatedPositionX;
-                        node.position.z = (firstNodeOfGroup.position.z - firstNodeOfGroup.initialCalculatedPositionZ) + node.initialCalculatedPositionZ;
-                    }
-                }
-            });
-        };
-
-        function changeFileScale() {
-            scene.traverse(function (node) {
-                if (node instanceof THREE.Mesh && node.canScaleChange) {
-                    if (node.isCube != undefined) {
-                        node.scale.y = scaleOptions.fileScale;
-                        node.position.y = node.initialCalculatedPositionY * scaleOptions.fileScale;
-                    } else if (node.isSphere != undefined) {
-                        node.position.y = (node.initialHeight * scaleOptions.fileScale) + node.topMargin + node.radius;
-                    } else if (node.isTorus != undefined || node.isTorusSquare != undefined) {
-                        node.position.y = (node.initialHeight * scaleOptions.fileScale) + node.topMargin;
-                    }
-                }
-            });
-        };
-
-        function changeBreakpointScale() {
-            scene.traverse(function (node) {
-                if (node instanceof THREE.Mesh && node.canScaleChange && node.isTorus) {
-                    node.geometry = new THREE.TorusBufferGeometry(node.radius, scaleOptions.breakpointScale, 100, 100);
-                }
-            });
-        };
-
-        function changeEventScale() {
-            scene.traverse(function (node) {
-                if (node instanceof THREE.Mesh && node.canScaleChange && node.isTorusSquare) {
-                    node.geometry = new THREE.TorusBufferGeometry(node.radius, scaleOptions.eventScale, 100, 4);
-                }
-            });
-        };
+        graph.scaleOptions = scaleOptions;
 
         var guiScaleOtions = new dat.GUI({ autoPlace: false });
-        guiScaleOtions.add(scaleOptions, 'cubeSpace', 1, 5).onChange(changeCubeScale);
-        guiScaleOtions.add(scaleOptions, 'groupSpace', 1, 5).onChange(changeGroupScale);
-        guiScaleOtions.add(scaleOptions, 'fileScale', 0.1, 3).onChange(changeFileScale);
-        guiScaleOtions.add(scaleOptions, 'breakpointScale', 0.03, 0.3).onChange(changeBreakpointScale);
-        guiScaleOtions.add(scaleOptions, 'eventScale', 0.03, 0.3).onChange(changeEventScale);
+        guiScaleOtions.add(scaleOptions, 'cubeSpace', 1, 5).onChange(function () { graph.changeCubeScale(scaleOptions) });
+        guiScaleOtions.add(scaleOptions, 'groupSpace', 1, 5).onChange(function () { graph.changeGroupScale(scaleOptions) });
+        guiScaleOtions.add(scaleOptions, 'fileScale', 0.1, 3).onChange(function () { graph.changeFileScale(scaleOptions) });
+        guiScaleOtions.add(scaleOptions, 'breakpointScale', 0.03, 0.3).onChange(function () { graph.changeTorusScale(scaleOptions) });
+        guiScaleOtions.add(scaleOptions, 'eventScale', 0.03, 0.3).onChange(function () { graph.changeTorusSquereScale(scaleOptions) });
 
         document.getElementsByClassName("tool-box")[0].appendChild(guiScaleOtions.domElement);
 
@@ -489,9 +387,9 @@
         });
 
         function resetSessionScene() {
-            for (var i = 0; i < scenes.length; i++) {
-                if (scenes[i].sessionGuid == sessionData.getDefault()) {
-                    scene = scenes[i];
+            for (var i = 0; i < graph.scenes.length; i++) {
+                if (graph.scenes[i].sessionGuid == sessionData.getDefault()) {
+                    graph.scene = graph.scenes[i];
                     break;
                 }
             }
