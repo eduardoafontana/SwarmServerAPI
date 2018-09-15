@@ -77,6 +77,7 @@
 
                 var cube = graph.drawCube(files[i].x, files[i].z, files[i].lines, color, mostHighFileLine);
 
+                files[i].cubeId = cube.id;
                 cube.group = files[i].group;
                 cube.isCube = true;
                 cube.canScaleChange = true;
@@ -140,7 +141,10 @@
 
                 var height = xFile.point.line * 50 / mostHighFileLine;
 
-                vertices.push(new THREE.Vector3(xFile.x * 1.5, height / 2, xFile.z * 1.5));
+                var vertice = new THREE.Vector3(xFile.x * 1.5, height / 2, xFile.z * 1.5);
+                vertice.cubeId = xFile.cubeId;
+
+                vertices.push(vertice);
 
                 if (xFile.point.toRef == '')
                     return;
@@ -152,6 +156,7 @@
             var tube = graph.drawTube(vertices);
             tube.canScaleChange = true;
             tube.isTube = true;
+            tube.name = 'tubePathNode';
 
             lScene.add(tube);
 

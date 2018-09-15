@@ -132,10 +132,7 @@
         var materialTube = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
         var tube = new THREE.Mesh(geometryTube, materialTube);
 
-        for (var i = 0; i < geometryTube.vertices.length; i++) {
-            geometryTube.vertices[i].initialCalculatedX = geometryTube.vertices[i].x;
-            geometryTube.vertices[i].initialCalculatedZ = geometryTube.vertices[i].z;
-        }
+        tube.originalVertices = vertices;
 
         return tube;
     }
@@ -160,12 +157,12 @@
         graph.scene.traverse(function (node) {
             if (node instanceof THREE.Mesh && node.canScaleChange) {
                 if (node.isTube) {
-                    for (var i = 0; i < node.geometry.vertices.length; i++) {
-                        node.geometry.vertices[i].x = node.geometry.vertices[i].initialCalculatedX * scaleOptions.cubeSpace;
-                        node.geometry.vertices[i].z = node.geometry.vertices[i].initialCalculatedZ * scaleOptions.cubeSpace;
+                    var newPoints = [];
+                    for (var i = 0; i < node.originalVertices.length; i++) {
+                        newPoints.push(new THREE.Vector3(node.originalVertices[i].x * scaleOptions.cubeSpace, node.originalVertices[i].y, node.originalVertices[i].z * scaleOptions.cubeSpace));
                     }
 
-                    node.geometry.verticesNeedUpdate = true;
+                    node.geometry = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(newPoints), 100, 0.1, 20, false);
                 } else {
                     node.position.x = node.initialCalculatedPositionX * scaleOptions.cubeSpace;
                     node.position.z = node.initialCalculatedPositionZ * scaleOptions.cubeSpace;
@@ -198,6 +195,18 @@
                 }
             }
         });
+
+        //--
+        var tubePathNode = graph.scene.getObjectByName('tubePathNode');
+
+        var newPoints = [];
+        for (var i = 0; i < tubePathNode.originalVertices.length; i++) {
+            var cubeFromPathNode = graph.scene.getObjectById(tubePathNode.originalVertices[i].cubeId, true);
+
+            newPoints.push(new THREE.Vector3(cubeFromPathNode.position.x, tubePathNode.originalVertices[i].y, cubeFromPathNode.position.z));
+        }
+
+        tubePathNode.geometry = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(newPoints), 100, 0.1, 20, false);
     };
 
     var changeFileScale = function (scaleOptions) {

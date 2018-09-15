@@ -277,6 +277,30 @@
                     ], events: []
                 },
             ]
+        },
+        {
+            guid: '280feb69-b675-4942-ae6b-54f9ca2f8cf2', name: 'Session Example 6', data: [
+                {
+                    lines: 100, group: 0, breakpoints: [], events: [], point: {
+                        line: 10, fromRef: '', toRef: 'ec0dd386-92d0-42fa-97fc-b458c59f3d60'
+                    }
+                },
+                {
+                    lines: 100, group: 0, breakpoints: [], events: [], point: {
+                        line: 20, fromRef: 'ec0dd386-92d0-42fa-97fc-b458c59f3d60', toRef: 'fc4becdf-7a9f-4fec-b1aa-761a599861d0'
+                    }
+                },
+                {
+                    lines: 100, group: 1, breakpoints: [], events: [], point: {
+                        line: 30, fromRef: 'fc4becdf-7a9f-4fec-b1aa-761a599861d0', toRef: '1472a443-2b44-48af-a37a-028995671aeb'
+                    }
+                },
+                {
+                    lines: 100, group: 1, breakpoints: [], events: [], point: {
+                        line: 40, fromRef: '1472a443-2b44-48af-a37a-028995671aeb', toRef: ''
+                    },
+                },
+            ]
         }
     ];
 
