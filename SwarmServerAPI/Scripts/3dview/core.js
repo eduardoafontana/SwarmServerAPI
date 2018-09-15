@@ -154,8 +154,6 @@
             }
 
             var tube = graph.drawTube(vertices);
-            tube.canScaleChange = true;
-            tube.isTube = true;
             tube.name = 'tubePathNode';
 
             lScene.add(tube);

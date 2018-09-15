@@ -137,6 +137,19 @@
         return tube;
     }
 
+    function resetPathNodeScale() {
+        var tubePathNode = graph.scene.getObjectByName('tubePathNode');
+
+        var newPoints = [];
+        for (var i = 0; i < tubePathNode.originalVertices.length; i++) {
+            var cubeFromPathNode = graph.scene.getObjectById(tubePathNode.originalVertices[i].cubeId, true);
+
+            newPoints.push(new THREE.Vector3(cubeFromPathNode.position.x, cubeFromPathNode.position.y, cubeFromPathNode.position.z));
+        }
+
+        tubePathNode.geometry = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(newPoints), 100, 0.1, 20, false);
+    }
+
     var changeTorusScale = function (scaleOptions) {
         graph.scene.traverse(function (node) {
             if (node instanceof THREE.Mesh && node.canScaleChange && node.isTorus) {
@@ -156,19 +169,12 @@
     var changeCubeScale = function (scaleOptions) {
         graph.scene.traverse(function (node) {
             if (node instanceof THREE.Mesh && node.canScaleChange) {
-                if (node.isTube) {
-                    var newPoints = [];
-                    for (var i = 0; i < node.originalVertices.length; i++) {
-                        newPoints.push(new THREE.Vector3(node.originalVertices[i].x * scaleOptions.cubeSpace, node.originalVertices[i].y, node.originalVertices[i].z * scaleOptions.cubeSpace));
-                    }
-
-                    node.geometry = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(newPoints), 100, 0.1, 20, false);
-                } else {
-                    node.position.x = node.initialCalculatedPositionX * scaleOptions.cubeSpace;
-                    node.position.z = node.initialCalculatedPositionZ * scaleOptions.cubeSpace;
-                }
+                node.position.x = node.initialCalculatedPositionX * scaleOptions.cubeSpace;
+                node.position.z = node.initialCalculatedPositionZ * scaleOptions.cubeSpace;
             }
         });
+
+        resetPathNodeScale();
     };
 
     var changeGroupScale = function (scaleOptions) {
@@ -176,7 +182,7 @@
         var firstNodeOfGroup = undefined;
 
         graph.scene.traverse(function (node) {
-            if (node instanceof THREE.Mesh && node.canScaleChange && !node.isTube) {
+            if (node instanceof THREE.Mesh && node.canScaleChange) {
                 if (groupBefore == undefined) {
                     groupBefore = node.group;
                     firstNodeOfGroup = node;
@@ -196,17 +202,7 @@
             }
         });
 
-        //--
-        var tubePathNode = graph.scene.getObjectByName('tubePathNode');
-
-        var newPoints = [];
-        for (var i = 0; i < tubePathNode.originalVertices.length; i++) {
-            var cubeFromPathNode = graph.scene.getObjectById(tubePathNode.originalVertices[i].cubeId, true);
-
-            newPoints.push(new THREE.Vector3(cubeFromPathNode.position.x, tubePathNode.originalVertices[i].y, cubeFromPathNode.position.z));
-        }
-
-        tubePathNode.geometry = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(newPoints), 100, 0.1, 20, false);
+        resetPathNodeScale();
     };
 
     var changeFileScale = function (scaleOptions) {
@@ -222,6 +218,8 @@
                 }
             }
         });
+
+        resetPathNodeScale();
     };
 
     var changeColor = function (colorOptions) {
