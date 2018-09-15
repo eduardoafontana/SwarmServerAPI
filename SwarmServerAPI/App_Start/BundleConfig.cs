@@ -64,6 +64,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
                       "~/Scripts/3dview/session-data.js",
                       "~/Scripts/3dview/project-data.js",
                       "~/Scripts/3dview/graph.js",
+                      "~/Scripts/3dview/core.js",
                       "~/Scripts/3dview/view3d.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
