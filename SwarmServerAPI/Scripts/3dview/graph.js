@@ -179,8 +179,7 @@
         var firstNodeOfGroup = undefined;
 
         graph.scene.traverse(function (node) {
-            if (node instanceof THREE.Mesh && node.canScaleChange) {
-
+            if (node instanceof THREE.Mesh && node.canScaleChange && !node.isTube) {
                 if (groupBefore == undefined) {
                     groupBefore = node.group;
                     firstNodeOfGroup = node;
