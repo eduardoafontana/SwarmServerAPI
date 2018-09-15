@@ -213,10 +213,27 @@
         graph.stats.update();
     };
 
+    var initGraph = function () {
+        var orbit = new THREE.OrbitControls(graph.camera, graph.renderer.domElement);
+        orbit.enableZoom = true;
+        orbit.maxPolarAngle = Math.PI * 0.5;
+
+        var canvasRenderRelativeSize = document.body.getElementsByClassName("canvasRenderRelativeSize")[0];
+        canvasRenderRelativeSize.appendChild(graph.renderer.domElement);
+        canvasRenderRelativeSize.appendChild(graph.stats.dom);
+
+        graph.stats.dom.style.position = 'static';
+        graph.stats.dom.style.top = 'auto';
+        graph.stats.dom.style.left = 'auto';
+        graph.stats.dom.style.float = 'left';
+        graph.stats.dom.style.marginTop = '-55px';
+    };
+
     return {
+        initGraph: initGraph,
+        loadGraph: loadGraph,
         intersected: null,
         animate: animate,
-        loadGraph: loadGraph,
     };
 
 }());

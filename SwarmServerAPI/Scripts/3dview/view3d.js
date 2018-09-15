@@ -84,35 +84,28 @@
 
         graph.renderer.setSize(getRelativeWidth(), getRelativeHeight());
 
-        var canvasRenderRelativeSize = document.body.getElementsByClassName("canvasRenderRelativeSize")[0];
-        canvasRenderRelativeSize.appendChild(graph.renderer.domElement);
-        canvasRenderRelativeSize.appendChild(graph.stats.dom);
-
-        graph.stats.dom.style.position = 'static';
-        graph.stats.dom.style.top = 'auto';
-        graph.stats.dom.style.left = 'auto';
-        graph.stats.dom.style.float = 'left';
-        graph.stats.dom.style.marginTop = '-55px';
-
+        //--Load toolboxes
         initDetailBox(graph.renderer.getSize().width, graph.renderer.getSize().height);
         initInfoBox(graph.renderer.getSize().width, graph.renderer.getSize().height);
+        //--
 
-        resetCameraPosition();
-
-        var orbit = new THREE.OrbitControls(graph.camera, graph.renderer.domElement);
-        orbit.enableZoom = true;
-        orbit.maxPolarAngle = Math.PI * 0.5;
-
-        onWindowResize();
-
-        core.loadGraph();
-
+        //--Load Selectors
         loadProjectSelect();
         loadSessionSelect(document.getElementById("project-select").value);
 
+        sessionData.setDefault(document.getElementById("session-select").value);
+        //--
+
+        onWindowResize();
+
+        core.initGraph();
+        core.loadGraph();
+
+        graph.resetSessionScene(sessionData.getDefault());
+
         core.animate();
 
-        //------------------------------
+        graph.resetCameraPosition();
 
         var colorOptions = {
             Background: "#000000",
@@ -190,9 +183,6 @@
 
                 sessionSelect.add(option);
             }
-
-            sessionData.setDefault(sessionSelect.value);
-            graph.resetSessionScene(sessionData.getDefault());
 
             sessionSelect.addEventListener("change", function () {
                 sessionData.setDefault(sessionSelect.value);
