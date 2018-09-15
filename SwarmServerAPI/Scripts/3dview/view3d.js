@@ -208,6 +208,9 @@
 
             projectSelect.addEventListener("change", function () {
                 loadSessionSelect(projectSelect.value);
+
+                sessionData.setDefault(document.getElementById("session-select").value);
+                graph.resetSessionScene(sessionData.getDefault());
             });
         }
     });
