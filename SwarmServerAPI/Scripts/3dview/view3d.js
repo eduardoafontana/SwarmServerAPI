@@ -1,5 +1,8 @@
 ﻿var view3d = (function () {
-   
+
+    function resetCameraPosition() {
+        graph.resetCameraPosition();
+    }
 
     function onDocumentMouseMove(event) {
         var positions = document.body.getElementsByClassName("canvasRenderRelativeSize")[0].getBoundingClientRect();
@@ -229,6 +232,14 @@
     }
 
     document.addEventListener("DOMContentLoaded", function () {
+
+        //--Event initializer
+        document.body.getElementsByClassName("canvasRenderRelativeSize")[0].addEventListener('mousemove', onDocumentMouseMove, false);
+        document.addEventListener('mousedown', onDocumentMouseDown, false);
+        document.getElementsByClassName('reset-camera-button')[0].addEventListener('click', resetCameraPosition);
+        window.addEventListener('resize', onWindowResize, false);
+        //---
+
         graph.renderer.setSize(getRelativeWidth(), getRelativeHeight());
 
         var canvasRenderRelativeSize = document.body.getElementsByClassName("canvasRenderRelativeSize")[0];
@@ -244,20 +255,13 @@
         initDetailBox(graph.renderer.getSize().width, graph.renderer.getSize().height);
         initInfoBox(graph.renderer.getSize().width, graph.renderer.getSize().height);
 
-        graph.camera.position.set(60, 60, 60);
-        graph.camera.lookAt(new THREE.Vector3(0, 0, 0));
+        resetCameraPosition();
 
         var orbit = new THREE.OrbitControls(graph.camera, graph.renderer.domElement);
         orbit.enableZoom = true;
         orbit.maxPolarAngle = Math.PI * 0.5;
 
         var intersected = null;
-
-        document.body.getElementsByClassName("canvasRenderRelativeSize")[0].addEventListener('mousemove', onDocumentMouseMove, false);
-
-        document.addEventListener('mousedown', onDocumentMouseDown, false);
-
-        window.addEventListener('resize', onWindowResize, false);
 
         var animate = function () {
             requestAnimationFrame(animate);
@@ -323,13 +327,6 @@
 
         animate();
 
-        //-----
-
-        document.getElementsByClassName("reset-camera-button")[0].addEventListener("click", function () {
-            graph.camera.position.set(60, 60, 60);
-            graph.camera.lookAt(new THREE.Vector3(0, 0, 0));
-        });
-
         //------------------------------
 
         var colorOptions = {
@@ -386,15 +383,6 @@
             }
         });
 
-        function resetSessionScene() {
-            for (var i = 0; i < graph.scenes.length; i++) {
-                if (graph.scenes[i].sessionGuid == sessionData.getDefault()) {
-                    graph.scene = graph.scenes[i];
-                    break;
-                }
-            }
-        }
-
         //--
         function loadSessionSelect(projectGuid) {
             var sessionSelect = document.getElementById("session-select");
@@ -419,11 +407,11 @@
             }
 
             sessionData.setDefault(sessionSelect.value);
-            resetSessionScene();
+            graph.resetSessionScene(sessionData.getDefault());
 
             sessionSelect.addEventListener("change", function () {
                 sessionData.setDefault(sessionSelect.value);
-                resetSessionScene();
+                graph.resetSessionScene(sessionData.getDefault());
             });
         }
 

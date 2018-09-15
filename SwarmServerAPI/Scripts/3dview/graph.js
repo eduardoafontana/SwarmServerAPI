@@ -1,16 +1,5 @@
 ﻿var graph = (function () {
 
-    var camera = new THREE.PerspectiveCamera(45, 0, 1, 500);
-    var scene;
-    var scenes = [];
-    var mouse = new THREE.Vector2();
-    var raycaster = new THREE.Raycaster();
-    var renderer = new THREE.WebGLRenderer();
-    var stats = new Stats();
-
-    var colorOptions;
-    var scaleOptions;
-
     var drawCube = function (positionX, positionZ, lines, hexColor, mostHighFileLine) {
         var height = lines * 50 / mostHighFileLine;
 
@@ -245,14 +234,28 @@
         });
     };
 
+    var resetSessionScene = function (defaultGuid) {
+        for (var i = 0; i < graph.scenes.length; i++) {
+            if (graph.scenes[i].sessionGuid == defaultGuid) {
+                graph.scene = graph.scenes[i];
+                break;
+            }
+        }
+    }
+
+    var resetCameraPosition = function () {
+        graph.camera.position.set(60, 60, 60);
+        graph.camera.lookAt(new THREE.Vector3(0, 0, 0));
+    }
+
     return {
-        camera: camera,
-        scene: scene,
-        scenes: scenes,
-        mouse: mouse,
-        raycaster: raycaster,
-        renderer: renderer,
-        stats: stats,
+        camera: new THREE.PerspectiveCamera(45, 0, 1, 500),
+        scene: undefined,
+        scenes: [],
+        mouse: new THREE.Vector2(),
+        raycaster: new THREE.Raycaster(),
+        renderer: new THREE.WebGLRenderer(),
+        stats:new Stats(),
         //--
         drawCube: drawCube,
         drawSphere: drawSphere,
@@ -267,7 +270,10 @@
         changeFileScale: changeFileScale,
         //--
         changeColor: changeColor,
-        changeGroupColor: changeGroupColor
+        changeGroupColor: changeGroupColor,
+        //--
+        resetSessionScene: resetSessionScene,
+        resetCameraPosition: resetCameraPosition,
     };
 
 }());
