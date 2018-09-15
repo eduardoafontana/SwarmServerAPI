@@ -150,6 +150,9 @@
             }
 
             var tube = graph.drawTube(vertices);
+            tube.canScaleChange = true;
+            tube.isTube = true;
+
             lScene.add(tube);
 
             lScene.sessionGuid = sessionArray[s];

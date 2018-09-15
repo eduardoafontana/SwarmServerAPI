@@ -128,10 +128,14 @@
             return new THREE.Object3D();
 
         var curveTube = new THREE.CatmullRomCurve3(vertices);
-
         var geometryTube = new THREE.TubeGeometry(curveTube, 100, 0.1, 20, false);
         var materialTube = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
         var tube = new THREE.Mesh(geometryTube, materialTube);
+
+        for (var i = 0; i < geometryTube.vertices.length; i++) {
+            geometryTube.vertices[i].initialCalculatedX = geometryTube.vertices[i].x;
+            geometryTube.vertices[i].initialCalculatedZ = geometryTube.vertices[i].z;
+        }
 
         return tube;
     }
@@ -154,8 +158,15 @@
 
     var changeCubeScale = function (scaleOptions) {
         graph.scene.traverse(function (node) {
-            if (node instanceof THREE.Mesh) {
-                if (node.canScaleChange) {
+            if (node instanceof THREE.Mesh && node.canScaleChange) {
+                if (node.isTube) {
+                    for (var i = 0; i < node.geometry.vertices.length; i++) {
+                        node.geometry.vertices[i].x = node.geometry.vertices[i].initialCalculatedX * scaleOptions.cubeSpace;
+                        node.geometry.vertices[i].z = node.geometry.vertices[i].initialCalculatedZ * scaleOptions.cubeSpace;
+                    }
+
+                    node.geometry.verticesNeedUpdate = true;
+                } else {
                     node.position.x = node.initialCalculatedPositionX * scaleOptions.cubeSpace;
                     node.position.z = node.initialCalculatedPositionZ * scaleOptions.cubeSpace;
                 }
@@ -255,7 +266,7 @@
         mouse: new THREE.Vector2(),
         raycaster: new THREE.Raycaster(),
         renderer: new THREE.WebGLRenderer(),
-        stats:new Stats(),
+        stats: new Stats(),
         //--
         drawCube: drawCube,
         drawSphere: drawSphere,
