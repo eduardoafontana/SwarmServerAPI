@@ -66,11 +66,11 @@
 
         //--
         var box = document.getElementsByClassName("detail-box")[0];
-        relocateDetailBox(box, graph.renderer.getSize().width, graph.renderer.getSize().height);
+        detailbox.relocate(box, graph.renderer.getSize().width, graph.renderer.getSize().height);
 
         //--
         var boxInfo = document.getElementsByClassName("info-box")[0];
-        relocateInfoBox(boxInfo, graph.renderer.getSize().width, graph.renderer.getSize().height);
+        infobox.relocate(boxInfo, graph.renderer.getSize().width, graph.renderer.getSize().height);
     }
 
     document.addEventListener("DOMContentLoaded", function () {
@@ -85,8 +85,8 @@
         graph.renderer.setSize(getRelativeWidth(), getRelativeHeight());
 
         //--Load toolboxes
-        initDetailBox(graph.renderer.getSize().width, graph.renderer.getSize().height);
-        initInfoBox(graph.renderer.getSize().width, graph.renderer.getSize().height);
+        detailbox.init(graph.renderer.getSize().width, graph.renderer.getSize().height);
+        infobox.init(graph.renderer.getSize().width, graph.renderer.getSize().height, document.getElementsByClassName("info-box")[0]);
         //--
 
         //--Load Selectors
