@@ -7,6 +7,8 @@
 
             var lScene = new THREE.Scene();
 
+            lScene.sessionGuid = sessionArray[s];
+
             var axesHelper = new THREE.AxesHelper(50);
             lScene.add(axesHelper);
 
@@ -130,36 +132,44 @@
                 }
             }
 
-            var vertices = [];
-
-            xFile = searchPoint('');
-            assemblyTubeVertices(xFile);
-
-            function assemblyTubeVertices(xFile) {
+            function assemblyTubeVertices(xFile, vertices) {
                 if (xFile == undefined)
-                    return;
+                    return vertices;
 
                 var height = xFile.point.line * 50 / mostHighFileLine;
 
-                var vertice = new THREE.Vector3(xFile.x * 1.5, height / 2, xFile.z * 1.5);
+                var vertice = new THREE.Vector3(xFile.x * 1.5, height, xFile.z * 1.5);
                 vertice.cubeId = xFile.cubeId;
 
                 vertices.push(vertice);
 
                 if (xFile.point.toRef == '')
-                    return;
+                    return vertices;
 
                 yFile = searchPoint(xFile.point.toRef);
-                assemblyTubeVertices(yFile);
+                return assemblyTubeVertices(yFile, vertices);
             }
 
-            var tube = graph.drawTube(vertices);
-            tube.name = 'tubePathNode';
-            tube.isTube = true;
+            var tubes = [];
 
-            lScene.add(tube);
+            for (var i = 0; i < files.length; i++) {
+                if (files[i].point != undefined && files[i].point.fromRef === '')
+                    tubes.push(files[i]);
+            }
 
-            lScene.sessionGuid = sessionArray[s];
+            var groupTube = new THREE.Group();
+            groupTube.name = 'groupTube';
+
+            for (var i = 0; i < tubes.length; i++) {
+                var vertices = assemblyTubeVertices(tubes[i], []);
+
+                var tube = graph.drawTube(vertices);
+                tube.isTube = true;
+
+                groupTube.add(tube);
+            }
+
+            lScene.add(groupTube);
 
             graph.scenes.push(lScene);
         }

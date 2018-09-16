@@ -138,16 +138,19 @@
     }
 
     function resetPathNodeScale() {
-        var tubePathNode = graph.scene.getObjectByName('tubePathNode');
+        var groupTube = graph.scene.getObjectByName('groupTube');
 
-        var newPoints = [];
-        for (var i = 0; i < tubePathNode.originalVertices.length; i++) {
-            var cubeFromPathNode = graph.scene.getObjectById(tubePathNode.originalVertices[i].cubeId, true);
+        for (var j = 0; j < groupTube.children.length; j++) {
+            var newPoints = [];
+            for (var i = 0; i < groupTube.children[j].originalVertices.length; i++) {
+                var cubeFromPathNode = graph.scene.getObjectById(groupTube.children[j].originalVertices[i].cubeId, true);
 
-            newPoints.push(new THREE.Vector3(cubeFromPathNode.position.x, cubeFromPathNode.position.y, cubeFromPathNode.position.z));
+                newPoints.push(new THREE.Vector3(cubeFromPathNode.position.x, cubeFromPathNode.position.y, cubeFromPathNode.position.z));
+            }
+
+            groupTube.children[j].geometry = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(newPoints), 100, groupTube.children[j].geometry.parameters.radius, 20, false);
         }
-
-        tubePathNode.geometry = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(newPoints), 100, tubePathNode.geometry.parameters.radius, 20, false);
+        
     }
 
     var changeTorusScale = function (scaleOptions) {

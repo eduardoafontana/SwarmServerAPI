@@ -10,7 +10,10 @@
         },
         {
             guid: 'ef2adb89-b6d3-4565-9e83-eb9cab9cca10', name: 'Project Test Over Breakpoint', data: ['lk06oiam-e632-48b1-9ab1-35buka091509']
-        }
+        },
+        {
+            guid: 'ad119620-80c8-418c-b198-eae5aa65fd70', name: 'Project Multisession', data: ['592bd4fa-e7da-430a-a231-bf17c278185a']
+        },
     ];
 
     var getDefault = function () {
