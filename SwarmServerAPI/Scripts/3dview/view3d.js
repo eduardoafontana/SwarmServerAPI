@@ -137,7 +137,8 @@
             groupSpace: 1,
             fileScale: 1,
             breakpointScale: 0.1,
-            eventScale: 0.1
+            eventScale: 0.1,
+            pathScale: 0.1,
         };
 
         graph.scaleOptions = scaleOptions;
@@ -148,6 +149,7 @@
         guiScaleOtions.add(scaleOptions, 'fileScale', 0.1, 3).onChange(function () { graph.changeFileScale(scaleOptions) });
         guiScaleOtions.add(scaleOptions, 'breakpointScale', 0.03, 0.3).onChange(function () { graph.changeTorusScale(scaleOptions) });
         guiScaleOtions.add(scaleOptions, 'eventScale', 0.03, 0.3).onChange(function () { graph.changeTorusSquereScale(scaleOptions) });
+        guiScaleOtions.add(scaleOptions, 'pathScale', 0.03, 0.3).onChange(function () { graph.changeTubeScale(scaleOptions) });
 
         document.getElementsByClassName("tool-box")[0].appendChild(guiScaleOtions.domElement);
 

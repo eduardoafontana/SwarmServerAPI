@@ -147,7 +147,7 @@
             newPoints.push(new THREE.Vector3(cubeFromPathNode.position.x, cubeFromPathNode.position.y, cubeFromPathNode.position.z));
         }
 
-        tubePathNode.geometry = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(newPoints), 100, 0.1, 20, false);
+        tubePathNode.geometry = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(newPoints), 100, tubePathNode.geometry.parameters.radius, 20, false);
     }
 
     var changeTorusScale = function (scaleOptions) {
@@ -162,6 +162,15 @@
         graph.scene.traverse(function (node) {
             if (node instanceof THREE.Mesh && node.canScaleChange && node.isTorusSquare) {
                 node.geometry = new THREE.TorusBufferGeometry(node.radius, scaleOptions.eventScale, 100, 4);
+            }
+        });
+    };
+
+    var changeTubeScale = function (scaleOptions) {
+        graph.scene.traverse(function (node) {
+            if (node instanceof THREE.Mesh && node.isTube) {
+                var curveTube = new THREE.CatmullRomCurve3(node.geometry.parameters.path.points);
+                node.geometry = new THREE.TubeGeometry(curveTube, 100, scaleOptions.pathScale, 20, false);
             }
         });
     };
@@ -285,6 +294,7 @@
         changeCubeScale: changeCubeScale,
         changeGroupScale: changeGroupScale,
         changeFileScale: changeFileScale,
+        changeTubeScale: changeTubeScale,
         //--
         changeColor: changeColor,
         changeGroupColor: changeGroupColor,
