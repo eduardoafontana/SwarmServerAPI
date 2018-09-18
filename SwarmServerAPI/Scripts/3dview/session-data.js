@@ -365,22 +365,30 @@
                     },
                 },
                 {
-                    lines: 20, group: 3, breakpoints: [], events: [], point: {
+                    lines: 20, group: 3, breakpoints: [
+                        { line: 1, data: '<h4>título 1</h4><p>1 line</p><p>breakpoint</p>' },
+                    ], events: [], point: {
                         line: 1, fromRef: '', toRef: '661ee9eb-67f1-4bb6-88f6-4c0cdcd7ba12'
                     }
                 },
                 {
-                    lines: 20, group: 3, breakpoints: [], events: [], point: {
+                    lines: 20, group: 3, breakpoints: [
+                        { line: 2, data: '<h4>título 2</h4><p>2 line</p><p>breakpoint</p>' },
+                    ], events: [], point: {
                         line: 2, fromRef: '661ee9eb-67f1-4bb6-88f6-4c0cdcd7ba12', toRef: '060fa7d1-c345-4115-8a9c-436c462b930f'
                     }
                 },
                 {
-                    lines: 30, group: 3, breakpoints: [], events: [], point: {
+                    lines: 30, group: 3, breakpoints: [
+                        { line: 29, data: '<h4>título 29</h4><p>29 line</p><p>breakpoint</p>' },
+                    ], events: [], point: {
                         line: 29, fromRef: '060fa7d1-c345-4115-8a9c-436c462b930f', toRef: '598eeabd-b193-49e1-b171-1fd3bb1bbc3e'
                     }
                 },
                 {
-                    lines: 30, group: 3, breakpoints: [], events: [], point: {
+                    lines: 30, group: 3, breakpoints: [
+                        { line: 30, data: '<h4>título 30</h4><p>30 line</p><p>breakpoint</p>' },
+                    ], events: [], point: {
                         line: 30, fromRef: '598eeabd-b193-49e1-b171-1fd3bb1bbc3e', toRef: ''
                     },
                 },

@@ -72,9 +72,8 @@
         var margin = 0.1;
         var torusSize = radius * 2; //diameter
         var sizeWithMargin = margin + torusSize;
-        var adjustToZeroAxisY = height / 2;
 
-        torus.position.y = topMargin + adjustToZeroAxisY;
+        torus.position.y = height;
         torus.position.x = sizeWithMargin * positionX;
         torus.position.z = sizeWithMargin * positionZ;
 
@@ -82,8 +81,7 @@
 
         torus.initialCalculatedPositionX = torus.position.x;
         torus.initialCalculatedPositionZ = torus.position.z;
-        torus.initialHeight = adjustToZeroAxisY;
-        torus.topMargin = topMargin;
+        torus.initialHeight = height;
         torus.radius = radius;
 
         return torus;
@@ -102,9 +100,8 @@
         var margin = 0.1;
         var torusSize = radius * 2; //diameter
         var sizeWithMargin = margin + torusSize;
-        var adjustToZeroAxisY = height / 2;
 
-        torus.position.y = topMargin + adjustToZeroAxisY;
+        torus.position.y = height;
         torus.position.x = sizeWithMargin * positionX;
         torus.position.z = sizeWithMargin * positionZ;
 
@@ -113,8 +110,7 @@
 
         torus.initialCalculatedPositionX = torus.position.x;
         torus.initialCalculatedPositionZ = torus.position.z;
-        torus.initialHeight = adjustToZeroAxisY;
-        torus.topMargin = topMargin;
+        torus.initialHeight = height;
 
         return torus;
     }
@@ -137,7 +133,7 @@
         return tube;
     }
 
-    function resetPathNodeScale() {
+    function resetPathNodeScale(fileScale) {
         var groupTube = graph.scene.getObjectByName('groupTube');
 
         for (var j = 0; j < groupTube.children.length; j++) {
@@ -145,7 +141,11 @@
             for (var i = 0; i < groupTube.children[j].originalVertices.length; i++) {
                 var cubeFromPathNode = graph.scene.getObjectById(groupTube.children[j].originalVertices[i].cubeId, true);
 
-                newPoints.push(new THREE.Vector3(cubeFromPathNode.position.x, cubeFromPathNode.position.y, cubeFromPathNode.position.z));
+                var height = groupTube.children[j].geometry.parameters.path.points[i].y;
+                if (fileScale != undefined)
+                    height = groupTube.children[j].originalVertices[i].y * fileScale;
+
+                newPoints.push(new THREE.Vector3(cubeFromPathNode.position.x, height, cubeFromPathNode.position.z));
             }
 
             groupTube.children[j].geometry = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(newPoints), 100, groupTube.children[j].geometry.parameters.radius, 20, false);
@@ -226,12 +226,12 @@
                 } else if (node.isSphere != undefined) {
                     node.position.y = (node.initialHeight * scaleOptions.fileScale) + node.topMargin + node.radius;
                 } else if (node.isTorus != undefined || node.isTorusSquare != undefined) {
-                    node.position.y = (node.initialHeight * scaleOptions.fileScale) + node.topMargin;
+                    node.position.y = node.initialHeight * scaleOptions.fileScale;
                 }
             }
         });
 
-        resetPathNodeScale();
+        resetPathNodeScale(scaleOptions.fileScale);
     };
 
     var changeColor = function (colorOptions) {
