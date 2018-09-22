@@ -131,7 +131,23 @@
         tube.originalVertices = vertices;
 
         return tube;
-    }
+    };
+
+    var drawTubeSphere = function (vertice) {
+        var geometryTubeSphere = new THREE.SphereGeometry(0.2, 20, 20);
+        var materialTubeSphere = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+        var tubeSphere = new THREE.Mesh(geometryTubeSphere, materialTubeSphere);
+
+        tubeSphere.position.x = vertice.x;
+        tubeSphere.position.y = vertice.y;
+        tubeSphere.position.z = vertice.z;
+
+        tubeSphere.initialCalculatedPositionX = tubeSphere.position.x;
+        tubeSphere.initialCalculatedPositionZ = tubeSphere.position.z;
+        tubeSphere.initialHeight = tubeSphere.position.y;
+
+        return tubeSphere;
+    };
 
     function resetPathNodeScale(fileScale) {
         var groupTube = graph.scene.getObjectByName('groupTube');
@@ -151,7 +167,7 @@
             groupTube.children[j].geometry = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(newPoints, false, 'catmullrom', 0.2), 100, groupTube.children[j].geometry.parameters.radius, 20, false);
         }
         
-    }
+    };
 
     var changeTorusScale = function (scaleOptions) {
         graph.scene.traverse(function (node) {
@@ -225,7 +241,7 @@
                     node.position.y = node.initialCalculatedPositionY * scaleOptions.fileScale;
                 } else if (node.isSphere != undefined) {
                     node.position.y = (node.initialHeight * scaleOptions.fileScale) + node.topMargin + node.radius;
-                } else if (node.isTorus != undefined || node.isTorusSquare != undefined) {
+                } else if (node.isTorus != undefined || node.isTorusSquare != undefined || node.isCubeSphere != undefined) {
                     node.position.y = node.initialHeight * scaleOptions.fileScale;
                 }
             }
@@ -291,6 +307,7 @@
         drawTorus: drawTorus,
         drawTorusSquare: drawTorusSquare,
         drawTube: drawTube,
+        drawTubeSphere: drawTubeSphere,
         //--
         changeTorusScale: changeTorusScale,
         changeTorusSquereScale: changeTorusSquereScale,

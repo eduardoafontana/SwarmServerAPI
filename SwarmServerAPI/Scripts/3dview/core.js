@@ -180,6 +180,15 @@
                 tube.isTube = true;
 
                 groupTube.add(tube);
+
+                for (var v = 0; v < vertices.length; v++) {
+                    var tubeSphere = graph.drawTubeSphere(vertices[v]);
+                    tubeSphere.canScaleChange = true;
+                    tubeSphere.isCubeSphere = true;
+                    tubeSphere.group = tubes[i].file.group;
+
+                    lScene.add(tubeSphere);
+                }
             }
 
             lScene.add(groupTube);
