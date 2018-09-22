@@ -123,7 +123,7 @@
         if (vertices.length == 0)
             return new THREE.Object3D();
 
-        var curveTube = new THREE.CatmullRomCurve3(vertices);
+        var curveTube = new THREE.CatmullRomCurve3(vertices, false, 'catmullrom', 0.2);
         var geometryTube = new THREE.TubeGeometry(curveTube, 100, 0.1, 20, false);
         var materialTube = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
         var tube = new THREE.Mesh(geometryTube, materialTube);
@@ -148,7 +148,7 @@
                 newPoints.push(new THREE.Vector3(cubeFromPathNode.position.x, height, cubeFromPathNode.position.z));
             }
 
-            groupTube.children[j].geometry = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(newPoints), 100, groupTube.children[j].geometry.parameters.radius, 20, false);
+            groupTube.children[j].geometry = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(newPoints, false, 'catmullrom', 0.2), 100, groupTube.children[j].geometry.parameters.radius, 20, false);
         }
         
     }
@@ -172,7 +172,7 @@
     var changeTubeScale = function (scaleOptions) {
         graph.scene.traverse(function (node) {
             if (node instanceof THREE.Mesh && node.isTube) {
-                var curveTube = new THREE.CatmullRomCurve3(node.geometry.parameters.path.points);
+                var curveTube = new THREE.CatmullRomCurve3(node.geometry.parameters.path.points, false, 'catmullrom', 0.2);
                 node.geometry = new THREE.TubeGeometry(curveTube, 100, scaleOptions.pathScale, 20, false);
             }
         });
