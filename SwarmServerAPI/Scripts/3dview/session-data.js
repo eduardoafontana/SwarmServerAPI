@@ -5,12 +5,12 @@
         {
             guid: 'a98f0e6a-e632-48b1-9ab1-34c5d85a41ac', name: 'Session Example 1', data: [
                 { lines: 150, group: 2, breakpoints: [{ line: 10, data: '<h4>título 10</h4><p>10 lines</p><p>breakpoint</p>' }], events: [] },
-                { lines: 160, group: 2, breakpoints: [], events: [], point: { line: 30, fromRef: '', toRef: '8b31e26e-f348-4ff5-9562-4d0094fb9935' } },
-                { lines: 170, group: 2, breakpoints: [], events: [], point: { line: 50, fromRef: '129c0aa8-7d24-457d-9d96-867d84d08725', toRef: 'dd6c4382-ec51-413b-b053-5f9c29eb3d53' } },
-                { lines: 140, group: 2, breakpoints: [], events: [], point: { line: 60, fromRef: 'dd6c4382-ec51-413b-b053-5f9c29eb3d53', toRef: '' } },
+                { lines: 160, group: 2, breakpoints: [], events: [], points: [{ line: 30, fromRef: '', toRef: '8b31e26e-f348-4ff5-9562-4d0094fb9935' }] },
+                { lines: 170, group: 2, breakpoints: [], events: [], points: [{ line: 50, fromRef: '129c0aa8-7d24-457d-9d96-867d84d08725', toRef: 'dd6c4382-ec51-413b-b053-5f9c29eb3d53' }] },
+                { lines: 140, group: 2, breakpoints: [], events: [], points: [{ line: 60, fromRef: 'dd6c4382-ec51-413b-b053-5f9c29eb3d53', toRef: '' }] },
                 { lines: 180, group: 2, breakpoints: [], events: [] },
                 { lines: 200, group: 2, breakpoints: [], events: [] },
-                { lines: 130, group: 2, breakpoints: [], events: [], point: { line: 40, fromRef: '8b31e26e-f348-4ff5-9562-4d0094fb9935', toRef: '129c0aa8-7d24-457d-9d96-867d84d08725' } },
+                { lines: 130, group: 2, breakpoints: [], events: [], points: [{ line: 40, fromRef: '8b31e26e-f348-4ff5-9562-4d0094fb9935', toRef: '129c0aa8-7d24-457d-9d96-867d84d08725' }] },
                 { lines: 76, group: 2, breakpoints: [], events: [] },
                 {
                     lines: 1300, group: 1, breakpoints: [
@@ -63,18 +63,18 @@
         },
         {
             guid: '5a5a2f2c-f8a2-4f4f-98ef-713afb528da3', name: 'Session Example 4', data: [
-                { lines: 10, group: 1, breakpoints: [], events: [], point: { line: 5, fromRef: '', toRef: '8b31e26e-f348-4ff5-9562-4d0094fb9935' } },
-                { lines: 20, group: 1, breakpoints: [], events: [], point: { line: 10, fromRef: '129c0aa8-7d24-457d-9d96-867d84d08725', toRef: 'dd6c4382-ec51-413b-b053-5f9c29eb3d53' } },
-                { lines: 30, group: 1, breakpoints: [], events: [], point: { line: 15, fromRef: 'dd6c4382-ec51-413b-b053-5f9c29eb3d53', toRef: '' } },
-                { lines: 40, group: 1, breakpoints: [], events: [], point: { line: 20, fromRef: '8b31e26e-f348-4ff5-9562-4d0094fb9935', toRef: '129c0aa8-7d24-457d-9d96-867d84d08725' } },
+                { lines: 10, group: 1, breakpoints: [], events: [], points: [{ line: 5, fromRef: '', toRef: '8b31e26e-f348-4ff5-9562-4d0094fb9935' }] },
+                { lines: 20, group: 1, breakpoints: [], events: [], points: [{ line: 10, fromRef: '129c0aa8-7d24-457d-9d96-867d84d08725', toRef: 'dd6c4382-ec51-413b-b053-5f9c29eb3d53' }] },
+                { lines: 30, group: 1, breakpoints: [], events: [], points: [{ line: 15, fromRef: 'dd6c4382-ec51-413b-b053-5f9c29eb3d53', toRef: '' }] },
+                { lines: 40, group: 1, breakpoints: [], events: [], points: [{ line: 20, fromRef: '8b31e26e-f348-4ff5-9562-4d0094fb9935', toRef: '129c0aa8-7d24-457d-9d96-867d84d08725' }] },
             ]
         },
         {
             guid: '8ab5c019-fdf8-4b4f-8c79-286372200417', name: 'Session Example 2', data: [
-                { lines: 1, group: 1, breakpoints: [], events: [], point: { line: 1, fromRef: '', toRef: '8b31e26e-f348-4ff5-9562-4d0094fb9935' } },
-                { lines: 1, group: 1, breakpoints: [], events: [], point: { line: 1, fromRef: '129c0aa8-7d24-457d-9d96-867d84d08725', toRef: 'dd6c4382-ec51-413b-b053-5f9c29eb3d53' } },
-                { lines: 1, group: 1, breakpoints: [], events: [], point: { line: 1, fromRef: 'dd6c4382-ec51-413b-b053-5f9c29eb3d53', toRef: '' } },
-                { lines: 1, group: 1, breakpoints: [], events: [], point: { line: 1, fromRef: '8b31e26e-f348-4ff5-9562-4d0094fb9935', toRef: '129c0aa8-7d24-457d-9d96-867d84d08725' } },
+                { lines: 1, group: 1, breakpoints: [], events: [], points: [{ line: 1, fromRef: '', toRef: '8b31e26e-f348-4ff5-9562-4d0094fb9935' }] },
+                { lines: 1, group: 1, breakpoints: [], events: [], points: [{ line: 1, fromRef: '129c0aa8-7d24-457d-9d96-867d84d08725', toRef: 'dd6c4382-ec51-413b-b053-5f9c29eb3d53' }] },
+                { lines: 1, group: 1, breakpoints: [], events: [], points: [{ line: 1, fromRef: 'dd6c4382-ec51-413b-b053-5f9c29eb3d53', toRef: '' }] },
+                { lines: 1, group: 1, breakpoints: [], events: [], points: [{ line: 1, fromRef: '8b31e26e-f348-4ff5-9562-4d0094fb9935', toRef: '129c0aa8-7d24-457d-9d96-867d84d08725' }] },
                 { lines: 1, group: 1, breakpoints: [], events: [] },
                 { lines: 1, group: 1, breakpoints: [], events: [] },
                 { lines: 1, group: 1, breakpoints: [], events: [] },
@@ -281,116 +281,120 @@
         {
             guid: '280feb69-b675-4942-ae6b-54f9ca2f8cf2', name: 'Session Example 6', data: [
                 {
-                    lines: 12, group: 0, breakpoints: [], events: [], point: {
+                    lines: 12, group: 0, breakpoints: [], events: [], points: [{
                         line: 10, fromRef: '', toRef: 'ec0dd386-92d0-42fa-97fc-b458c59f3d60'
-                    }
+                    }]
                 },
                 {
-                    lines: 25, group: 0, breakpoints: [], events: [], point: {
+                    lines: 25, group: 0, breakpoints: [], events: [], points: [{
                         line: 20, fromRef: 'ec0dd386-92d0-42fa-97fc-b458c59f3d60', toRef: 'fc4becdf-7a9f-4fec-b1aa-761a599861d0'
-                    }
+                    }]
                 },
                 {
-                    lines: 37, group: 1, breakpoints: [], events: [], point: {
+                    lines: 37, group: 1, breakpoints: [], events: [], points: [{
                         line: 30, fromRef: 'fc4becdf-7a9f-4fec-b1aa-761a599861d0', toRef: '1472a443-2b44-48af-a37a-028995671aeb'
-                    }
+                    }]
                 },
                 {
-                    lines: 52, group: 1, breakpoints: [], events: [], point: {
+                    lines: 52, group: 1, breakpoints: [], events: [], points: [{
                         line: 40, fromRef: '1472a443-2b44-48af-a37a-028995671aeb', toRef: ''
-                    },
+                    }],
                 },
             ]
         },
         {
             guid: '592bd4fa-e7da-430a-a231-bf17c278185a', name: 'Multi Session 1', data: [
                 {
-                    lines: 12, group: 0, breakpoints: [], events: [], point: {
+                    lines: 12, group: 0, breakpoints: [], events: [], points: [{
                         line: 10, fromRef: '', toRef: 'ec0dd386-92d0-42fa-97fc-b458c59f3d60'
-                    }
+                    }]
                 },
                 {
-                    lines: 25, group: 0, breakpoints: [], events: [], point: {
+                    lines: 25, group: 0, breakpoints: [], events: [], points: [{
                         line: 20, fromRef: 'ec0dd386-92d0-42fa-97fc-b458c59f3d60', toRef: 'fc4becdf-7a9f-4fec-b1aa-761a599861d0'
-                    }
+                    }]
                 },
                 {
-                    lines: 37, group: 0, breakpoints: [], events: [], point: {
+                    lines: 37, group: 0, breakpoints: [], events: [], points: [{
                         line: 30, fromRef: 'fc4becdf-7a9f-4fec-b1aa-761a599861d0', toRef: '1472a443-2b44-48af-a37a-028995671aeb'
-                    }
+                    }]
                 },
                 {
-                    lines: 52, group: 0, breakpoints: [], events: [], point: {
+                    lines: 52, group: 0, breakpoints: [], events: [], points: [{
                         line: 40, fromRef: '1472a443-2b44-48af-a37a-028995671aeb', toRef: ''
-                    },
+                    }],
                 },
                 {
-                    lines: 34, group: 1, breakpoints: [], events: [], point: {
+                    lines: 34, group: 1, breakpoints: [], events: [], points: [{
                         line: 14, fromRef: '', toRef: '3f2faab3-041e-48d0-a806-c41219696773'
-                    }
+                    }]
                 },
                 {
-                    lines: 36, group: 1, breakpoints: [], events: [], point: {
+                    lines: 36, group: 1, breakpoints: [], events: [], points: [{
                         line: 14, fromRef: '3f2faab3-041e-48d0-a806-c41219696773', toRef: 'b19e4ae7-eb97-4c7a-8c3b-a5d9bf97e967'
-                    }
+                    }]
                 },
                 {
-                    lines: 48, group: 1, breakpoints: [], events: [], point: {
+                    lines: 48, group: 1, breakpoints: [], events: [], points: [{
                         line: 22, fromRef: 'b19e4ae7-eb97-4c7a-8c3b-a5d9bf97e967', toRef: 'e0491529-cb44-44ab-aebd-d42ba1576a91'
-                    }
+                    }]
                 },
                 {
-                    lines: 68, group: 1, breakpoints: [], events: [], point: {
+                    lines: 68, group: 1, breakpoints: [], events: [], points: [{
                         line: 15, fromRef: 'e0491529-cb44-44ab-aebd-d42ba1576a91', toRef: ''
-                    },
+                    }],
                 },
                 {
-                    lines: 34, group: 2, breakpoints: [], events: [], point: {
+                    lines: 34, group: 2, breakpoints: [], events: [], points: [{
                         line: 16, fromRef: '', toRef: 'a6ba714d-57e5-4f79-b4fb-4c69136d8399'
-                    }
+                    }]
                 },
                 {
-                    lines: 36, group: 2, breakpoints: [], events: [], point: {
+                    lines: 36, group: 2, breakpoints: [], events: [], points: [{
                         line: 15, fromRef: 'a6ba714d-57e5-4f79-b4fb-4c69136d8399', toRef: '84e73c2d-70f9-481b-85be-68eddab1932b'
-                    }
+                    }]
                 },
                 {
-                    lines: 48, group: 2, breakpoints: [], events: [], point: {
+                    lines: 48, group: 2, breakpoints: [], events: [], points: [{
                         line: 22, fromRef: '84e73c2d-70f9-481b-85be-68eddab1932b', toRef: '6d4454bd-cd35-4a0c-9c86-b20786d8dea1'
-                    }
+                    }]
                 },
                 {
-                    lines: 68, group: 2, breakpoints: [], events: [], point: {
+                    lines: 68, group: 2, breakpoints: [], events: [], points: [{
                         line: 16, fromRef: '6d4454bd-cd35-4a0c-9c86-b20786d8dea1', toRef: ''
-                    },
+                    }],
                 },
                 {
                     lines: 20, group: 3, breakpoints: [
                         { line: 1, data: '<h4>título 1</h4><p>1 line</p><p>breakpoint</p>' },
-                    ], events: [], point: {
+                    ], events: [], points: [{
                         line: 1, fromRef: '', toRef: '661ee9eb-67f1-4bb6-88f6-4c0cdcd7ba12'
-                    }
+                    }]
                 },
                 {
                     lines: 20, group: 3, breakpoints: [
                         { line: 2, data: '<h4>título 2</h4><p>2 line</p><p>breakpoint</p>' },
-                    ], events: [], point: {
+                    ], events: [], points: [{
                         line: 2, fromRef: '661ee9eb-67f1-4bb6-88f6-4c0cdcd7ba12', toRef: '060fa7d1-c345-4115-8a9c-436c462b930f'
-                    }
+                    }]
                 },
                 {
                     lines: 30, group: 3, breakpoints: [
                         { line: 29, data: '<h4>título 29</h4><p>29 line</p><p>breakpoint</p>' },
-                    ], events: [], point: {
+                    ], events: [], points: [{
                         line: 29, fromRef: '060fa7d1-c345-4115-8a9c-436c462b930f', toRef: '598eeabd-b193-49e1-b171-1fd3bb1bbc3e'
-                    }
+                    }]
                 },
                 {
                     lines: 30, group: 3, breakpoints: [
                         { line: 30, data: '<h4>título 30</h4><p>30 line</p><p>breakpoint</p>' },
-                    ], events: [], point: {
-                        line: 30, fromRef: '598eeabd-b193-49e1-b171-1fd3bb1bbc3e', toRef: ''
-                    },
+                    ], events: [], points: [{
+                        line: 30, fromRef: '598eeabd-b193-49e1-b171-1fd3bb1bbc3e', toRef: 'AAA'
+                    }, {
+                        line: 20, fromRef: 'AAA', toRef: 'BBB'
+                    }, {
+                        line: 10, fromRef: 'BBB', toRef: ''
+                    }],
                 },
             ]
         },

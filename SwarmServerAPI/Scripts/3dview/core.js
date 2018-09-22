@@ -127,41 +127,54 @@
 
             function searchPoint(guid) {
                 for (var i = 0; i < files.length; i++) {
-                    if (files[i].point != undefined && files[i].point.fromRef == guid)
-                        return files[i];
+                    if (files[i].points === undefined)
+                        continue;
+
+                    for (var j = 0; j < files[i].points.length; j++) {
+                        if (files[i].points[j] != undefined && files[i].points[j].fromRef == guid)
+                            return { file: files[i], pointIndex: j };
+                    }
                 }
             }
 
-            function assemblyTubeVertices(xFile, vertices) {
+            function assemblyTubeVertices(xFile, pointIndex, vertices) {
                 if (xFile == undefined)
                     return vertices;
 
-                var height = xFile.point.line * 50 / mostHighFileLine;
+                if (pointIndex == undefined)
+                    return vertices;
+
+                var height = xFile.points[pointIndex].line * 50 / mostHighFileLine;
 
                 var vertice = new THREE.Vector3(xFile.x * 1.5, height, xFile.z * 1.5);
                 vertice.cubeId = xFile.cubeId;
 
                 vertices.push(vertice);
 
-                if (xFile.point.toRef == '')
+                if (xFile.points[pointIndex].toRef == '')
                     return vertices;
 
-                yFile = searchPoint(xFile.point.toRef);
-                return assemblyTubeVertices(yFile, vertices);
+                yFile = searchPoint(xFile.points[pointIndex].toRef);
+                return assemblyTubeVertices(yFile.file, yFile.pointIndex, vertices);
             }
 
             var tubes = [];
 
             for (var i = 0; i < files.length; i++) {
-                if (files[i].point != undefined && files[i].point.fromRef === '')
-                    tubes.push(files[i]);
+                if (files[i].points === undefined)
+                    continue;
+
+                for (var j = 0; j < files[i].points.length; j++) {
+                    if (files[i].points[j] != undefined && files[i].points[j].fromRef === '')
+                        tubes.push({ file: files[i], pointIndex: j });
+                }
             }
 
             var groupTube = new THREE.Group();
             groupTube.name = 'groupTube';
 
             for (var i = 0; i < tubes.length; i++) {
-                var vertices = assemblyTubeVertices(tubes[i], []);
+                var vertices = assemblyTubeVertices(tubes[i].file, tubes[i].pointIndex, []);
 
                 var tube = graph.drawTube(vertices);
                 tube.isTube = true;
