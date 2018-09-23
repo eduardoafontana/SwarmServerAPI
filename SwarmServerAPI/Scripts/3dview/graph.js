@@ -185,7 +185,7 @@
 
             groupTube.children[j].geometry = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(newPoints, false, 'catmullrom', 0.2), 100, groupTube.children[j].geometry.parameters.radius, 20, false);
         }
-        
+
     };
 
     var changeTorusScale = function (scaleOptions) {
@@ -233,7 +233,17 @@
 
         graph.scene.traverse(function (node) {
             if ((node instanceof THREE.Mesh || node instanceof THREE.ArrowHelper) && node.canScaleChange) {
-                if (groupBefore == undefined) {
+                if (node.isArrow) {
+                    var cubeParent = graph.scene.getObjectById(node.cubeId, true);
+
+                    node.position.x = cubeParent.position.x - node.positionAdjustment;
+                    node.position.z = cubeParent.position.z - node.positionAdjustment;
+                } else if (node.isTubeSphere) {
+                    var cubeParent = graph.scene.getObjectById(node.cubeId, true);
+
+                    node.position.x = cubeParent.position.x;
+                    node.position.z = cubeParent.position.z;
+                } else if (groupBefore == undefined) {
                     groupBefore = node.group;
                     firstNodeOfGroup = node;
 
@@ -246,13 +256,8 @@
                     node.position.x = node.initialCalculatedPositionX * scaleOptions.groupSpace;
                     node.position.z = node.initialCalculatedPositionZ * scaleOptions.groupSpace;
                 } else {
-                    if (node instanceof THREE.ArrowHelper) {
-                        node.position.x = (firstNodeOfGroup.position.x - firstNodeOfGroup.initialCalculatedPositionX) + node.initialCalculatedPositionX - node.positionAdjustment;
-                        node.position.z = (firstNodeOfGroup.position.z - firstNodeOfGroup.initialCalculatedPositionZ) + node.initialCalculatedPositionZ - node.positionAdjustment;
-                    } else {
-                        node.position.x = (firstNodeOfGroup.position.x - firstNodeOfGroup.initialCalculatedPositionX) + node.initialCalculatedPositionX;
-                        node.position.z = (firstNodeOfGroup.position.z - firstNodeOfGroup.initialCalculatedPositionZ) + node.initialCalculatedPositionZ;
-                    }
+                    node.position.x = (firstNodeOfGroup.position.x - firstNodeOfGroup.initialCalculatedPositionX) + node.initialCalculatedPositionX;
+                    node.position.z = (firstNodeOfGroup.position.z - firstNodeOfGroup.initialCalculatedPositionZ) + node.initialCalculatedPositionZ;
                 }
             }
         });
@@ -270,7 +275,7 @@
                     node.position.y = (node.initialHeight * scaleOptions.fileScale) + node.topMargin + node.radius;
                 } else if (node.isArrow != undefined) {
                     node.position.y = (node.initialHeight * scaleOptions.fileScale) + node.positionAdjustment;
-                } else if (node.isTorus != undefined || node.isTorusSquare != undefined || node.isCubeSphere != undefined) {
+                } else if (node.isTorus != undefined || node.isTorusSquare != undefined || node.isTubeSphere != undefined) {
                     node.position.y = node.initialHeight * scaleOptions.fileScale;
                 }
             }

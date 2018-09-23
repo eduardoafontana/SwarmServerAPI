@@ -184,8 +184,8 @@
                 for (var v = 0; v < vertices.length; v++) {
                     var tubeSphere = graph.drawTubeSphere(vertices[v]);
                     tubeSphere.canScaleChange = true;
-                    tubeSphere.isCubeSphere = true;
-                    tubeSphere.group = tubes[i].file.group;
+                    tubeSphere.isTubeSphere = true;
+                    tubeSphere.cubeId = vertices[v].cubeId;
 
                     lScene.add(tubeSphere);
                 }
@@ -194,7 +194,7 @@
                     var arrow = graph.drawArrow(vertices[0]);
                     arrow.canScaleChange = true;
                     arrow.isArrow = true;
-                    arrow.group = tubes[i].file.group;
+                    arrow.cubeId = vertices[0].cubeId;
 
                     lScene.add(arrow);
                 }
