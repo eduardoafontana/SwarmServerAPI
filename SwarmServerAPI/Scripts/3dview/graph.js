@@ -149,6 +149,25 @@
         return tubeSphere;
     };
 
+    var drawArrow = function (vertice) {
+        var direction = new THREE.Vector3(1, -1, 1);
+        direction.normalize();
+
+        var positionAdjustment = 0.7;
+        var position = new THREE.Vector3(vertice.x - positionAdjustment, vertice.y + positionAdjustment, vertice.z - positionAdjustment);
+        var length = 1;
+        var headLength = 0.4 * length;
+
+        var arrowHelper = new THREE.ArrowHelper(direction, position, length, 0xff0000, headLength);
+
+        arrowHelper.initialCalculatedPositionX = vertice.x;
+        arrowHelper.initialCalculatedPositionZ = vertice.z;
+        arrowHelper.initialHeight = vertice.y;
+        arrowHelper.positionAdjustment = positionAdjustment;
+
+        return arrowHelper;
+    };
+
     function resetPathNodeScale(fileScale) {
         var groupTube = graph.scene.getObjectByName('groupTube');
 
@@ -171,7 +190,7 @@
 
     var changeTorusScale = function (scaleOptions) {
         graph.scene.traverse(function (node) {
-            if (node instanceof THREE.Mesh && node.canScaleChange && node.isTorus) {
+            if ((node instanceof THREE.Mesh || node instanceof THREE.ArrowHelper) && node.canScaleChange && node.isTorus) {
                 node.geometry = new THREE.TorusBufferGeometry(node.radius, scaleOptions.breakpointScale, 100, 100);
             }
         });
@@ -179,7 +198,7 @@
 
     var changeTorusSquereScale = function (scaleOptions) {
         graph.scene.traverse(function (node) {
-            if (node instanceof THREE.Mesh && node.canScaleChange && node.isTorusSquare) {
+            if ((node instanceof THREE.Mesh || node instanceof THREE.ArrowHelper) && node.canScaleChange && node.isTorusSquare) {
                 node.geometry = new THREE.TorusBufferGeometry(node.radius, scaleOptions.eventScale, 100, 4);
             }
         });
@@ -199,6 +218,9 @@
             if (node instanceof THREE.Mesh && node.canScaleChange) {
                 node.position.x = node.initialCalculatedPositionX * scaleOptions.cubeSpace;
                 node.position.z = node.initialCalculatedPositionZ * scaleOptions.cubeSpace;
+            } else if (node instanceof THREE.ArrowHelper && node.canScaleChange) {
+                node.position.x = (node.initialCalculatedPositionX * scaleOptions.cubeSpace) - node.positionAdjustment;
+                node.position.z = (node.initialCalculatedPositionZ * scaleOptions.cubeSpace) - node.positionAdjustment;
             }
         });
 
@@ -210,7 +232,7 @@
         var firstNodeOfGroup = undefined;
 
         graph.scene.traverse(function (node) {
-            if (node instanceof THREE.Mesh && node.canScaleChange) {
+            if ((node instanceof THREE.Mesh || node instanceof THREE.ArrowHelper) && node.canScaleChange) {
                 if (groupBefore == undefined) {
                     groupBefore = node.group;
                     firstNodeOfGroup = node;
@@ -224,8 +246,13 @@
                     node.position.x = node.initialCalculatedPositionX * scaleOptions.groupSpace;
                     node.position.z = node.initialCalculatedPositionZ * scaleOptions.groupSpace;
                 } else {
-                    node.position.x = (firstNodeOfGroup.position.x - firstNodeOfGroup.initialCalculatedPositionX) + node.initialCalculatedPositionX;
-                    node.position.z = (firstNodeOfGroup.position.z - firstNodeOfGroup.initialCalculatedPositionZ) + node.initialCalculatedPositionZ;
+                    if (node instanceof THREE.ArrowHelper) {
+                        node.position.x = (firstNodeOfGroup.position.x - firstNodeOfGroup.initialCalculatedPositionX) + node.initialCalculatedPositionX - node.positionAdjustment;
+                        node.position.z = (firstNodeOfGroup.position.z - firstNodeOfGroup.initialCalculatedPositionZ) + node.initialCalculatedPositionZ - node.positionAdjustment;
+                    } else {
+                        node.position.x = (firstNodeOfGroup.position.x - firstNodeOfGroup.initialCalculatedPositionX) + node.initialCalculatedPositionX;
+                        node.position.z = (firstNodeOfGroup.position.z - firstNodeOfGroup.initialCalculatedPositionZ) + node.initialCalculatedPositionZ;
+                    }
                 }
             }
         });
@@ -235,12 +262,14 @@
 
     var changeFileScale = function (scaleOptions) {
         graph.scene.traverse(function (node) {
-            if (node instanceof THREE.Mesh && node.canScaleChange) {
+            if ((node instanceof THREE.Mesh || node instanceof THREE.ArrowHelper) && node.canScaleChange) {
                 if (node.isCube != undefined) {
                     node.scale.y = scaleOptions.fileScale;
                     node.position.y = node.initialCalculatedPositionY * scaleOptions.fileScale;
                 } else if (node.isSphere != undefined) {
                     node.position.y = (node.initialHeight * scaleOptions.fileScale) + node.topMargin + node.radius;
+                } else if (node.isArrow != undefined) {
+                    node.position.y = (node.initialHeight * scaleOptions.fileScale) + node.positionAdjustment;
                 } else if (node.isTorus != undefined || node.isTorusSquare != undefined || node.isCubeSphere != undefined) {
                     node.position.y = node.initialHeight * scaleOptions.fileScale;
                 }
@@ -308,6 +337,7 @@
         drawTorusSquare: drawTorusSquare,
         drawTube: drawTube,
         drawTubeSphere: drawTubeSphere,
+        drawArrow: drawArrow,
         //--
         changeTorusScale: changeTorusScale,
         changeTorusSquereScale: changeTorusSquereScale,

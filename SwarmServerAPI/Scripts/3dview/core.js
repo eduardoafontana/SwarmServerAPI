@@ -189,6 +189,15 @@
 
                     lScene.add(tubeSphere);
                 }
+
+                if (vertices.length > 0) {
+                    var arrow = graph.drawArrow(vertices[0]);
+                    arrow.canScaleChange = true;
+                    arrow.isArrow = true;
+                    arrow.group = tubes[i].file.group;
+
+                    lScene.add(arrow);
+                }
             }
 
             lScene.add(groupTube);
