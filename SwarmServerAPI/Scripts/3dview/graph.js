@@ -19,14 +19,16 @@
         var adjustToZeroAxisY = ySize / 2
         var margin = 0.5;
         var sizeWithMargin = margin + squareSize;
+        var marginBottom = 10;
 
-        cube.position.y = adjustToZeroAxisY;
+        cube.position.y = marginBottom + adjustToZeroAxisY;
         cube.position.x = sizeWithMargin * positionX;
         cube.position.z = sizeWithMargin * positionZ;
 
         cube.initialCalculatedPositionX = cube.position.x;
         cube.initialCalculatedPositionZ = cube.position.z;
-        cube.initialCalculatedPositionY = cube.position.y;
+        cube.initialCalculatedPositionY = adjustToZeroAxisY;
+        cube.marginBottom = marginBottom;
 
         return cube;
     }
@@ -45,8 +47,11 @@
         var margin = 0.5;
         var sphereSize = radius * 2; //diameter
         var sizeWithMargin = margin + sphereSize;
+        var marginBottom = 10; 
 
-        sphere.position.y = radius + topMargin + height;
+        var heightWithMargin = height + marginBottom;
+
+        sphere.position.y = radius + topMargin + heightWithMargin;
         sphere.position.x = sizeWithMargin * positionX;
         sphere.position.z = sizeWithMargin * positionZ;
 
@@ -55,6 +60,7 @@
         sphere.initialHeight = height;
         sphere.radius = radius;
         sphere.topMargin = topMargin;
+        sphere.marginBottom = marginBottom;
 
         return sphere;
     }
@@ -72,8 +78,11 @@
         var margin = 0.1;
         var torusSize = radius * 2; //diameter
         var sizeWithMargin = margin + torusSize;
+        var marginBottom = 10; 
 
-        torus.position.y = height;
+        var heightWithMargin = height + marginBottom;
+
+        torus.position.y = heightWithMargin;
         torus.position.x = sizeWithMargin * positionX;
         torus.position.z = sizeWithMargin * positionZ;
 
@@ -83,6 +92,7 @@
         torus.initialCalculatedPositionZ = torus.position.z;
         torus.initialHeight = height;
         torus.radius = radius;
+        torus.marginBottom = marginBottom;
 
         return torus;
     }
@@ -100,8 +110,11 @@
         var margin = 0.1;
         var torusSize = radius * 2; //diameter
         var sizeWithMargin = margin + torusSize;
+        var marginBottom = 10; 
 
-        torus.position.y = height;
+        var heightWithMargin = height + marginBottom;
+
+        torus.position.y = heightWithMargin;
         torus.position.x = sizeWithMargin * positionX;
         torus.position.z = sizeWithMargin * positionZ;
 
@@ -111,6 +124,7 @@
         torus.initialCalculatedPositionX = torus.position.x;
         torus.initialCalculatedPositionZ = torus.position.z;
         torus.initialHeight = height;
+        torus.marginBottom = marginBottom;
 
         return torus;
     }
@@ -138,6 +152,8 @@
         var materialTubeSphere = new THREE.MeshBasicMaterial({ color: 0xffff00 });
         var tubeSphere = new THREE.Mesh(geometryTubeSphere, materialTubeSphere);
 
+        var marginBottom = 10;
+
         tubeSphere.position.x = vertice.x;
         tubeSphere.position.y = vertice.y;
         tubeSphere.position.z = vertice.z;
@@ -145,6 +161,7 @@
         tubeSphere.initialCalculatedPositionX = tubeSphere.position.x;
         tubeSphere.initialCalculatedPositionZ = tubeSphere.position.z;
         tubeSphere.initialHeight = tubeSphere.position.y;
+        tubeSphere.marginBottom = marginBottom;
 
         return tubeSphere;
     };
@@ -157,6 +174,7 @@
         var position = new THREE.Vector3(vertice.x - positionAdjustment, vertice.y + positionAdjustment, vertice.z - positionAdjustment);
         var length = 1;
         var headLength = 0.4 * length;
+        var marginBottom = 10;
 
         var arrowHelper = new THREE.ArrowHelper(direction, position, length, 0xff0000, headLength);
 
@@ -164,6 +182,7 @@
         arrowHelper.initialCalculatedPositionZ = vertice.z;
         arrowHelper.initialHeight = vertice.y;
         arrowHelper.positionAdjustment = positionAdjustment;
+        arrowHelper.marginBottom = marginBottom;
 
         return arrowHelper;
     };
@@ -178,8 +197,8 @@
 
                 var height = groupTube.children[j].geometry.parameters.path.points[i].y;
                 if (fileScale != undefined)
-                    height = groupTube.children[j].originalVertices[i].y * fileScale;
-
+                    height = ((groupTube.children[j].originalVertices[i].y - groupTube.children[j].originalVertices[i].marginBottom) * fileScale) + groupTube.children[j].originalVertices[i].marginBottom;
+                
                 newPoints.push(new THREE.Vector3(cubeFromPathNode.position.x, height, cubeFromPathNode.position.z));
             }
 
@@ -270,13 +289,15 @@
             if ((node instanceof THREE.Mesh || node instanceof THREE.ArrowHelper) && node.canScaleChange) {
                 if (node.isCube != undefined) {
                     node.scale.y = scaleOptions.fileScale;
-                    node.position.y = node.initialCalculatedPositionY * scaleOptions.fileScale;
+                    node.position.y = (node.initialCalculatedPositionY * scaleOptions.fileScale) + node.marginBottom;
                 } else if (node.isSphere != undefined) {
-                    node.position.y = (node.initialHeight * scaleOptions.fileScale) + node.topMargin + node.radius;
+                    node.position.y = (node.initialHeight * scaleOptions.fileScale) + node.topMargin + node.radius + node.marginBottom;
                 } else if (node.isArrow != undefined) {
-                    node.position.y = (node.initialHeight * scaleOptions.fileScale) + node.positionAdjustment;
-                } else if (node.isTorus != undefined || node.isTorusSquare != undefined || node.isTubeSphere != undefined) {
-                    node.position.y = node.initialHeight * scaleOptions.fileScale;
+                    node.position.y = ((node.initialHeight - node.marginBottom) * scaleOptions.fileScale) + node.positionAdjustment + node.marginBottom;
+                } else if (node.isTubeSphere != undefined) {
+                    node.position.y = ((node.initialHeight - node.marginBottom) * scaleOptions.fileScale) + node.marginBottom;
+                } else if (node.isTorus != undefined || node.isTorusSquare != undefined) {
+                    node.position.y = (node.initialHeight * scaleOptions.fileScale) + node.marginBottom;
                 }
             }
         });

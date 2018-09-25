@@ -145,9 +145,12 @@
                     return vertices;
 
                 var height = xFile.points[pointIndex].line * 50 / mostHighFileLine;
+                var marginBottom = 10;
+                var heightWithMargin = height + marginBottom;
 
-                var vertice = new THREE.Vector3(xFile.x * 1.5, height, xFile.z * 1.5);
+                var vertice = new THREE.Vector3(xFile.x * 1.5, heightWithMargin, xFile.z * 1.5);
                 vertice.cubeId = xFile.cubeId;
+                vertice.marginBottom = marginBottom;
 
                 vertices.push(vertice);
 
