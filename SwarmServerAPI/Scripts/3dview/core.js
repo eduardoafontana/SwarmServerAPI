@@ -202,7 +202,27 @@
                     lScene.add(arrow);
                 }
             }
+            //-----------------------------
+            var geometry = new THREE.PlaneGeometry(5, 30, 32);
+            var material = new THREE.MeshBasicMaterial({ color: 0xffff00, side: THREE.DoubleSide });
+            var plane = new THREE.Mesh(geometry, material);
 
+            //geometry.rotateX(-Math.PI * 0.5);
+            //plane.rotation.x = 60;
+
+            //var dir = new THREE.Vector3(0, 1, 0);
+            //var centroid = new THREE.Vector3(0, 200, 0);
+            //plane.setFromNormalAndCoplanarPoint(dir, centroid).normalize();
+
+            //console.log(lScene.sessionGuid + ':' + plane.id);
+            //console.log('x: ' + plane.position.x + ' y: ' + plane.position.y + ' z: ' + plane.position.z);
+            //lScene.add(plane);
+
+            //var plane = new THREE.Plane(new THREE.Vector3(0, 0, 0), 6);
+            //var helper = new THREE.PlaneHelper(plane, 4, 0xffff00);
+            //lScene.add(helper);
+
+            //---------------------------
             lScene.add(groupTube);
 
             graph.scenes.push(lScene);
