@@ -10,7 +10,7 @@
     var zSize = squareSize;
 
     var geometry = new THREE.BoxGeometry(xSize, ySize, zSize);
-    var material = new THREE.MeshBasicMaterial({ color: 0x0000ff });
+    var material = new THREE.MeshBasicMaterial({ color: 0x7e96bc });
     var mesh = new THREE.Mesh(geometry, material);
 
     material.opacity = 0.5;

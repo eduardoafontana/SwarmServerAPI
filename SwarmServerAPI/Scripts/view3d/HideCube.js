@@ -5,7 +5,7 @@
     var topMargin = 0.5;
 
     var geometry = new THREE.SphereGeometry(radius, 20, 20);
-    var material = new THREE.MeshBasicMaterial({ color: 0x0000cc });
+    var material = new THREE.MeshBasicMaterial({ color: 0x37444c });
     var mesh = new THREE.Mesh(geometry, material);
 
     material.opacity = 0.5;
@@ -25,10 +25,11 @@
     var initialCalculatedPositionX = mesh.position.x;
     var initialCalculatedPositionZ = mesh.position.z;
     var initialHeight = height;
-    //mesh.cubeId = cube.id;
+    
     //mesh.group = files[i].group;
     //mesh.isSphere = true;
-    //mesh.canHideRelated = true;
+    mesh.cubeId = cube.mesh.id;
+    mesh.canHideRelated = true;
     //mesh.canHighlightOnMouseOver = true;
     //mesh.canScaleChange = true;    
 

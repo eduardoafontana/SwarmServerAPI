@@ -1,49 +1,7 @@
 ﻿var view3d = (function () {
 
-    //function onDocumentMouseMove(event) {
-    //    var positions = document.body.getElementsByClassName("canvasRenderRelativeSize")[0].getBoundingClientRect();
-
-    //    setMouseRelativePosition(event, positions);
-    //}
-
-    //function setMouseRelativePosition(eventAbsolute, relativePositions) {
-    //    graph.mouse.x = ((eventAbsolute.clientX - relativePositions.x) / getRelativeWidth()) * 2 - 1;
-    //    graph.mouse.y = - ((eventAbsolute.clientY - relativePositions.y) / getRelativeHeight()) * 2 + 1;
-    //}
-
     //function onDocumentMouseDown(event) {
-    //    var positions = document.body.getElementsByClassName("canvasRenderRelativeSize")[0].getBoundingClientRect();
-    //    setMouseRelativePosition(event, positions);
 
-    //    graph.raycaster.setFromCamera(graph.mouse, graph.camera);
-
-    //    var intersects = graph.raycaster.intersectObjects(graph.scene.children);
-    //    if (intersects.length > 0) {
-    //        var intersect = intersects[0];
-
-    //        if (intersect.object.canOpenDetailBox) {
-    //            var box = document.getElementsByClassName("detail-box")[0];
-
-    //            box.style.visibility = 'visible';
-
-    //            var boxMain = box.getElementsByClassName("detail-box-main")[0];
-
-    //            var wrapper = document.createElement('div');
-    //            wrapper.innerHTML = intersect.object.data;
-
-    //            boxMain.innerHTML = '';
-    //            boxMain.appendChild(wrapper);
-    //        }
-
-    //        if (intersect.object.canHideRelated) {
-    //            var cubeFromSphere = graph.scene.getObjectById(intersect.object.cubeId, true);
-
-    //            if (cubeFromSphere.visible)
-    //                cubeFromSphere.visible = false;
-    //            else
-    //                cubeFromSphere.visible = true;
-    //        }
-    //    }
     //}
 
     document.addEventListener("DOMContentLoaded", function () {
@@ -93,12 +51,9 @@
         window.addEventListener('resize', infobox.init, false);
         window.addEventListener('resize', detailbox.init, false);
         document.getElementsByClassName('reset-camera-button')[0].addEventListener('click', render.resetCameraPosition);
+        document.getElementsByClassName("canvasRenderRelativeSize")[0].addEventListener('mousemove', render.onDocumentMouseMove, false);
+        document.addEventListener('mousedown', render.onDocumentMouseDown, false);
         //---------------------------
-
-        //--Event initializer
-        //document.body.getElementsByClassName("canvasRenderRelativeSize")[0].addEventListener('mousemove', onDocumentMouseMove, false);
-        //document.addEventListener('mousedown', onDocumentMouseDown, false);
-        //---
 
         //--Load Selectors
         //loadProjectSelect();

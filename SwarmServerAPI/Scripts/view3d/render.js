@@ -12,11 +12,16 @@
     var selectedScene = null;
     var camera = null;
     var renderer = null;
+    var mouse = null;
+    var raycaster = null;
 
     var initGraph = function () {
         camera = new THREE.PerspectiveCamera(45, getRelativeWidth() / getRelativeHeight(), 1, 500);
         camera.position.set(60, 60, 60);
         camera.lookAt(new THREE.Vector3(0, 0, 0));
+
+        mouse = new THREE.Vector2();
+        raycaster = new THREE.Raycaster();
 
         renderer = new THREE.WebGLRenderer();
         renderer.setSize(getRelativeWidth(), getRelativeHeight());
@@ -89,13 +94,60 @@
         };
     };
 
+    var onDocumentMouseMove = function (event) {
+        var positions = document.body.getElementsByClassName("canvasRenderRelativeSize")[0].getBoundingClientRect();
+
+        mouse.x = ((event.clientX - positions.x) / getRelativeWidth()) * 2 - 1;
+        mouse.y = - ((event.clientY - positions.y) / getRelativeHeight()) * 2 + 1;
+    };
+
+    var onDocumentMouseDown = function (event) {
+        var positions = document.body.getElementsByClassName("canvasRenderRelativeSize")[0].getBoundingClientRect();
+
+        mouse.x = ((event.clientX - positions.x) / getRelativeWidth()) * 2 - 1;
+        mouse.y = - ((event.clientY - positions.y) / getRelativeHeight()) * 2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
+
+        var intersects = raycaster.intersectObjects(selectedScene.children);
+
+        if (intersects.length > 0) {
+            var intersect = intersects[0];
+
+            if (intersect.object.canOpenDetailBox) {
+                var box = document.getElementsByClassName("detail-box")[0];
+
+                box.style.visibility = 'visible';
+
+                var boxMain = box.getElementsByClassName("detail-box-main")[0];
+
+                var wrapper = document.createElement('div');
+                wrapper.innerHTML = intersect.object.data;
+
+                boxMain.innerHTML = '';
+                boxMain.appendChild(wrapper);
+            }
+
+            if (intersect.object.canHideRelated) {
+                var cubeFromSphere = selectedScene.getObjectById(intersect.object.cubeId, true);
+
+                if (cubeFromSphere.visible)
+                    cubeFromSphere.visible = false;
+                else
+                    cubeFromSphere.visible = true;
+            }
+        }
+    };
+
     return {
         initGraph: initGraph,
         getNewScene: getNewScene,
         setSelectedScene: setSelectedScene,
         onWindowResize: onWindowResize,
         resetCameraPosition: resetCameraPosition,
-        getDimensions: getDimensions
+        getDimensions: getDimensions,
+        onDocumentMouseMove: onDocumentMouseMove,
+        onDocumentMouseDown: onDocumentMouseDown
     };
 
 }());

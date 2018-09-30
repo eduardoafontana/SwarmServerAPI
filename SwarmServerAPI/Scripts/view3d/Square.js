@@ -31,7 +31,8 @@
     //square.group = files[i].group;
     //square.data = files[i].events[j].data;
     //square.isTorusSquare = true;
-    //square.canOpenDetailBox = true;
+    mesh.canOpenDetailBox = true;
+    mesh.data = data.data;
     //square.canHighlightOnMouseOver = true;
     //square.canScaleChange = true;
 

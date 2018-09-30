@@ -28,9 +28,9 @@
 
     //torus.cubeId = cube.id;
     //torus.group = files[i].group;
-    //torus.data = files[i].breakpoints[j].data;
     //torus.isTorus = true;
-    //torus.canOpenDetailBox = true;
+    mesh.canOpenDetailBox = true;
+    mesh.data = data.data;
     //torus.canHighlightOnMouseOver = true;
     //torus.canScaleChange = true;
 
