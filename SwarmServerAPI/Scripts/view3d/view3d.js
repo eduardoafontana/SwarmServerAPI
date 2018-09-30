@@ -118,8 +118,6 @@
         //sessionData.setDefault(document.getElementById("session-select").value);
         ////--
 
-        //onWindowResize();
-
         //core.initGraph();
         //core.loadGraph();
 
@@ -128,29 +126,6 @@
         //core.animate();
 
         //graph.resetCameraPosition();
-
-        //var colorOptions = {
-        //    Background: "#000000",
-        //    Groups: colorPalette.defaultColorPaletteName
-        //};
-
-        //graph.colorOptions = colorOptions;
-
-        //var guiColorOtions = new dat.GUI({ autoPlace: false });
-        //guiColorOtions.add(colorOptions, 'Groups', colorPalette.getColorPalatteArray()).onChange(function () { graph.changeGroupColor(colorOptions) });
-        //guiColorOtions.addColor(colorOptions, 'Background').onChange(function () { graph.changeColor(colorOptions) });
-
-        //document.getElementsByClassName("tool-box")[0].appendChild(guiColorOtions.domElement);
-
-        //document.getElementsByClassName("tool-colorchange")[0].addEventListener("click", function () {
-        //    if (guiColorOtions.domElement.style.visibility == 'visible') {
-        //        guiColorOtions.domElement.style.visibility = 'hidden';
-        //        this.className = '';
-        //    } else {
-        //        guiColorOtions.domElement.style.visibility = 'visible';
-        //        this.className = 'selected';
-        //    }
-        //});
 
         //-------------------------------
 

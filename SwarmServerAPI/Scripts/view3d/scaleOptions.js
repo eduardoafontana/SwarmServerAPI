@@ -3,7 +3,7 @@
     var options = {
         cubeSpace: 1,
         groupSpace: 1,
-        fileScale: 1,
+        heightScale: 1,
         breakpointScale: 1,
         eventScale: 1,
         pathScale: 0.1,
@@ -13,7 +13,7 @@
         var guiScaleOtions = new dat.GUI({ autoPlace: false });
         guiScaleOtions.add(scaleOptions.getOptions(), 'cubeSpace', 1, 5);//.onChange(function () { graph.changeCubeScale(scaleOptions) });
         //guiScaleOtions.add(scaleOptions, 'groupSpace', 1, 5).onChange(function () { graph.changeGroupScale(scaleOptions) });
-        //guiScaleOtions.add(scaleOptions, 'fileScale', 0.1, 3).onChange(function () { graph.changeFileScale(scaleOptions) });
+        guiScaleOtions.add(scaleOptions.getOptions(), 'heightScale', 0.5, 3);//.onChange(function () { graph.changeFileScale(scaleOptions) });
         guiScaleOtions.add(scaleOptions.getOptions(), 'breakpointScale', 0.5, 3);//.onChange(function () { graph.changeTorusScale(scaleOptions) });
         guiScaleOtions.add(scaleOptions.getOptions(), 'eventScale', 0.5, 3);//.onChange(function () { graph.changeTorusSquereScale(scaleOptions) });
         //guiScaleOtions.add(scaleOptions, 'pathScale', 0.03, 0.3).onChange(function () { graph.changeTubeScale(scaleOptions) });

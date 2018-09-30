@@ -43,6 +43,9 @@
 
         mesh.position.x = initialCalculatedPositionX * scaleOptions.getOptions().cubeSpace;
         mesh.position.z = initialCalculatedPositionZ * scaleOptions.getOptions().cubeSpace;
+
+        mesh.scale.y = scaleOptions.getOptions().heightScale;
+        mesh.position.y = (initialCalculatedPositionY * scaleOptions.getOptions().heightScale) + marginBottom;
     }
 
     return {

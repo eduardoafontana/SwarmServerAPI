@@ -26,7 +26,6 @@
     var initialCalculatedPositionX = mesh.position.x;
     var initialCalculatedPositionZ = mesh.position.z;
     var initialHeight = height;
-    //torus.marginBottom = marginBottom;
 
     //square.cubeId = cube.id;
     //square.group = files[i].group;
@@ -47,6 +46,8 @@
         mesh.scale.x = scaleOptions.getOptions().eventScale;
         mesh.scale.y = scaleOptions.getOptions().eventScale;
         mesh.scale.z = scaleOptions.getOptions().eventScale;
+
+        mesh.position.y = (initialHeight * scaleOptions.getOptions().heightScale) + marginBottom;
     }
 
     return {
