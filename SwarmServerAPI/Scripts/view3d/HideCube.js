@@ -4,8 +4,10 @@
     var radius = 0.5;
     var topMargin = 0.5;
 
+    var originalColor = 0x37444c;
+
     var geometry = new THREE.SphereGeometry(radius, 20, 20);
-    var material = new THREE.MeshBasicMaterial({ color: 0x37444c });
+    var material = new THREE.MeshBasicMaterial({ color: originalColor });
     var mesh = new THREE.Mesh(geometry, material);
 
     material.opacity = 0.5;
@@ -48,6 +50,15 @@
                 cube.mesh.visible = false;
             else
                 cube.mesh.visible = true;
+        }
+
+        if (render.wasMouseOver(mesh)) {
+            infobox.setHtml('Click to hide and show the cube above.');
+
+            material.color.setHex(0xff0000);
+        }
+        else {
+            material.color.setHex(originalColor);
         }
     }
 

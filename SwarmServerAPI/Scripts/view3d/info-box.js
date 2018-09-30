@@ -18,8 +18,22 @@ var infobox = (function () {
         relocate();
     };
 
+    var setHtml = function (html) {
+        var box = document.getElementsByClassName("info-box")[0];
+
+        box.innerHTML = html;
+    };
+
+    var canClear = function () {
+        var box = document.getElementsByClassName("info-box")[0];
+
+        box.innerHTML = '';
+    };
+
     return {
-        init: init
+        init: init,
+        setHtml: setHtml,
+        canClear: canClear
     };
 
 }());

@@ -16,6 +16,7 @@
     var raycaster = null;
     var clickedObject = null;
     var hasClickedOject = false;
+    var overedObject = false;
 
     var initGraph = function () {
         camera = new THREE.PerspectiveCamera(45, getRelativeWidth() / getRelativeHeight(), 1, 500);
@@ -47,8 +48,25 @@
         var animate = function () {
             requestAnimationFrame(animate);
 
-            if (selectedScene != null && selectedScene != undefined)
-                renderer.render(selectedScene, camera);
+            if (selectedScene == undefined || selectedScene == null)
+                return;
+
+            renderer.render(selectedScene, camera);
+
+            //--
+            raycaster.setFromCamera(mouse, camera);
+
+            var intersects = raycaster.intersectObjects(selectedScene.children);
+
+            if (intersects.length > 0) {
+                var intersect = intersects[0];
+
+                overedObject = intersect.object;
+            } else {
+                overedObject = null;
+                infobox.canClear();
+            }
+            //--
 
             stats.update();
         };
@@ -130,6 +148,10 @@
         return false;
     };
 
+    var wasMouseOver = function (object) {
+        return object == overedObject;
+    }
+
     return {
         initGraph: initGraph,
         getNewScene: getNewScene,
@@ -139,7 +161,8 @@
         getDimensions: getDimensions,
         onDocumentMouseMove: onDocumentMouseMove,
         onDocumentMouseDown: onDocumentMouseDown,
-        wasClicked: wasClicked
+        wasClicked: wasClicked,
+        wasMouseOver: wasMouseOver
     };
 
 }());

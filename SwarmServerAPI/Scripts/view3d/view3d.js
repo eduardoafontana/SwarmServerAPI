@@ -23,7 +23,7 @@
         groupAssembler.mount(files);
 
         for (var i = 0; i < files.length; i++) {
-            var cube = Cube(files[i], scaleOptions);
+            var cube = Cube(files[i]);
             scene.add(cube.mesh);
 
             var hideCube = HideCube(cube);

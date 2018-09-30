@@ -5,8 +5,10 @@
     var radius = 0.7;
     var topMargin = 0.5;
 
+    var originalColor = 0x0000dd;
+
     var geometry = new THREE.TorusGeometry(radius, 0.1, 100, 100);
-    var material = new THREE.MeshBasicMaterial({ color: 0x0000dd });
+    var material = new THREE.MeshBasicMaterial({ color: originalColor });
     var mesh = new THREE.Mesh(geometry, material);
 
     var margin = 0.1;
@@ -60,6 +62,14 @@
 
             boxMain.innerHTML = '';
             boxMain.appendChild(wrapper);
+        }
+
+        if (render.wasMouseOver(mesh)) {
+            infobox.setHtml('Click to open breakpoint details on information window.');
+
+            material.color.setHex(0xff0000);
+        } else {
+            material.color.setHex(originalColor);
         }
     }
 
