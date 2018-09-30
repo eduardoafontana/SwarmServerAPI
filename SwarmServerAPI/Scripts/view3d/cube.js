@@ -1,4 +1,4 @@
-﻿var Cube = function (data, scaleOptions) {
+﻿var Cube = function (data) {
 
     var data = data;
     var height = data.lines * 50 / groupAssembler.getMostHighFileLine();
@@ -41,8 +41,8 @@
     function internalAnimate() {
         window.requestAnimationFrame(internalAnimate);
 
-        mesh.position.x = initialCalculatedPositionX * scaleOptions.cubeSpace;
-        mesh.position.z = initialCalculatedPositionZ * scaleOptions.cubeSpace;
+        mesh.position.x = initialCalculatedPositionX * scaleOptions.getOptions().cubeSpace;
+        mesh.position.z = initialCalculatedPositionZ * scaleOptions.getOptions().cubeSpace;
     }
 
     return {

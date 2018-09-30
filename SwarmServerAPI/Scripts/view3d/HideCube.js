@@ -1,4 +1,4 @@
-﻿var HideCube = function (cube, scaleOptions) {
+﻿var HideCube = function (cube) {
 
     var height = cube.mesh.geometry.parameters.height;
     var radius = 0.5;
@@ -40,8 +40,8 @@
     function internalAnimate() {
         window.requestAnimationFrame(internalAnimate);
 
-        mesh.position.x = initialCalculatedPositionX * scaleOptions.cubeSpace;
-        mesh.position.z = initialCalculatedPositionZ * scaleOptions.cubeSpace;
+        mesh.position.x = initialCalculatedPositionX * scaleOptions.getOptions().cubeSpace;
+        mesh.position.z = initialCalculatedPositionZ * scaleOptions.getOptions().cubeSpace;
     }
 
     return {

@@ -75,6 +75,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
                       "~/Scripts/3dview/project-data.js",
                       //"~/Scripts/3dview/graph.js",
                       //"~/Scripts/3dview/core.js",
+                      "~/Scripts/view3d/scaleOptions.js",
                       "~/Scripts/view3d/render.js",
                       "~/Scripts/view3d/groupAssembler.js",
                       "~/Scripts/view3d/Cube.js",

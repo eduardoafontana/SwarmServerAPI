@@ -68,6 +68,7 @@
     document.addEventListener("DOMContentLoaded", function () {
 
         render.initGraph();
+        scaleOptions.init();
 
         var scene = render.getNewScene();
 
@@ -85,29 +86,20 @@
         //generate infos x z positions and mostHighFileLine.
         groupAssembler.mount(files);
 
-        var scaleOptions = {
-            cubeSpace: 1,
-            groupSpace: 1,
-            fileScale: 1,
-            breakpointScale: 1,
-            eventScale: 1,
-            pathScale: 0.1,
-        };
-
         for (var i = 0; i < files.length; i++) {
             var cube = Cube(files[i], scaleOptions);
             scene.add(cube.mesh);
 
-            var hideCube = HideCube(cube, scaleOptions);
+            var hideCube = HideCube(cube);
             scene.add(hideCube.mesh);
 
             for (var j = 0; j < files[i].breakpoints.length; j++) {
-                var torus = Torus(cube, files[i].breakpoints[j], scaleOptions);
+                var torus = Torus(cube, files[i].breakpoints[j]);
                 scene.add(torus.mesh);
             }
 
             for (var j = 0; j < files[i].events.length; j++) {
-                var torus = Square(cube, files[i].events[j], scaleOptions);
+                var torus = Square(cube, files[i].events[j]);
                 scene.add(torus.mesh);
             }
         }
@@ -170,27 +162,6 @@
 
         //-------------------------------
 
-        //graph.scaleOptions = scaleOptions;
-
-        var guiScaleOtions = new dat.GUI({ autoPlace: false });
-        guiScaleOtions.add(scaleOptions, 'cubeSpace', 1, 5);//.onChange(function () { graph.changeCubeScale(scaleOptions) });
-        //guiScaleOtions.add(scaleOptions, 'groupSpace', 1, 5).onChange(function () { graph.changeGroupScale(scaleOptions) });
-        //guiScaleOtions.add(scaleOptions, 'fileScale', 0.1, 3).onChange(function () { graph.changeFileScale(scaleOptions) });
-        guiScaleOtions.add(scaleOptions, 'breakpointScale', 0.5, 3);//.onChange(function () { graph.changeTorusScale(scaleOptions) });
-        guiScaleOtions.add(scaleOptions, 'eventScale', 0.5, 3);//.onChange(function () { graph.changeTorusSquereScale(scaleOptions) });
-        //guiScaleOtions.add(scaleOptions, 'pathScale', 0.03, 0.3).onChange(function () { graph.changeTubeScale(scaleOptions) });
-
-        document.getElementsByClassName("tool-box")[0].appendChild(guiScaleOtions.domElement);
-
-        document.getElementsByClassName("tool-scalechange")[0].addEventListener("click", function () {
-            if (guiScaleOtions.domElement.style.visibility == 'visible') {
-                guiScaleOtions.domElement.style.visibility = 'hidden';
-                this.className = '';
-            } else {
-                guiScaleOtions.domElement.style.visibility = 'visible';
-                this.className = 'selected';
-            }
-        });
 
         //--
         //function loadSessionSelect(projectGuid) {

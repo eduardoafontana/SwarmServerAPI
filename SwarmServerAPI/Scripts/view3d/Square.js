@@ -1,4 +1,4 @@
-﻿var Square = function (cube, data, scaleOptions) {
+﻿var Square = function (cube, data) {
 
     var height = data.line * 50 / groupAssembler.getMostHighFileLine();
 
@@ -41,12 +41,12 @@
     function internalAnimate() {
         window.requestAnimationFrame(internalAnimate);
 
-        mesh.position.x = initialCalculatedPositionX * scaleOptions.cubeSpace;
-        mesh.position.z = initialCalculatedPositionZ * scaleOptions.cubeSpace;
+        mesh.position.x = initialCalculatedPositionX * scaleOptions.getOptions().cubeSpace;
+        mesh.position.z = initialCalculatedPositionZ * scaleOptions.getOptions().cubeSpace;
 
-        mesh.scale.x = scaleOptions.eventScale;
-        mesh.scale.y = scaleOptions.eventScale;
-        mesh.scale.z = scaleOptions.eventScale;
+        mesh.scale.x = scaleOptions.getOptions().eventScale;
+        mesh.scale.y = scaleOptions.getOptions().eventScale;
+        mesh.scale.z = scaleOptions.getOptions().eventScale;
     }
 
     return {

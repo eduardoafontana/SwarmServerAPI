@@ -1,4 +1,4 @@
-﻿var Torus = function (cube, data, scaleOptions) {
+﻿var Torus = function (cube, data) {
 
     var height = data.line * 50 / groupAssembler.getMostHighFileLine();
 
@@ -41,12 +41,12 @@
     function internalAnimate() {
         window.requestAnimationFrame(internalAnimate);
 
-        mesh.position.x = initialCalculatedPositionX * scaleOptions.cubeSpace;
-        mesh.position.z = initialCalculatedPositionZ * scaleOptions.cubeSpace;
+        mesh.position.x = initialCalculatedPositionX * scaleOptions.getOptions().cubeSpace;
+        mesh.position.z = initialCalculatedPositionZ * scaleOptions.getOptions().cubeSpace;
 
-        mesh.scale.x = scaleOptions.breakpointScale;
-        mesh.scale.y = scaleOptions.breakpointScale;
-        mesh.scale.z = scaleOptions.breakpointScale;
+        mesh.scale.x = scaleOptions.getOptions().breakpointScale;
+        mesh.scale.y = scaleOptions.getOptions().breakpointScale;
+        mesh.scale.z = scaleOptions.getOptions().breakpointScale;
     }
 
     return {
