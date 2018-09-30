@@ -69,10 +69,10 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
 
             bundles.Add(new ScriptBundle("~/bundles/view3d").Include(
                       //"~/Scripts/3dview/detail-box.js",
-                      //"~/Scripts/3dview/info-box.js",
+                      "~/Scripts/view3d/info-box.js",
                       //"~/Scripts/3dview/color-palettes.js",
-                      "~/Scripts/3dview/session-data.js",
-                      "~/Scripts/3dview/project-data.js",
+                      "~/Scripts/view3d/session-data.js",
+                      "~/Scripts/view3d/project-data.js",
                       //"~/Scripts/3dview/graph.js",
                       //"~/Scripts/3dview/core.js",
                       "~/Scripts/view3d/scaleOptions.js",

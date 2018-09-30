@@ -50,16 +50,13 @@
     //    //--
     //    var box = document.getElementsByClassName("detail-box")[0];
     //    detailbox.relocate(box, graph.renderer.getSize().width, graph.renderer.getSize().height);
-
-    //    //--
-    //    var boxInfo = document.getElementsByClassName("info-box")[0];
-    //    infobox.relocate(boxInfo, graph.renderer.getSize().width, graph.renderer.getSize().height);
     //}
 
     document.addEventListener("DOMContentLoaded", function () {
 
         render.initGraph();
         scaleOptions.init();
+        infobox.init();
 
         var scene = render.getNewScene();
 
@@ -96,8 +93,9 @@
         }
         //}
 
-        //-------------
+        //--------------------------
         window.addEventListener('resize', render.onWindowResize, false);
+        window.addEventListener('resize', infobox.init, false);
         document.getElementsByClassName('reset-camera-button')[0].addEventListener('click', render.resetCameraPosition);
         //---------------------------
 
@@ -108,7 +106,6 @@
 
         //--Load toolboxes
         //detailbox.init(graph.renderer.getSize().width, graph.renderer.getSize().height);
-        //infobox.init(graph.renderer.getSize().width, graph.renderer.getSize().height, document.getElementsByClassName("info-box")[0]);
         //--
 
         //--Load Selectors

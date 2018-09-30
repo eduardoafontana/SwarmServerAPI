@@ -82,12 +82,17 @@
         camera.lookAt(new THREE.Vector3(0, 0, 0));
     }
 
+    var getWidth = function () {
+        return renderer.getSize().width;
+    };
+
     return {
         initGraph: initGraph,
         getNewScene: getNewScene,
         setSelectedScene: setSelectedScene,
         onWindowResize: onWindowResize,
-        resetCameraPosition: resetCameraPosition
+        resetCameraPosition: resetCameraPosition,
+        getWidth: getWidth
     };
 
 }());
