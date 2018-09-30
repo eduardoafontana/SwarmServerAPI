@@ -1,9 +1,5 @@
 ﻿var view3d = (function () {
 
-    //function resetCameraPosition() {
-    //    graph.resetCameraPosition();
-    //}
-
     //function onDocumentMouseMove(event) {
     //    var positions = document.body.getElementsByClassName("canvasRenderRelativeSize")[0].getBoundingClientRect();
 
@@ -102,12 +98,12 @@
 
         //-------------
         window.addEventListener('resize', render.onWindowResize, false);
+        document.getElementsByClassName('reset-camera-button')[0].addEventListener('click', render.resetCameraPosition);
         //---------------------------
 
         //--Event initializer
         //document.body.getElementsByClassName("canvasRenderRelativeSize")[0].addEventListener('mousemove', onDocumentMouseMove, false);
         //document.addEventListener('mousedown', onDocumentMouseDown, false);
-        //document.getElementsByClassName('reset-camera-button')[0].addEventListener('click', resetCameraPosition);
         //---
 
         //--Load toolboxes

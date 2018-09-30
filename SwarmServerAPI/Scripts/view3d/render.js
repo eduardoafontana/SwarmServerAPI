@@ -77,11 +77,17 @@
         renderer.setSize(getRelativeWidth(), getRelativeHeight());
     };
 
+    var resetCameraPosition = function () {
+        camera.position.set(60, 60, 60);
+        camera.lookAt(new THREE.Vector3(0, 0, 0));
+    }
+
     return {
         initGraph: initGraph,
         getNewScene: getNewScene,
         setSelectedScene: setSelectedScene,
-        onWindowResize: onWindowResize
+        onWindowResize: onWindowResize,
+        resetCameraPosition: resetCameraPosition
     };
 
 }());
