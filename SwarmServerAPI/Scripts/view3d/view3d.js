@@ -46,17 +46,12 @@
     //    }
     //}
 
-    //function onWindowResize() {
-    //    //--
-    //    var box = document.getElementsByClassName("detail-box")[0];
-    //    detailbox.relocate(box, graph.renderer.getSize().width, graph.renderer.getSize().height);
-    //}
-
     document.addEventListener("DOMContentLoaded", function () {
 
         render.initGraph();
         scaleOptions.init();
         infobox.init();
+        detailbox.init();
 
         var scene = render.getNewScene();
 
@@ -96,6 +91,7 @@
         //--------------------------
         window.addEventListener('resize', render.onWindowResize, false);
         window.addEventListener('resize', infobox.init, false);
+        window.addEventListener('resize', detailbox.init, false);
         document.getElementsByClassName('reset-camera-button')[0].addEventListener('click', render.resetCameraPosition);
         //---------------------------
 
@@ -103,10 +99,6 @@
         //document.body.getElementsByClassName("canvasRenderRelativeSize")[0].addEventListener('mousemove', onDocumentMouseMove, false);
         //document.addEventListener('mousedown', onDocumentMouseDown, false);
         //---
-
-        //--Load toolboxes
-        //detailbox.init(graph.renderer.getSize().width, graph.renderer.getSize().height);
-        //--
 
         //--Load Selectors
         //loadProjectSelect();
@@ -121,8 +113,6 @@
         //graph.resetSessionScene(sessionData.getDefault());
 
         //core.animate();
-
-        //graph.resetCameraPosition();
 
         //-------------------------------
 

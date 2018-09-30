@@ -5,22 +5,21 @@ var infobox = (function () {
     var infoMarginLeftHoldAdjustment = 20;
     var infoBoxTop = 150;
 
-    var relocate = function () {
+    function relocate() {
         var box = document.getElementsByClassName("info-box")[0];
 
         box.style.width = infoBoxWidth + 'px';
         box.style.height = infoBoxHeight + 'px';
         box.style.top = infoBoxTop + 'px';
-        box.style.left = (render.getWidth() - infoBoxWidth + infoMarginLeftHoldAdjustment) + 'px';
+        box.style.left = (render.getDimensions().width - infoBoxWidth + infoMarginLeftHoldAdjustment) + 'px';
     }
 
     var init = function () {
-        infobox.relocate();
+        relocate();
     };
 
     return {
-        init: init,
-        relocate: relocate,
+        init: init
     };
 
 }());

@@ -82,8 +82,11 @@
         camera.lookAt(new THREE.Vector3(0, 0, 0));
     }
 
-    var getWidth = function () {
-        return renderer.getSize().width;
+    var getDimensions = function () {
+        return {
+            width: renderer.getSize().width,
+            height: renderer.getSize().height
+        };
     };
 
     return {
@@ -92,7 +95,7 @@
         setSelectedScene: setSelectedScene,
         onWindowResize: onWindowResize,
         resetCameraPosition: resetCameraPosition,
-        getWidth: getWidth
+        getDimensions: getDimensions
     };
 
 }());
