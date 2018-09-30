@@ -112,6 +112,12 @@
                                 Prototype
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "View3d" ? "active" : "")" href="@Url.Action("View3d", "Visualization")">
+                                <i class="far fa-eye fa-lg feather"></i>
+                                View3D
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </nav>

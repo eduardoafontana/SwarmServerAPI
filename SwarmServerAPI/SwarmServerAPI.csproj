@@ -383,6 +383,12 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Scripts\view3d\Cube.js" />
+    <Content Include="Scripts\view3d\groupAssembler.js" />
+    <Content Include="Scripts\view3d\render.js" />
+    <Content Include="Scripts\view3d\project-data.js" />
+    <Content Include="Scripts\view3d\session-data.js" />
+    <Content Include="Scripts\view3d\View3d.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -417,6 +423,7 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Visualization\Prototype.cshtml" />
+    <Content Include="Views\Visualization\View3d.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

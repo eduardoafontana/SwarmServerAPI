@@ -67,6 +67,19 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
                       "~/Scripts/3dview/core.js",
                       "~/Scripts/3dview/view3d.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/view3d").Include(
+                      //"~/Scripts/3dview/detail-box.js",
+                      //"~/Scripts/3dview/info-box.js",
+                      //"~/Scripts/3dview/color-palettes.js",
+                      "~/Scripts/3dview/session-data.js",
+                      "~/Scripts/3dview/project-data.js",
+                      //"~/Scripts/3dview/graph.js",
+                      //"~/Scripts/3dview/core.js",
+                      "~/Scripts/view3d/render.js",
+                      "~/Scripts/view3d/groupAssembler.js",
+                      "~/Scripts/view3d/Cube.js",
+                      "~/Scripts/view3d/View3d.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
@@ -77,6 +90,9 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
                       "~/Content/dashboard.css"));
 
             bundles.Add(new StyleBundle("~/Content/3dview").Include(
+                      "~/Content/detail-box.css"));
+
+            bundles.Add(new StyleBundle("~/Content/view3d").Include(
                       "~/Content/detail-box.css"));
 
             //BundleTable.EnableOptimizations = true;
