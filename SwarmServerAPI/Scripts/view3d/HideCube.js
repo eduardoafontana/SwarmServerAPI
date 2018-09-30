@@ -28,8 +28,8 @@
     
     //mesh.group = files[i].group;
     //mesh.isSphere = true;
-    mesh.cubeId = cube.mesh.id;
-    mesh.canHideRelated = true;
+    //mesh.cubeId = cube.mesh.id;//remover
+    //mesh.canHideRelated = true;//remover
     //mesh.canHighlightOnMouseOver = true;
     //mesh.canScaleChange = true;    
 
@@ -42,6 +42,13 @@
         mesh.position.z = initialCalculatedPositionZ * scaleOptions.getOptions().cubeSpace;
 
         mesh.position.y = (initialHeight * scaleOptions.getOptions().heightScale) + topMargin + radius + marginBottom;
+
+        if (render.wasClicked(mesh)) {
+            if (cube.mesh.visible)
+                cube.mesh.visible = false;
+            else
+                cube.mesh.visible = true;
+        }
     }
 
     return {

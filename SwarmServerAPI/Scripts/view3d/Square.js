@@ -31,8 +31,8 @@
     //square.group = files[i].group;
     //square.data = files[i].events[j].data;
     //square.isTorusSquare = true;
-    mesh.canOpenDetailBox = true;
-    mesh.data = data.data;
+    //mesh.canOpenDetailBox = true;//remover
+    //mesh.data = data.data;//remover
     //square.canHighlightOnMouseOver = true;
     //square.canScaleChange = true;
 
@@ -49,6 +49,20 @@
         mesh.scale.z = scaleOptions.getOptions().eventScale;
 
         mesh.position.y = (initialHeight * scaleOptions.getOptions().heightScale) + marginBottom;
+
+        if (render.wasClicked(mesh)) {
+            var box = document.getElementsByClassName("detail-box")[0];
+
+            box.style.visibility = 'visible';
+
+            var boxMain = box.getElementsByClassName("detail-box-main")[0];
+
+            var wrapper = document.createElement('div');
+            wrapper.innerHTML = data.data;
+
+            boxMain.innerHTML = '';
+            boxMain.appendChild(wrapper);
+        }
     }
 
     return {

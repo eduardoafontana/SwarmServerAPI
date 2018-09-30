@@ -1,9 +1,5 @@
 ﻿var view3d = (function () {
 
-    //function onDocumentMouseDown(event) {
-
-    //}
-
     document.addEventListener("DOMContentLoaded", function () {
 
         render.initGraph();
@@ -11,15 +7,14 @@
         infobox.init();
         detailbox.init();
 
-        var scene = render.getNewScene();
 
-        //------------------------------
 
         var sessionArray = sessionData.getArray();
 
         //for (var s = 0; s < sessionArray.length; s++) {
         var s = 0;
 
+        var scene = render.getNewScene();
         scene.sessionGuid = sessionArray[s];
 
         var files = sessionData.getDataByGuid(sessionArray[s]);
