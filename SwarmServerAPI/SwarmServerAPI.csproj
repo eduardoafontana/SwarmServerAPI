@@ -383,6 +383,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Scripts\view3d\HideCube.js" />
     <Content Include="Scripts\view3d\Cube.js" />
     <Content Include="Scripts\view3d\groupAssembler.js" />
     <Content Include="Scripts\view3d\render.js" />

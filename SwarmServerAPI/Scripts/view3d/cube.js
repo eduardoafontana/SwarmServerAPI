@@ -1,5 +1,6 @@
 ﻿var Cube = function (data, scaleOptions) {
 
+    var data = data;
     var height = data.lines * 50 / groupAssembler.getMostHighFileLine();
 
     var squareSize = 1;
@@ -42,19 +43,11 @@
 
         mesh.position.x = initialCalculatedPositionX * scaleOptions.cubeSpace;
         mesh.position.z = initialCalculatedPositionZ * scaleOptions.cubeSpace;
-
-        //console.log(scales.cubeSpace);
-
-        //mesh.rotation.x += 0.05 + id;
-        //mesh.rotation.y += 0.05;
     }
 
-    var getObject = function () {
-        return mesh;
-    };
-
     return {
-        getObject: getObject
+        mesh: mesh,
+        data: data
     };
 
 };

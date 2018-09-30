@@ -94,16 +94,12 @@
             pathScale: 0.1,
         };
 
-        //var color = '';
         for (var i = 0; i < files.length; i++) {
-            //if (i == 0)
-            //    color = colorPalette.pickUpColor();
-            //else if (files[i - 1].group != files[i].group)
-            //    color = colorPalette.pickUpColor();
+            var cube = Cube(files[i], scaleOptions);
+            scene.add(cube.mesh);
 
-            //var cube = graph.drawCube(files[i].x, files[i].z, files[i].lines, '#d7c797', mostHighFileLine);
-
-            scene.add(Cube(files[i], scaleOptions).getObject());
+            var hideCube = HideCube(cube, scaleOptions);
+            scene.add(hideCube.mesh);
         }
         //}
 
