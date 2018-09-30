@@ -5,7 +5,7 @@
     var topMargin = 0.5;
 
     var geometry = new THREE.SphereGeometry(radius, 20, 20);
-    var material = new THREE.MeshBasicMaterial({ color: 0x0000ff });
+    var material = new THREE.MeshBasicMaterial({ color: 0x0000cc });
     var mesh = new THREE.Mesh(geometry, material);
 
     material.opacity = 0.5;

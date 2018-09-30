@@ -89,8 +89,8 @@
             cubeSpace: 1,
             groupSpace: 1,
             fileScale: 1,
-            breakpointScale: 0.1,
-            eventScale: 0.1,
+            breakpointScale: 1,
+            eventScale: 1,
             pathScale: 0.1,
         };
 
@@ -100,6 +100,16 @@
 
             var hideCube = HideCube(cube, scaleOptions);
             scene.add(hideCube.mesh);
+
+            for (var j = 0; j < files[i].breakpoints.length; j++) {
+                var torus = Torus(cube, files[i].breakpoints[j], scaleOptions);
+                scene.add(torus.mesh);
+            }
+
+            for (var j = 0; j < files[i].events.length; j++) {
+                var torus = Square(cube, files[i].events[j], scaleOptions);
+                scene.add(torus.mesh);
+            }
         }
         //}
 
@@ -166,8 +176,8 @@
         guiScaleOtions.add(scaleOptions, 'cubeSpace', 1, 5);//.onChange(function () { graph.changeCubeScale(scaleOptions) });
         //guiScaleOtions.add(scaleOptions, 'groupSpace', 1, 5).onChange(function () { graph.changeGroupScale(scaleOptions) });
         //guiScaleOtions.add(scaleOptions, 'fileScale', 0.1, 3).onChange(function () { graph.changeFileScale(scaleOptions) });
-        //guiScaleOtions.add(scaleOptions, 'breakpointScale', 0.03, 0.3).onChange(function () { graph.changeTorusScale(scaleOptions) });
-        //guiScaleOtions.add(scaleOptions, 'eventScale', 0.03, 0.3).onChange(function () { graph.changeTorusSquereScale(scaleOptions) });
+        guiScaleOtions.add(scaleOptions, 'breakpointScale', 0.5, 3);//.onChange(function () { graph.changeTorusScale(scaleOptions) });
+        guiScaleOtions.add(scaleOptions, 'eventScale', 0.5, 3);//.onChange(function () { graph.changeTorusSquereScale(scaleOptions) });
         //guiScaleOtions.add(scaleOptions, 'pathScale', 0.03, 0.3).onChange(function () { graph.changeTubeScale(scaleOptions) });
 
         document.getElementsByClassName("tool-box")[0].appendChild(guiScaleOtions.domElement);

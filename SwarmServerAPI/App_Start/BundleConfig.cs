@@ -79,6 +79,8 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
                       "~/Scripts/view3d/groupAssembler.js",
                       "~/Scripts/view3d/Cube.js",
                       "~/Scripts/view3d/HideCube.js",
+                      "~/Scripts/view3d/Torus.js",
+                      "~/Scripts/view3d/Square.js",
                       "~/Scripts/view3d/View3d.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
