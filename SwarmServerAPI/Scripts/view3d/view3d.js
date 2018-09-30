@@ -51,11 +51,6 @@
     //}
 
     //function onWindowResize() {
-    //    graph.camera.aspect = getRelativeWidth() / getRelativeHeight();
-    //    graph.camera.updateProjectionMatrix();
-
-    //    graph.renderer.setSize(getRelativeWidth(), getRelativeHeight());
-
     //    //--
     //    var box = document.getElementsByClassName("detail-box")[0];
     //    detailbox.relocate(box, graph.renderer.getSize().width, graph.renderer.getSize().height);
@@ -105,13 +100,14 @@
         }
         //}
 
+        //-------------
+        window.addEventListener('resize', render.onWindowResize, false);
         //---------------------------
 
         //--Event initializer
         //document.body.getElementsByClassName("canvasRenderRelativeSize")[0].addEventListener('mousemove', onDocumentMouseMove, false);
         //document.addEventListener('mousedown', onDocumentMouseDown, false);
         //document.getElementsByClassName('reset-camera-button')[0].addEventListener('click', resetCameraPosition);
-        //window.addEventListener('resize', onWindowResize, false);
         //---
 
         //--Load toolboxes

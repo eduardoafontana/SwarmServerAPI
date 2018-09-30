@@ -10,13 +10,15 @@
 
     var sceneArray = [];
     var selectedScene = null;
+    var camera = null;
+    var renderer = null;
 
     var initGraph = function () {
-        var camera = new THREE.PerspectiveCamera(45, getRelativeWidth() / getRelativeHeight(), 1, 500);
+        camera = new THREE.PerspectiveCamera(45, getRelativeWidth() / getRelativeHeight(), 1, 500);
         camera.position.set(60, 60, 60);
         camera.lookAt(new THREE.Vector3(0, 0, 0));
 
-        var renderer = new THREE.WebGLRenderer();
+        renderer = new THREE.WebGLRenderer();
         renderer.setSize(getRelativeWidth(), getRelativeHeight());
 
         var canvasRenderRelativeSize = document.body.getElementsByClassName("canvasRenderRelativeSize")[0];
@@ -68,10 +70,18 @@
         selectedScene = scene;
     };
 
+    var onWindowResize = function () {
+        camera.aspect = getRelativeWidth() / getRelativeHeight();
+        camera.updateProjectionMatrix();
+
+        renderer.setSize(getRelativeWidth(), getRelativeHeight());
+    };
+
     return {
         initGraph: initGraph,
         getNewScene: getNewScene,
-        setSelectedScene : setSelectedScene
+        setSelectedScene: setSelectedScene,
+        onWindowResize: onWindowResize
     };
 
 }());
