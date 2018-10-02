@@ -12,7 +12,7 @@
         var sessionArray = sessionData.getArray();
 
         //for (var s = 0; s < sessionArray.length; s++) {
-        var s = 0;
+        var s = 1;
 
         var scene = render.getNewScene();
         scene.sessionGuid = sessionArray[s];
@@ -37,6 +37,13 @@
             for (var j = 0; j < files[i].events.length; j++) {
                 var torus = Square(cube, files[i].events[j]);
                 scene.add(torus.mesh);
+            }
+
+            if (files[i].points != undefined) {
+                for (var j = 0; j < files[i].points.length; j++) {
+                    var tubesphere = TubeSphere(cube, files[i].points[j]);
+                    scene.add(tubesphere.mesh);
+                }
             }
         }
         //}
