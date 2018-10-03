@@ -8,7 +8,6 @@
         detailbox.init();
 
 
-
         var sessionArray = sessionData.getArray();
 
         //for (var s = 0; s < sessionArray.length; s++) {
@@ -57,21 +56,15 @@
         document.addEventListener('mousedown', render.onDocumentMouseDown, false);
         //---------------------------
 
+        var userSelect = new selectControl('user-select', userData);
+        new selectControl('project-select', projectData, userSelect);
+
         //--Load Selectors
         //loadProjectSelect();
         //loadSessionSelect(document.getElementById("project-select").value);
 
         //sessionData.setDefault(document.getElementById("session-select").value);
         ////--
-
-        //core.initGraph();
-        //core.loadGraph();
-
-        //graph.resetSessionScene(sessionData.getDefault());
-
-        //core.animate();
-
-        //-------------------------------
 
 
         //--
@@ -103,29 +96,7 @@
         //    });
         //}
 
-        //function loadProjectSelect() {
-        //    var projectSelect = document.getElementById("project-select");
-        //    var projectArray = projectData.getArray();
 
-        //    for (let i = 0; i < projectArray.length; i++) {
-        //        var option = document.createElement('option');
-
-        //        option.text = projectArray[i].name;
-        //        option.value = projectArray[i].guid;
-
-        //        if (projectArray[i].guid == projectData.getDefault())
-        //            option.selected = true;
-
-        //        projectSelect.add(option);
-        //    }
-
-        //    projectSelect.addEventListener("change", function () {
-        //        loadSessionSelect(projectSelect.value);
-
-        //        sessionData.setDefault(document.getElementById("session-select").value);
-        //        graph.resetSessionScene(sessionData.getDefault());
-        //    });
-        //}
     });
 
 }());
