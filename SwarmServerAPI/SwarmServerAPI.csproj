@@ -386,6 +386,7 @@
     <Content Include="Scripts\view3d\detail-box.js" />
     <Content Include="Scripts\view3d\info-box.js" />
     <Content Include="Scripts\view3d\select-control.js" />
+    <Content Include="Scripts\view3d\data-control.js" />
     <Content Include="Scripts\view3d\user-data.js" />
     <Content Include="Scripts\view3d\scaleOptions.js" />
     <Content Include="Scripts\view3d\TubeSphere.js" />

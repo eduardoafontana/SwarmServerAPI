@@ -29,13 +29,6 @@
     var initialCalculatedPositionZ = mesh.position.z;
     var initialCalculatedPositionY = adjustToZeroAxisY;
 
-    //files[i].cubeId = mesh.id;
-    //mesh.group = data.group;
-    //mesh.isCube = true;
-    //mesh.canScaleChange = true;
-
-    //--
-
     internalAnimate();
 
     function internalAnimate() {

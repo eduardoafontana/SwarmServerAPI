@@ -28,14 +28,6 @@
     var initialCalculatedPositionZ = mesh.position.z;
     var initialHeight = height;
 
-    //torus.cubeId = cube.id;
-    //torus.group = files[i].group;
-    //torus.isTorus = true;
-    //mesh.canOpenDetailBox = true;//remover
-    //mesh.data = data.data;//remover
-    //torus.canHighlightOnMouseOver = true;
-    //torus.canScaleChange = true;
-
     internalAnimate();
 
     function internalAnimate() {

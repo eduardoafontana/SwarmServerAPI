@@ -1,61 +1,52 @@
-﻿var selectControl = function (objectName, data, parentSelectorObject) {
+﻿var selectControl = (function () {
 
-    var select = document.getElementById(objectName);
-    var array = data.getArray();
+    var init = function () {
 
-    for (let i = 0; i < array.length; i++) {
-        var option = document.createElement('option');
+        var selectUser = document.getElementById('user-select');
+        var selectProject = document.getElementById('project-select');
 
-        option.text = array[i].name;
-        option.value = array[i].guid;
+        var array = dataControl.getUsers();
 
-        if (array[i].guid == data.getDefault())
-            option.selected = true;
+        for (let i = 0; i < array.length; i++) {
+            var option = document.createElement('option');
 
-        select.add(option);
-    }
+            option.text = array[i].name;
+            option.value = i;
 
-    if (parentSelectorObject != undefined)
-        parentSelectorObject.select.addEventListener("change", onSelectChange);
+            selectUser.add(option);
+        }
 
-    function onSelectChange(obj) {
-        console.log(obj.target.selectedIndex); //selecionado no pai
+        onSelectUserChange();
 
-        console.log(objectName);
-        console.log(select); //filho
-        var array = data.getArray();
-        console.log(array.length); //filho
+        selectUser.addEventListener("change", onSelectUserChange);
 
-        //TODO: aplicar filtro nos dados do filho a partir do selecionado do pai
+        function onSelectUserChange() {
+            do {
+                selectProject.remove(0);
+            } while (selectProject.length > 0);
 
-        //aqui eu quero acessar os dados do filho filtrando pelo pai selecionado
-        //console.log(parentSelectorObject.data);
+            var array = dataControl.getProjects(selectUser.selectedIndex);
 
-        //do {
-        //    select.remove(0);
-        //} while (select.length > 0);
+            for (let i = 0; i < array.length; i++) {
+                var option = document.createElement('option');
 
-        //var dataOfProject = projectData.getDataByGuid(projectGuid);
+                option.text = array[i].name;
+                option.value = array[i].sceneId;
 
-        //for (let i = 0; i < dataOfProject.length; i++) {
-        //    var session = sessionData.getByGuid(dataOfProject[i]);
-        //    var option = document.createElement('option');
+                selectProject.add(option);
+            }
 
-        //    option.text = session.name;
-        //    option.value = session.guid;
+            onSelecProjectChange();
+        }
 
-        //    if (session.guid == sessionData.getDefault())
-        //        option.selected = true;
+        selectProject.addEventListener("change", onSelecProjectChange);
 
-        //    sessionSelect.add(option);
-        //}
-
-        //projectData.setDefault(document.getElementById("project-select").value);
-        //graph.resetSessionScene(sessionData.getDefault());
+        function onSelecProjectChange() {
+            render.setSelectedSceneById(selectProject.value);
+        }
     };
 
     return {
-        select: select,
-        data: data
+        init: init
     };
-};
+}());

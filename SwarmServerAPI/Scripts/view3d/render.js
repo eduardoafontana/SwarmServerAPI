@@ -85,14 +85,20 @@
 
         sceneArray.push(scene);
 
-        if (selectedScene == null || selectedScene == undefined)
-            render.setSelectedScene(scene);
-
         return scene;
     };
 
-    var setSelectedScene = function (scene) {
-        selectedScene = scene;
+    var setSelectedSceneById = function (sceneId) {
+        for (var i = 0; i < sceneArray.length; i++) {
+            if (sceneArray[i].id == sceneId) {
+                selectedScene = sceneArray[i];
+                break;
+            }
+        }
+    };
+
+    var setSelectedSceneFirst = function () {
+        selectedScene = sceneArray[0];
     };
 
     var onWindowResize = function () {
@@ -129,6 +135,9 @@
 
         raycaster.setFromCamera(mouse, camera);
 
+        if (selectedScene == undefined)
+            return;
+
         var intersects = raycaster.intersectObjects(selectedScene.children);
 
         if (intersects.length > 0) {
@@ -155,7 +164,8 @@
     return {
         initGraph: initGraph,
         getNewScene: getNewScene,
-        setSelectedScene: setSelectedScene,
+        setSelectedSceneById: setSelectedSceneById,
+        setSelectedSceneFirst: setSelectedSceneFirst,
         onWindowResize: onWindowResize,
         resetCameraPosition: resetCameraPosition,
         getDimensions: getDimensions,
