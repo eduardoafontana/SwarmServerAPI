@@ -39,6 +39,16 @@
 
         mesh.scale.y = scaleOptions.getOptions().heightScale;
         mesh.position.y = (initialCalculatedPositionY * scaleOptions.getOptions().heightScale) + marginBottom;
+
+        //--
+        //mesh.position.x = initialCalculatedPositionX * scaleOptions.getOptions().sessionSpace;
+        //mesh.position.z = initialCalculatedPositionZ * scaleOptions.getOptions().sessionSpace;
+
+        //if (mesh.position.x == 0)
+        //mesh.position.z = node.initialCalculatedPositionZ * scaleOptions.groupSpace;
+
+        //node.position.x = (firstNodeOfGroup.position.x - firstNodeOfGroup.initialCalculatedPositionX) + node.initialCalculatedPositionX;
+        //node.position.z = (firstNodeOfGroup.position.z - firstNodeOfGroup.initialCalculatedPositionZ) + node.initialCalculatedPositionZ;
     }
 
     return {

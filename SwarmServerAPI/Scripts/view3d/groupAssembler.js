@@ -2,6 +2,7 @@
 
     var mostHighFileLine = 0;
     var sessionLine = 0;
+    var sessionMargin = 2;
 
     var mountBySession = function (files) {
         for (var i = 0; i < files.length; i++) {
@@ -14,7 +15,7 @@
             files[i].z = sessionLine;
         }
 
-        sessionLine = sessionLine + 2;
+        sessionLine = sessionLine + sessionMargin;
     };
 
     var getMostHighFileLine = function () {

@@ -23,30 +23,34 @@
                     //generate infos x z positions and mostHighFileLine.
                     groupAssembler.mountBySession(files);
 
+                    var group = GroupA(s);
+
                     for (var i = 0; i < files.length; i++) {
                         var cube = Cube(files[i]);
-                        scene.add(cube.mesh);
+                        group.mesh.add(cube.mesh);
 
                         var hideCube = HideCube(cube);
-                        scene.add(hideCube.mesh);
+                        group.mesh.add(hideCube.mesh);
 
                         for (var j = 0; j < files[i].breakpoints.length; j++) {
                             var torus = Torus(cube, files[i].breakpoints[j]);
-                            scene.add(torus.mesh);
+                            group.mesh.add(torus.mesh);
                         }
 
                         for (var j = 0; j < files[i].events.length; j++) {
                             var torus = Square(cube, files[i].events[j]);
-                            scene.add(torus.mesh);
+                            group.mesh.add(torus.mesh);
                         }
 
                         if (files[i].points != undefined) {
                             for (var j = 0; j < files[i].points.length; j++) {
                                 var tubesphere = TubeSphere(cube, files[i].points[j]);
-                                scene.add(tubesphere.mesh);
+                                group.mesh.add(tubesphere.mesh);
                             }
                         }
                     }
+
+                    scene.add(group.mesh);
                 }
             }
         }
