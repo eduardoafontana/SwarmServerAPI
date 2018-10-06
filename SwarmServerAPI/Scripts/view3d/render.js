@@ -56,7 +56,7 @@
             //--
             raycaster.setFromCamera(mouse, camera);
 
-            var intersects = raycaster.intersectObjects(selectedScene.children);
+            var intersects = raycaster.intersectObjects(selectedScene.interceptables);
 
             if (intersects.length > 0) {
                 var intersect = intersects[0];
@@ -82,6 +82,8 @@
 
         var gridHelper = new THREE.GridHelper(100, 10);
         scene.add(gridHelper);
+
+        scene.interceptables = [];
 
         sceneArray.push(scene);
 
@@ -138,7 +140,7 @@
         if (selectedScene == undefined)
             return;
 
-        var intersects = raycaster.intersectObjects(selectedScene.children);
+        var intersects = raycaster.intersectObjects(selectedScene.interceptables);
 
         if (intersects.length > 0) {
             var intersect = intersects[0];
@@ -159,7 +161,7 @@
 
     var wasMouseOver = function (object) {
         return object == overedObject;
-    }
+    };
 
     return {
         initGraph: initGraph,

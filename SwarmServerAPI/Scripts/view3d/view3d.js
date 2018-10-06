@@ -31,15 +31,18 @@
 
                         var hideCube = HideCube(cube);
                         group.mesh.add(hideCube.mesh);
+                        scene.interceptables.push(hideCube.mesh);
 
                         for (var j = 0; j < files[i].breakpoints.length; j++) {
                             var torus = Torus(cube, files[i].breakpoints[j]);
                             group.mesh.add(torus.mesh);
+                            scene.interceptables.push(torus.mesh);
                         }
 
                         for (var j = 0; j < files[i].events.length; j++) {
                             var torus = Square(cube, files[i].events[j]);
                             group.mesh.add(torus.mesh);
+                            scene.interceptables.push(torus.mesh);
                         }
 
                         if (files[i].points != undefined) {
