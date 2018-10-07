@@ -34,21 +34,14 @@
     function internalAnimate() {
         window.requestAnimationFrame(internalAnimate);
 
-        mesh.position.x = initialCalculatedPositionX * scaleOptions.getOptions().cubeSpace;
-        mesh.position.z = initialCalculatedPositionZ * scaleOptions.getOptions().cubeSpace;
+        if (render.getSelectedScene() == null)
+            return;
 
-        mesh.scale.y = scaleOptions.getOptions().heightScale;
-        mesh.position.y = (initialCalculatedPositionY * scaleOptions.getOptions().heightScale) + marginBottom;
+        mesh.position.x = initialCalculatedPositionX * render.getSelectedScene().scaleOptions.options.cubeSpace;
+        mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.cubeSpace;
 
-        //--
-        //mesh.position.x = initialCalculatedPositionX * scaleOptions.getOptions().sessionSpace;
-        //mesh.position.z = initialCalculatedPositionZ * scaleOptions.getOptions().sessionSpace;
-
-        //if (mesh.position.x == 0)
-        //mesh.position.z = node.initialCalculatedPositionZ * scaleOptions.groupSpace;
-
-        //node.position.x = (firstNodeOfGroup.position.x - firstNodeOfGroup.initialCalculatedPositionX) + node.initialCalculatedPositionX;
-        //node.position.z = (firstNodeOfGroup.position.z - firstNodeOfGroup.initialCalculatedPositionZ) + node.initialCalculatedPositionZ;
+        mesh.scale.y = render.getSelectedScene().scaleOptions.options.heightScale;
+        mesh.position.y = (initialCalculatedPositionY * render.getSelectedScene().scaleOptions.options.heightScale) + marginBottom;
     }
 
     return {

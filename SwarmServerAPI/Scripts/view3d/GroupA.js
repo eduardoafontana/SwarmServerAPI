@@ -15,7 +15,10 @@
     function internalAnimate() {
         window.requestAnimationFrame(internalAnimate);
 
-        mesh.position.z = initialCalculatedPositionZ * scaleOptions.getOptions().sessionSpace;
+        if (render.getSelectedScene() == null)
+            return;
+
+        mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.sessionSpace;
     }
 
     return {

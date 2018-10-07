@@ -40,10 +40,13 @@
     function internalAnimate() {
         window.requestAnimationFrame(internalAnimate);
 
-        mesh.position.x = initialCalculatedPositionX * scaleOptions.getOptions().cubeSpace;
-        mesh.position.z = initialCalculatedPositionZ * scaleOptions.getOptions().cubeSpace;
+        if (render.getSelectedScene() == null)
+            return;
 
-        mesh.position.y = (initialHeight * scaleOptions.getOptions().heightScale) + topMargin + radius + marginBottom;
+        mesh.position.x = initialCalculatedPositionX * render.getSelectedScene().scaleOptions.options.cubeSpace;
+        mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.cubeSpace;
+
+        mesh.position.y = (initialHeight * render.getSelectedScene().scaleOptions.options.heightScale) + topMargin + radius + marginBottom;
 
         if (render.wasClicked(mesh)) {
             if (cube.mesh.visible)

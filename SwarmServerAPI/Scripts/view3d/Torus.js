@@ -33,14 +33,17 @@
     function internalAnimate() {
         window.requestAnimationFrame(internalAnimate);
 
-        mesh.position.x = initialCalculatedPositionX * scaleOptions.getOptions().cubeSpace;
-        mesh.position.z = initialCalculatedPositionZ * scaleOptions.getOptions().cubeSpace;
+        if (render.getSelectedScene() == null)
+            return;
 
-        mesh.scale.x = scaleOptions.getOptions().breakpointScale;
-        mesh.scale.y = scaleOptions.getOptions().breakpointScale;
-        mesh.scale.z = scaleOptions.getOptions().breakpointScale;
+        mesh.position.x = initialCalculatedPositionX * render.getSelectedScene().scaleOptions.options.cubeSpace;
+        mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.cubeSpace;
 
-        mesh.position.y = (initialHeight * scaleOptions.getOptions().heightScale) + marginBottom;
+        mesh.scale.x = render.getSelectedScene().scaleOptions.options.breakpointScale;
+        mesh.scale.y = render.getSelectedScene().scaleOptions.options.breakpointScale;
+        mesh.scale.z = render.getSelectedScene().scaleOptions.options.breakpointScale;
+
+        mesh.position.y = (initialHeight * render.getSelectedScene().scaleOptions.options.heightScale) + marginBottom;
 
         if (render.wasClicked(mesh)) {
             var box = document.getElementsByClassName("detail-box")[0];

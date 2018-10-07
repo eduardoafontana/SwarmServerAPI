@@ -3,9 +3,9 @@
     document.addEventListener("DOMContentLoaded", function () {
 
         render.initGraph();
-        scaleOptions.init();
         infobox.init();
         detailbox.init();
+        scaleOptions.init();
 
         var users = dataControl.getUsers();
 
@@ -59,7 +59,6 @@
         }
 
         selectControl.init();
-        render.setSelectedSceneFirst();
 
         window.addEventListener('resize', render.onWindowResize, false);
         window.addEventListener('resize', infobox.init, false);

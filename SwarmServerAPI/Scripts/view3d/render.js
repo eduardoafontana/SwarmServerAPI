@@ -48,7 +48,7 @@
         var animate = function () {
             requestAnimationFrame(animate);
 
-            if (selectedScene == undefined || selectedScene == null)
+            if (selectedScene == null)
                 return;
 
             renderer.render(selectedScene, camera);
@@ -85,6 +85,24 @@
 
         scene.interceptables = [];
 
+        scene.scaleOptions = new dat.GUI({ autoPlace: false });
+
+        scene.scaleOptions.options = {
+            cubeSpace: 1,
+            sessionSpace: 1,
+            heightScale: 1,
+            breakpointScale: 1,
+            eventScale: 1,
+            pathScale: 0.1,
+        };
+
+        scene.scaleOptions.add(scene.scaleOptions.options, 'cubeSpace', 1, 5);
+        scene.scaleOptions.add(scene.scaleOptions.options, 'sessionSpace', 1, 5);
+        scene.scaleOptions.add(scene.scaleOptions.options, 'heightScale', 0.5, 3);
+        scene.scaleOptions.add(scene.scaleOptions.options, 'breakpointScale', 0.5, 3);
+        scene.scaleOptions.add(scene.scaleOptions.options, 'eventScale', 0.5, 3);
+        //scene.scaleOptions.add(scaleOptions, 'pathScale', 0.03, 0.3).onChange(function () { graph.changeTubeScale(scaleOptions) });
+
         sceneArray.push(scene);
 
         return scene;
@@ -94,6 +112,8 @@
         for (var i = 0; i < sceneArray.length; i++) {
             if (sceneArray[i].id == sceneId) {
                 selectedScene = sceneArray[i];
+
+                scaleOptions.setScaleOption(selectedScene.scaleOptions);
                 break;
             }
         }
@@ -101,6 +121,11 @@
 
     var setSelectedSceneFirst = function () {
         selectedScene = sceneArray[0];
+        scaleOptions.setScaleOption(sceneArray[0].scaleOptions);
+    };
+
+    var getSelectedScene = function () {
+        return selectedScene;
     };
 
     var onWindowResize = function () {
@@ -168,6 +193,7 @@
         getNewScene: getNewScene,
         setSelectedSceneById: setSelectedSceneById,
         setSelectedSceneFirst: setSelectedSceneFirst,
+        getSelectedScene: getSelectedScene,
         onWindowResize: onWindowResize,
         resetCameraPosition: resetCameraPosition,
         getDimensions: getDimensions,
