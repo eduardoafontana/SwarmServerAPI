@@ -6,12 +6,12 @@
                 name: 'Project 1 ABC', sessions: [{
                     files: [
                         { lines: 150, breakpoints: [{ line: 10, data: '<h4>título 10</h4><p>10 lines</p><p>breakpoint</p>' }], events: [] },
-                        { lines: 160, breakpoints: [], events: [], points: [{ line: 30 }] },
-                        { lines: 170, breakpoints: [], events: [], points: [{ line: 50 }, { line: 15 }] },
-                        { lines: 140, breakpoints: [], events: [], points: [{ line: 60 }] },
+                        { fileId: 'b6ffd257', lines: 160, breakpoints: [], events: [], nodes: [{ line: 30 }] },
+                        { fileId: '2d7c', lines: 170, breakpoints: [], events: [], nodes: [{ line: 50 }, { line: 15 }] },
+                        { fileId: '4038', lines: 140, breakpoints: [], events: [], nodes: [{ line: 60 }] },
                         { lines: 180, breakpoints: [], events: [] },
                         { lines: 200, breakpoints: [], events: [] },
-                        { lines: 130, breakpoints: [], events: [], points: [{ line: 40 }] },
+                        { fileId: '7f8aeab1cb38', lines: 130, breakpoints: [], events: [], nodes: [{ line: 40 }] },
                         { lines: 76, breakpoints: [], events: [] },
                         {
                             lines: 300, breakpoints: [
@@ -61,23 +61,23 @@
                         { lines: 140, breakpoints: [], events: [] },
                         { lines: 100, breakpoints: [], events: [] },
                     ],
-                    pathnodes: []
+                    pathnodes: [{ fileId: 'b6ffd257', line: 30 }, { fileId: '2d7c', line: 50 }, { fileId: '2d7c', line: 15 }, { fileId: '4038', line: 60 }, { fileId: '7f8aeab1cb38', line: 40 } ]
                 },
                 {
                     files: [
-                        { lines: 10, breakpoints: [], events: [], points: [{ line: 5 }] },
-                        { lines: 20, breakpoints: [], events: [], points: [{ line: 10 }] },
-                        { lines: 30, breakpoints: [], events: [], points: [{ line: 15 }] },
-                        { lines: 40, breakpoints: [], events: [], points: [{ line: 20 }] },
+                        { lines: 10, breakpoints: [], events: [], nodes: [{ line: 5 }] },
+                        { lines: 20, breakpoints: [], events: [], nodes: [{ line: 10 }] },
+                        { lines: 30, breakpoints: [], events: [], nodes: [{ line: 15 }] },
+                        { lines: 40, breakpoints: [], events: [], nodes: [{ line: 20 }] },
                     ],
                     pathnodes: []
                 },
                 {
                     files: [
-                        { lines: 1, breakpoints: [], events: [], points: [{ line: 1 }] },
-                        { lines: 1, breakpoints: [], events: [], points: [{ line: 1 }] },
-                        { lines: 1, breakpoints: [], events: [], points: [{ line: 1 }] },
-                        { lines: 1, breakpoints: [], events: [], points: [{ line: 1 }] },
+                        { lines: 1, breakpoints: [], events: [], nodes: [{ line: 1 }] },
+                        { lines: 1, breakpoints: [], events: [], nodes: [{ line: 1 }] },
+                        { lines: 1, breakpoints: [], events: [], nodes: [{ line: 1 }] },
+                        { lines: 1, breakpoints: [], events: [], nodes: [{ line: 1 }] },
                     ], pathnodes: []
                 }
                 ]
@@ -90,7 +90,7 @@
                         lines: 300,
                         breakpoints: [],
                         events: [],
-                        points: []
+                        nodes: []
                     }],
                     pathnodes: []
                 }]
@@ -104,7 +104,7 @@
                             lines: 120,
                             breakpoints: [],
                             events: [],
-                            points: []
+                            nodes: []
                         }],
                         pathnodes: []
                     }]

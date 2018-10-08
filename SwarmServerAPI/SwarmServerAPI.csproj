@@ -383,6 +383,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Scripts\view3d\Tube.js" />
     <Content Include="Scripts\view3d\GroupA.js" />
     <Content Include="Scripts\view3d\detail-box.js" />
     <Content Include="Scripts\view3d\info-box.js" />
@@ -397,8 +398,6 @@
     <Content Include="Scripts\view3d\Cube.js" />
     <Content Include="Scripts\view3d\groupAssembler.js" />
     <Content Include="Scripts\view3d\render.js" />
-    <Content Include="Scripts\view3d\project-data.js" />
-    <Content Include="Scripts\view3d\session-data.js" />
     <Content Include="Scripts\view3d\View3d.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

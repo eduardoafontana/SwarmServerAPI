@@ -45,12 +45,22 @@
                             scene.interceptables.push(torus.mesh);
                         }
 
-                        if (files[i].points != undefined) {
-                            for (var j = 0; j < files[i].points.length; j++) {
-                                var tubesphere = TubeSphere(cube, files[i].points[j]);
+                        if (files[i].nodes != undefined) {
+                            for (var j = 0; j < files[i].nodes.length; j++) {
+                                var tubesphere = TubeSphere(cube, files[i].nodes[j]);
                                 group.mesh.add(tubesphere.mesh);
                             }
                         }
+                    }
+
+                    var pathnodes = users[u].projects[p].sessions[s].pathnodes;
+
+                    if (pathnodes.length > 0) {
+                        //generate infos x z positions on nodes
+                        groupAssembler.mountNodesBySession(files, pathnodes);
+
+                        var tube = Tube(pathnodes);
+                        group.mesh.add(tube.mesh);
                     }
 
                     scene.add(group.mesh);

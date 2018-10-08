@@ -18,6 +18,27 @@
         sessionLine = sessionLine + sessionMargin;
     };
 
+    var mountNodesBySession = function (files, nodes) {
+        function getFile(fileId) {
+            for (var i = 0; i < files.length; i++) {
+                if (files[i].fileId == fileId)
+                    return files[i];
+            }
+
+            return null;
+        }
+
+        for (var i = 0; i < nodes.length; i++) {
+            var file = getFile(nodes[i].fileId);
+
+            if (file == null)
+                continue;
+
+            nodes[i].x = file.x;
+            nodes[i].z = file.z;
+        }
+    };
+
     var getMostHighFileLine = function () {
         return mostHighFileLine;
     };
@@ -30,6 +51,7 @@
     return {
         getMostHighFileLine: getMostHighFileLine,
         mountBySession: mountBySession,
+        mountNodesBySession: mountNodesBySession,
         reset: reset
     };
 

@@ -80,6 +80,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
                       "~/Scripts/view3d/Torus.js",
                       "~/Scripts/view3d/Square.js",
                       "~/Scripts/view3d/TubeSphere.js",
+                      "~/Scripts/view3d/Tube.js",
                       "~/Scripts/view3d/select-control.js",
                       "~/Scripts/view3d/View3d.js"));
 
