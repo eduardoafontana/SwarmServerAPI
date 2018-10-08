@@ -61,16 +61,16 @@
                         { lines: 140, breakpoints: [], events: [] },
                         { lines: 100, breakpoints: [], events: [] },
                     ],
-                    pathnodes: [{ fileId: 'b6ffd257', line: 30 }, { fileId: '2d7c', line: 50 }, { fileId: '2d7c', line: 15 }, { fileId: '4038', line: 60 }, { fileId: '7f8aeab1cb38', line: 40 } ]
+                    pathnodes: [{ fileId: 'b6ffd257', line: 30 }, { fileId: '2d7c', line: 50 }, { fileId: '2d7c', line: 15 }, { fileId: '4038', line: 60 }, { fileId: '7f8aeab1cb38', line: 40 }]
                 },
                 {
                     files: [
-                        { lines: 10, breakpoints: [], events: [], nodes: [{ line: 5 }] },
-                        { lines: 20, breakpoints: [], events: [], nodes: [{ line: 10 }] },
-                        { lines: 30, breakpoints: [], events: [], nodes: [{ line: 15 }] },
-                        { lines: 40, breakpoints: [], events: [], nodes: [{ line: 20 }] },
+                        { fileId: 'aaa', lines: 10, breakpoints: [], events: [], nodes: [{ line: 5 }] },
+                        { fileId: 'bbb', lines: 20, breakpoints: [], events: [], nodes: [{ line: 10 }] },
+                        { fileId: 'ccc', lines: 30, breakpoints: [], events: [], nodes: [{ line: 15 }] },
+                        { fileId: 'ddd', lines: 40, breakpoints: [], events: [], nodes: [{ line: 20 }] },
                     ],
-                    pathnodes: []
+                    pathnodes: [{ fileId: 'aaa', line: 5 }, { fileId: 'bbb', line: 10 }, { fileId: 'ccc', line: 15 }, { fileId: 'ddd', line: 20 }]
                 },
                 {
                     files: [

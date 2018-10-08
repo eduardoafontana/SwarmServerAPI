@@ -1,10 +1,10 @@
 ﻿var Tube = function (nodes) {
 
     var vertices = [];
+    var marginBottom = 10;
 
     for (var i = 0; i < nodes.length; i++) {
         var height = nodes[i].line * 50 / groupAssembler.getMostHighFileLine();
-        var marginBottom = 10;
         var heightWithMargin = height + marginBottom;
 
         vertices.push(new THREE.Vector3(nodes[i].x * 1.5, heightWithMargin, nodes[i].z * 1.5));
@@ -15,6 +15,13 @@
     var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
     var mesh = new THREE.Mesh(geometry, material);
 
+    var originalVertices = [];
+
+    for (var i = 0; i < mesh.geometry.vertices.length; i++) {
+        originalVertices.push({ x: mesh.geometry.vertices[i].x, z: mesh.geometry.vertices[i].z, y: mesh.geometry.vertices[i].y });
+    }
+
+
     internalAnimate();
 
     function internalAnimate() {
@@ -23,11 +30,14 @@
         if (render.getSelectedScene() == null)
             return;
 
-        //mesh.position.x = initialCalculatedPositionX * render.getSelectedScene().scaleOptions.options.cubeSpace;
-        //mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.cubeSpace;
+        for (var i = 0; i < mesh.geometry.vertices.length; i++) {
+            mesh.geometry.vertices[i].x = originalVertices[i].x * render.getSelectedScene().scaleOptions.options.cubeSpace;
+            mesh.geometry.vertices[i].z = originalVertices[i].z * render.getSelectedScene().scaleOptions.options.cubeSpace;
 
-        //mesh.scale.y = render.getSelectedScene().scaleOptions.options.heightScale;
-        //mesh.position.y = (initialCalculatedPositionY * render.getSelectedScene().scaleOptions.options.heightScale) + marginBottom;
+            mesh.geometry.vertices[i].y = ((originalVertices[i].y - marginBottom) * render.getSelectedScene().scaleOptions.options.heightScale) + marginBottom;
+        }
+
+        mesh.geometry.verticesNeedUpdate = true;
     }
 
     return {
