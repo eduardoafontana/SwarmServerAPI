@@ -39,7 +39,8 @@
     material.opacity = 0.75;
     material.transparent = true;
 
-    //var initialCalculatedPositionZ = mesh.position.z;
+    var initialCalculatedPositionX = mesh.position.x;
+    var initialCalculatedPositionZ = mesh.position.z;
 
     internalAnimate();
 
@@ -49,7 +50,11 @@
         if (render.getSelectedScene() == null)
             return;
 
-        //mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.sessionSpace;
+        mesh.scale.x = render.getSelectedScene().scaleOptions.options.cubeSpace;
+        mesh.position.x = initialCalculatedPositionX * render.getSelectedScene().scaleOptions.options.cubeSpace;
+
+        mesh.scale.z = render.getSelectedScene().scaleOptions.options.sessionSpace;
+        mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.sessionSpace;
     }
 
     return {
