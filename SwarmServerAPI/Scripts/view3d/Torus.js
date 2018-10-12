@@ -14,7 +14,7 @@
     var margin = 0.1;
     var torusSize = radius * 2; //diameter
     var sizeWithMargin = margin + torusSize;
-    var marginBottom = 10;
+    var marginBottom = 0.5;
 
     var heightWithMargin = height + marginBottom;
 

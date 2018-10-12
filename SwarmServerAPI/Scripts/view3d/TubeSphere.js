@@ -4,7 +4,7 @@
     var material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
     var mesh = new THREE.Mesh(geometry, material);
 
-    var marginBottom = 10;
+    var marginBottom = 0.5;
     var height = data.line * 50 / groupAssembler.getMostHighFileLine();
     var heightWithMargin = height + marginBottom;
 

@@ -1,7 +1,7 @@
 ﻿var Tube = function (nodes) {
 
     var vertices = [];
-    var marginBottom = 10;
+    var marginBottom = 0.5;
 
     for (var i = 0; i < nodes.length; i++) {
         var height = nodes[i].line * 50 / groupAssembler.getMostHighFileLine();

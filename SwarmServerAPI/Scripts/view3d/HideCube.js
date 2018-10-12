@@ -16,7 +16,7 @@
     var margin = 0.5;
     var sphereSize = radius * 2; //diameter
     var sizeWithMargin = margin + sphereSize;
-    var marginBottom = 10;
+    var marginBottom = 0.5;
 
     var heightWithMargin = height + marginBottom;
 
