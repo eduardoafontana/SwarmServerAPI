@@ -26,14 +26,7 @@
 
     var initialCalculatedPositionX = mesh.position.x;
     var initialCalculatedPositionZ = mesh.position.z;
-    var initialHeight = height;
-    
-    //mesh.group = files[i].group;
-    //mesh.isSphere = true;
-    //mesh.cubeId = cube.mesh.id;//remover
-    //mesh.canHideRelated = true;//remover
-    //mesh.canHighlightOnMouseOver = true;
-    //mesh.canScaleChange = true;    
+    var initialHeight = height; 
 
     internalAnimate();
 
@@ -44,7 +37,10 @@
             return;
 
         mesh.position.x = initialCalculatedPositionX * render.getSelectedScene().scaleOptions.options.cubeSpace;
-        mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.cubeSpace;
+        //mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.cubeSpace;
+        //TODO: review later
+
+        mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.sessionSpace;
 
         mesh.position.y = (initialHeight * render.getSelectedScene().scaleOptions.options.heightScale) + topMargin + radius + marginBottom;
 

@@ -37,7 +37,10 @@
             return;
 
         mesh.position.x = initialCalculatedPositionX * render.getSelectedScene().scaleOptions.options.cubeSpace;
-        mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.cubeSpace;
+        //mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.cubeSpace;
+        //TODO: review later
+
+        mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.sessionSpace;
 
         mesh.scale.x = render.getSelectedScene().scaleOptions.options.breakpointScale;
         mesh.scale.y = render.getSelectedScene().scaleOptions.options.breakpointScale;

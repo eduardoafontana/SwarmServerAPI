@@ -29,15 +29,6 @@
     var initialCalculatedPositionZ = mesh.position.z;
     var initialHeight = height;
 
-    //square.cubeId = cube.id;
-    //square.group = files[i].group;
-    //square.data = files[i].events[j].data;
-    //square.isTorusSquare = true;
-    //mesh.canOpenDetailBox = true;//remover
-    //mesh.data = data.data;//remover
-    //square.canHighlightOnMouseOver = true;
-    //square.canScaleChange = true;
-
     internalAnimate();
 
     function internalAnimate() {
@@ -47,7 +38,10 @@
             return;
 
         mesh.position.x = initialCalculatedPositionX * render.getSelectedScene().scaleOptions.options.cubeSpace;
-        mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.cubeSpace;
+        //mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.cubeSpace;
+        //TODO: review later
+
+        mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.sessionSpace;
 
         mesh.scale.x = render.getSelectedScene().scaleOptions.options.eventScale;
         mesh.scale.y = render.getSelectedScene().scaleOptions.options.eventScale;

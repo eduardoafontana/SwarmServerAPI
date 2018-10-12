@@ -383,8 +383,8 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Scripts\view3d\Group.js" />
     <Content Include="Scripts\view3d\Tube.js" />
-    <Content Include="Scripts\view3d\GroupA.js" />
     <Content Include="Scripts\view3d\detail-box.js" />
     <Content Include="Scripts\view3d\info-box.js" />
     <Content Include="Scripts\view3d\select-control.js" />

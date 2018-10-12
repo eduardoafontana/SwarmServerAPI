@@ -15,6 +15,18 @@
 
                 users[u].projects[p].sceneId = scene.id;
 
+                var groups = [];
+
+                if (users[u].projects[p].groups != undefined) {
+                    for (var g = 0; g < users[u].projects[p].groups.length; g++) {
+                        groups.push(Group(users[u].projects[p].groups[g], users[u].projects[p].sessions.length, groups[g - 1]));
+                    }
+                }
+
+                for (var g = 0; g < groups.length; g++) {
+                    scene.add(groups[g].mesh);
+                }
+
                 groupAssembler.reset();
 
                 for (var s = 0; s < users[u].projects[p].sessions.length; s++) {
@@ -23,32 +35,31 @@
                     //generate infos x z positions and mostHighFileLine.
                     groupAssembler.mountBySession(files);
 
-                    var group = GroupA(s);
-
                     for (var i = 0; i < files.length; i++) {
+
                         var cube = Cube(files[i]);
-                        group.mesh.add(cube.mesh);
+                        scene.add(cube.mesh);
 
                         var hideCube = HideCube(cube);
-                        group.mesh.add(hideCube.mesh);
+                        scene.add(hideCube.mesh);
                         scene.interceptables.push(hideCube.mesh);
 
                         for (var j = 0; j < files[i].breakpoints.length; j++) {
                             var torus = Torus(cube, files[i].breakpoints[j]);
-                            group.mesh.add(torus.mesh);
+                            scene.add(torus.mesh);
                             scene.interceptables.push(torus.mesh);
                         }
 
                         for (var j = 0; j < files[i].events.length; j++) {
                             var torus = Square(cube, files[i].events[j]);
-                            group.mesh.add(torus.mesh);
+                            scene.add(torus.mesh);
                             scene.interceptables.push(torus.mesh);
                         }
 
                         if (files[i].nodes != undefined) {
                             for (var j = 0; j < files[i].nodes.length; j++) {
                                 var tubesphere = TubeSphere(cube, files[i].nodes[j]);
-                                group.mesh.add(tubesphere.mesh);
+                                scene.add(tubesphere.mesh);
                             }
                         }
                     }
@@ -60,11 +71,11 @@
                         groupAssembler.mountNodesBySession(files, pathnodes);
 
                         var tube = Tube(pathnodes);
-                        group.mesh.add(tube.mesh);
+                        scene.add(tube.mesh);
                     }
-
-                    scene.add(group.mesh);
                 }
+
+
             }
         }
 

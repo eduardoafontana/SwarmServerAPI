@@ -19,7 +19,7 @@
     var adjustToZeroAxisY = ySize / 2
     var margin = 0.5;
     var sizeWithMargin = margin + squareSize;
-    var marginBottom = 10;
+    var marginBottom = 0.5;
 
     mesh.position.y = marginBottom + adjustToZeroAxisY;
     mesh.position.x = sizeWithMargin * data.x;
@@ -38,7 +38,10 @@
             return;
 
         mesh.position.x = initialCalculatedPositionX * render.getSelectedScene().scaleOptions.options.cubeSpace;
-        mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.cubeSpace;
+        //mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.cubeSpace;
+        //TODO: review later
+
+        mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.sessionSpace;
 
         mesh.scale.y = render.getSelectedScene().scaleOptions.options.heightScale;
         mesh.position.y = (initialCalculatedPositionY * render.getSelectedScene().scaleOptions.options.heightScale) + marginBottom;

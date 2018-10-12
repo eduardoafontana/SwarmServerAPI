@@ -32,7 +32,7 @@
 
         for (var i = 0; i < mesh.geometry.vertices.length; i++) {
             mesh.geometry.vertices[i].x = originalVertices[i].x * render.getSelectedScene().scaleOptions.options.cubeSpace;
-            mesh.geometry.vertices[i].z = originalVertices[i].z * render.getSelectedScene().scaleOptions.options.cubeSpace;
+            mesh.geometry.vertices[i].z = originalVertices[i].z * render.getSelectedScene().scaleOptions.options.sessionSpace;
 
             mesh.geometry.vertices[i].y = ((originalVertices[i].y - marginBottom) * render.getSelectedScene().scaleOptions.options.heightScale) + marginBottom;
         }
