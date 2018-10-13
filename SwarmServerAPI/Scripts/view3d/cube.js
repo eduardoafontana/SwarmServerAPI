@@ -48,13 +48,30 @@
         mesh.scale.y = render.getSelectedScene().scaleOptions.options.heightScale;
         mesh.position.y = (initialCalculatedPositionY * render.getSelectedScene().scaleOptions.options.heightScale) + marginBottom;
 
-        geometry.colorsNeedUpdate = true;
+        if (render.wasClicked(mesh)) {
+            var box = document.getElementsByClassName("detail-box")[0];
+
+            box.style.visibility = 'visible';
+
+            var boxMain = box.getElementsByClassName("detail-box-main")[0];
+
+            var line = render.getIntersectedObjectData().point.y * geometry.parameters.heightSegments / (geometry.parameters.height + marginBottom);
+            line = Math.round(line);
+
+            var wrapper = document.createElement('div');
+            wrapper.innerHTML = 'Do a backend request to get the code around line ' + line;
+
+            boxMain.innerHTML = '';
+            boxMain.appendChild(wrapper);
+        }
         
         for (var i = 0; i < geometry.faces.length; i++) {
             geometry.faces[i].color.setHex(originalColor);
         }        
 
         if (render.wasMouseOver(mesh)) {
+            infobox.setHtml('Click to show the line code for this part of the file.');
+
             geometry.faces[render.getIntersectedObjectData().faceIndex].color.setHex(0xff0000);
             //geometry.faces[geometry.faces[render.getIntersectedObjectData().faceIndex].a].color.setHex(0xff0000);
             //geometry.faces[geometry.faces[render.getIntersectedObjectData().faceIndex].b].color.setHex(0xff0000);
@@ -65,10 +82,9 @@
                 geometry.faces[render.getIntersectedObjectData().faceIndex + 1].color.setHex(0xff0000);
             else
                 geometry.faces[render.getIntersectedObjectData().faceIndex - 1].color.setHex(0xff0000);
-
-            //console.log(render.getIntersectedObjectData().faceIndex);
-            //TODO: review later
         }
+
+        geometry.colorsNeedUpdate = true;
     }
 
     return {
