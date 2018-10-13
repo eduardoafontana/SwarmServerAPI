@@ -39,9 +39,9 @@
         if (render.getSelectedScene() == null)
             return;
 
+        mesh.visible = render.getSelectedScene().hideShowOptions.options.file;
+
         mesh.position.x = initialCalculatedPositionX * render.getSelectedScene().scaleOptions.options.cubeSpace;
-        //mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.cubeSpace;
-        //TODO: review later
 
         mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.sessionSpace;
 

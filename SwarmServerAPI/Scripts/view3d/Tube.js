@@ -30,6 +30,8 @@
         if (render.getSelectedScene() == null)
             return;
 
+        mesh.visible = render.getSelectedScene().hideShowOptions.options.pathNode;
+
         for (var i = 0; i < mesh.geometry.vertices.length; i++) {
             mesh.geometry.vertices[i].x = originalVertices[i].x * render.getSelectedScene().scaleOptions.options.cubeSpace;
             mesh.geometry.vertices[i].z = originalVertices[i].z * render.getSelectedScene().scaleOptions.options.sessionSpace;

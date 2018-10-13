@@ -73,6 +73,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
                       "~/Scripts/view3d/info-box.js",
                       "~/Scripts/view3d/data-control.js",
                       "~/Scripts/view3d/scaleOptions.js",
+                      "~/Scripts/view3d/hideShowOptions.js",
                       "~/Scripts/view3d/render.js",
                       "~/Scripts/view3d/groupAssembler.js",
                       "~/Scripts/view3d/Group.js",

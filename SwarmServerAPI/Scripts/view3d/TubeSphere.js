@@ -24,9 +24,10 @@
         if (render.getSelectedScene() == null)
             return;
 
+        mesh.visible = render.getSelectedScene().hideShowOptions.options.pathNodePoints;
+
         mesh.position.x = initialCalculatedPositionX * render.getSelectedScene().scaleOptions.options.cubeSpace;
-        //mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.cubeSpace;
-        //TODO: review later
+
         mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.sessionSpace;
 
         mesh.position.y = (initialHeight * render.getSelectedScene().scaleOptions.options.heightScale) + marginBottom;

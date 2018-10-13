@@ -6,6 +6,7 @@
         infobox.init();
         detailbox.init();
         scaleOptions.init();
+        hideShowOptions.init();
 
         var users = dataControl.getUsers();
 

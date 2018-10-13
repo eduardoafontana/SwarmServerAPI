@@ -130,6 +130,7 @@
 
         scene.interceptables = [];
 
+        //--
         scene.scaleOptions = new dat.GUI({ autoPlace: false });
 
         scene.scaleOptions.options = {
@@ -146,7 +147,25 @@
         scene.scaleOptions.add(scene.scaleOptions.options, 'heightScale', 0.5, 3);
         scene.scaleOptions.add(scene.scaleOptions.options, 'breakpointScale', 0.5, 3);
         scene.scaleOptions.add(scene.scaleOptions.options, 'eventScale', 0.5, 3);
-        //scene.scaleOptions.add(scaleOptions, 'pathScale', 0.03, 0.3).onChange(function () { graph.changeTubeScale(scaleOptions) });
+
+        //--
+        scene.hideShowOptions = new dat.GUI({ autoPlace: false });
+
+        scene.hideShowOptions.options = {
+            file: true,
+            hideFile: true,
+            breakpoint: true,
+            event: true,
+            pathNode: true,
+            pathNodePoints: true,
+        };
+
+        scene.hideShowOptions.add(scene.hideShowOptions.options, 'file');
+        scene.hideShowOptions.add(scene.hideShowOptions.options, 'hideFile');
+        scene.hideShowOptions.add(scene.hideShowOptions.options, 'breakpoint');
+        scene.hideShowOptions.add(scene.hideShowOptions.options, 'event');
+        scene.hideShowOptions.add(scene.hideShowOptions.options, 'pathNode');
+        scene.hideShowOptions.add(scene.hideShowOptions.options, 'pathNodePoints');
 
         sceneArray.push(scene);
 
@@ -159,6 +178,7 @@
                 selectedScene = sceneArray[i];
 
                 scaleOptions.setScaleOption(selectedScene.scaleOptions);
+                hideShowOptions.setHideShowOption(selectedScene.hideShowOptions);
                 break;
             }
         }
@@ -167,6 +187,7 @@
     var setSelectedSceneFirst = function () {
         selectedScene = sceneArray[0];
         scaleOptions.setScaleOption(sceneArray[0].scaleOptions);
+        hideShowOptions.setHideShowOption(sceneArray[0].hideShowOptions);
     };
 
     var getSelectedScene = function () {
