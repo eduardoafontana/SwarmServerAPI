@@ -10,39 +10,31 @@
                 mostHighFileLine = files[i].lines;
         }
 
-        function getGroup(groupId) {
-            for (var j = 0; j < groups.length; j++) {
-                if (groups[j].groupId == groupId)
-                    return groups[j];
+        function getFiles(groupId) {
+            var filesOfGroup = [];
+
+            for (var i = 0; i < files.length; i++) {
+                if (files[i].groupId == groupId)
+                    filesOfGroup.push(files[i]);
             }
 
-            return null;
+            return filesOfGroup;
         }
 
-        var i = 0;
-        var igx = 0;
-        var ig = 1;
-        var groupBefore = null;
-        while (i < files.length) {
-            var group = getGroup(files[i].groupId);
+        var x = 0;
+        for (var g = 0; g < groups.length; g++) {
+            var filesOfGroup = getFiles(groups[g].groupId);
 
-            if (groupBefore == null) {
-                groupBefore = group;
-            } else if (group.groupId != groupBefore.groupId) {
-                if ((ig - 1) != groupBefore.widthQuantity) {
-                    igx = groupBefore.widthQuantity - (ig - 1) + igx;
-                }
+            for (var f = 0; f < filesOfGroup.length; f++) {
+                filesOfGroup[f].x = x;
+                filesOfGroup[f].z = sessionLine;
 
-                groupBefore = group;
-                ig = 1;
+                x++;
             }
 
-            files[i].x = igx;
-            files[i].z = sessionLine;
-
-            i++;
-            igx++;
-            ig++;
+            if (filesOfGroup.length < groups[g].widthQuantity) {
+                x = x + groups[g].widthQuantity - filesOfGroup.length;
+            }
         }
 
         sessionLine = sessionLine + sessionMargin;

@@ -83,8 +83,14 @@
                         { groupId: 1, lines: 35, breakpoints: [], events: [], nodes: [{ line: 1 }] },
                         { groupId: 3, lines: 15, breakpoints: [], events: [], nodes: [{ line: 1 }] },
                     ], pathnodes: []
-                }
-                ],
+                },
+                {
+                    files: [
+                        { groupId: 1, lines: 10, breakpoints: [], events: [], nodes: [{ line: 1 }] },
+                        { groupId: 1, lines: 10, breakpoints: [], events: [], nodes: [{ line: 1 }] },
+                        { groupId: 3, lines: 10, breakpoints: [], events: [], nodes: [{ line: 1 }] },
+                    ], pathnodes: []
+                }],
                 groups: [{ groupId: 0, widthQuantity: 3 }, { groupId: 1, widthQuantity: 4 }, { groupId: 2, widthQuantity: 17 }, { groupId: 3, widthQuantity: 1 }]
             }]
         },
