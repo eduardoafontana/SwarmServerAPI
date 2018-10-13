@@ -127,7 +127,7 @@
                         {
                             files: [
                                 { groupId: 0, lines: 1, breakpoints: [], events: [] },
-                                { groupId: 0, lines: 1, breakpoints: [], events: [] },
+                                { groupId: 0, lines: 10, breakpoints: [], events: [] },
                                 { groupId: 0, lines: 1, breakpoints: [], events: [] },
                                 {
                                     groupId: 0, lines: 120, breakpoints: [], events: [

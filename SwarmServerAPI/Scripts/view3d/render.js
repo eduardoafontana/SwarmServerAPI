@@ -17,6 +17,7 @@
     var clickedObject = null;
     var hasClickedOject = false;
     var overedObject = false;
+    var intersectedObjectData = null;
 
     var initGraph = function () {
         camera = new THREE.PerspectiveCamera(45, getRelativeWidth() / getRelativeHeight(), 1, 500);
@@ -59,9 +60,9 @@
             var intersects = raycaster.intersectObjects(selectedScene.interceptables);
 
             if (intersects.length > 0) {
-                var intersect = intersects[0];
+                intersectedObjectData = intersects[0];
 
-                overedObject = intersect.object;
+                overedObject = intersectedObjectData.object;
             } else {
                 overedObject = null;
                 infobox.canClear();
@@ -168,9 +169,9 @@
         var intersects = raycaster.intersectObjects(selectedScene.interceptables);
 
         if (intersects.length > 0) {
-            var intersect = intersects[0];
+            intersectedObjectData = intersects[0];
 
-            clickedObject = intersect.object;
+            clickedObject = intersectedObjectData.object;
             hasClickedOject = true;
         }
     };
@@ -188,6 +189,10 @@
         return object == overedObject;
     };
 
+    var getIntersectedObjectData = function (object) {
+        return intersectedObjectData;
+    };
+
     return {
         initGraph: initGraph,
         getNewScene: getNewScene,
@@ -200,7 +205,8 @@
         onDocumentMouseMove: onDocumentMouseMove,
         onDocumentMouseDown: onDocumentMouseDown,
         wasClicked: wasClicked,
-        wasMouseOver: wasMouseOver
+        wasMouseOver: wasMouseOver,
+        getIntersectedObjectData: getIntersectedObjectData
     };
 
 }());

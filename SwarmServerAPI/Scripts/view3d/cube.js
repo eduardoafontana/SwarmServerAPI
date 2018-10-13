@@ -9,8 +9,10 @@
     var xSize = squareSize;
     var zSize = squareSize;
 
-    var geometry = new THREE.BoxGeometry(xSize, ySize, zSize);
-    var material = new THREE.MeshBasicMaterial({ color: 0x7e96bc });
+    var originalColor = 0x7e96bc;
+
+    var geometry = new THREE.BoxGeometry(xSize, ySize, zSize, 1, data.lines, 1);
+    var material = new THREE.MeshBasicMaterial({ color: originalColor, vertexColors: THREE.FaceColors });
     var mesh = new THREE.Mesh(geometry, material);
 
     material.opacity = 0.5;
@@ -45,6 +47,28 @@
 
         mesh.scale.y = render.getSelectedScene().scaleOptions.options.heightScale;
         mesh.position.y = (initialCalculatedPositionY * render.getSelectedScene().scaleOptions.options.heightScale) + marginBottom;
+
+        geometry.colorsNeedUpdate = true;
+        
+        for (var i = 0; i < geometry.faces.length; i++) {
+            geometry.faces[i].color.setHex(originalColor);
+        }        
+
+        if (render.wasMouseOver(mesh)) {
+            geometry.faces[render.getIntersectedObjectData().faceIndex].color.setHex(0xff0000);
+            //geometry.faces[geometry.faces[render.getIntersectedObjectData().faceIndex].a].color.setHex(0xff0000);
+            //geometry.faces[geometry.faces[render.getIntersectedObjectData().faceIndex].b].color.setHex(0xff0000);
+            //geometry.faces[geometry.faces[render.getIntersectedObjectData().faceIndex].c].color.setHex(0xff0000);
+            //TODO: review later
+
+            if (render.getIntersectedObjectData().faceIndex % 2 === 0)
+                geometry.faces[render.getIntersectedObjectData().faceIndex + 1].color.setHex(0xff0000);
+            else
+                geometry.faces[render.getIntersectedObjectData().faceIndex - 1].color.setHex(0xff0000);
+
+            //console.log(render.getIntersectedObjectData().faceIndex);
+            //TODO: review later
+        }
     }
 
     return {

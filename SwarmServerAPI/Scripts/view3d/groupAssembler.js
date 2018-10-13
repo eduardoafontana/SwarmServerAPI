@@ -27,7 +27,6 @@
 
             for (var f = 0; f < filesOfGroup.length; f++) {
                 filesOfGroup[f].x = x;
-                console.log(sessionLine);
                 filesOfGroup[f].z = sessionLine;
 
                 x++;

@@ -40,6 +40,7 @@
 
                         var cube = Cube(files[i]);
                         scene.add(cube.mesh);
+                        scene.interceptables.push(cube.mesh);
 
                         var hideCube = HideCube(cube);
                         scene.add(hideCube.mesh);
