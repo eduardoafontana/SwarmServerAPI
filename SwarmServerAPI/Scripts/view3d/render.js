@@ -12,6 +12,7 @@
     var selectedScene = null;
     var camera = null;
     var renderer = null;
+    ////var cssRenderer = null;
     var mouse = null;
     var raycaster = null;
     var clickedObject = null;
@@ -27,10 +28,16 @@
         mouse = new THREE.Vector2();
         raycaster = new THREE.Raycaster();
 
+        ////cssRenderer = new THREE.CSS3DRenderer();
+        ////cssRenderer.setSize(getRelativeWidth(), getRelativeHeight());
+        ////cssRenderer.domElement.style.position = 'absolute';
+        ////cssRenderer.domElement.style.top = 0;
+
         renderer = new THREE.WebGLRenderer();
         renderer.setSize(getRelativeWidth(), getRelativeHeight());
 
         var canvasRenderRelativeSize = document.body.getElementsByClassName("canvasRenderRelativeSize")[0];
+        ////canvasRenderRelativeSize.appendChild(cssRenderer.domElement);
         canvasRenderRelativeSize.appendChild(renderer.domElement);
 
         var orbit = new THREE.OrbitControls(camera, renderer.domElement);
@@ -84,6 +91,43 @@
         var gridHelper = new THREE.GridHelper(100, 10);
         scene.add(gridHelper);
 
+        //--
+        //var loader = new THREE.FontLoader();
+        //loader.load('../Scripts/view3d/fonts/helvetiker_regular.typeface.json', function (font) {
+        //    var textGeometry = new THREE.TextGeometry('Hello Swarm!', {
+        //        font: font,
+        //        size: 2,
+        //        height: 0.01,
+        //        curveSegments: 20,
+        //        bevelEnabled: false
+        //    });
+
+        //    var textMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+
+        //    var text = new THREE.Mesh(textGeometry, textMaterial);
+
+        //    scene.add(text);
+        //});
+
+        ////var material = new THREE.MeshBasicMaterial({ wireframe: true });
+        ////var geometry = new THREE.PlaneGeometry();
+        ////var planeMesh = new THREE.Mesh(geometry, material);
+        ////// add it to the WebGL scene
+        ////scene.add(planeMesh);
+
+        ////var node = document.createTextNode("This is new.");
+        ////var para = document.createElement("p");
+        ////para.appendChild(node);
+    
+        ////var element = document.createElement("div1");
+        ////element.appendChild(para);
+
+        ////var cssObject = new THREE.CSS3DObject(element);
+        ////cssObject.position = planeMesh.position;
+
+        ////scene.add(cssObject);
+        //--
+
         scene.interceptables = [];
 
         scene.scaleOptions = new dat.GUI({ autoPlace: false });
@@ -134,6 +178,7 @@
         camera.updateProjectionMatrix();
 
         renderer.setSize(getRelativeWidth(), getRelativeHeight());
+        ////cssRenderer.setSize(getRelativeWidth(), getRelativeHeight());
     };
 
     var resetCameraPosition = function () {
@@ -181,7 +226,7 @@
             hasClickedOject = false;
             return true;
         }
-   
+
         return false;
     };
 

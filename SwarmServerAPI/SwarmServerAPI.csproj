@@ -375,6 +375,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\three.js\CSS3DRenderer.js" />
     <Content Include="Scripts\three.js\dat.gui.min.js" />
     <Content Include="Scripts\three.js\OrbitControls.js" />
     <Content Include="Scripts\three.js\build\three.min.js" />
