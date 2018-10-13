@@ -31,9 +31,10 @@
 
                 for (var s = 0; s < users[u].projects[p].sessions.length; s++) {
                     var files = users[u].projects[p].sessions[s].files;
+                    var groups = users[u].projects[p].groups;
 
                     //generate infos x z positions and mostHighFileLine.
-                    groupAssembler.mountBySession(files);
+                    groupAssembler.mountBySession(files, groups);
 
                     for (var i = 0; i < files.length; i++) {
 

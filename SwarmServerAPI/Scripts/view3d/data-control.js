@@ -67,6 +67,7 @@
                     files: [
                         { fileId: 'aaa', groupId: 0, lines: 10, breakpoints: [], events: [], nodes: [{ line: 5 }] },
                         { fileId: 'bbb', groupId: 0, lines: 20, breakpoints: [], events: [], nodes: [{ line: 10 }] },
+                        { groupId: 0, lines: 20, breakpoints: [], events: [] },
                         { fileId: 'ccc', groupId: 1, lines: 30, breakpoints: [], events: [], nodes: [{ line: 15 }] },
                         { fileId: 'ddd', groupId: 1, lines: 40, breakpoints: [], events: [], nodes: [{ line: 20 }] },
                     ],
@@ -78,23 +79,27 @@
                         { groupId: 0, lines: 45, breakpoints: [], events: [], nodes: [{ line: 1 }] },
                         { groupId: 1, lines: 56, breakpoints: [], events: [], nodes: [{ line: 1 }] },
                         { groupId: 1, lines: 54, breakpoints: [], events: [], nodes: [{ line: 1 }] },
+                        { groupId: 1, lines: 34, breakpoints: [], events: [], nodes: [{ line: 1 }] },
+                        { groupId: 1, lines: 35, breakpoints: [], events: [], nodes: [{ line: 1 }] },
+                        { groupId: 3, lines: 15, breakpoints: [], events: [], nodes: [{ line: 1 }] },
                     ], pathnodes: []
                 }
                 ],
-                groups: [{ groupId: 0, widthQuantity: 2 }, { groupId: 1, widthQuantity: 2 }, { groupId: 2, widthQuantity: 17 }]
+                groups: [{ groupId: 0, widthQuantity: 3 }, { groupId: 1, widthQuantity: 4 }, { groupId: 2, widthQuantity: 17 }, { groupId: 3, widthQuantity: 1 }]
             }]
         },
         {
             name: 'User XYZ', projects: [{
                 name: 'Project 1 XYZ', sessions: [{
                     files: [{
+                        groupId: 0,
                         lines: 300,
                         breakpoints: [],
                         events: [],
                         nodes: []
                     }],
                     pathnodes: []
-                }]
+                }], groups: []
             }]
         },
         {
@@ -102,23 +107,24 @@
                 {
                     name: 'Project 1 OKS', sessions: [{
                         files: [{
+                            groupId: 0,
                             lines: 120,
                             breakpoints: [],
                             events: [],
                             nodes: []
                         }],
                         pathnodes: []
-                    }]
+                    }], groups: []
                 },
                 {
                     name: 'Project 2 OKS', sessions: [
                         {
                             files: [
-                                { lines: 1, breakpoints: [], events: [] },
-                                { lines: 1, breakpoints: [], events: [] },
-                                { lines: 1, breakpoints: [], events: [] },
+                                { groupId: 0, lines: 1, breakpoints: [], events: [] },
+                                { groupId: 0, lines: 1, breakpoints: [], events: [] },
+                                { groupId: 0, lines: 1, breakpoints: [], events: [] },
                                 {
-                                    lines: 120, breakpoints: [], events: [
+                                    groupId: 0, lines: 120, breakpoints: [], events: [
                                         { line: 100, data: '<h4>título 100</h4><p>100 lines</p><p>event</p>' },
                                         { line: 20, data: '<h4>título 20</h4><p>20 lines</p><p>event</p>' },
                                         { line: 50, data: '<h4>título 50</h4><p>50 lines</p><p>event</p>' },
@@ -126,7 +132,8 @@
                                 },
                             ], pathnodes: []
                         }
-                    ]
+                    ],
+                    groups: [{ groupId: 0, widthQuantity: 4 }]
                 }
             ]
         }

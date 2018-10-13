@@ -4,15 +4,45 @@
     var sessionLine = 0;
     var sessionMargin = 2;
 
-    var mountBySession = function (files) {
+    var mountBySession = function (files, groups) {
         for (var i = 0; i < files.length; i++) {
             if (files[i].lines > mostHighFileLine)
                 mostHighFileLine = files[i].lines;
         }
 
-        for (var i = 0; i < files.length; i++) {
-            files[i].x = i;
+        function getGroup(groupId) {
+            for (var j = 0; j < groups.length; j++) {
+                if (groups[j].groupId == groupId)
+                    return groups[j];
+            }
+
+            return null;
+        }
+
+        var i = 0;
+        var igx = 0;
+        var ig = 1;
+        var groupBefore = null;
+        while (i < files.length) {
+            var group = getGroup(files[i].groupId);
+
+            if (groupBefore == null) {
+                groupBefore = group;
+            } else if (group.groupId != groupBefore.groupId) {
+                if ((ig - 1) != groupBefore.widthQuantity) {
+                    igx = groupBefore.widthQuantity - (ig - 1) + igx;
+                }
+
+                groupBefore = group;
+                ig = 1;
+            }
+
+            files[i].x = igx;
             files[i].z = sessionLine;
+
+            i++;
+            igx++;
+            ig++;
         }
 
         sessionLine = sessionLine + sessionMargin;
