@@ -22,7 +22,7 @@
 
     mesh.position.y = radius + topMargin + heightWithMargin;
     mesh.position.x = sizeWithMargin * cube.data.x;
-    mesh.position.z = sizeWithMargin * cube.data.z;
+    mesh.position.z = sphereSize * cube.data.z;
 
     var initialCalculatedPositionX = mesh.position.x;
     var initialCalculatedPositionZ = mesh.position.z;

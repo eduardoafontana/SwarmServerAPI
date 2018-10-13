@@ -7,7 +7,7 @@
         var height = nodes[i].line * 50 / groupAssembler.getMostHighFileLine();
         var heightWithMargin = height + marginBottom;
 
-        vertices.push(new THREE.Vector3(nodes[i].x * 1.5, heightWithMargin, nodes[i].z * 1.5));
+        vertices.push(new THREE.Vector3(nodes[i].x * 1.5, heightWithMargin, nodes[i].z));
     }
 
     var curve = new THREE.CatmullRomCurve3(vertices, false, 'catmullrom', 0.2);

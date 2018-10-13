@@ -2,7 +2,7 @@
 
     var mostHighFileLine = 0;
     var sessionLine = 0;
-    var sessionMargin = 2;
+    var sessionMargin = 3;
 
     var mountBySession = function (files, groups) {
         for (var i = 0; i < files.length; i++) {
@@ -27,6 +27,7 @@
 
             for (var f = 0; f < filesOfGroup.length; f++) {
                 filesOfGroup[f].x = x;
+                console.log(sessionLine);
                 filesOfGroup[f].z = sessionLine;
 
                 x++;

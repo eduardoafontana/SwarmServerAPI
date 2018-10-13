@@ -76,7 +76,7 @@
                 {
                     files: [
                         { groupId: 0, lines: 40, breakpoints: [], events: [], nodes: [{ line: 1 }] },
-                        { groupId: 0, lines: 45, breakpoints: [], events: [], nodes: [{ line: 1 }] },
+                        { groupId: 0, lines: 45, breakpoints: [{ line: 5, data: '<h4>título 10</h4><p>10 lines</p><p>breakpoint</p>' }], events: [{ line: 5, data: '<h4>título 5</h4><p>5 lines</p><p>event</p>' }], nodes: [{ line: 1 }] },
                         { groupId: 1, lines: 56, breakpoints: [], events: [], nodes: [{ line: 1 }] },
                         { groupId: 1, lines: 54, breakpoints: [], events: [], nodes: [{ line: 1 }] },
                         { groupId: 1, lines: 34, breakpoints: [], events: [], nodes: [{ line: 1 }] },
@@ -86,8 +86,8 @@
                 },
                 {
                     files: [
-                        { groupId: 1, lines: 10, breakpoints: [], events: [], nodes: [{ line: 1 }] },
-                        { groupId: 1, lines: 10, breakpoints: [], events: [], nodes: [{ line: 1 }] },
+                        { groupId: 1, lines: 10, breakpoints: [{ line: 5, data: '<h4>título 10</h4><p>10 lines</p><p>breakpoint</p>' }], events: [], nodes: [{ line: 1 }] },
+                        { groupId: 1, lines: 10, breakpoints: [], events: [{ line: 5, data: '<h4>título 5</h4><p>5 lines</p><p>event</p>' }], nodes: [{ line: 1 }] },
                         { groupId: 3, lines: 10, breakpoints: [], events: [], nodes: [{ line: 1 }] },
                     ], pathnodes: []
                 }],

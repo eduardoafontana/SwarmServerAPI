@@ -10,7 +10,7 @@
 
     mesh.position.x = cube.data.x * 1.5;
     mesh.position.y = heightWithMargin;
-    mesh.position.z = cube.data.z * 1.5;
+    mesh.position.z = cube.data.z;
 
     var initialCalculatedPositionX = mesh.position.x;
     var initialCalculatedPositionZ = mesh.position.z;

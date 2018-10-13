@@ -1,17 +1,14 @@
 ﻿var Group = function (data, sessionsQuantity, groupParent) {
 
-    var sessionMargin = 2;
-
-    var sessionLine = 0;
-    for (var i = 0; i < sessionsQuantity; i++) {
-        sessionLine += sessionMargin;
-    }
+    var sessionMargin = 3;
+    var topBorder = 0.75;
+    var bottomBorder = 0.75;
 
     var cubesMargin = 1.5;
     var rightOver = 0.5;//leftover on right
 
     var width = (data.widthQuantity * cubesMargin) - rightOver;
-    var height = sessionLine + cubesMargin;
+    var height = (sessionMargin * (sessionsQuantity - 1)) + topBorder + bottomBorder;
 
     var geometry = new THREE.PlaneGeometry(width, height, 1);
     var material = new THREE.MeshBasicMaterial({ color: 0x7ebca3, side: THREE.DoubleSide });
@@ -28,7 +25,6 @@
 
     geometry.rotateX(-Math.PI * 0.5);
 
-    var topBorder = 0.75;
     var adjustToZeroAxisZ = height / 2;
     var topPosition = adjustToZeroAxisZ - topBorder;
 

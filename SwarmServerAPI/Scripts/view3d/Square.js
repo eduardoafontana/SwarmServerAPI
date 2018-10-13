@@ -20,7 +20,7 @@
 
     mesh.position.y = heightWithMargin;
     mesh.position.x = sizeWithMargin * cube.data.x;
-    mesh.position.z = sizeWithMargin * cube.data.z;
+    mesh.position.z = cube.data.z;
 
     mesh.rotation.x = 1.6; //flip to horizontal
     mesh.rotation.z = 0.8; //rotate to equal cube node

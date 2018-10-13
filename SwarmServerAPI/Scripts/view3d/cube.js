@@ -23,7 +23,7 @@
 
     mesh.position.y = marginBottom + adjustToZeroAxisY;
     mesh.position.x = sizeWithMargin * data.x;
-    mesh.position.z = sizeWithMargin * data.z;
+    mesh.position.z = zSize * data.z;
 
     var initialCalculatedPositionX = mesh.position.x;
     var initialCalculatedPositionZ = mesh.position.z;
