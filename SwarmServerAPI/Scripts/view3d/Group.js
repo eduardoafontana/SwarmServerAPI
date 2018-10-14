@@ -46,6 +46,8 @@
         if (render.getSelectedScene() == null)
             return;
 
+        mesh.visible = render.getSelectedScene().hideShowOptions.options.architecture;
+
         mesh.scale.x = render.getSelectedScene().scaleOptions.options.cubeSpace;
         mesh.position.x = initialCalculatedPositionX * render.getSelectedScene().scaleOptions.options.cubeSpace;
 

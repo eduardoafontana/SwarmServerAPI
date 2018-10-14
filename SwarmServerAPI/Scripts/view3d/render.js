@@ -118,7 +118,7 @@
         ////var node = document.createTextNode("This is new.");
         ////var para = document.createElement("p");
         ////para.appendChild(node);
-    
+
         ////var element = document.createElement("div1");
         ////element.appendChild(para);
 
@@ -158,6 +158,7 @@
             event: true,
             pathNode: true,
             pathNodePoints: true,
+            architecture: true,
         };
 
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'file');
@@ -166,6 +167,7 @@
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'event');
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'pathNode');
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'pathNodePoints');
+        scene.hideShowOptions.add(scene.hideShowOptions.options, 'architecture');
 
         sceneArray.push(scene);
 
