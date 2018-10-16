@@ -12,7 +12,7 @@
 
     var curve = new THREE.CatmullRomCurve3(vertices, false, 'catmullrom', 0.2);
     var geometry = new THREE.TubeGeometry(curve, 100, 0.1, 20, false);
-    var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    var material = new THREE.MeshBasicMaterial({ color: 0x999158 });
     var mesh = new THREE.Mesh(geometry, material);
 
     var originalVertices = [];

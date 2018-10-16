@@ -3,6 +3,214 @@
     var users = [
         {
             name: 'User ABC', projects: [{
+                name: 'Day 17-10 presentation', sessions: [{
+                    files: [{
+                        fileId: '1',
+                        groupId: 1,
+                        lines: 10,
+                        breakpoints: [{
+                            line: 5, data: 'dados html'
+                        }],
+                        events: [{ line: 7, data: 'dados html' }],
+                        nodes: [{ line: 5 }]
+                    },
+                    {
+                        fileId: '2',
+                        groupId: 1,
+                        lines: 20,
+                        breakpoints: [{
+                            line: 10, data: 'dados html'
+                        }],
+                        events: [{ line: 12, data: 'dados html' }],
+                        nodes: [{ line: 10 }]
+                    },
+                    {
+                        fileId: '3',
+                        groupId: 1,
+                        lines: 30,
+                        breakpoints: [{
+                            line: 15, data: 'dados html'
+                        }],
+                        events: [{ line: 17, data: 'dados html' }],
+                        nodes: [{ line: 15 }]
+                    },
+                    {
+                        fileId: '4',
+                        groupId: 2,
+                        lines: 40,
+                        breakpoints: [{
+                            line: 20, data: 'dados html'
+                        }],
+                        events: [{ line: 22, data: 'dados html' }],
+                        nodes: [{ line: 20 }]
+                    },
+                    {
+                        fileId: '5',
+                        groupId: 3,
+                        lines: 50,
+                        breakpoints: [{
+                            line: 25, data: 'dados html'
+                        }],
+                        events: [{ line: 27, data: 'dados html' }],
+                        nodes: [{ line: 25 }]
+                    },
+                    {
+                        fileId: '6',
+                        groupId: 3,
+                        lines: 60,
+                        breakpoints: [{
+                            line: 30, data: 'dados html'
+                        }],
+                        events: [{ line: 32, data: 'dados html' }],
+                        nodes: [{ line: 30 }]
+                    }],
+                    pathnodes: [{ fileId: '1', line: 5 }, { fileId: '2', line: 10 }, { fileId: '3', line: 15 }, { fileId: '4', line: 20 }, { fileId: '5', line: 25 }, { fileId: '6', line: 30 }]
+                },
+                {
+                    files: [{
+                        fileId: '10',
+                        groupId: 1,
+                        lines: 10,
+                        breakpoints: [{
+                            line: 5, data: 'dados html'
+                        }],
+                        events: [{ line: 7, data: 'dados html' }],
+                        nodes: [{ line: 5 }]
+                    },
+                    {
+                        fileId: '20',
+                        groupId: 1,
+                        lines: 20,
+                        breakpoints: [{
+                            line: 10, data: 'dados html'
+                        }],
+                        events: [{ line: 12, data: 'dados html' }],
+                        nodes: [{ line: 10 }]
+                    },
+                    {
+                        fileId: '50',
+                        groupId: 3,
+                        lines: 50,
+                        breakpoints: [{
+                            line: 25, data: 'dados html'
+                        }],
+                        events: [{ line: 27, data: 'dados html' }],
+                        nodes: [{ line: 25 }]
+                    },
+                    {
+                        fileId: '60',
+                        groupId: 3,
+                        lines: 60,
+                        breakpoints: [{
+                            line: 30, data: 'dados html'
+                        }],
+                        events: [{ line: 32, data: 'dados html' }],
+                        nodes: [{ line: 30 }]
+                    },
+                    {
+                        fileId: '70',
+                        groupId: 3,
+                        lines: 70,
+                        breakpoints: [{
+                            line: 35, data: 'dados html'
+                        }],
+                        events: [{ line: 37, data: 'dados html' }],
+                        nodes: [{ line: 35 }]
+                    }],
+                    pathnodes: [{ fileId: '10', line: 5 }, { fileId: '20', line: 10 }, { fileId: '50', line: 25 }, { fileId: '60', line: 30 }, { fileId: '70', line: 35 }]
+                },
+                {
+                    files: [{
+                        fileId: '100',
+                        groupId: 1,
+                        lines: 10,
+                        breakpoints: [{
+                            line: 5, data: 'dados html'
+                        }],
+                        events: [{ line: 7, data: 'dados html' }],
+                        nodes: [{ line: 5 }]
+                    }],
+                    pathnodes: []
+                },
+                {
+                    files: [{
+                        fileId: '5001',
+                        groupId: 3,
+                        lines: 50,
+                        breakpoints: [{
+                            line: 25, data: 'dados html'
+                        }],
+                        events: [{ line: 27, data: 'dados html' }],
+                        nodes: [{ line: 25 }]
+                    },
+                    {
+                        fileId: '6001',
+                        groupId: 3,
+                        lines: 60,
+                        breakpoints: [{
+                            line: 30, data: 'dados html'
+                        }],
+                        events: [{ line: 32, data: 'dados html' }],
+                        nodes: [{ line: 30 }]
+                    },
+                    {
+                        fileId: '7001',
+                        groupId: 3,
+                        lines: 70,
+                        breakpoints: [{
+                            line: 35, data: 'dados html'
+                        }],
+                        events: [{ line: 37, data: 'dados html' }],
+                        nodes: [{ line: 35 }]
+                    }],
+                    pathnodes: [{ fileId: '5001', line: 25 }, { fileId: '6001', line: 30 }, { fileId: '7001', line: 35 }]
+                },
+                {
+                    files: [{
+                        fileId: '1000',
+                        groupId: 1,
+                        lines: 10,
+                        breakpoints: [{
+                            line: 5, data: 'dados html'
+                        }],
+                        events: [{ line: 7, data: 'dados html' }],
+                        nodes: [{ line: 5 }]
+                    },
+                    {
+                        fileId: '2000',
+                        groupId: 1,
+                        lines: 20,
+                        breakpoints: [{
+                            line: 10, data: 'dados html'
+                        }],
+                        events: [{ line: 12, data: 'dados html' }],
+                        nodes: [{ line: 10 }]
+                    },
+                    {
+                        fileId: '4000',
+                        groupId: 2,
+                        lines: 40,
+                        breakpoints: [{
+                            line: 20, data: 'dados html'
+                        }],
+                        events: [{ line: 22, data: 'dados html' }],
+                        nodes: [{ line: 20 }]
+                    },
+                    {
+                        fileId: '5000',
+                        groupId: 2,
+                        lines: 50,
+                        breakpoints: [{
+                            line: 25, data: 'dados html'
+                        }],
+                        events: [{ line: 27, data: 'dados html' }],
+                        nodes: [{ line: 25 }]
+                    }],
+                    pathnodes: [{ fileId: '1000', line: 5 }, { fileId: '2000', line: 10 }, { fileId: '4000', line: 20 }, { fileId: '5000', line: 25 }]
+                }],
+                groups: [{ groupId: 1, widthQuantity: 3 }, { groupId: 2, widthQuantity: 2 }, { groupId: 3, widthQuantity: 3 }]
+            },
+            {
                 name: 'Project 1 ABC', sessions: [{
                     files: [
                         { groupId: 0, lines: 150, breakpoints: [{ line: 10, data: '<h4>título 10</h4><p>10 lines</p><p>breakpoint</p>' }], events: [] },

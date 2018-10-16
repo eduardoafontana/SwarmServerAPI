@@ -28,6 +28,7 @@
         mouse = new THREE.Vector2();
         raycaster = new THREE.Raycaster();
 
+        ////TODO: review later
         ////cssRenderer = new THREE.CSS3DRenderer();
         ////cssRenderer.setSize(getRelativeWidth(), getRelativeHeight());
         ////cssRenderer.domElement.style.position = 'absolute';
@@ -109,6 +110,7 @@
         //    scene.add(text);
         //});
 
+        ////TODO: review later
         ////var material = new THREE.MeshBasicMaterial({ wireframe: true });
         ////var geometry = new THREE.PlaneGeometry();
         ////var planeMesh = new THREE.Mesh(geometry, material);
@@ -153,7 +155,7 @@
 
         scene.hideShowOptions.options = {
             file: true,
-            hideFile: true,
+            hideFile: false,
             breakpoint: true,
             event: true,
             pathNode: true,
