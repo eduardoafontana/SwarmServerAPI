@@ -211,6 +211,246 @@
                 groups: [{ groupId: 1, widthQuantity: 3 }, { groupId: 2, widthQuantity: 2 }, { groupId: 3, widthQuantity: 3 }]
             },
             {
+                name: 'Day 17-10 presentation 2',
+                sessions: [
+                    {
+                        files: [
+                            {
+                                fileId: '1',
+                                groupId: 1,
+                                lines: 308,
+                                breakpoints: [],
+                                events: [],
+                                nodes: [
+                                    { line: 35 }, { line: 36 }
+                                ]
+                            },
+                            {
+                                fileId: '2',
+                                groupId: 2,
+                                lines: 201,
+                                breakpoints: [],
+                                events: [],
+                                nodes: [
+                                    { line: 137 },
+                                    { line: 135 },
+                                    { line: 133 },
+                                    { line: 128 },
+                                    { line: 122 }
+                                ]
+                            },
+                            {
+                                fileId: '3',
+                                groupId: 2,
+                                lines: 275,
+                                breakpoints: [],
+                                events: [],
+                                nodes: [
+                                    { line: 215 },
+                                    { line: 47 },
+                                    { line: 216 }
+                                ]
+                            },
+                            {
+                                fileId: '4',
+                                groupId: 2,
+                                lines: 268,
+                                breakpoints: [],
+                                events: [],
+                                nodes: [
+                                    { line: 210 },
+                                    { line: 152 },
+                                    { line: 120 }
+                                ]
+                            },
+                            {
+                                fileId: '5',
+                                groupId: 3,
+                                lines: 509,
+                                breakpoints: [],
+                                events: [],
+                                nodes: [
+                                    { line: 205 },
+                                    { line: 206 }
+                                ]
+                            },
+                            {
+                                fileId: '6',
+                                groupId: 4,
+                                lines: 150,
+                                breakpoints: [],
+                                events: [],
+                                nodes: [
+                                    {
+                                        line: 103
+                                    },
+                                    { line: 104 }
+                                ]
+                            },
+                            {
+                                fileId: '7',
+                                groupId: 4,
+                                lines: 150,
+                                breakpoints: [],
+                                events: [],
+                                nodes: [
+                                    {
+                                        line: 103
+                                    },
+                                    { line: 104 }
+                                ]
+                            },
+                            {
+                                fileId: '8',
+                                groupId: 4,
+                                lines: 150,
+                                breakpoints: [],
+                                events: [],
+                                nodes: [
+                                    {
+                                        line: 103
+                                    },
+                                    { line: 104 }
+                                ]
+                            },
+                            {
+                                fileId: '9',
+                                groupId: 5,
+                                lines: 340,
+                                breakpoints: [],
+                                events: [],
+                                nodes: [
+                                    {
+                                        line: 110
+                                    },
+                                    { line: 115 }
+                                ]
+                            }
+                        ],
+                        pathnodes: [
+                            {
+                                fileId: '1',
+                                line: 35
+                            },
+                            {
+                                fileId: '2',
+                                line: 137
+                            },
+                            {
+                                fileId: '2',
+                                line: 133
+                            },
+                            {
+                                fileId: '2',
+                                line: 125
+                            },
+                            {
+                                fileId: '2',
+                                line: 135
+                            },
+                            {
+                                fileId: '2',
+                                line: 128
+                            },
+                            {
+                                fileId: '3',
+                                line: 47
+                            },
+                            {
+                                fileId: '3',
+                                line: 215
+                            },
+                            {
+                                fileId: '4',
+                                line: 210
+                            },
+                            {
+                                fileId: '4',
+                                line: 152
+                            },
+                            {
+                                fileId: '5',
+                                line: 205
+                            },
+                            {
+                                fileId: '6',
+                                line: 103
+                            },
+                            {
+                                fileId: '7',
+                                line: 103
+                            },
+                            {
+                                fileId: '8',
+                                line: 103
+                            },
+                            {
+                                fileId: '9',
+                                line: 110
+                            },
+                            {
+                                fileId: '9',
+                                line: 115
+                            },
+                            {
+                                fileId: '8',
+                                line: 104
+                            },
+                            {
+                                fileId: '7',
+                                line: 104
+                            },
+                            {
+                                fileId: '6',
+                                line: 104
+                            },
+                            {
+                                fileId: '5',
+                                line: 206
+                            },
+                            {
+                                fileId: '4',
+                                line: 120
+                            },
+                            {
+                                fileId: '3',
+                                line: 116
+                            },
+                            {
+                                fileId: '2',
+                                line: 122
+                            },
+                            {
+                                fileId: '1',
+                                line: 36
+                            }
+                        ]
+                    }
+                ],
+                groups: [
+                    {
+                        groupId: 1,
+                        widthQuantity: 1
+                    },
+                    {
+                        groupId: 2,
+                        widthQuantity: 3
+                    },
+                    {
+                        groupId: 3,
+                        widthQuantity: 1
+                    },
+                    {
+                        groupId: 4,
+                        widthQuantity: 3
+                    },
+                    {
+                        groupId: 5,
+                        widthQuantity: 1
+                    }
+                ]
+            },
+            {
                 name: 'Project 1 ABC', sessions: [{
                     files: [
                         { groupId: 0, lines: 150, breakpoints: [{ line: 10, data: '<h4>título 10</h4><p>10 lines</p><p>breakpoint</p>' }], events: [] },
