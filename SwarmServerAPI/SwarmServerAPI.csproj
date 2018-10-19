@@ -384,6 +384,23 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Scripts\view3d2\Cube.js" />
+    <Content Include="Scripts\view3d2\data-control.js" />
+    <Content Include="Scripts\view3d2\detail-box.js" />
+    <Content Include="Scripts\view3d2\Group.js" />
+    <Content Include="Scripts\view3d2\groupAssembler.js" />
+    <Content Include="Scripts\view3d2\HideCube.js" />
+    <Content Include="Scripts\view3d2\hideShowOptions.js" />
+    <Content Include="Scripts\view3d2\info-box.js" />
+    <Content Include="Scripts\view3d2\render.js" />
+    <Content Include="Scripts\view3d2\scaleOptions.js" />
+    <Content Include="Scripts\view3d2\select-control.js" />
+    <Content Include="Scripts\view3d2\Square.js" />
+    <Content Include="Scripts\view3d2\Torus.js" />
+    <Content Include="Scripts\view3d2\Tube.js" />
+    <Content Include="Scripts\view3d2\TubeSphere.js" />
+    <Content Include="Scripts\view3d2\user-data.js" />
+    <Content Include="Scripts\view3d2\View3d.js" />
     <Content Include="Scripts\view3d\Group.js" />
     <Content Include="Scripts\view3d\hideShowOptions.js" />
     <Content Include="Scripts\view3d\Tube.js" />
@@ -436,6 +453,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Visualization\Prototype.cshtml" />
     <Content Include="Views\Visualization\View3d.cshtml" />
+    <Content Include="Views\Visualization\View3d2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

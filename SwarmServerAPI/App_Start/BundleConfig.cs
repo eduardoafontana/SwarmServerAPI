@@ -86,6 +86,24 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
                       "~/Scripts/view3d/select-control.js",
                       "~/Scripts/view3d/View3d.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/view3d2").Include(
+                      "~/Scripts/view3d2/detail-box.js",
+                      "~/Scripts/view3d2/info-box.js",
+                      "~/Scripts/view3d2/data-control.js",
+                      "~/Scripts/view3d2/scaleOptions.js",
+                      "~/Scripts/view3d2/hideShowOptions.js",
+                      "~/Scripts/view3d2/render.js",
+                      "~/Scripts/view3d2/groupAssembler.js",
+                      "~/Scripts/view3d2/Group.js",
+                      "~/Scripts/view3d2/Cube.js",
+                      "~/Scripts/view3d2/HideCube.js",
+                      "~/Scripts/view3d2/Torus.js",
+                      "~/Scripts/view3d2/Square.js",
+                      "~/Scripts/view3d2/TubeSphere.js",
+                      "~/Scripts/view3d2/Tube.js",
+                      "~/Scripts/view3d2/select-control.js",
+                      "~/Scripts/view3d2/View3d.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
