@@ -6,8 +6,9 @@
 
     var cubesMargin = 1.5;
     var rightOver = 0.5;//leftover on right
+    var widthQuantity = data.maxIndexWidthQuantity + 1;
 
-    var width = (data.widthQuantity * cubesMargin) - rightOver;
+    var width = (widthQuantity * cubesMargin) - rightOver;
     var height = (sessionMargin * (sessionsQuantity - 1)) + topBorder + bottomBorder;
 
     var geometry = new THREE.PlaneGeometry(width, height, 1);

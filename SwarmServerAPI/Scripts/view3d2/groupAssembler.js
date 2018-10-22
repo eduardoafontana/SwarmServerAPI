@@ -21,20 +21,16 @@
             return filesOfGroup;
         }
 
-        var x = 0;
+        var xStartGroup = 0;
         for (var g = 0; g < groups.length; g++) {
             var filesOfGroup = getFiles(groups[g].groupId);
 
             for (var f = 0; f < filesOfGroup.length; f++) {
-                filesOfGroup[f].x = x;
+                filesOfGroup[f].x = xStartGroup + filesOfGroup[f].groupIndex;
                 filesOfGroup[f].z = sessionLine;
-
-                x++;
             }
 
-            if (filesOfGroup.length < groups[g].widthQuantity) {
-                x = x + groups[g].widthQuantity - filesOfGroup.length;
-            }
+            xStartGroup = xStartGroup + groups[g].maxIndexWidthQuantity + 1;
         }
 
         sessionLine = sessionLine + sessionMargin;
