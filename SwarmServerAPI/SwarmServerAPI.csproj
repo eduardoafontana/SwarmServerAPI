@@ -389,6 +389,7 @@
     <Content Include="Scripts\view3d2\detail-box.js" />
     <Content Include="Scripts\view3d2\Group.js" />
     <Content Include="Scripts\view3d2\groupAssembler.js" />
+    <Content Include="Scripts\view3d2\TitleCube.js" />
     <Content Include="Scripts\view3d2\HideCube.js" />
     <Content Include="Scripts\view3d2\hideShowOptions.js" />
     <Content Include="Scripts\view3d2\info-box.js" />
@@ -454,6 +455,7 @@
     <Content Include="Views\Visualization\Prototype.cshtml" />
     <Content Include="Views\Visualization\View3d.cshtml" />
     <Content Include="Views\Visualization\View3d2.cshtml" />
+    <Content Include="Scripts\view3d2\fonts\helvetiker_regular.typeface.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

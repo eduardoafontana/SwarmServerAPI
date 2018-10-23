@@ -19,6 +19,7 @@
     var hasClickedOject = false;
     var overedObject = false;
     var intersectedObjectData = null;
+    var font = null;
 
     var initGraph = function () {
         camera = new THREE.PerspectiveCamera(45, getRelativeWidth() / getRelativeHeight(), 1, 500);
@@ -93,23 +94,6 @@
         scene.add(gridHelper);
 
         //--
-        //var loader = new THREE.FontLoader();
-        //loader.load('../Scripts/view3d/fonts/helvetiker_regular.typeface.json', function (font) {
-        //    var textGeometry = new THREE.TextGeometry('Hello Swarm!', {
-        //        font: font,
-        //        size: 2,
-        //        height: 0.01,
-        //        curveSegments: 20,
-        //        bevelEnabled: false
-        //    });
-
-        //    var textMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
-
-        //    var text = new THREE.Mesh(textGeometry, textMaterial);
-
-        //    scene.add(text);
-        //});
-
         ////TODO: review later
         ////var material = new THREE.MeshBasicMaterial({ wireframe: true });
         ////var geometry = new THREE.PlaneGeometry();
@@ -263,6 +247,14 @@
         return intersectedObjectData;
     };
 
+    var getFont = function () {
+        return font;
+    };
+
+    var setFont = function (pFont) {
+        font = pFont;
+    };
+
     return {
         initGraph: initGraph,
         getNewScene: getNewScene,
@@ -276,7 +268,9 @@
         onDocumentMouseDown: onDocumentMouseDown,
         wasClicked: wasClicked,
         wasMouseOver: wasMouseOver,
-        getIntersectedObjectData: getIntersectedObjectData
+        getIntersectedObjectData: getIntersectedObjectData,
+        getFont: getFont,
+        setFont: setFont
     };
 
 }());

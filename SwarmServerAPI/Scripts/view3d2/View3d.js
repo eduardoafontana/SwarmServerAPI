@@ -47,6 +47,12 @@
                         scene.add(hideCube.mesh);
                         scene.interceptables.push(hideCube.mesh);
 
+                        //var titleCube = TitleCube(cube);
+                        //scene.add(titleCube.mesh);
+                        TitleCube({ scene, cube }).then((titleCube) => {
+                            titleCube.scene.add(titleCube.mesh);
+                        });
+
                         for (var j = 0; j < files[i].breakpoints.length; j++) {
                             var torus = Torus(cube, files[i].breakpoints[j]);
                             scene.add(torus.mesh);
