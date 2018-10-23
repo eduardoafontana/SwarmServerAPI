@@ -121,6 +121,7 @@
 
         scene.scaleOptions.options = {
             cubeSpace: 1,
+            titleScale: 1,
             sessionSpace: 1,
             heightScale: 1,
             breakpointScale: 1,
@@ -129,6 +130,7 @@
         };
 
         scene.scaleOptions.add(scene.scaleOptions.options, 'cubeSpace', 1, 5);
+        scene.scaleOptions.add(scene.scaleOptions.options, 'titleScale', 0.5, 5);
         scene.scaleOptions.add(scene.scaleOptions.options, 'sessionSpace', 1, 5);
         scene.scaleOptions.add(scene.scaleOptions.options, 'heightScale', 0.5, 3);
         scene.scaleOptions.add(scene.scaleOptions.options, 'breakpointScale', 0.5, 3);
@@ -139,6 +141,7 @@
 
         scene.hideShowOptions.options = {
             file: true,
+            title: true,
             hideFile: false,
             breakpoint: true,
             event: true,
@@ -148,6 +151,7 @@
         };
 
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'file');
+        scene.hideShowOptions.add(scene.hideShowOptions.options, 'title');
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'hideFile');
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'breakpoint');
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'event');

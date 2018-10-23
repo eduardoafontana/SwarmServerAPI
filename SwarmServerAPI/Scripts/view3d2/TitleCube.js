@@ -53,11 +53,16 @@
             if (render.getSelectedScene() == null)
                 return;
 
+            mesh.visible = render.getSelectedScene().hideShowOptions.options.title;
+
             mesh.position.x = (initialCalculatedPositionX * render.getSelectedScene().scaleOptions.options.cubeSpace) - sizeWidthHalf;
 
             mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.sessionSpace;
 
             mesh.position.y = (initialHeight * render.getSelectedScene().scaleOptions.options.heightScale) + topMargin + marginBottom;
+
+            var newScale = render.getSelectedScene().scaleOptions.options.titleScale;
+            mesh.scale.set(newScale, newScale, newScale);
         }
 
         resTitleCube({
