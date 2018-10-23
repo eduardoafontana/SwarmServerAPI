@@ -35,12 +35,13 @@
 
         var sizeWidth = box.getSize(center).x;
         var sizeWidthHalf = sizeWidth / 2;
+        var initialPositionX = cube.data.x * margin;
 
         mesh.position.y = topMargin + heightWithMargin;
-        mesh.position.x = (cube.data.x * margin) - sizeWidthHalf;
+        mesh.position.x = initialPositionX - sizeWidthHalf;
         mesh.position.z = cube.data.z;
 
-        var initialCalculatedPositionX = mesh.position.x;
+        var initialCalculatedPositionX = initialPositionX;
         var initialCalculatedPositionZ = mesh.position.z;
         var initialHeight = height;
 
@@ -52,11 +53,11 @@
             if (render.getSelectedScene() == null)
                 return;
 
-            //mesh.position.x = initialCalculatedPositionX * render.getSelectedScene().scaleOptions.options.cubeSpace;
+            mesh.position.x = (initialCalculatedPositionX * render.getSelectedScene().scaleOptions.options.cubeSpace) - sizeWidthHalf;
 
-            //mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.sessionSpace;
+            mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.sessionSpace;
 
-            //mesh.position.y = (initialHeight * render.getSelectedScene().scaleOptions.options.heightScale) + topMargin + marginBottom;
+            mesh.position.y = (initialHeight * render.getSelectedScene().scaleOptions.options.heightScale) + topMargin + marginBottom;
         }
 
         resTitleCube({
