@@ -12,7 +12,7 @@
     var height = (sessionMargin * (sessionsQuantity - 1)) + topBorder + bottomBorder;
 
     var geometry = new THREE.PlaneGeometry(width, height, 1);
-    var material = new THREE.MeshBasicMaterial({ color: 0x7ebca3, side: THREE.DoubleSide });
+    var material = new THREE.MeshBasicMaterial({ color: 0x404040, side: THREE.DoubleSide });
     var mesh = new THREE.Mesh(geometry, material);
 
     var leftBorder = 0.5;

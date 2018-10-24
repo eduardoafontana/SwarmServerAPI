@@ -1,7 +1,7 @@
 ﻿var TubeSphere = function (cube, data) {
 
     var geometry = new THREE.SphereGeometry(0.2, 20, 20);
-    var material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+    var material = new THREE.MeshBasicMaterial({ color: 0x404040 });
     var mesh = new THREE.Mesh(geometry, material);
 
     var marginBottom = 0.5;

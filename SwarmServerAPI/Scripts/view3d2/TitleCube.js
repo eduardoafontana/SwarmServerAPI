@@ -12,7 +12,7 @@
         var parameters = {
             font: font,
             size: 0.3,
-            height: 0.01,
+            height: 0.001,
             curveSegments: 20,
             bevelEnabled: false
         };
@@ -23,8 +23,14 @@
             text = cube.data.fileName;
 
         var geometry = new THREE.TextGeometry(text, parameters);
-        var material = new THREE.MeshBasicMaterial({ color: 0xffffff });
+
+        //var edges = new THREE.EdgesGeometry(geometry);
+        //var line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 10 }));
+
+        var material = new THREE.MeshBasicMaterial({ color: 0x000000 });
         var mesh = new THREE.Mesh(geometry, material);
+
+        //mesh.add(line);
 
         var height = cube.mesh.geometry.parameters.height;
         var marginBottom = 0.5;

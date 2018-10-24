@@ -9,7 +9,10 @@
     var xSize = squareSize;
     var zSize = squareSize;
 
-    var originalColor = 0x7e96bc;
+    var originalColor = 0xb0aeae;
+
+    if (data.z % 2 != 0)
+        originalColor = 0xdddddd;
 
     var geometry = new THREE.BoxGeometry(xSize, ySize, zSize, 1, data.lines, 1);
     var material = new THREE.MeshBasicMaterial({ color: originalColor, vertexColors: THREE.FaceColors });

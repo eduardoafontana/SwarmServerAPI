@@ -204,13 +204,6 @@
     padding: 0 4px 0 5px;
 }
 
-    .tool-box div.main li:hover {
-        font-size: unset;
-        cursor: unset;
-        background-color: unset;
-        border-radius: unset;
-    }
-
     .tool-box div.main li input {
         line-height: 15px;
     }
