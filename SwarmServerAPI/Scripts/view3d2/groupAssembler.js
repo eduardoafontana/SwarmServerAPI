@@ -5,11 +5,6 @@
     var sessionMargin = 3;
 
     var mountBySession = function (files, groups) {
-        for (var i = 0; i < files.length; i++) {
-            if (files[i].lines > mostHighFileLine)
-                mostHighFileLine = files[i].lines;
-        }
-
         function getFiles(groupId) {
             var filesOfGroup = [];
 
@@ -57,6 +52,17 @@
         }
     };
 
+    var mountMostHighFileLine = function (sessions) {
+        for (var s = 0; s < sessions.length; s++) {
+            var files = sessions[s].files;
+
+            for (var i = 0; i < files.length; i++) {
+                if (files[i].lines > mostHighFileLine)
+                    mostHighFileLine = files[i].lines;
+            }
+        }
+    };
+
     var getMostHighFileLine = function () {
         return mostHighFileLine;
     };
@@ -68,6 +74,7 @@
 
     return {
         getMostHighFileLine: getMostHighFileLine,
+        mountMostHighFileLine: mountMostHighFileLine,
         mountBySession: mountBySession,
         mountNodesBySession: mountNodesBySession,
         reset: reset

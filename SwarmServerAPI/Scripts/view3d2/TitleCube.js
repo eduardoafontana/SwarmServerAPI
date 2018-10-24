@@ -17,7 +17,10 @@
             bevelEnabled: false
         };
 
-        var text = 'filexx.cs' + cube.data.x + cube.data.z;
+        var text = '';
+
+        if (cube.data.fileName != undefined)
+            text = cube.data.fileName;
 
         var geometry = new THREE.TextGeometry(text, parameters);
         var material = new THREE.MeshBasicMaterial({ color: 0xffffff });

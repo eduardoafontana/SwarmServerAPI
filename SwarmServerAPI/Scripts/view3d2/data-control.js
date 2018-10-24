@@ -6,6 +6,7 @@
                 name: 'Day 17-10 presentation', sessions: [{
                     files: [{
                         fileId: '1',
+                        fileName: 'file1.cs',
                         groupId: 1,
                         groupIndex: 0,
                         lines: 10,
@@ -17,6 +18,7 @@
                     },
                     {
                         fileId: '2',
+                        fileName: 'file2.cs',
                         groupId: 1,
                         groupIndex: 1,
                         lines: 20,
@@ -28,8 +30,9 @@
                     },
                     {
                         fileId: '3',
+                        fileName: 'file3.cs',
                         groupId: 1,
-                        groupIndex: 3,
+                        groupIndex: 2,
                         lines: 30,
                         breakpoints: [{
                             line: 15, data: 'dados html'
@@ -39,6 +42,7 @@
                     },
                     {
                         fileId: '4',
+                        fileName: 'file4.cs',
                         groupId: 2,
                         groupIndex: 0,
                         lines: 40,
@@ -50,8 +54,9 @@
                     },
                     {
                         fileId: '5',
-                        groupId: 3,
-                        groupIndex: 0,
+                        fileName: 'file5.cs',
+                        groupId: 2,
+                        groupIndex: 1,
                         lines: 50,
                         breakpoints: [{
                             line: 25, data: 'dados html'
@@ -61,8 +66,9 @@
                     },
                     {
                         fileId: '6',
+                        fileName: 'file6.cs',
                         groupId: 3,
-                        groupIndex: 1,
+                        groupIndex: 0,
                         lines: 60,
                         breakpoints: [{
                             line: 30, data: 'dados html'
@@ -75,6 +81,7 @@
                 {
                     files: [{
                         fileId: '10',
+                        fileName: 'file1.cs',
                         groupId: 1,
                         groupIndex: 0,
                         lines: 10,
@@ -86,6 +93,7 @@
                     },
                     {
                         fileId: '20',
+                        fileName: 'file2.cs',
                         groupId: 1,
                         groupIndex: 1,
                         lines: 20,
@@ -97,8 +105,9 @@
                     },
                     {
                         fileId: '50',
-                        groupId: 3,
-                        groupIndex: 0,
+                        fileName: 'file5.cs',
+                        groupId: 2,
+                        groupIndex: 1,
                         lines: 50,
                         breakpoints: [{
                             line: 25, data: 'dados html'
@@ -108,8 +117,9 @@
                     },
                     {
                         fileId: '60',
+                        fileName: 'file6.cs',
                         groupId: 3,
-                        groupIndex: 1,
+                        groupIndex: 0,
                         lines: 60,
                         breakpoints: [{
                             line: 30, data: 'dados html'
@@ -119,6 +129,7 @@
                     },
                     {
                         fileId: '70',
+                        fileName: 'file8.cs',
                         groupId: 3,
                         groupIndex: 2,
                         lines: 70,
@@ -133,6 +144,7 @@
                 {
                     files: [{
                         fileId: '100',
+                        fileName: 'file1.cs',
                         groupId: 1,
                         groupIndex: 0,
                         lines: 10,
@@ -147,8 +159,9 @@
                 {
                     files: [{
                         fileId: '5001',
-                        groupId: 3,
-                        groupIndex: 0,
+                        fileName: 'file5.cs',
+                        groupId: 2,
+                        groupIndex: 1,
                         lines: 50,
                         breakpoints: [{
                             line: 25, data: 'dados html'
@@ -158,6 +171,7 @@
                     },
                     {
                         fileId: '6001',
+                        fileName: 'file7.cs',
                         groupId: 3,
                         groupIndex: 1,
                         lines: 60,
@@ -169,6 +183,7 @@
                     },
                     {
                         fileId: '7001',
+                        fileName: 'file8.cs',
                         groupId: 3,
                         groupIndex: 2,
                         lines: 70,
@@ -183,6 +198,7 @@
                 {
                     files: [{
                         fileId: '1000',
+                        fileName: 'file1.cs',
                         groupId: 1,
                         groupIndex: 0,
                         lines: 10,
@@ -194,8 +210,9 @@
                     },
                     {
                         fileId: '2000',
+                        fileName: 'file2.cs',
                         groupId: 1,
-                        groupIndex: 3,
+                        groupIndex: 1,
                         lines: 20,
                         breakpoints: [{
                             line: 10, data: 'dados html'
@@ -205,6 +222,7 @@
                     },
                     {
                         fileId: '4000',
+                        fileName: 'file4.cs',
                         groupId: 2,
                         groupIndex: 0,
                         lines: 40,
@@ -216,6 +234,7 @@
                     },
                     {
                         fileId: '5000',
+                        fileName: 'file5.cs',
                         groupId: 2,
                         groupIndex: 1,
                         lines: 50,
@@ -227,7 +246,7 @@
                     }],
                     pathnodes: [{ fileId: '1000', line: 5 }, { fileId: '2000', line: 10 }, { fileId: '4000', line: 20 }, { fileId: '5000', line: 25 }]
                 }],
-                groups: [{ groupId: 1, maxIndexWidthQuantity: 3 }, { groupId: 2, maxIndexWidthQuantity: 1 }, { groupId: 3, maxIndexWidthQuantity: 2 }]
+                groups: [{ groupId: 1, maxIndexWidthQuantity: 2 }, { groupId: 2, maxIndexWidthQuantity: 1 }, { groupId: 3, maxIndexWidthQuantity: 2 }]
             },
             {
                 name: 'Day 17-10 presentation 2',

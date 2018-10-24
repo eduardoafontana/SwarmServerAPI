@@ -30,6 +30,8 @@
 
                 groupAssembler.reset();
 
+                groupAssembler.mountMostHighFileLine(users[u].projects[p].sessions);
+
                 for (var s = 0; s < users[u].projects[p].sessions.length; s++) {
                     var files = users[u].projects[p].sessions[s].files;
                     var groups = users[u].projects[p].groups;
@@ -47,8 +49,6 @@
                         scene.add(hideCube.mesh);
                         scene.interceptables.push(hideCube.mesh);
 
-                        //var titleCube = TitleCube(cube);
-                        //scene.add(titleCube.mesh);
                         TitleCube({ scene, cube }).then((titleCube) => {
                             titleCube.scene.add(titleCube.mesh);
                         });
