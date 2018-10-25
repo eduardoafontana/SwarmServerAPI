@@ -387,6 +387,7 @@
     <Content Include="Scripts\view3d2\Cube.js" />
     <Content Include="Scripts\view3d2\data-control.js" />
     <Content Include="Scripts\view3d2\detail-box.js" />
+    <Content Include="Scripts\view3d2\Axes.js" />
     <Content Include="Scripts\view3d2\Group.js" />
     <Content Include="Scripts\view3d2\groupAssembler.js" />
     <Content Include="Scripts\view3d2\TitleCube.js" />
@@ -398,6 +399,7 @@
     <Content Include="Scripts\view3d2\select-control.js" />
     <Content Include="Scripts\view3d2\Square.js" />
     <Content Include="Scripts\view3d2\Torus.js" />
+    <Content Include="Scripts\view3d2\Grid.js" />
     <Content Include="Scripts\view3d2\Tube.js" />
     <Content Include="Scripts\view3d2\TubeSphere.js" />
     <Content Include="Scripts\view3d2\user-data.js" />

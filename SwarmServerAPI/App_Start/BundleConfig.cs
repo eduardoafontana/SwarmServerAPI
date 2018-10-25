@@ -102,6 +102,8 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
                       "~/Scripts/view3d2/Square.js",
                       "~/Scripts/view3d2/TubeSphere.js",
                       "~/Scripts/view3d2/Tube.js",
+                      "~/Scripts/view3d2/Grid.js",
+                      "~/Scripts/view3d2/Axes.js",
                       "~/Scripts/view3d2/select-control.js",
                       "~/Scripts/view3d2/View3d.js"));
 
