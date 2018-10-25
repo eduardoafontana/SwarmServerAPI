@@ -12,7 +12,7 @@
 
     var curve = new THREE.CatmullRomCurve3(vertices, false, 'catmullrom', 0.2);
     var geometry = new THREE.TubeGeometry(curve, 100, 0.1, 20, false);
-    var material = new THREE.MeshBasicMaterial({ color: 0x404040 });
+    var material = new THREE.MeshBasicMaterial();
     var mesh = new THREE.Mesh(geometry, material);
 
     var originalVertices = [];
@@ -29,6 +29,8 @@
 
         if (render.getSelectedScene() == null)
             return;
+
+        material.color.setHex(render.getSelectedScene().colors.tube);
 
         mesh.visible = render.getSelectedScene().hideShowOptions.options.pathNode;
 

@@ -1,7 +1,7 @@
 ﻿var TubeSphere = function (cube, data) {
 
     var geometry = new THREE.SphereGeometry(0.2, 20, 20);
-    var material = new THREE.MeshBasicMaterial({ color: 0x404040 });
+    var material = new THREE.MeshBasicMaterial();
     var mesh = new THREE.Mesh(geometry, material);
 
     var marginBottom = 0.5;
@@ -23,6 +23,8 @@
 
         if (render.getSelectedScene() == null)
             return;
+
+        material.color.setHex(render.getSelectedScene().colors.tubeSphere);
 
         mesh.visible = render.getSelectedScene().hideShowOptions.options.pathNodePoints;
 

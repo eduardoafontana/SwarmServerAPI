@@ -27,7 +27,7 @@
         //var edges = new THREE.EdgesGeometry(geometry);
         //var line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 10 }));
 
-        var material = new THREE.MeshBasicMaterial({ color: 0x000000 });
+        var material = new THREE.MeshBasicMaterial();
         var mesh = new THREE.Mesh(geometry, material);
 
         //mesh.add(line);
@@ -61,6 +61,8 @@
 
             if (render.getSelectedScene() == null)
                 return;
+
+            material.color.setHex(render.getSelectedScene().colors.titleTube);
 
             mesh.visible = render.getSelectedScene().hideShowOptions.options.title;
 

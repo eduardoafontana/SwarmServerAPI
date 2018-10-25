@@ -162,6 +162,20 @@
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'grid');
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'axes');
 
+        //--
+        scene.colors = {
+            cube: 0xb0aeae,
+            cubeContrast: 0xdddddd,
+            group: 0x404040,
+            hideCube: 0x37444c,
+            square: 0x404040,
+            torus: 0x404040,
+            tube: 0x404040,
+            tubesphere: 0x404040,
+            pointOver: 0xff0000,
+        };
+        //--
+
         sceneArray.push(scene);
 
         return scene;

@@ -9,13 +9,8 @@
     var xSize = squareSize;
     var zSize = squareSize;
 
-    var originalColor = 0xb0aeae;
-
-    if (data.z % 2 != 0)
-        originalColor = 0xdddddd;
-
     var geometry = new THREE.BoxGeometry(xSize, ySize, zSize, 1, data.lines, 1);
-    var material = new THREE.MeshBasicMaterial({ color: originalColor, vertexColors: THREE.FaceColors });
+    var material = new THREE.MeshBasicMaterial({ vertexColors: THREE.FaceColors });
     var mesh = new THREE.Mesh(geometry, material);
 
     material.opacity = 0.5;
@@ -41,6 +36,11 @@
 
         if (render.getSelectedScene() == null)
             return;
+
+        var originalColor = render.getSelectedScene().colors.cube;
+
+        if (data.z % 2 != 0)
+            originalColor = render.getSelectedScene().colors.cubeContrast;
 
         mesh.visible = render.getSelectedScene().hideShowOptions.options.file;
 
@@ -75,16 +75,16 @@
         if (render.wasMouseOver(mesh)) {
             infobox.setHtml('Click to show the line code for this part of the file.');
 
-            geometry.faces[render.getIntersectedObjectData().faceIndex].color.setHex(0xff0000);
+            geometry.faces[render.getIntersectedObjectData().faceIndex].color.setHex(render.getSelectedScene().colors.pointOver);
             //geometry.faces[geometry.faces[render.getIntersectedObjectData().faceIndex].a].color.setHex(0xff0000);
             //geometry.faces[geometry.faces[render.getIntersectedObjectData().faceIndex].b].color.setHex(0xff0000);
             //geometry.faces[geometry.faces[render.getIntersectedObjectData().faceIndex].c].color.setHex(0xff0000);
             //TODO: review later
 
             if (render.getIntersectedObjectData().faceIndex % 2 === 0)
-                geometry.faces[render.getIntersectedObjectData().faceIndex + 1].color.setHex(0xff0000);
+                geometry.faces[render.getIntersectedObjectData().faceIndex + 1].color.setHex(render.getSelectedScene().colors.pointOver);
             else
-                geometry.faces[render.getIntersectedObjectData().faceIndex - 1].color.setHex(0xff0000);
+                geometry.faces[render.getIntersectedObjectData().faceIndex - 1].color.setHex(render.getSelectedScene().colors.pointOver);
         }
 
         geometry.colorsNeedUpdate = true;

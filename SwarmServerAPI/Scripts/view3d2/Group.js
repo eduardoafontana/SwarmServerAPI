@@ -12,7 +12,7 @@
     var height = (sessionMargin * (sessionsQuantity - 1)) + topBorder + bottomBorder;
 
     var geometry = new THREE.PlaneGeometry(width, height, 1);
-    var material = new THREE.MeshBasicMaterial({ color: 0x404040, side: THREE.DoubleSide });
+    var material = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide });
     var mesh = new THREE.Mesh(geometry, material);
 
     var leftBorder = 0.5;
@@ -46,6 +46,8 @@
 
         if (render.getSelectedScene() == null)
             return;
+
+        material.color.setHex(render.getSelectedScene().colors.group);
 
         mesh.visible = render.getSelectedScene().hideShowOptions.options.architecture;
 
