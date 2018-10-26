@@ -47,7 +47,7 @@
         if (render.getSelectedScene() == null)
             return;
 
-        material.color.setHex(render.getSelectedScene().colors.group);
+        material.color.setHex(render.getSelectedColorPalette().group);
 
         mesh.visible = render.getSelectedScene().hideShowOptions.options.architecture;
 

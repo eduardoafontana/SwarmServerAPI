@@ -24,7 +24,7 @@
         if (render.getSelectedScene() == null)
             return;
 
-        material.color.setHex(render.getSelectedScene().colors.tubeSphere);
+        material.color.setHex(render.getSelectedColorPalette().tubeSphere);
 
         mesh.visible = render.getSelectedScene().hideShowOptions.options.pathNodePoints;
 

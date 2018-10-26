@@ -67,7 +67,7 @@
     height: 35px;
     border-radius: 1px;
     /*Review later*/
-    width: 200px;
+    width: 235px;
     /*margin: 5px;*/
     top:155px;
     left:30px;
@@ -163,7 +163,7 @@
     position: absolute;
     width: 250px; /*Review later*/
     top: 55px;
-    left: 115px;
+    left: 150px;
 }
     .tooltip-text:after {
         content: '';

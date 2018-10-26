@@ -64,9 +64,9 @@
         if (render.wasMouseOver(mesh)) {
             infobox.setHtml('Click to open event details on information window.');
 
-            material.color.setHex(render.getSelectedScene().colors.pointOver);
+            material.color.setHex(render.getSelectedColorPalette().pointOver);
         } else {
-            material.color.setHex(render.getSelectedScene().colors.square);
+            material.color.setHex(render.getSelectedColorPalette().square);
         }
     }
 

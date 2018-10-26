@@ -62,7 +62,7 @@
             if (render.getSelectedScene() == null)
                 return;
 
-            material.color.setHex(render.getSelectedScene().colors.titleTube);
+            material.color.setHex(render.getSelectedColorPalette().titleTube);
 
             mesh.visible = render.getSelectedScene().hideShowOptions.options.title;
 

@@ -162,23 +162,20 @@
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'grid');
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'axes');
 
-        //--
-        scene.colors = {
-            cube: 0xb0aeae,
-            cubeContrast: 0xdddddd,
-            group: 0x404040,
-            hideCube: 0x37444c,
-            square: 0x404040,
-            torus: 0x404040,
-            tube: 0x404040,
-            tubesphere: 0x404040,
-            pointOver: 0xff0000,
+        scene.colorPaletteOptions = new dat.GUI({ autoPlace: false });
+        scene.colorPaletteOptions.options = {
+            colorPalette: 'BlackToBlack',
         };
-        //--
+
+        scene.colorPaletteOptions.add(scene.colorPaletteOptions.options, 'colorPalette', colorPalette.getColorPalatteArray());
 
         sceneArray.push(scene);
 
         return scene;
+    };
+
+    var getSelectedColorPalette = function () {
+        return colorPalette.getColorPalleteByName(getSelectedScene().colorPaletteOptions.options.colorPalette);
     };
 
     var setSelectedSceneById = function (sceneId) {
@@ -188,6 +185,7 @@
 
                 scaleOptions.setScaleOption(selectedScene.scaleOptions);
                 hideShowOptions.setHideShowOption(selectedScene.hideShowOptions);
+                colorPaletteOptions.setColorPaletteOption(selectedScene.colorPaletteOptions);
                 break;
             }
         }
@@ -197,6 +195,7 @@
         selectedScene = sceneArray[0];
         scaleOptions.setScaleOption(sceneArray[0].scaleOptions);
         hideShowOptions.setHideShowOption(sceneArray[0].hideShowOptions);
+        colorPaletteOptions.setColorPaletteOption(sceneArray[0].colorPaletteOptions);
     };
 
     var getSelectedScene = function () {
@@ -291,7 +290,8 @@
         wasMouseOver: wasMouseOver,
         getIntersectedObjectData: getIntersectedObjectData,
         getFont: getFont,
-        setFont: setFont
+        setFont: setFont,
+        getSelectedColorPalette: getSelectedColorPalette
     };
 
 }());

@@ -37,10 +37,10 @@
         if (render.getSelectedScene() == null)
             return;
 
-        var originalColor = render.getSelectedScene().colors.cube;
+        var originalColor = render.getSelectedColorPalette().cube;
 
         if (data.z % 2 != 0)
-            originalColor = render.getSelectedScene().colors.cubeContrast;
+            originalColor = render.getSelectedColorPalette().cubeContrast;
 
         mesh.visible = render.getSelectedScene().hideShowOptions.options.file;
 
@@ -75,16 +75,16 @@
         if (render.wasMouseOver(mesh)) {
             infobox.setHtml('Click to show the line code for this part of the file.');
 
-            geometry.faces[render.getIntersectedObjectData().faceIndex].color.setHex(render.getSelectedScene().colors.pointOver);
+            geometry.faces[render.getIntersectedObjectData().faceIndex].color.setHex(render.getSelectedColorPalette().pointOver);
             //geometry.faces[geometry.faces[render.getIntersectedObjectData().faceIndex].a].color.setHex(0xff0000);
             //geometry.faces[geometry.faces[render.getIntersectedObjectData().faceIndex].b].color.setHex(0xff0000);
             //geometry.faces[geometry.faces[render.getIntersectedObjectData().faceIndex].c].color.setHex(0xff0000);
             //TODO: review later
 
             if (render.getIntersectedObjectData().faceIndex % 2 === 0)
-                geometry.faces[render.getIntersectedObjectData().faceIndex + 1].color.setHex(render.getSelectedScene().colors.pointOver);
+                geometry.faces[render.getIntersectedObjectData().faceIndex + 1].color.setHex(render.getSelectedColorPalette().pointOver);
             else
-                geometry.faces[render.getIntersectedObjectData().faceIndex - 1].color.setHex(render.getSelectedScene().colors.pointOver);
+                geometry.faces[render.getIntersectedObjectData().faceIndex - 1].color.setHex(render.getSelectedColorPalette().pointOver);
         }
 
         geometry.colorsNeedUpdate = true;

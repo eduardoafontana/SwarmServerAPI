@@ -384,12 +384,14 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Scripts\view3d2\color-palette.js" />
     <Content Include="Scripts\view3d2\Cube.js" />
     <Content Include="Scripts\view3d2\data-control.js" />
     <Content Include="Scripts\view3d2\detail-box.js" />
     <Content Include="Scripts\view3d2\Axes.js" />
     <Content Include="Scripts\view3d2\Group.js" />
     <Content Include="Scripts\view3d2\groupAssembler.js" />
+    <Content Include="Scripts\view3d2\colorPaletteOptions.js" />
     <Content Include="Scripts\view3d2\TitleCube.js" />
     <Content Include="Scripts\view3d2\HideCube.js" />
     <Content Include="Scripts\view3d2\hideShowOptions.js" />

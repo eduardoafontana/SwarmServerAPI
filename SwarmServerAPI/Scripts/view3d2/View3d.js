@@ -7,6 +7,7 @@
         detailbox.init();
         scaleOptions.init();
         hideShowOptions.init();
+        colorPaletteOptions.init();
 
         var users = dataControl.getUsers();
 

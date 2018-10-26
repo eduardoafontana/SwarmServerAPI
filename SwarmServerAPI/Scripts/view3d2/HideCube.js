@@ -52,10 +52,10 @@
         if (render.wasMouseOver(mesh)) {
             infobox.setHtml('Click to hide and show the cube above.');
 
-            material.color.setHex(render.getSelectedScene().colors.pointOver);
+            material.color.setHex(render.getSelectedColorPalette().pointOver);
         }
         else {
-            material.color.setHex(render.getSelectedScene().colors.hideCube);
+            material.color.setHex(render.getSelectedColorPalette().hideCube);
         }
     }
 
