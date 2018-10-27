@@ -384,6 +384,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Scripts\view3d2\fontLoader.js" />
     <Content Include="Scripts\view3d2\color-palette.js" />
     <Content Include="Scripts\view3d2\Cube.js" />
     <Content Include="Scripts\view3d2\data-control.js" />

@@ -1,12 +1,10 @@
-﻿var Axes = function (scene) {
+﻿var Axes = function () {
 
     var mesh = new THREE.AxesHelper(50);
 
-    scene.add(mesh);
-
-    function createAxesLabel(text, pFont, positions) {
+    function createAxesLabel(text, positions) {
         var parameters = {
-            font: pFont,
+            font: render.getFont(),
             size: 1,
             height: 0.001,
             curveSegments: 20,
@@ -19,31 +17,17 @@
         var line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x000000 }));
 
         var material = new THREE.MeshBasicMaterial({ color: 0xffffff });
-        var mesh = new THREE.Mesh(geometry, material);
+        var meshLabel = new THREE.Mesh(geometry, material);
 
-        mesh.add(line);
-        mesh.position.set(positions.x, positions.y, positions.z);
+        meshLabel.add(line);
+        meshLabel.position.set(positions.x, positions.y, positions.z);
 
-        scene.add(mesh);
-
-        internalAnimate();
-
-        function internalAnimate() {
-            window.requestAnimationFrame(internalAnimate);
-
-            if (render.getSelectedScene() == null)
-                return;
-
-            mesh.visible = render.getSelectedScene().hideShowOptions.options.axes;
-        }
+        mesh.add(meshLabel);
     }
 
-    var loader = new THREE.FontLoader();
-    var font = loader.load('../Scripts/view3d2/fonts/helvetiker_regular.typeface.json', function (font) {
-        createAxesLabel('X', font, new THREE.Vector3(101, 0, 0));
-        createAxesLabel('Y', font, new THREE.Vector3(0, 51, 0));
-        createAxesLabel('Z', font, new THREE.Vector3(0, 0, 101));
-    });
+    createAxesLabel('X', new THREE.Vector3(101, 0, 0));
+    createAxesLabel('Y', new THREE.Vector3(0, 51, 0));
+    createAxesLabel('Z', new THREE.Vector3(0, 0, 101));
 
     internalAnimate();
 
@@ -55,5 +39,9 @@
 
         mesh.visible = render.getSelectedScene().hideShowOptions.options.axes;
     }
+
+    return {
+        mesh: mesh
+    };
 };
 

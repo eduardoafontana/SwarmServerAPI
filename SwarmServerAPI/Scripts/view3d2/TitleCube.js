@@ -1,85 +1,74 @@
-﻿var TitleCube = async paramInput => new Promise((resTitleCube) => {
+﻿var TitleCube = function (cube) {
 
-    var cube = paramInput.cube;
-    var scene = paramInput.scene;
+    var parameters = {
+        font: render.getFont(),
+        size: 0.3,
+        height: 0.001,
+        curveSegments: 20,
+        bevelEnabled: false
+    };
 
-    var loadFontFromUri = async uri =>
-        new Promise((res, rej) => {
-            new THREE.FontLoader().load(uri, res, () => { }, rej)
-        });
+    var text = '';
 
-    loadFontFromUri('../Scripts/view3d2/fonts/helvetiker_regular.typeface.json').then((font) => {
-        var parameters = {
-            font: font,
-            size: 0.3,
-            height: 0.001,
-            curveSegments: 20,
-            bevelEnabled: false
-        };
+    if (cube.data.fileName != undefined)
+        text = cube.data.fileName;
 
-        var text = '';
+    var geometry = new THREE.TextGeometry(text, parameters);
 
-        if (cube.data.fileName != undefined)
-            text = cube.data.fileName;
+    //var edges = new THREE.EdgesGeometry(geometry);
+    //var line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 10 }));
 
-        var geometry = new THREE.TextGeometry(text, parameters);
+    var material = new THREE.MeshBasicMaterial();
+    var mesh = new THREE.Mesh(geometry, material);
 
-        //var edges = new THREE.EdgesGeometry(geometry);
-        //var line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 10 }));
+    //mesh.add(line);
 
-        var material = new THREE.MeshBasicMaterial();
-        var mesh = new THREE.Mesh(geometry, material);
+    var height = cube.mesh.geometry.parameters.height;
+    var marginBottom = 0.5;
+    var heightWithMargin = height + marginBottom;
+    var topMargin = 0;
 
-        //mesh.add(line);
+    const center = new THREE.Vector3();
+    var box = new THREE.Box3().setFromObject(mesh);
 
-        var height = cube.mesh.geometry.parameters.height;
-        var marginBottom = 0.5;
-        var heightWithMargin = height + marginBottom;
-        var topMargin = 0;
+    var margin = 1.5;//cubeMargin + cubeSize
 
-        const center = new THREE.Vector3();
-        var box = new THREE.Box3().setFromObject(mesh);
+    var sizeWidth = box.getSize(center).x;
+    var sizeWidthHalf = sizeWidth / 2;
+    var initialPositionX = cube.data.x * margin;
 
-        var margin = 1.5;//cubeMargin + cubeSize
+    mesh.position.y = topMargin + heightWithMargin;
+    mesh.position.x = initialPositionX - sizeWidthHalf;
+    mesh.position.z = cube.data.z;
 
-        var sizeWidth = box.getSize(center).x;
-        var sizeWidthHalf = sizeWidth / 2;
-        var initialPositionX = cube.data.x * margin;
+    var initialCalculatedPositionX = initialPositionX;
+    var initialCalculatedPositionZ = mesh.position.z;
+    var initialHeight = height;
 
-        mesh.position.y = topMargin + heightWithMargin;
-        mesh.position.x = initialPositionX - sizeWidthHalf;
-        mesh.position.z = cube.data.z;
+    internalAnimate();
 
-        var initialCalculatedPositionX = initialPositionX;
-        var initialCalculatedPositionZ = mesh.position.z;
-        var initialHeight = height;
+    function internalAnimate() {
+        window.requestAnimationFrame(internalAnimate);
 
-        internalAnimate();
+        if (render.getSelectedScene() == null)
+            return;
 
-        function internalAnimate() {
-            window.requestAnimationFrame(internalAnimate);
+        material.color.setHex(render.getSelectedColorPalette().titleTube);
 
-            if (render.getSelectedScene() == null)
-                return;
+        mesh.visible = render.getSelectedScene().hideShowOptions.options.title;
 
-            material.color.setHex(render.getSelectedColorPalette().titleTube);
+        mesh.position.x = (initialCalculatedPositionX * render.getSelectedScene().scaleOptions.options.cubeSpace) - sizeWidthHalf;
 
-            mesh.visible = render.getSelectedScene().hideShowOptions.options.title;
+        mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.sessionSpace;
 
-            mesh.position.x = (initialCalculatedPositionX * render.getSelectedScene().scaleOptions.options.cubeSpace) - sizeWidthHalf;
+        mesh.position.y = (initialHeight * render.getSelectedScene().scaleOptions.options.heightScale) + topMargin + marginBottom;
 
-            mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.sessionSpace;
+        var newScale = render.getSelectedScene().scaleOptions.options.titleScale;
+        mesh.scale.set(newScale, newScale, newScale);
+    }
 
-            mesh.position.y = (initialHeight * render.getSelectedScene().scaleOptions.options.heightScale) + topMargin + marginBottom;
-
-            var newScale = render.getSelectedScene().scaleOptions.options.titleScale;
-            mesh.scale.set(newScale, newScale, newScale);
-        }
-
-        resTitleCube({
-            mesh: mesh,
-            scene: scene
-        });
-    });
-});
+    return {
+        mesh: mesh
+    };
+};
 

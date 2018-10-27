@@ -89,8 +89,7 @@
     var getNewScene = function () {
         var scene = new THREE.Scene();
 
-        Axes(scene);
-
+        scene.add(Axes().mesh);
         scene.add(Grid().mesh);
 
         //--
