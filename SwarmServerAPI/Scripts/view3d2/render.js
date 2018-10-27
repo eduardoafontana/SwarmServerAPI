@@ -63,6 +63,8 @@
 
             renderer.render(selectedScene, camera);
 
+            selectedScene.background = new THREE.Color(selectedScene.colorPaletteOptions.options.backgroundColor);
+
             //--
             raycaster.setFromCamera(mouse, camera);
 
@@ -86,7 +88,6 @@
 
     var getNewScene = function () {
         var scene = new THREE.Scene();
-        scene.background = new THREE.Color(0xf3f3f3);
 
         Axes(scene);
 
@@ -165,9 +166,11 @@
         scene.colorPaletteOptions = new dat.GUI({ autoPlace: false });
         scene.colorPaletteOptions.options = {
             colorPalette: 'BlackToBlack',
+            backgroundColor: '#c4cbd1'
         };
 
         scene.colorPaletteOptions.add(scene.colorPaletteOptions.options, 'colorPalette', colorPalette.getColorPalatteArray());
+        scene.colorPaletteOptions.addColor(scene.colorPaletteOptions.options, 'backgroundColor');
 
         sceneArray.push(scene);
 
