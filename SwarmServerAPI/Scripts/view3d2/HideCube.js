@@ -4,7 +4,7 @@
     var radius = 0.5;
     var topMargin = 0.5;
 
-    var geometry = new THREE.SphereGeometry(radius, 20, 20);
+    var geometry = new THREE.SphereBufferGeometry(radius, 20, 20);
     var material = new THREE.MeshBasicMaterial();
     var mesh = new THREE.Mesh(geometry, material);
 

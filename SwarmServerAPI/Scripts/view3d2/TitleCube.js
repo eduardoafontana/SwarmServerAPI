@@ -13,7 +13,7 @@
     if (cube.data.fileName != undefined)
         text = cube.data.fileName;
 
-    var geometry = new THREE.TextGeometry(text, parameters);
+    var geometry = new THREE.TextBufferGeometry(text, parameters);
 
     //var edges = new THREE.EdgesGeometry(geometry);
     //var line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 10 }));

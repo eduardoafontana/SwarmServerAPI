@@ -1,6 +1,6 @@
 ﻿var TubeSphere = function (cube, data) {
 
-    var geometry = new THREE.SphereGeometry(0.2, 20, 20);
+    var geometry = new THREE.SphereBufferGeometry(0.2, 20, 20);
     var material = new THREE.MeshBasicMaterial();
     var mesh = new THREE.Mesh(geometry, material);
 

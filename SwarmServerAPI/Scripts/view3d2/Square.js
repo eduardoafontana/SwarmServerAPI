@@ -5,7 +5,7 @@
     var radius = 0.7;
     var topMargin = 0.5;
 
-    var geometry = new THREE.TorusGeometry(radius, 0.1, 100, 4);
+    var geometry = new THREE.TorusBufferGeometry(radius, 0.1, 100, 4);
     var material = new THREE.MeshBasicMaterial();
     var mesh = new THREE.Mesh(geometry, material);
 

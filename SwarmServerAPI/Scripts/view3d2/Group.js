@@ -11,7 +11,7 @@
     var width = (widthQuantity * cubesMargin) - rightOver;
     var height = (sessionMargin * (sessionsQuantity - 1)) + topBorder + bottomBorder;
 
-    var geometry = new THREE.PlaneGeometry(width, height, 1);
+    var geometry = new THREE.PlaneBufferGeometry(width, height, 1);
     var material = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide });
     var mesh = new THREE.Mesh(geometry, material);
 

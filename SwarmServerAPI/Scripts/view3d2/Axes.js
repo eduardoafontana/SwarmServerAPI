@@ -11,7 +11,7 @@
             bevelEnabled: false
         };
 
-        var geometry = new THREE.TextGeometry(text, parameters);
+        var geometry = new THREE.TextBufferGeometry(text, parameters);
 
         var edges = new THREE.EdgesGeometry(geometry);
         var line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x000000 }));
