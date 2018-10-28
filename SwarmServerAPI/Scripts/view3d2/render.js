@@ -86,8 +86,10 @@
         animate();
     };
 
-    var getNewScene = function () {
+    var getNewScene = function (userIndex, projectIndex) {
         var scene = new THREE.Scene();
+        scene.userIndex = userIndex;
+        scene.projectIndex = projectIndex;
 
         scene.add(Axes().mesh);
         scene.add(Grid().mesh);
@@ -180,17 +182,21 @@
         return colorPalette.getColorPalleteByName(getSelectedScene().colorPaletteOptions.options.colorPalette);
     };
 
-    var setSelectedSceneById = function (sceneId) {
+    var setSelectedSceneById = function (userIndex, projectIndex) {
         for (var i = 0; i < sceneArray.length; i++) {
-            if (sceneArray[i].id == sceneId) {
+            if (sceneArray[i].userIndex == userIndex && sceneArray[i].projectIndex == projectIndex) {
                 selectedScene = sceneArray[i];
 
                 scaleOptions.setScaleOption(selectedScene.scaleOptions);
                 hideShowOptions.setHideShowOption(selectedScene.hideShowOptions);
                 colorPaletteOptions.setColorPaletteOption(selectedScene.colorPaletteOptions);
-                break;
+                return;
             }
         }
+
+        view3d.sceneLoader(userIndex, projectIndex);
+
+        setSelectedSceneById(userIndex, projectIndex);
     };
 
     var setSelectedSceneFirst = function () {

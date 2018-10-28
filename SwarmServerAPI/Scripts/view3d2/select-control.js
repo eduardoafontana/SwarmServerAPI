@@ -31,7 +31,7 @@
                 var option = document.createElement('option');
 
                 option.text = array[i].name;
-                option.value = array[i].sceneId;
+                option.value = i;
 
                 selectProject.add(option);
             }
@@ -42,7 +42,7 @@
         selectProject.addEventListener("change", onSelecProjectChange);
 
         function onSelecProjectChange() {
-            render.setSelectedSceneById(selectProject.value);
+            render.setSelectedSceneById(selectUser.value, selectProject.value);
         }
     };
 
