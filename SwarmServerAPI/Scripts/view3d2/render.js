@@ -1,18 +1,19 @@
 ﻿var render = (function () {
 
     function getRelativeHeight() {
-        return document.body.getElementsByClassName("canvasRenderRelativeSize")[0].offsetHeight;
+        return document.body.getElementsByClassName("cssRenderRelativeSize")[0].offsetHeight;
     }
 
     function getRelativeWidth() {
-        return document.body.getElementsByClassName("canvasRenderRelativeSize")[0].offsetWidth;
+        return document.body.getElementsByClassName("cssRenderRelativeSize")[0].offsetWidth;
     }
 
     var sceneArray = [];
+    var cssScene = null;
     var selectedScene = null;
     var camera = null;
     var renderer = null;
-    ////var cssRenderer = null;
+    var cssRenderer = null;
     var mouse = null;
     var raycaster = null;
     var clickedObject = null;
@@ -29,17 +30,14 @@
         mouse = new THREE.Vector2();
         raycaster = new THREE.Raycaster();
 
-        ////TODO: review later
-        ////cssRenderer = new THREE.CSS3DRenderer();
-        ////cssRenderer.setSize(getRelativeWidth(), getRelativeHeight());
-        ////cssRenderer.domElement.style.position = 'absolute';
-        ////cssRenderer.domElement.style.top = 0;
+        cssRenderer = new THREE.CSS3DRenderer();
+        cssRenderer.setSize(getRelativeWidth(), getRelativeHeight());
+        document.querySelector('.cssRenderRelativeSize').appendChild(cssRenderer.domElement);
 
-        renderer = new THREE.WebGLRenderer();
+        renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
         renderer.setSize(getRelativeWidth(), getRelativeHeight());
 
         var canvasRenderRelativeSize = document.body.getElementsByClassName("canvasRenderRelativeSize")[0];
-        ////canvasRenderRelativeSize.appendChild(cssRenderer.domElement);
         canvasRenderRelativeSize.appendChild(renderer.domElement);
 
         var orbit = new THREE.OrbitControls(camera, renderer.domElement);
@@ -64,6 +62,8 @@
             renderer.render(selectedScene, camera);
 
             selectedScene.background = new THREE.Color(selectedScene.colorPaletteOptions.options.backgroundColor);
+
+            cssRenderer.render(cssScene, camera);
 
             //--
             raycaster.setFromCamera(mouse, camera);
@@ -94,26 +94,35 @@
         scene.add(Axes().mesh);
         scene.add(Grid().mesh);
 
-        //--
-        ////TODO: review later
-        ////var material = new THREE.MeshBasicMaterial({ wireframe: true });
-        ////var geometry = new THREE.PlaneGeometry();
-        ////var planeMesh = new THREE.Mesh(geometry, material);
-        ////// add it to the WebGL scene
-        ////scene.add(planeMesh);
+        cssScene = new THREE.Scene();
 
-        ////var node = document.createTextNode("This is new.");
-        ////var para = document.createElement("p");
-        ////para.appendChild(node);
+        var element = document.createElement('div');
+        element.style.width = '100px';
+        element.style.height = '100px';
+        element.style.opacity = 0.999;
+        element.style.background = new THREE.Color(
+            Math.random() * 0.21568627451 + 0.462745098039,
+            Math.random() * 0.21568627451 + 0.462745098039,
+            Math.random() * 0.21568627451 + 0.462745098039,
+        ).getStyle();
+        element.textContent = "I am editable text!"
+        element.setAttribute('contenteditable', '')
 
-        ////var element = document.createElement("div1");
-        ////element.appendChild(para);
+        var domObject = new THREE.CSS3DObject(element);
+        cssScene.add(domObject);
 
-        ////var cssObject = new THREE.CSS3DObject(element);
-        ////cssObject.position = planeMesh.position;
-
-        ////scene.add(cssObject);
-        //--
+        var material = new THREE.MeshPhongMaterial({
+            opacity: 0.2,
+            color: new THREE.Color('black'),
+            blending: THREE.NoBlending,
+            side: THREE.DoubleSide,
+        });
+        var geometry = new THREE.PlaneGeometry(100, 100);
+        var mesh = new THREE.Mesh(geometry, material);
+        mesh.position.copy(domObject.position);
+        mesh.castShadow = false;
+        mesh.receiveShadow = true;
+        scene.add(mesh);
 
         scene.interceptables = [];
 
@@ -211,11 +220,18 @@
     };
 
     var onWindowResize = function () {
+
+        var canvasRenderRelativeSize = document.querySelector('.canvasRenderRelativeSize');
+        canvasRenderRelativeSize.style.position = 'absolute';
+        canvasRenderRelativeSize.style.top = '148px';
+        canvasRenderRelativeSize.style.width = getRelativeWidth() + 'px';
+        canvasRenderRelativeSize.style.height = getRelativeHeight() + 'px';
+
         camera.aspect = getRelativeWidth() / getRelativeHeight();
         camera.updateProjectionMatrix();
 
         renderer.setSize(getRelativeWidth(), getRelativeHeight());
-        ////cssRenderer.setSize(getRelativeWidth(), getRelativeHeight());
+        cssRenderer.setSize(getRelativeWidth(), getRelativeHeight());
     };
 
     var resetCameraPosition = function () {

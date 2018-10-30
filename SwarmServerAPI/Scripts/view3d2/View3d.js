@@ -84,6 +84,14 @@
 
     document.addEventListener("DOMContentLoaded", function () {
 
+        var cssRenderRelativeSize = document.querySelector('.cssRenderRelativeSize');
+
+        var canvasRenderRelativeSize = document.querySelector('.canvasRenderRelativeSize');
+        canvasRenderRelativeSize.style.position = 'absolute';
+        canvasRenderRelativeSize.style.top = '148px';
+        canvasRenderRelativeSize.style.width = cssRenderRelativeSize.offsetWidth + 'px';
+        canvasRenderRelativeSize.style.height = cssRenderRelativeSize.offsetHeight + 'px';
+
         dataControl.getDataFromServer().then(function (dataFromServer) {
             FontLoader().then(function (font) {
 
