@@ -9,8 +9,8 @@
     }
 
     var sceneArray = [];
-    var cssScene = null;
     var selectedScene = null;
+    var cssScene = null;
     var camera = null;
     var renderer = null;
     var cssRenderer = null;
@@ -23,7 +23,8 @@
     var font = null;
 
     var initGraph = function () {
-        camera = new THREE.PerspectiveCamera(45, getRelativeWidth() / getRelativeHeight(), 1, 500);
+        camera = new THREE.PerspectiveCamera(45, getRelativeWidth() / getRelativeHeight(), 0.1, 50000);
+        //camera.position.set(6000, 6000, 6000);
         camera.position.set(60, 60, 60);
         camera.lookAt(new THREE.Vector3(0, 0, 0));
 
@@ -56,15 +57,15 @@
         var animate = function () {
             requestAnimationFrame(animate);
 
+            if (cssScene != null)
+                cssRenderer.render(cssScene, camera);
+
             if (selectedScene == null)
                 return;
 
             renderer.render(selectedScene, camera);
 
             selectedScene.background = new THREE.Color(selectedScene.colorPaletteOptions.options.backgroundColor);
-
-            cssRenderer.render(cssScene, camera);
-
             //--
             raycaster.setFromCamera(mouse, camera);
 
@@ -88,41 +89,12 @@
 
     var getNewScene = function (userIndex, projectIndex) {
         var scene = new THREE.Scene();
+
         scene.userIndex = userIndex;
         scene.projectIndex = projectIndex;
 
         scene.add(Axes().mesh);
         scene.add(Grid().mesh);
-
-        cssScene = new THREE.Scene();
-
-        var element = document.createElement('div');
-        element.style.width = '100px';
-        element.style.height = '100px';
-        element.style.opacity = 0.999;
-        element.style.background = new THREE.Color(
-            Math.random() * 0.21568627451 + 0.462745098039,
-            Math.random() * 0.21568627451 + 0.462745098039,
-            Math.random() * 0.21568627451 + 0.462745098039,
-        ).getStyle();
-        element.textContent = "I am editable text!"
-        element.setAttribute('contenteditable', '')
-
-        var domObject = new THREE.CSS3DObject(element);
-        cssScene.add(domObject);
-
-        var material = new THREE.MeshPhongMaterial({
-            opacity: 0.2,
-            color: new THREE.Color('black'),
-            blending: THREE.NoBlending,
-            side: THREE.DoubleSide,
-        });
-        var geometry = new THREE.PlaneGeometry(100, 100);
-        var mesh = new THREE.Mesh(geometry, material);
-        mesh.position.copy(domObject.position);
-        mesh.castShadow = false;
-        mesh.receiveShadow = true;
-        scene.add(mesh);
 
         scene.interceptables = [];
 
@@ -150,6 +122,16 @@
         scene.hideShowOptions = new dat.GUI({ autoPlace: false });
 
         scene.hideShowOptions.options = {
+            //file: true,
+            //title: false,
+            //hideFile: false,
+            //breakpoint: false,
+            //event: false,
+            //pathNode: false,
+            //pathNodePoints: false,
+            //architecture: false,
+            //grid: true,
+            //axes: true,
             file: true,
             title: true,
             hideFile: false,
@@ -191,6 +173,48 @@
         return colorPalette.getColorPalleteByName(getSelectedScene().colorPaletteOptions.options.colorPalette);
     };
 
+    function mountCssCodeParts() {
+        cssScene = new THREE.Scene();
+
+        selectedScene.traverse(function (cube) {
+            if (cube.name != 'Cube')
+                return;
+
+            var element = document.createElement('div');
+            element.style.width = cube.geometry.parameters.width + 'px';
+            element.style.height = cube.geometry.parameters.height + 'px';
+            //console.log(cube.geometry.parameters.width + 'px', cube.geometry.parameters.height + 'px');
+            element.style.background = new THREE.Color('blue').getStyle();
+            //element.textContent = '<p style="font-size: 3px;">' + cube.id + '</p>';
+            element.innerHTML = '<p style="font-size: 12px">' + cube.id + '</p>';
+            //element.textContent = cube.id;
+            //element.setAttribute('contenteditable', '');
+
+            var domObject = new THREE.CSS3DObject(element);
+            domObject.position.x = cube.position.x;
+            domObject.position.y = cube.position.y;
+            domObject.position.z = cube.position.z;
+            cssScene.add(domObject);
+
+            var materialPlane = new THREE.MeshPhongMaterial({
+                opacity: 0.5,
+                color: new THREE.Color('blue'),
+                blending: THREE.NoBlending,
+                side: THREE.DoubleSide,
+            });
+
+            var geometryPlane = new THREE.PlaneGeometry(cube.geometry.parameters.width, cube.geometry.parameters.height);
+            var meshPlane = new THREE.Mesh(geometryPlane, materialPlane);
+            meshPlane.position.x = domObject.position.x;
+            meshPlane.position.y = domObject.position.y;
+            meshPlane.position.z = domObject.position.z;
+            meshPlane.castShadow = false;
+            meshPlane.receiveShadow = true;
+
+            selectedScene.add(meshPlane);
+        });
+    };
+
     var setSelectedSceneById = function (userIndex, projectIndex) {
         for (var i = 0; i < sceneArray.length; i++) {
             if (sceneArray[i].userIndex == userIndex && sceneArray[i].projectIndex == projectIndex) {
@@ -199,6 +223,8 @@
                 scaleOptions.setScaleOption(selectedScene.scaleOptions);
                 hideShowOptions.setHideShowOption(selectedScene.hideShowOptions);
                 colorPaletteOptions.setColorPaletteOption(selectedScene.colorPaletteOptions);
+                //mountCssCodeParts();
+                //TODO: enable here to render css parts
                 return;
             }
         }

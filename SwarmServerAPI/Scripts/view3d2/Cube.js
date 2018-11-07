@@ -1,8 +1,10 @@
 ﻿var Cube = function (data) {
 
     var data = data;
+    //var height = data.lines * 5000 / groupAssembler.getMostHighFileLine();
     var height = data.lines * 50 / groupAssembler.getMostHighFileLine();
 
+    //var squareSize = 100;
     var squareSize = 1;
 
     var ySize = height;
@@ -13,16 +15,22 @@
     var material = new THREE.MeshBasicMaterial({ vertexColors: THREE.FaceColors });
     var mesh = new THREE.Mesh(geometry, material);
 
+    mesh.name = 'Cube';
+
     material.opacity = 0.5;
     material.transparent = true;
 
     var adjustToZeroAxisY = ySize / 2
+    //var margin = 10;
     var margin = 0.5;
     var sizeWithMargin = margin + squareSize;
+    //var marginBottom = 50;
     var marginBottom = 0.5;
 
     mesh.position.y = marginBottom + adjustToZeroAxisY;
+    //mesh.position.x = sizeWithMargin * data.x * 10;
     mesh.position.x = sizeWithMargin * data.x;
+    //mesh.position.z = zSize * data.z * 10;
     mesh.position.z = zSize * data.z;
 
     var initialCalculatedPositionX = mesh.position.x;
