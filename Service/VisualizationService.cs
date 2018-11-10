@@ -66,16 +66,1163 @@ namespace SwarmServerAPI.AppCore.Service
 
         public List<User> GetView3dData()
         {
-            List<User> users = new List<User>();
-
-
-            //users.Add(new User()
-            //{
-
-            //}).Add(new User()
-            //{
-            //    name = "User ABC"
-            //});
+            List<User> users = new List<User>{new User()
+            {
+                name = "User ABC",
+                projects = new List<Project> {
+                    new Project() {
+                        name = "Day 17-10 presentation",
+                        sessions = new List<Session>(){
+                            new Session(){
+                                files = new List<File>(){
+                                    new File()
+                                    {
+                                        fileId = "1",
+                                        fileName = "file11.cs",
+                                        groupId = 1,
+                                        groupIndex = 0,
+                                        lines = 10,
+                                        breakpoints = new List<Breakpoint>(){
+                                            new Breakpoint()
+                                            {
+                                                line = 5,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        events = new List<Event>(){
+                                            new Event()
+                                            {
+                                                line = 7,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        nodes = new List<Node>(){
+                                            new Node()
+                                            {
+                                                line = 5
+                                            }
+                                        },
+                                    },
+                                    new File()
+                                    {
+                                        fileId = "2",
+                                        fileName = "file2.cs",
+                                        groupId = 1,
+                                        groupIndex = 1,
+                                        lines = 20,
+                                        breakpoints = new List<Breakpoint>(){
+                                            new Breakpoint()
+                                            {
+                                                line = 10,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        events = new List<Event>(){
+                                            new Event()
+                                            {
+                                                line = 12,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        nodes = new List<Node>(){
+                                            new Node()
+                                            {
+                                                line = 10
+                                            }
+                                        },
+                                    },
+                                    new File()
+                                    {
+                                        fileId = "3",
+                                        fileName = "file3.cs",
+                                        groupId = 1,
+                                        groupIndex = 2,
+                                        lines = 30,
+                                        breakpoints = new List<Breakpoint>(){
+                                            new Breakpoint()
+                                            {
+                                                line = 15,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        events = new List<Event>(){
+                                            new Event()
+                                            {
+                                                line = 17,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        nodes = new List<Node>(){
+                                            new Node()
+                                            {
+                                                line = 15
+                                            }
+                                        },
+                                    },
+                                    new File()
+                                    {
+                                        fileId = "4",
+                                        fileName = "file4.cs",
+                                        groupId = 2,
+                                        groupIndex = 0,
+                                        lines = 40,
+                                        breakpoints = new List<Breakpoint>(){
+                                            new Breakpoint()
+                                            {
+                                                line = 20,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        events = new List<Event>(){
+                                            new Event()
+                                            {
+                                                line = 22,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        nodes = new List<Node>(){
+                                            new Node()
+                                            {
+                                                line = 20
+                                            }
+                                        },
+                                    },
+                                    new File()
+                                    {
+                                        fileId = "5",
+                                        fileName = "file5.cs",
+                                        groupId = 2,
+                                        groupIndex = 1,
+                                        lines = 50,
+                                        breakpoints = new List<Breakpoint>(){
+                                            new Breakpoint()
+                                            {
+                                                line = 25,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        events = new List<Event>(){
+                                            new Event()
+                                            {
+                                                line = 27,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        nodes = new List<Node>(){
+                                            new Node()
+                                            {
+                                                line = 25
+                                            }
+                                        },
+                                    },
+                                    new File()
+                                    {
+                                        fileId = "6",
+                                        fileName = "file6.cs",
+                                        groupId = 3,
+                                        groupIndex = 0,
+                                        lines = 60,
+                                        breakpoints = new List<Breakpoint>(){
+                                            new Breakpoint()
+                                            {
+                                                line = 30,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        events = new List<Event>(){
+                                            new Event()
+                                            {
+                                                line = 32,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        nodes = new List<Node>(){
+                                            new Node()
+                                            {
+                                                line = 30
+                                            }
+                                        },
+                                    },
+                                },
+                                pathnodes = new List<Node>(){
+                                    new Node(){ fileId = "1", line = 5},
+                                    new Node(){ fileId = "2", line = 10},
+                                    new Node(){ fileId = "3", line = 15},
+                                    new Node(){ fileId = "4", line = 20},
+                                    new Node(){ fileId = "5", line = 25},
+                                    new Node(){ fileId = "6", line = 30},
+                                }
+                            },
+                            new Session(){
+                                files = new List<File>(){
+                                    new File()
+                                    {
+                                        fileId = "10",
+                                        fileName = "file1.cs",
+                                        groupId = 1,
+                                        groupIndex = 0,
+                                        lines = 10,
+                                        breakpoints = new List<Breakpoint>(){
+                                            new Breakpoint()
+                                            {
+                                                line = 5,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        events = new List<Event>(){
+                                            new Event()
+                                            {
+                                                line = 7,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        nodes = new List<Node>(){
+                                            new Node()
+                                            {
+                                                line = 5
+                                            }
+                                        },
+                                    },
+                                    new File()
+                                    {
+                                        fileId = "20",
+                                        fileName = "file2.cs",
+                                        groupId = 1,
+                                        groupIndex = 1,
+                                        lines = 20,
+                                        breakpoints = new List<Breakpoint>(){
+                                            new Breakpoint()
+                                            {
+                                                line = 10,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        events = new List<Event>(){
+                                            new Event()
+                                            {
+                                                line = 12,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        nodes = new List<Node>(){
+                                            new Node()
+                                            {
+                                                line = 10
+                                            }
+                                        },
+                                    },
+                                    new File()
+                                    {
+                                        fileId = "50",
+                                        fileName = "file5.cs",
+                                        groupId = 2,
+                                        groupIndex = 1,
+                                        lines = 50,
+                                        breakpoints = new List<Breakpoint>(){
+                                            new Breakpoint()
+                                            {
+                                                line = 25,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        events = new List<Event>(){
+                                            new Event()
+                                            {
+                                                line = 27,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        nodes = new List<Node>(){
+                                            new Node()
+                                            {
+                                                line = 25
+                                            }
+                                        },
+                                    },
+                                    new File()
+                                    {
+                                        fileId = "60",
+                                        fileName = "file6.cs",
+                                        groupId = 3,
+                                        groupIndex = 0,
+                                        lines = 60,
+                                        breakpoints = new List<Breakpoint>(){
+                                            new Breakpoint()
+                                            {
+                                                line = 30,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        events = new List<Event>(){
+                                            new Event()
+                                            {
+                                                line = 32,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        nodes = new List<Node>(){
+                                            new Node()
+                                            {
+                                                line = 30
+                                            }
+                                        },
+                                    },
+                                    new File()
+                                    {
+                                        fileId = "70",
+                                        fileName = "file8.cs",
+                                        groupId = 3,
+                                        groupIndex = 2,
+                                        lines = 70,
+                                        breakpoints = new List<Breakpoint>(){
+                                            new Breakpoint()
+                                            {
+                                                line = 35,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        events = new List<Event>(){
+                                            new Event()
+                                            {
+                                                line = 37,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        nodes = new List<Node>(){
+                                            new Node()
+                                            {
+                                                line = 35
+                                            }
+                                        },
+                                    },
+                                },
+                                pathnodes = new List<Node>(){
+                                    new Node(){ fileId = "10", line = 5},
+                                    new Node(){ fileId = "20", line = 10},
+                                    new Node(){ fileId = "50", line = 25},
+                                    new Node(){ fileId = "60", line = 30},
+                                    new Node(){ fileId = "70", line = 35},
+                                }
+                            },
+                            new Session(){
+                                files = new List<File>(){
+                                    new File()
+                                    {
+                                        fileId = "100",
+                                        fileName = "file1.cs",
+                                        groupId = 1,
+                                        groupIndex = 0,
+                                        lines = 10,
+                                        breakpoints = new List<Breakpoint>()
+                                        {
+                                            new Breakpoint()
+                                            {
+                                                line = 5,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        events = new List<Event>()
+                                        {
+                                            new Event()
+                                            {
+                                                line = 7,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        nodes = new List<Node>()
+                                        {
+                                            new Node()
+                                            {
+                                                line = 5
+                                            }
+                                        }
+                                    }
+                                },
+                                pathnodes = new List<Node>(){}
+                            },
+                            new Session(){
+                                files = new List<File>(){
+                                    new File() {
+                                        fileId = "5001",
+                                        fileName = "file5.cs",
+                                        groupId = 2,
+                                        groupIndex = 1,
+                                        lines = 50,
+                                        breakpoints = new List<Breakpoint>()
+                                        {
+                                            new Breakpoint()
+                                            {
+                                                line = 25,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        events = new List<Event>()
+                                        {
+                                            new Event()
+                                            {
+                                                line = 27,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        nodes = new List<Node>()
+                                        {
+                                            new Node()
+                                            {
+                                                line = 25
+                                            }
+                                        }
+                                    },
+                                    new File() {
+                                        fileId = "6001",
+                                        fileName = "file7.cs",
+                                        groupId = 3,
+                                        groupIndex = 1,
+                                        lines = 60,
+                                        breakpoints = new List<Breakpoint>()
+                                        {
+                                            new Breakpoint()
+                                            {
+                                                line = 30,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        events = new List<Event>()
+                                        {
+                                            new Event()
+                                            {
+                                                line = 32,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        nodes = new List<Node>()
+                                        {
+                                            new Node()
+                                            {
+                                                line = 30
+                                            }
+                                        }
+                                    },
+                                    new File() {
+                                        fileId = "7001",
+                                        fileName = "file8.cs",
+                                        groupId = 2,
+                                        groupIndex = 2,
+                                        lines = 70,
+                                        breakpoints = new List<Breakpoint>()
+                                        {
+                                            new Breakpoint()
+                                            {
+                                                line = 35,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        events = new List<Event>()
+                                        {
+                                            new Event()
+                                            {
+                                                line = 37,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        nodes = new List<Node>()
+                                        {
+                                            new Node()
+                                            {
+                                                line = 35
+                                            }
+                                        }
+                                    }
+                                },
+                                pathnodes = new List<Node>(){
+                                    new Node(){ fileId = "5001", line = 25},
+                                    new Node(){ fileId = "6001", line = 30},
+                                    new Node(){ fileId = "7001", line = 35},
+                                }
+                            },
+                            new Session(){
+                                files = new List<File>(){
+                                    new File() {
+                                        fileId = "1000",
+                                        fileName = "file1.cs",
+                                        groupId = 1,
+                                        groupIndex = 0,
+                                        lines = 10,
+                                        breakpoints = new List<Breakpoint>()
+                                        {
+                                            new Breakpoint()
+                                            {
+                                                line = 5,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        events = new List<Event>()
+                                        {
+                                            new Event()
+                                            {
+                                                line = 7,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        nodes = new List<Node>()
+                                        {
+                                            new Node()
+                                            {
+                                                line = 5
+                                            }
+                                        }
+                                    },
+                                    new File() {
+                                        fileId = "2000",
+                                        fileName = "file2.cs",
+                                        groupId = 1,
+                                        groupIndex = 1,
+                                        lines = 20,
+                                        breakpoints = new List<Breakpoint>()
+                                        {
+                                            new Breakpoint()
+                                            {
+                                                line = 10,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        events = new List<Event>()
+                                        {
+                                            new Event()
+                                            {
+                                                line = 12,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        nodes = new List<Node>()
+                                        {
+                                            new Node()
+                                            {
+                                                line = 10
+                                            }
+                                        }
+                                    },
+                                    new File() {
+                                        fileId = "4000",
+                                        fileName = "file4.cs",
+                                        groupId = 2,
+                                        groupIndex = 0,
+                                        lines = 40,
+                                        breakpoints = new List<Breakpoint>()
+                                        {
+                                            new Breakpoint()
+                                            {
+                                                line = 20,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        events = new List<Event>()
+                                        {
+                                            new Event()
+                                            {
+                                                line = 22,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        nodes = new List<Node>()
+                                        {
+                                            new Node()
+                                            {
+                                                line = 20
+                                            }
+                                        }
+                                    },
+                                    new File() {
+                                        fileId = "5000",
+                                        fileName = "file5.cs",
+                                        groupId = 2,
+                                        groupIndex = 1,
+                                        lines = 50,
+                                        breakpoints = new List<Breakpoint>()
+                                        {
+                                            new Breakpoint()
+                                            {
+                                                line = 25,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        events = new List<Event>()
+                                        {
+                                            new Event()
+                                            {
+                                                line = 27,
+                                                data = "dados html"
+                                            }
+                                        },
+                                        nodes = new List<Node>()
+                                        {
+                                            new Node()
+                                            {
+                                                line = 25
+                                            }
+                                        }
+                                    },
+                                },
+                                pathnodes = new List<Node>(){
+                                    new Node(){ fileId = "1000", line = 5},
+                                    new Node(){ fileId = "2000", line = 10},
+                                    new Node(){ fileId = "4000", line = 20},
+                                    new Node(){ fileId = "5000", line = 25},
+                                }
+                            }
+                        },
+                        groups = new List<Group>(){
+                            new Group()
+                            {
+                                groupId = 1,
+                                maxIndexWidthQuantity = 2
+                            },
+                            new Group()
+                            {
+                                groupId = 2,
+                                maxIndexWidthQuantity = 1
+                            },
+                            new Group()
+                            {
+                                groupId = 3,
+                                maxIndexWidthQuantity = 2
+                            }
+                        }
+                    },
+                    new Project() {
+                        name = "Day 17-10 presentation 2",
+                        sessions = new List<Session>(){
+                            new Session()
+                            {
+                                files = new List<File>(){
+                                    new File()
+                                    {
+                                        fileId = "1",
+                                        groupId = 1,
+                                        groupIndex = 0,
+                                        lines = 308,
+                                        breakpoints = new List<Breakpoint>(){
+                                        },
+                                        events = new List<Event>(){
+                                        },
+                                        nodes = new List<Node>(){
+                                            new Node()
+                                            {
+                                                line = 35
+                                            },
+                                            new Node()
+                                            {
+                                                line = 36
+                                            }
+                                        },
+                                    },
+                                    new File()
+                                    {
+                                        fileId = "2",
+                                        groupId = 2,
+                                        groupIndex = 0,
+                                        lines = 201,
+                                        breakpoints = new List<Breakpoint>(){
+                                        },
+                                        events = new List<Event>(){
+                                        },
+                                        nodes = new List<Node>(){
+                                            new Node()
+                                            {
+                                                line = 137
+                                            },
+                                            new Node()
+                                            {
+                                                line = 135
+                                            },
+                                            new Node()
+                                            {
+                                                line = 133
+                                            },
+                                            new Node()
+                                            {
+                                                line = 128
+                                            },
+                                            new Node()
+                                            {
+                                                line = 122
+                                            },
+                                        },
+                                    },
+                                    new File()
+                                    {
+                                        fileId = "3",
+                                        groupId = 2,
+                                        groupIndex = 1,
+                                        lines = 275,
+                                        breakpoints = new List<Breakpoint>(){
+                                        },
+                                        events = new List<Event>(){
+                                        },
+                                        nodes = new List<Node>(){
+                                            new Node()
+                                            {
+                                                line = 215
+                                            },
+                                            new Node()
+                                            {
+                                                line = 47
+                                            },
+                                            new Node()
+                                            {
+                                                line = 216
+                                            },
+                                        },
+                                    },
+                                    new File()
+                                    {
+                                        fileId = "4",
+                                        groupId = 2,
+                                        groupIndex = 2,
+                                        lines = 268,
+                                        breakpoints = new List<Breakpoint>(){
+                                        },
+                                        events = new List<Event>(){
+                                        },
+                                        nodes = new List<Node>(){
+                                            new Node()
+                                            {
+                                                line = 210
+                                            },
+                                            new Node()
+                                            {
+                                                line = 152
+                                            },
+                                            new Node()
+                                            {
+                                                line = 120
+                                            },
+                                        },
+                                    },
+                                    new File()
+                                    {
+                                        fileId = "5",
+                                        groupId = 3,
+                                        groupIndex = 0,
+                                        lines = 509,
+                                        breakpoints = new List<Breakpoint>(){
+                                        },
+                                        events = new List<Event>(){
+                                        },
+                                        nodes = new List<Node>(){
+                                            new Node()
+                                            {
+                                                line = 205
+                                            },
+                                            new Node()
+                                            {
+                                                line = 206
+                                            },
+                                        },
+                                    },
+                                    new File()
+                                    {
+                                        fileId = "6",
+                                        groupId = 4,
+                                        groupIndex = 0,
+                                        lines = 150,
+                                        breakpoints = new List<Breakpoint>(){
+                                        },
+                                        events = new List<Event>(){
+                                        },
+                                        nodes = new List<Node>(){
+                                            new Node()
+                                            {
+                                                line = 103
+                                            },
+                                            new Node()
+                                            {
+                                                line = 104
+                                            },
+                                        },
+                                    },
+                                    new File()
+                                    {
+                                        fileId = "7",
+                                        groupId = 4,
+                                        groupIndex = 1,
+                                        lines = 150,
+                                        breakpoints = new List<Breakpoint>(){
+                                        },
+                                        events = new List<Event>(){
+                                        },
+                                        nodes = new List<Node>(){
+                                            new Node()
+                                            {
+                                                line = 103
+                                            },
+                                            new Node()
+                                            {
+                                                line = 104
+                                            },
+                                        },
+                                    },
+                                    new File()
+                                    {
+                                        fileId = "8",
+                                        groupId = 4,
+                                        groupIndex = 2,
+                                        lines = 150,
+                                        breakpoints = new List<Breakpoint>(){
+                                        },
+                                        events = new List<Event>(){
+                                        },
+                                        nodes = new List<Node>(){
+                                            new Node()
+                                            {
+                                                line = 103
+                                            },
+                                            new Node()
+                                            {
+                                                line = 104
+                                            },
+                                        },
+                                    },
+                                    new File()
+                                    {
+                                        fileId = "9",
+                                        groupId = 5,
+                                        groupIndex = 0,
+                                        lines = 340,
+                                        breakpoints = new List<Breakpoint>(){
+                                        },
+                                        events = new List<Event>(){
+                                        },
+                                        nodes = new List<Node>(){
+                                            new Node()
+                                            {
+                                                line = 110
+                                            },
+                                            new Node()
+                                            {
+                                                line = 115
+                                            },
+                                        },
+                                    },
+                                },
+                                pathnodes = new List<Node>()
+                                {
+                                    new Node()
+                                    {
+                                        fileId = "1",
+                                        line = 35
+                                    },
+                                    new Node()
+                                    {
+                                        fileId = "2",
+                                        line = 137
+                                    },
+                                    new Node()
+                                    {
+                                        fileId = "2",
+                                        line = 133
+                                    },
+                                    new Node()
+                                    {
+                                        fileId = "2",
+                                        line = 125
+                                    },
+                                    new Node()
+                                    {
+                                        fileId = "2",
+                                        line = 135
+                                    },
+                                    new Node()
+                                    {
+                                        fileId = "2",
+                                        line = 128
+                                    },
+                                    new Node()
+                                    {
+                                        fileId = "3",
+                                        line = 47
+                                    },
+                                    new Node()
+                                    {
+                                        fileId = "3",
+                                        line = 215
+                                    },
+                                    new Node()
+                                    {
+                                        fileId = "4",
+                                        line = 210
+                                    },
+                                    new Node()
+                                    {
+                                        fileId = "4",
+                                        line = 152
+                                    },
+                                    new Node()
+                                    {
+                                        fileId = "5",
+                                        line = 205
+                                    },
+                                    new Node()
+                                    {
+                                        fileId = "6",
+                                        line = 103
+                                    },
+                                    new Node()
+                                    {
+                                        fileId = "7",
+                                        line = 103
+                                    },
+                                    new Node()
+                                    {
+                                        fileId = "8",
+                                        line = 103
+                                    },
+                                    new Node()
+                                    {
+                                        fileId = "9",
+                                        line = 110
+                                    },
+                                    new Node()
+                                    {
+                                        fileId = "9",
+                                        line = 115
+                                    },
+                                    new Node()
+                                    {
+                                        fileId = "8",
+                                        line = 104
+                                    },
+                                    new Node()
+                                    {
+                                        fileId = "7",
+                                        line = 104
+                                    },
+                                    new Node()
+                                    {
+                                        fileId = "6",
+                                        line = 104
+                                    },
+                                    new Node()
+                                    {
+                                        fileId = "5",
+                                        line = 206
+                                    },
+                                    new Node()
+                                    {
+                                        fileId = "4",
+                                        line = 120
+                                    },
+                                    new Node()
+                                    {
+                                        fileId = "3",
+                                        line = 116
+                                    },
+                                    new Node()
+                                    {
+                                        fileId = "2",
+                                        line = 122
+                                    },
+                                    new Node()
+                                    {
+                                        fileId = "1",
+                                        line = 36
+                                    },
+                                }
+                            }
+                        },
+                        groups = new List<Group>(){
+                            new Group()
+                            {
+                                groupId = 1,
+                                maxIndexWidthQuantity = 0
+                            },
+                            new Group()
+                            {
+                                groupId = 2,
+                                maxIndexWidthQuantity = 2
+                            },
+                            new Group()
+                            {
+                                groupId = 3,
+                                maxIndexWidthQuantity = 0
+                            },
+                            new Group()
+                            {
+                                groupId = 4,
+                                maxIndexWidthQuantity = 2
+                            },
+                            new Group()
+                            {
+                                groupId = 5,
+                                maxIndexWidthQuantity = 0
+                            },
+                        }
+                    },
+                    new Project() {
+                        name = "Project 1 ABC",//incompleto, parei aqui
+                        sessions = new List<Session>(){
+                            new Session()
+                            {
+                                files = new List<File>(){},
+                                pathnodes = new List<Node>(){}
+                            },
+                            new Session()
+                            {
+                                files = new List<File>(){},
+                                pathnodes = new List<Node>(){}
+                            },
+                            new Session()
+                            {
+                                files = new List<File>(){},
+                                pathnodes = new List<Node>(){}
+                            },
+                            new Session()
+                            {
+                                files = new List<File>(){},
+                                pathnodes = new List<Node>(){}
+                            },
+                        },
+                        groups = new List<Group>(){
+                            new Group()
+                            {
+                                groupId = 0,
+                                maxIndexWidthQuantity = 2
+                            },
+                            new Group()
+                            {
+                                groupId = 1,
+                                maxIndexWidthQuantity = 3
+                            },
+                            new Group()
+                            {
+                                groupId = 2,
+                                maxIndexWidthQuantity = 16
+                            },
+                            new Group()
+                            {
+                                groupId = 3,
+                                maxIndexWidthQuantity = 0
+                            },
+                        }
+                    }
+                }
+            },
+            new User()
+            {
+                name = "User XYZ",
+                projects = new List<Project> {
+                    new Project() {
+                        name = "Project 1 XYZ",
+                        sessions = new List<Session>{
+                            new Session()
+                            {
+                                files = new List<File>(){
+                                    new File()
+                                    {
+                                        groupId = 0,
+                                        groupIndex = 0,
+                                        lines = 300,
+                                        breakpoints = new List<Breakpoint>(){},
+                                        events = new List<Event>(){},
+                                        nodes = new List<Node>(){}
+                                    }
+                                },
+                                pathnodes = new List<Node>(){}
+                            }
+                        },
+                        groups = new List<Group>(){}
+                    },
+                }
+            },
+            new User()
+            {
+                name = "User OKS",
+                projects = new List<Project> {
+                    new Project() {
+                        name = "Project 1 OKS",
+                        sessions = new List<Session>{
+                            new Session()
+                            {
+                                files = new List<File>(){
+                                    new File()
+                                    {
+                                        groupId = 0,
+                                        groupIndex = 0,
+                                        lines = 120,
+                                        breakpoints = new List<Breakpoint>(){},
+                                        events = new List<Event>(){},
+                                        nodes = new List<Node>(){}
+                                    }
+                                },
+                                pathnodes = new List<Node>(){}
+                            }
+                        },
+                        groups = new List<Group>(){}
+                    },
+                    new Project() {
+                        name = "Project 2 OKS",
+                        sessions = new List<Session>() {
+                            new Session(){
+                                files = new List<File>() {
+                                    new File()
+                                    {
+                                        groupId = 0,
+                                        groupIndex = 0,
+                                        lines = 1,
+                                        breakpoints = new List<Breakpoint>(){},
+                                        events = new List<Event>(){},
+                                        nodes = new List<Node>(){}
+                                    },
+                                    new File()
+                                    {
+                                        groupId = 0,
+                                        groupIndex = 1,
+                                        lines = 10,
+                                        breakpoints = new List<Breakpoint>(){},
+                                        events = new List<Event>(){},
+                                        nodes = new List<Node>(){}
+                                    },
+                                    new File()
+                                    {
+                                        groupId = 0,
+                                        groupIndex = 2,
+                                        lines = 1,
+                                        breakpoints = new List<Breakpoint>(){},
+                                        events = new List<Event>(){},
+                                        nodes = new List<Node>(){}
+                                    },
+                                    new File()
+                                    {
+                                        groupId = 0,
+                                        groupIndex = 3,
+                                        lines = 120,
+                                        breakpoints = new List<Breakpoint>(){},
+                                        events = new List<Event>(){
+                                            new Event()
+                                            {
+                                                line = 100,
+                                                data = "<h4>título 100</h4><p>100 </p><p>event</p>"
+                                            },
+                                            new Event()
+                                            {
+                                                line = 20,
+                                                data = "<h4>título 20</h4><p>20 </p><p>event</p>"
+                                            },
+                                            new Event()
+                                            {
+                                                line = 50,
+                                                data = "<h4>título 50</h4><p>50 </p><p>event</p>"
+                                            }
+                                        },
+                                        nodes = new List<Node>(){}
+                                    }
+                                },
+                                pathnodes = new List<Node>(){}
+                            }
+                        },
+                        groups = new List<Group>{ new Group() { groupId = 0, maxIndexWidthQuantity = 3 } }
+                    },
+                }
+            } };
 
             return users;
         }
