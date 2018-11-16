@@ -216,6 +216,16 @@
     };
 
     var setSelectedSceneById = function (userIndex, projectIndex) {
+        if (userIndex == undefined || userIndex == '') {
+            console.log('None userIndex loaded in user selector.');
+            return;
+        }
+
+        if (projectIndex == undefined || projectIndex == '') {
+            console.log('None projectIndex loaded in project selector.');
+            return;
+        }
+
         for (var i = 0; i < sceneArray.length; i++) {
             if (sceneArray[i].userIndex == userIndex && sceneArray[i].projectIndex == projectIndex) {
                 selectedScene = sceneArray[i];

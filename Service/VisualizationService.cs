@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SwarmServerAPI.AppCode.Repository;
 
 namespace SwarmServerAPI.AppCore.Service
 {
@@ -66,7 +67,8 @@ namespace SwarmServerAPI.AppCore.Service
 
         public List<User> GetView3dData()
         {
-            List<User> users = new List<User>{new User()
+            //TODO: data for test, not loaded
+            List<User> users1 = new List<User>{new User()
             {
                 name = "User ABC",
                 projects = new List<Project> {
@@ -1223,6 +1225,22 @@ namespace SwarmServerAPI.AppCore.Service
                     },
                 }
             } };
+            //--
+
+            List<User> users = new List<User>();
+
+            using (SwarmData context = new SwarmData())
+            {
+                users = context.Sessions
+                    .GroupBy(s => s.DeveloperName)
+                    .Select(s => s.FirstOrDefault())
+                    .Where(s => s.DeveloperName != null && s.DeveloperName.Trim() != string.Empty)
+                    .OrderBy(s => s.DeveloperName)
+                    .Select(s => new User
+                {
+                    name = s.DeveloperName
+                }).ToList();
+            }
 
             return users;
         }
