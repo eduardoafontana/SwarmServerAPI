@@ -6,24 +6,24 @@
         return users;
     };
 
-    var getTasks = function (u) {
+    var getTasks = function (u, p) {
+        if (u < 0 || p < 0)
+            return [];
+
+        if (users[u].projects == undefined || users[u].projects[p].tasks == undefined)
+            return [];
+
+        return users[u].projects[p].tasks;
+    };
+
+    var getProjects = function (u) {
         if (u < 0)
             return [];
 
-        if (users[u].tasks == undefined)
+        if (users[u].projects == undefined)
             return [];
 
-        return users[u].tasks;
-    };
-
-    var getProjects = function (u, t) {
-        if (u < 0 || t < 0)
-            return [];
-
-        if (users[u].tasks == undefined || users[u].tasks[t].projects == undefined)
-            return [];
-
-        return users[u].tasks[t].projects;
+        return users[u].projects;
     };
 
     var getDataFromServer = () => new Promise(function (resolve, reject) {

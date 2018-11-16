@@ -87,12 +87,12 @@
         animate();
     };
 
-    var getNewScene = function (userIndex, taskIndex, projectIndex) {
+    var getNewScene = function (userIndex, projectIndex, taskIndex) {
         var scene = new THREE.Scene();
 
         scene.userIndex = userIndex;
-        scene.taskIndex = taskIndex;
         scene.projectIndex = projectIndex;
+        scene.taskIndex = taskIndex;
 
         scene.add(Axes().mesh);
         scene.add(Grid().mesh);
@@ -216,14 +216,9 @@
         });
     };
 
-    var setSelectedSceneById = function (userIndex, taskIndex, projectIndex) {
+    var setSelectedSceneById = function (userIndex, projectIndex, taskIndex) {
         if (userIndex == undefined || userIndex == '') {
             console.log('None userIndex loaded in user selector.');
-            return;
-        }
-
-        if (taskIndex == undefined || taskIndex == '') {
-            console.log('None taskIndex loaded in task selector.');
             return;
         }
 
@@ -232,10 +227,15 @@
             return;
         }
 
+        if (taskIndex == undefined || taskIndex == '') {
+            console.log('None taskIndex loaded in task selector.');
+            return;
+        }
+
         for (var i = 0; i < sceneArray.length; i++) {
             if (sceneArray[i].userIndex == userIndex &&
-                sceneArray[i].taskIndex == taskIndex &&
-                sceneArray[i].projectIndex == projectIndex 
+                sceneArray[i].projectIndex == projectIndex && 
+                sceneArray[i].taskIndex == taskIndex
             ) {
                 selectedScene = sceneArray[i];
 
@@ -248,9 +248,9 @@
             }
         }
 
-        view3d.sceneLoader(userIndex, taskIndex, projectIndex);
+        view3d.sceneLoader(userIndex, projectIndex, taskIndex);
 
-        setSelectedSceneById(userIndex, taskIndex, projectIndex);
+        setSelectedSceneById(userIndex, projectIndex, taskIndex);
     };
 
     var setSelectedSceneFirst = function () {

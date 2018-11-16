@@ -3,8 +3,8 @@
     var init = function () {
 
         var selectUser = document.getElementById('user-select');
-        var selectTask = document.getElementById('task-select');
         var selectProject = document.getElementById('project-select');
+        var selectTask = document.getElementById('task-select');
 
         var array = dataControl.getUsers();
 
@@ -23,10 +23,31 @@
 
         function onSelectUserChange() {
             do {
+                selectProject.remove(0);
+            } while (selectProject.length > 0);
+
+            var array = dataControl.getProjects(selectUser.selectedIndex);
+
+            for (let i = 0; i < array.length; i++) {
+                var option = document.createElement('option');
+
+                option.text = array[i].name;
+                option.value = i;
+
+                selectProject.add(option);
+            }
+
+            onSelectProjectChange();
+        }
+
+        selectProject.addEventListener("change", onSelectTaskChange);
+
+        function onSelectProjectChange() {
+            do {
                 selectTask.remove(0);
             } while (selectTask.length > 0);
 
-            var array = dataControl.getTasks(selectUser.selectedIndex);
+            var array = dataControl.getTasks(selectUser.selectedIndex, selectProject.selectedIndex);
 
             for (let i = 0; i < array.length; i++) {
                 var option = document.createElement('option');
@@ -43,28 +64,7 @@
         selectTask.addEventListener("change", onSelectTaskChange);
 
         function onSelectTaskChange() {
-            do {
-                selectProject.remove(0);
-            } while (selectProject.length > 0);
-
-            var array = dataControl.getProjects(selectUser.selectedIndex, selectTask.selectedIndex);
-
-            for (let i = 0; i < array.length; i++) {
-                var option = document.createElement('option');
-
-                option.text = array[i].name;
-                option.value = i;
-
-                selectProject.add(option);
-            }
-
-            onSelectProjectChange();
-        }
-
-        selectProject.addEventListener("change", onSelectProjectChange);
-
-        function onSelectProjectChange() {
-            render.setSelectedSceneById(selectUser.value, selectTask.value, selectProject.value);
+            render.setSelectedSceneById(selectUser.value, selectProject.value, selectTask.value);
         }
     };
 

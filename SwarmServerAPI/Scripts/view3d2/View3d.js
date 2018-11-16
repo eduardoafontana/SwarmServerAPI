@@ -1,28 +1,32 @@
 ﻿var view3d = (function () {
 
-    var sceneLoader = function (userIndex, taskIndex, projectIndex) {
+    var sceneLoader = function (userIndex, projectIndex, taskIndex) {
 
         var users = dataControl.getUsers();
 
         if (typeof users[userIndex] === 'undefined')
             return;
 
-        if (typeof users[userIndex].tasks[taskIndex] === 'undefined')
+        if (typeof users[userIndex].projects[projectIndex] === 'undefined')
             return;
 
-        if (typeof users[userIndex].tasks[taskIndex].projects[projectIndex] === 'undefined')
+        if (typeof users[userIndex].projects[projectIndex].tasks[taskIndex] === 'undefined')
             return;
 
-        var project = users[userIndex].tasks[taskIndex].projects[projectIndex];
+        var task = users[userIndex].projects[projectIndex].tasks[taskIndex];
 
-        var scene = render.getNewScene(userIndex, taskIndex, projectIndex);
+        var scene = render.getNewScene(userIndex, projectIndex, taskIndex);
+
+        if (task.groups == undefined)
+            return;
+
+        if (task.sessions == undefined)
+            return;
 
         var groups = [];
 
-        if (project.groups != undefined) {
-            for (var g = 0; g < project.groups.length; g++) {
-                groups.push(Group(project.groups[g], project.sessions.length, groups[g - 1]));
-            }
+        for (var g = 0; g < task.groups.length; g++) {
+            groups.push(Group(task.groups[g], task.sessions.length, groups[g - 1]));
         }
 
         for (var g = 0; g < groups.length; g++) {
@@ -31,11 +35,11 @@
 
         groupAssembler.reset();
 
-        groupAssembler.mountMostHighFileLine(project.sessions);
+        groupAssembler.mountMostHighFileLine(task.sessions);
 
-        for (var s = 0; s < project.sessions.length; s++) {
-            var files = project.sessions[s].files;
-            var groups = project.groups;
+        for (var s = 0; s < task.sessions.length; s++) {
+            var files = task.sessions[s].files;
+            var groups = task.groups;
 
             //generate infos x z positions and mostHighFileLine.
             groupAssembler.mountBySession(files, groups);
@@ -73,7 +77,7 @@
                 }
             }
 
-            var pathnodes = project.sessions[s].pathnodes;
+            var pathnodes = task.sessions[s].pathnodes;
 
             if (pathnodes.length > 0) {
                 //generate infos x z positions on nodes
