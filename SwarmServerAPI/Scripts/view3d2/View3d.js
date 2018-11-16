@@ -1,18 +1,21 @@
 ﻿var view3d = (function () {
 
-    var sceneLoader = function (userIndex, projectIndex) {
+    var sceneLoader = function (userIndex, taskIndex, projectIndex) {
 
         var users = dataControl.getUsers();
 
         if (typeof users[userIndex] === 'undefined')
             return;
 
-        if (typeof users[userIndex].projects[projectIndex] === 'undefined')
+        if (typeof users[userIndex].tasks[taskIndex] === 'undefined')
             return;
 
-        var project = users[userIndex].projects[projectIndex];
+        if (typeof users[userIndex].tasks[taskIndex].projects[projectIndex] === 'undefined')
+            return;
 
-        var scene = render.getNewScene(userIndex, projectIndex);
+        var project = users[userIndex].tasks[taskIndex].projects[projectIndex];
+
+        var scene = render.getNewScene(userIndex, taskIndex, projectIndex);
 
         var groups = [];
 

@@ -62,6 +62,12 @@ namespace SwarmServerAPI.AppCore.Service
         public class User
         {
             public string name { get; set; }
+            public List<Task> tasks { get; set; } = new List<Task>();
+        }
+
+        public class Task
+        {
+            public string name { get; set; }
             public List<Project> projects { get; set; } = new List<Project>();
         }
 
@@ -71,8 +77,13 @@ namespace SwarmServerAPI.AppCore.Service
             List<User> users1 = new List<User>{new User()
             {
                 name = "User ABC",
-                projects = new List<Project> {
-                    new Project() {
+                tasks = new List<Task>
+                {
+                    new Task()
+                    {
+                        name = "Task one ABC",
+                        projects = new List<Project> {
+                            new Project() {
                         name = "Day 17-10 presentation",
                         sessions = new List<Session>(){
                             new Session(){
@@ -1107,12 +1118,19 @@ namespace SwarmServerAPI.AppCore.Service
                         }
                     }
                 }
+                    }
+                }
             },
             new User()
             {
                 name = "User XYZ",
-                projects = new List<Project> {
-                    new Project() {
+                tasks = new List<Task>
+                {
+                    new Task
+                    {
+                        name = "Task one XYZ",
+                        projects = new List<Project> {
+                        new Project() {
                         name = "Project 1 XYZ",
                         sessions = new List<Session>{
                             new Session()
@@ -1134,11 +1152,18 @@ namespace SwarmServerAPI.AppCore.Service
                         groups = new List<Group>(){}
                     },
                 }
+                    }
+                }
             },
             new User()
             {
                 name = "User OKS",
-                projects = new List<Project> {
+                tasks = new List<Task>
+                {
+                    new Task
+                    {
+                        name = "Task one OKS",
+                                        projects = new List<Project> {
                     new Project() {
                         name = "Project 1 OKS",
                         sessions = new List<Session>{
@@ -1224,6 +1249,8 @@ namespace SwarmServerAPI.AppCore.Service
                         groups = new List<Group>{ new Group() { groupId = 0, maxIndexWidthQuantity = 3 } }
                     },
                 }
+                    }
+                }
             } };
             //--
 
@@ -1237,9 +1264,9 @@ namespace SwarmServerAPI.AppCore.Service
                     .Where(s => s.DeveloperName != null && s.DeveloperName.Trim() != string.Empty)
                     .OrderBy(s => s.DeveloperName)
                     .Select(s => new User
-                {
-                    name = s.DeveloperName
-                }).ToList();
+                    {
+                        name = s.DeveloperName
+                    }).ToList();
             }
 
             return users;

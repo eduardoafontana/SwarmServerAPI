@@ -6,10 +6,25 @@
         return users;
     };
 
-    var getProjects = function (i) {
-        return users[i].projects;
+    var getTasks = function (t) {
+        if (t < 0)
+            return [];
+
+        if (users[t].tasks == undefined)
+            return [];
+
+        return users[t].tasks;
     };
 
+    var getProjects = function (u, t) {
+        if (u < 0 || t < 0)
+            return [];
+
+        if (users[u].tasks == undefined || users.tasks[t].projects == undefined)
+            return [];
+
+        return users[u].tasks[t].projects;
+    };
 
     var getDataFromServer = () => new Promise(function (resolve, reject) {
         var xmlhttp = new XMLHttpRequest();
@@ -33,6 +48,7 @@
 
     return {
         getUsers: getUsers,
+        getTasks: getTasks,
         getProjects: getProjects,
         loadData: loadData,
         getDataFromServer: getDataFromServer
