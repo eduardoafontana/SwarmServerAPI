@@ -6,21 +6,21 @@
         return users;
     };
 
-    var getTasks = function (t) {
-        if (t < 0)
+    var getTasks = function (u) {
+        if (u < 0)
             return [];
 
-        if (users[t].tasks == undefined)
+        if (users[u].tasks == undefined)
             return [];
 
-        return users[t].tasks;
+        return users[u].tasks;
     };
 
     var getProjects = function (u, t) {
         if (u < 0 || t < 0)
             return [];
 
-        if (users[u].tasks == undefined || users.tasks[t].projects == undefined)
+        if (users[u].tasks == undefined || users[u].tasks[t].projects == undefined)
             return [];
 
         return users[u].tasks[t].projects;

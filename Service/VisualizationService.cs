@@ -1265,7 +1265,17 @@ namespace SwarmServerAPI.AppCore.Service
                     .OrderBy(s => s.DeveloperName)
                     .Select(s => new User
                     {
-                        name = s.DeveloperName
+                        name = s.DeveloperName,
+                        tasks = context.Sessions
+                            .Where(s1 => s1.DeveloperName == s.DeveloperName)
+                            .GroupBy(s1 => s1.TaskName)
+                            .Select(s1 => s1.FirstOrDefault())
+                            .Where(s1 => s1.TaskName != null && s1.TaskName.Trim() != string.Empty)
+                            .OrderBy(s1 => s1.TaskName)
+                            .Select(s1 => new Task
+                            {
+                                name = s1.TaskName
+                            }).ToList()
                     }).ToList();
             }
 
