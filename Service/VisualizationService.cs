@@ -1274,7 +1274,17 @@ namespace SwarmServerAPI.AppCore.Service
                             .OrderBy(s1 => s1.TaskName)
                             .Select(s1 => new Task
                             {
-                                name = s1.TaskName
+                                name = s1.TaskName,
+                                projects = context.Sessions
+                                .Where(s2 => s2.DeveloperName == s1.DeveloperName && s2.TaskName == s1.TaskName)
+                                .GroupBy(s2 => s2.ProjectName)
+                                .Select(s2 => s2.FirstOrDefault())
+                                .Where(s2 => s2.ProjectName != null && s2.ProjectName.Trim() != string.Empty)
+                                .OrderBy(s2 => s2.ProjectName)
+                                .Select(s2 => new Project
+                                {
+                                    name = s2.ProjectName
+                                }).ToList()
                             }).ToList()
                     }).ToList();
             }
