@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using SwarmServerAPI.AppCode.Repository;
 
@@ -1258,7 +1259,9 @@ namespace SwarmServerAPI.AppCore.Service
 
             using (SwarmData context = new SwarmData())
             {
-                users = context.Sessions
+                //Create basic structure date to selectors.
+                users = context.Sessions.Include("CodeFiles")
+                    .Where(s => s.CodeFiles.Count() > 0)
                     .GroupBy(s => s.DeveloperName)
                     .Select(s => s.FirstOrDefault())
                     .Where(s => s.DeveloperName != null && s.DeveloperName.Trim() != string.Empty)
@@ -1267,6 +1270,7 @@ namespace SwarmServerAPI.AppCore.Service
                     {
                         name = s.DeveloperName,
                         projects = context.Sessions
+                            .Where(s1 => s1.CodeFiles.Count() > 0)
                             .Where(s1 => s1.DeveloperName == s.DeveloperName)
                             .GroupBy(s1 => s1.ProjectName)
                             .Select(s1 => s1.FirstOrDefault())
@@ -1276,17 +1280,75 @@ namespace SwarmServerAPI.AppCore.Service
                             {
                                 name = s1.ProjectName,
                                 tasks = context.Sessions
+                                    .Where(s2 => s2.CodeFiles.Count() > 0)
                                     .Where(s2 => s2.DeveloperName == s1.DeveloperName && s2.ProjectName == s1.ProjectName)
                                     .GroupBy(s2 => s2.TaskName)
                                     .Select(s2 => s2.FirstOrDefault())
                                     .Where(s2 => s2.TaskName != null && s2.TaskName.Trim() != string.Empty)
-                                    .OrderBy(s2 => s1.TaskName)
+                                    .OrderBy(s2 => s2.TaskName)
                                     .Select(s2 => new Task
                                     {
-                                        name = s1.TaskName
+                                        name = s2.TaskName,
                                     }).ToList()
                             }).ToList()
                     }).ToList();
+
+                //For each task created, create de full structure to view3d.
+                foreach (var user in users)
+                {
+                    foreach (var project in user.projects)
+                    {
+                        foreach (var task in project.tasks)
+                        {
+                            var sessions = context.Sessions
+                                .Where(s => s.TaskName == task.name && 
+                                    s.ProjectName == project.name && 
+                                    s.DeveloperName == user.name)
+                                .OrderBy(s => s.Started)
+                                .Select(s => s.Id)
+                                .ToList();
+
+                            task.groups = context.CodeFiles
+                                .Where(c => sessions.Contains(c.Session.Id))
+                                .OrderBy(c => c.Created)
+                                .AsEnumerable()
+                                .Select(c => new { pathOnly = System.IO.Path.GetDirectoryName(c.Path) })
+                                .Distinct()
+                                .Select((po, i) => new Group { groupId = i })
+                                .ToList();
+
+                            task.sessions = context.Sessions.Include("CodeFiles").Include("Breakpoints").Include("Events")
+                                .Where(s => sessions.Contains(s.Id))
+                                .OrderBy(s => s.Started)
+                                .AsEnumerable()
+                                .Select(s => new Session {
+                                    name = String.Format("{0:yyyy-MM-ddTHH:mm:ssZ}", s.Started) + "  " + s.Description,
+                                    files = s.CodeFiles
+                                        .OrderBy(c => c.Created)
+                                        .AsEnumerable()
+                                        .Select((c, i) => new File {
+                                            fileId = i.ToString(),
+                                            fileName = System.IO.Path.GetFileName(c.Path),
+                                            groupId = 0,
+                                            groupIndex = i,
+                                            lines = Regex.Matches(Base64StringZip.UnZipString(c.Content), Environment.NewLine, RegexOptions.Multiline).Count,
+                                            breakpoints = s.Breakpoints
+                                                .Where(b => b.CodeFilePath == c.Path)
+                                                .Select(b => new Breakpoint {
+                                                    line = b.LineNumber ?? 0
+                                                }).ToList(),
+                                            events = s.Events
+                                                .Where(e => e.CodeFilePath == c.Path)
+                                                .Select(e => new Event
+                                                {
+                                                    line = e.LineNumber ?? 0
+                                                }).ToList(),
+                                        })
+                                        .ToList()
+                                }).ToList();
+                        }
+                    }
+                }
             }
 
             return users;

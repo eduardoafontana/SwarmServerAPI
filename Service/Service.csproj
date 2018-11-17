@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base64StringZip.cs" />
     <Compile Include="DTOModels\CodeFileModel.cs" />
     <Compile Include="DTOModels\BreakpointModel.cs" />
     <Compile Include="DTOModels\CodeMetricModel.cs" />

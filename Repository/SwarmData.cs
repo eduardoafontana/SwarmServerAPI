@@ -19,10 +19,11 @@ namespace SwarmServerAPI.AppCode.Repository
         public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<PathNode> PathNodes { get; set; }
         public virtual DbSet<PathNodeParameter> PathNodeParameters { get; set; }
+        public virtual DbSet<CodeFile> CodeFiles { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-
+            
         }
     }
 }
