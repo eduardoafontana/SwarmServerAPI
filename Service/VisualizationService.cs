@@ -1259,7 +1259,7 @@ namespace SwarmServerAPI.AppCore.Service
 
             using (SwarmData context = new SwarmData())
             {
-                //Create basic structure date to selectors.
+                //Create basic structure data to selectors.
                 users = context.Sessions.Include("CodeFiles")
                     .Where(s => s.CodeFiles.Count() > 0)
                     .GroupBy(s => s.DeveloperName)
@@ -1317,7 +1317,7 @@ namespace SwarmServerAPI.AppCore.Service
                                 .Select((po, i) => new Group { groupId = i })
                                 .ToList();
 
-                            task.sessions = context.Sessions.Include("CodeFiles").Include("Breakpoints").Include("Events")
+                            task.sessions = context.Sessions.Include("CodeFiles").Include("Breakpoints").Include("Events").Include("PathNodes")
                                 .Where(s => sessions.Contains(s.Id))
                                 .OrderBy(s => s.Started)
                                 .AsEnumerable()
@@ -1333,18 +1333,19 @@ namespace SwarmServerAPI.AppCore.Service
                                             groupIndex = i,
                                             lines = Regex.Matches(Base64StringZip.UnZipString(c.Content), Environment.NewLine, RegexOptions.Multiline).Count,
                                             breakpoints = s.Breakpoints
-                                                .Where(b => b.CodeFilePath == c.Path)
+                                                .Where(b => b.CodeFilePath.ToLower() == c.Path.ToLower())
                                                 .Select(b => new Breakpoint {
                                                     line = b.LineNumber ?? 0
                                                 }).ToList(),
                                             events = s.Events
-                                                .Where(e => e.CodeFilePath == c.Path)
+                                                .Where(e => e.CodeFilePath.ToLower() == c.Path.ToLower())
                                                 .Select(e => new Event
                                                 {
                                                     line = e.LineNumber ?? 0
                                                 }).ToList(),
                                         })
-                                        .ToList()
+                                        .ToList(),
+                                    pathnodes = getValidPathNodes(s)
                                 }).ToList();
                         }
                     }
@@ -1352,6 +1353,52 @@ namespace SwarmServerAPI.AppCore.Service
             }
 
             return users;
+        }
+
+        private List<Node> getValidPathNodes(AppCode.Repository.Session s)
+        {
+            List<Node> nodes = new List<Node>();
+
+            List<PathNode> pathNodes = s.PathNodes.OrderBy(pn => pn.Created).ToList();
+            List<AppCode.Repository.Event> events = s.Events.OrderBy(pn => pn.Created).ToList();
+            List<CodeFile> codeFiles = s.CodeFiles.OrderBy(pn => pn.Created).ToList();
+
+            int startEvent = 0;
+            foreach (var item in pathNodes)
+            {
+                AppCode.Repository.Event eventFounded = null;
+
+                for (int i = startEvent; i < events.Count; i++)
+                {
+                    if(events[i].Namespace.ToLower() == item.Namespace.ToLower() && 
+                       events[i].Type.ToLower() == item.Type.ToLower() &&
+                       events[i].Method.ToLower() == item.Method.ToLower())
+                    {
+                        eventFounded = events[i];
+
+                        startEvent = ++i;
+                        break;
+                    }
+                }
+
+                if (eventFounded == null)
+                    continue;
+
+                int? fileId = codeFiles
+                    .Select((cf, i) => new { index = i, path = cf.Path })
+                    .Where(o => o.path.ToLower() == eventFounded.CodeFilePath.ToLower())
+                    .Select(o => o.index).FirstOrDefault();
+
+                if (fileId == null)
+                    continue;
+
+                nodes.Add(new Node {
+                    fileId = fileId.ToString(),
+                    line = eventFounded.LineNumber ?? 0
+                });
+            }
+
+            return nodes;
         }
     }
 }

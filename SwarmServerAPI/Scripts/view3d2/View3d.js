@@ -79,7 +79,7 @@
 
             var pathnodes = task.sessions[s].pathnodes;
 
-            if (pathnodes.length > 0) {
+            if (pathnodes.length > 1) {
                 //generate infos x z positions on nodes
                 groupAssembler.mountNodesBySession(files, pathnodes);
 
