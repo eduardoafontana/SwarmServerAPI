@@ -26,6 +26,8 @@ namespace SwarmServerAPI.AppCore.Service
         {
             public string fileId { get; set; }
             public string fileName { get; set; }
+            public string filePath { get; set; }
+            public int sessionId { get; set; }
             public int groupId { get; set; }
             public int groupIndex { get; set; }
             public int lines { get; set; }
@@ -42,6 +44,7 @@ namespace SwarmServerAPI.AppCore.Service
 
         public class Session
         {
+            public int sessionId { get; set; }
             public string name { get; set; }
             public List<File> files { get; set; } = new List<File>();
             public List<Node> pathnodes { get; set; } = new List<Node>();
@@ -50,6 +53,7 @@ namespace SwarmServerAPI.AppCore.Service
         public class Group
         {
             public int groupId { get; set; }
+            public string path { get; set; }
             public int maxIndexWidthQuantity { get; set; }
         }
 
@@ -1301,8 +1305,8 @@ namespace SwarmServerAPI.AppCore.Service
                         foreach (var task in project.tasks)
                         {
                             var sessions = context.Sessions
-                                .Where(s => s.TaskName == task.name && 
-                                    s.ProjectName == project.name && 
+                                .Where(s => s.TaskName == task.name &&
+                                    s.ProjectName == project.name &&
                                     s.DeveloperName == user.name)
                                 .OrderBy(s => s.Started)
                                 .Select(s => s.Id)
@@ -1312,41 +1316,19 @@ namespace SwarmServerAPI.AppCore.Service
                                 .Where(c => sessions.Contains(c.Session.Id))
                                 .OrderBy(c => c.Created)
                                 .AsEnumerable()
-                                .Select(c => new { pathOnly = System.IO.Path.GetDirectoryName(c.Path) })
+                                .Select(c => new { pathOnly = System.IO.Path.GetDirectoryName(c.Path).ToLower() })
                                 .Distinct()
-                                .Select((po, i) => new Group { groupId = i })
+                                .Select((po, i) => new Group { groupId = i, maxIndexWidthQuantity = 0, path = po.pathOnly })
                                 .ToList();
 
-                            task.sessions = context.Sessions.Include("CodeFiles").Include("Breakpoints").Include("Events").Include("PathNodes")
-                                .Where(s => sessions.Contains(s.Id))
-                                .OrderBy(s => s.Started)
-                                .AsEnumerable()
-                                .Select(s => new Session {
-                                    name = String.Format("{0:yyyy-MM-ddTHH:mm:ssZ}", s.Started) + "  " + s.Description,
-                                    files = s.CodeFiles
-                                        .OrderBy(c => c.Created)
-                                        .AsEnumerable()
-                                        .Select((c, i) => new File {
-                                            fileId = i.ToString(),
-                                            fileName = System.IO.Path.GetFileName(c.Path),
-                                            groupId = 0,
-                                            groupIndex = i,
-                                            lines = Regex.Matches(Base64StringZip.UnZipString(c.Content), Environment.NewLine, RegexOptions.Multiline).Count,
-                                            breakpoints = s.Breakpoints
-                                                .Where(b => b.CodeFilePath.ToLower() == c.Path.ToLower())
-                                                .Select(b => new Breakpoint {
-                                                    line = b.LineNumber ?? 0
-                                                }).ToList(),
-                                            events = s.Events
-                                                .Where(e => e.CodeFilePath.ToLower() == c.Path.ToLower())
-                                                .Select(e => new Event
-                                                {
-                                                    line = e.LineNumber ?? 0
-                                                }).ToList(),
-                                        })
-                                        .ToList(),
-                                    pathnodes = getValidPathNodes(s)
-                                }).ToList();
+                            task.sessions = getSessions(context.Sessions
+                                    .Include("CodeFiles")
+                                    .Include("Breakpoints")
+                                    .Include("Events")
+                                    .Include("PathNodes")
+                                    .Where(s => sessions.Contains(s.Id))
+                                    .OrderBy(s => s.Started).ToList(),
+                                task.groups);
                         }
                     }
                 }
@@ -1355,7 +1337,98 @@ namespace SwarmServerAPI.AppCore.Service
             return users;
         }
 
-        private List<Node> getValidPathNodes(AppCode.Repository.Session s)
+        private List<Session> getSessions(List<AppCode.Repository.Session> listSession, List<Group> generatedGroups)
+        {
+            List<Session> sessions = new List<Session>();
+
+            for (int i = 0; i < listSession.Count; i++)
+            {
+                AppCode.Repository.Session s = listSession[i];
+
+                Session session = new Session();
+
+                session.sessionId = i;
+                session.name = String.Format("{0:yyyy-MM-ddTHH:mm:ssZ}", s.Started) + "  " + s.Description;
+                session.files = getFiles(i, s, s.CodeFiles.OrderBy(c => c.Created).ToList(), sessions.SelectMany(p => p.files).ToList(), generatedGroups);
+                session.pathnodes = getValidPathNodes(s, session.files);
+
+                sessions.Add(session);
+            }
+
+            return sessions;
+        }
+
+        private List<File> getFiles(int sessionId, AppCode.Repository.Session s, List<CodeFile> listCodeFiles, List<File> generetedFiles, List<Group> generatedGroups)
+        {
+            List<File> files = new List<File>();
+
+            for (int i = 0; i < listCodeFiles.Count; i++)
+            {
+                CodeFile c = listCodeFiles[i];
+
+                File file = new File();
+                file.fileId = i.ToString();
+                file.fileName = System.IO.Path.GetFileName(c.Path);
+                file.filePath = c.Path;
+                file.sessionId = sessionId;
+                file.lines = Regex.Matches(Base64StringZip.UnZipString(c.Content), Environment.NewLine, RegexOptions.Multiline).Count;
+
+                file.breakpoints = s.Breakpoints
+                                    .Where(b => b.CodeFilePath.ToLower() == c.Path.ToLower())
+                                    .Select(b => new Breakpoint
+                                    {
+                                        line = b.LineNumber ?? 0
+                                    }).ToList();
+
+                file.events = s.Events
+                                .Where(e => e.CodeFilePath.ToLower() == c.Path.ToLower())
+                                .Select(e => new Event
+                                {
+                                    line = e.LineNumber ?? 0
+                                }).ToList();
+
+                File alreadyExistFile = generetedFiles
+                    .Where(f => f.filePath.ToLower() == c.Path.ToLower())
+                    .FirstOrDefault();
+
+                if (alreadyExistFile != null)
+                {
+                    file.groupId = alreadyExistFile.groupId;
+                    file.groupIndex = alreadyExistFile.groupIndex;
+                }
+                else
+                {
+                    Group group = generatedGroups
+                        .Where(g => g.path.ToLower() == System.IO.Path.GetDirectoryName(c.Path).ToLower())
+                        .FirstOrDefault();
+
+                    if (group == null)
+                        continue;
+
+                    file.groupId = group.groupId;
+
+                    int total = generetedFiles
+                        .Where(f => f.groupId == file.groupId)
+                        .GroupBy(f => f.sessionId)
+                        .Select(gouped => new { total = gouped.Count() })
+                        .OrderByDescending(o => o.total)
+                        .Select(o => o.total)
+                        .FirstOrDefault();
+
+                    file.groupIndex = total;
+
+                    if (file.groupIndex > group.maxIndexWidthQuantity)
+                        group.maxIndexWidthQuantity = file.groupIndex;
+                }
+
+                files.Add(file);
+                generetedFiles.Add(file);
+            }
+
+            return files;
+        }
+
+        private List<Node> getValidPathNodes(AppCode.Repository.Session s, List<File> generetedFilesSession)
         {
             List<Node> nodes = new List<Node>();
 
@@ -1370,7 +1443,7 @@ namespace SwarmServerAPI.AppCore.Service
 
                 for (int i = startEvent; i < events.Count; i++)
                 {
-                    if(events[i].Namespace.ToLower() == item.Namespace.ToLower() && 
+                    if (events[i].Namespace.ToLower() == item.Namespace.ToLower() &&
                        events[i].Type.ToLower() == item.Type.ToLower() &&
                        events[i].Method.ToLower() == item.Method.ToLower())
                     {
@@ -1384,16 +1457,22 @@ namespace SwarmServerAPI.AppCore.Service
                 if (eventFounded == null)
                     continue;
 
-                int? fileId = codeFiles
-                    .Select((cf, i) => new { index = i, path = cf.Path })
-                    .Where(o => o.path.ToLower() == eventFounded.CodeFilePath.ToLower())
-                    .Select(o => o.index).FirstOrDefault();
+                //TODO: remove later
+                //int? fileId = codeFiles
+                //    .Select((cf, i) => new { index = i, path = cf.Path })
+                //    .Where(o => o.path.ToLower() == eventFounded.CodeFilePath.ToLower())
+                //    .Select(o => o.index).FirstOrDefault();
 
-                if (fileId == null)
+                string fileId = generetedFilesSession
+                    .Where(gf => gf.filePath.ToLower() == eventFounded.CodeFilePath.ToLower())
+                    .Select(gf => gf.fileId).FirstOrDefault();
+
+                if (String.IsNullOrWhiteSpace(fileId))
                     continue;
 
-                nodes.Add(new Node {
-                    fileId = fileId.ToString(),
+                nodes.Add(new Node
+                {
+                    fileId = fileId,
                     line = eventFounded.LineNumber ?? 0
                 });
             }
