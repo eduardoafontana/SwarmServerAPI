@@ -99,7 +99,20 @@
         canvasRenderRelativeSize.style.width = cssRenderRelativeSize.offsetWidth + 'px';
         canvasRenderRelativeSize.style.height = cssRenderRelativeSize.offsetHeight + 'px';
 
-        dataControl.getDataFromServer().then(function (dataFromServer) {
+        var loadviewButton = document.getElementById('loadview-button');
+        loadviewButton.addEventListener('click', function () {
+
+            //aqui prepara dados para filstrar
+            console.log('clicou e preparou dados');
+
+            dataControl.getDataFromServer().then(function (dataFromServer) {
+                //dataControl.loadData(dataFromServer);
+
+                //sceneLoader(0, 0, 0);
+            });
+        });
+
+        dataControl.getDataFilterFromServer().then(function (dataFromServer) {
             FontLoader().then(function (font) {
 
                 dataControl.loadData(dataFromServer);
@@ -112,7 +125,7 @@
                 hideShowOptions.init();
                 colorPaletteOptions.init();
 
-                sceneLoader(0, 0);
+                sceneLoader(0, 0, 0);
 
                 selectControl.init();
 

@@ -26,9 +26,9 @@
         return users[u].projects;
     };
 
-    var getDataFromServer = () => new Promise(function (resolve, reject) {
+    var getDataFilterFromServer = () => new Promise(function (resolve, reject) {
         var xmlhttp = new XMLHttpRequest();
-        var url = location.origin + '/api/Visualization/View3d';
+        var url = location.origin + '/api/Visualization/View3dFilter';
 
         xmlhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -42,6 +42,23 @@
         xmlhttp.send();
     });
 
+    var getDataFromServer = () => new Promise(function (resolve, reject) {
+        var xmlhttp = new XMLHttpRequest();
+        var url = location.origin + '/api/Visualization/View3d';
+
+        console.log('fez request');
+        //xmlhttp.onreadystatechange = function () {
+        //    if (this.readyState == 4 && this.status == 200) {
+        //        var jsonData = JSON.parse(this.responseText);
+        //        console.log(jsonData);
+        //        resolve(jsonData);
+        //    }
+        //};
+
+        //xmlhttp.open('GET', url, true);
+        //xmlhttp.send();
+    });
+
     var loadData = function (data) {
         users = data;
     };
@@ -51,6 +68,7 @@
         getTasks: getTasks,
         getProjects: getProjects,
         loadData: loadData,
+        getDataFilterFromServer: getDataFilterFromServer,
         getDataFromServer: getDataFromServer
     };
 

@@ -76,7 +76,7 @@ namespace SwarmServerAPI.AppCore.Service
             public List<Group> groups { get; set; } = new List<Group>();
         }
 
-        public List<User> GetView3dData()
+        public List<User> GetView3dDataFilter()
         {
             //TODO: data for test, not loaded
             List<User> users1 = new List<User>{new User()
@@ -1296,45 +1296,62 @@ namespace SwarmServerAPI.AppCore.Service
                                     }).ToList()
                             }).ToList()
                     }).ToList();
-
-                //For each task created, create de full structure to view3d.
-                foreach (var user in users)
-                {
-                    foreach (var project in user.projects)
-                    {
-                        foreach (var task in project.tasks)
-                        {
-                            var sessions = context.Sessions
-                                .Where(s => s.TaskName == task.name &&
-                                    s.ProjectName == project.name &&
-                                    s.DeveloperName == user.name)
-                                .OrderBy(s => s.Started)
-                                .Select(s => s.Id)
-                                .ToList();
-
-                            task.groups = context.CodeFiles
-                                .Where(c => sessions.Contains(c.Session.Id))
-                                .OrderBy(c => c.Created)
-                                .AsEnumerable()
-                                .Select(c => new { pathOnly = System.IO.Path.GetDirectoryName(c.Path).ToLower() })
-                                .Distinct()
-                                .Select((po, i) => new Group { groupId = i, maxIndexWidthQuantity = 0, path = po.pathOnly })
-                                .ToList();
-
-                            task.sessions = getSessions(context.Sessions
-                                    .Include("CodeFiles")
-                                    .Include("Breakpoints")
-                                    .Include("Events")
-                                    .Include("PathNodes")
-                                    .Where(s => sessions.Contains(s.Id))
-                                    .OrderBy(s => s.Started).ToList(),
-                                task.groups);
-                        }
-                    }
-                }
             }
 
+            //Create de full structure to view3d to fisrt task.
+            LoadFirstUserProjectTask(users.FirstOrDefault());
+
             return users;
+        }
+
+        private void LoadFirstUserProjectTask(User user)
+        {
+            if (user == null)
+                return;
+
+            Project project = user.projects.FirstOrDefault();
+
+            if (project == null)
+                return;
+
+            Task task = project.tasks.FirstOrDefault();
+
+            if (task == null)
+                return;
+
+            using (SwarmData context = new SwarmData())
+            {
+                var sessions = context.Sessions
+                .Where(s => s.TaskName == task.name &&
+                    s.ProjectName == project.name &&
+                    s.DeveloperName == user.name)
+                .OrderBy(s => s.Started)
+                .Select(s => s.Id)
+                .ToList();
+
+                task.groups = context.CodeFiles
+                    .Where(c => sessions.Contains(c.Session.Id))
+                    .OrderBy(c => c.Created)
+                    .AsEnumerable()
+                    .Select(c => new { pathOnly = System.IO.Path.GetDirectoryName(c.Path).ToLower() })
+                    .Distinct()
+                    .Select((po, i) => new Group { groupId = i, maxIndexWidthQuantity = 0, path = po.pathOnly })
+                    .ToList();
+
+                task.sessions = getSessions(context.Sessions
+                        .Include("CodeFiles")
+                        .Include("Breakpoints")
+                        .Include("Events")
+                        .Include("PathNodes")
+                        .Where(s => sessions.Contains(s.Id))
+                        .OrderBy(s => s.Started).ToList(),
+                    task.groups);
+            }
+        }
+
+        public List<User> GetView3dData()
+        {
+            throw new NotImplementedException();
         }
 
         private List<Session> getSessions(List<AppCode.Repository.Session> listSession, List<Group> generatedGroups)
