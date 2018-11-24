@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 using System.Web.Http;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json.Linq;
@@ -132,7 +133,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 
         [HttpGet]
         [Route("api/Visualization/View3d")]
-        public HttpResponseMessage GetView3dVisualization()
+        public HttpResponseMessage GetView3dVisualization(string user, string project, string task)
         {
             try
             {
@@ -781,9 +782,8 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
                 //";
                 #endregion
 
-
                 VisualizationService visualizationService = new VisualizationService();
-                var view3dData = visualizationService.GetView3dData();
+                var view3dData = visualizationService.GetView3dData(user, project, task);
 
                 var data = new JavaScriptSerializer().Serialize(view3dData);
 

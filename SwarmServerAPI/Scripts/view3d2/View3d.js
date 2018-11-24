@@ -102,20 +102,25 @@
         var loadviewButton = document.getElementById('loadview-button');
         loadviewButton.addEventListener('click', function () {
 
-            //aqui prepara dados para filstrar
-            console.log('clicou e preparou dados');
+            var selectUser = document.getElementById('user-select');
+            var selectProject = document.getElementById('project-select');
+            var selectTask = document.getElementById('task-select');
 
-            dataControl.getDataFromServer().then(function (dataFromServer) {
-                //dataControl.loadData(dataFromServer);
+            var userName = selectUser.options[selectUser.selectedIndex].text;
+            var projectName = selectProject.options[selectProject.selectedIndex].text;
+            var taskName = selectTask.options[selectTask.selectedIndex].text;
 
-                //sceneLoader(0, 0, 0);
+            dataControl.getDataFromServer(userName, projectName, taskName).then(function (dataFromServer) {
+                dataControl.setData(dataFromServer, selectUser.value, selectProject.value, selectTask.value);
+
+                render.setSelectedSceneById(selectUser.value, selectProject.value, selectTask.value);
             });
         });
 
         dataControl.getDataFilterFromServer().then(function (dataFromServer) {
             FontLoader().then(function (font) {
 
-                dataControl.loadData(dataFromServer);
+                dataControl.setFilter(dataFromServer);
                 render.setFont(font);
 
                 render.initGraph();

@@ -1259,13 +1259,36 @@ namespace SwarmServerAPI.AppCore.Service
             } };
             //--
 
+            List<User> users = LoadFilter();
+
+            LoadView(users.FirstOrDefault());
+
+            return users;
+        }
+
+        public List<User> GetView3dData(string user, string project, string task)
+        {
+            List<User> users = LoadFilter(user, project, task);
+
+            LoadView(users.FirstOrDefault());
+
+            return users;
+        }
+
+        public List<User> LoadFilter()
+        {
+            return LoadFilter(String.Empty, String.Empty, String.Empty);
+        }
+
+        public List<User> LoadFilter(string developerName, string projectName, string taskName)
+        {
             List<User> users = new List<User>();
 
             using (SwarmData context = new SwarmData())
             {
-                //Create basic structure data to selectors.
                 users = context.Sessions.Include("CodeFiles")
                     .Where(s => s.CodeFiles.Count() > 0)
+                    .Where(s => developerName == String.Empty || (developerName != String.Empty && s.DeveloperName == developerName))
                     .GroupBy(s => s.DeveloperName)
                     .Select(s => s.FirstOrDefault())
                     .Where(s => s.DeveloperName != null && s.DeveloperName.Trim() != string.Empty)
@@ -1276,6 +1299,7 @@ namespace SwarmServerAPI.AppCore.Service
                         projects = context.Sessions
                             .Where(s1 => s1.CodeFiles.Count() > 0)
                             .Where(s1 => s1.DeveloperName == s.DeveloperName)
+                            .Where(s1 => projectName == String.Empty || (projectName != String.Empty && s1.ProjectName == projectName))
                             .GroupBy(s1 => s1.ProjectName)
                             .Select(s1 => s1.FirstOrDefault())
                             .Where(s1 => s1.ProjectName != null && s1.ProjectName.Trim() != string.Empty)
@@ -1286,6 +1310,7 @@ namespace SwarmServerAPI.AppCore.Service
                                 tasks = context.Sessions
                                     .Where(s2 => s2.CodeFiles.Count() > 0)
                                     .Where(s2 => s2.DeveloperName == s1.DeveloperName && s2.ProjectName == s1.ProjectName)
+                                    .Where(s2 => taskName == String.Empty || (taskName != String.Empty && s2.TaskName == taskName))
                                     .GroupBy(s2 => s2.TaskName)
                                     .Select(s2 => s2.FirstOrDefault())
                                     .Where(s2 => s2.TaskName != null && s2.TaskName.Trim() != string.Empty)
@@ -1298,13 +1323,10 @@ namespace SwarmServerAPI.AppCore.Service
                     }).ToList();
             }
 
-            //Create de full structure to view3d to fisrt task.
-            LoadFirstUserProjectTask(users.FirstOrDefault());
-
             return users;
         }
 
-        private void LoadFirstUserProjectTask(User user)
+        private void LoadView(User user)
         {
             if (user == null)
                 return;
@@ -1347,11 +1369,6 @@ namespace SwarmServerAPI.AppCore.Service
                         .OrderBy(s => s.Started).ToList(),
                     task.groups);
             }
-        }
-
-        public List<User> GetView3dData()
-        {
-            throw new NotImplementedException();
         }
 
         private List<Session> getSessions(List<AppCode.Repository.Session> listSession, List<Group> generatedGroups)

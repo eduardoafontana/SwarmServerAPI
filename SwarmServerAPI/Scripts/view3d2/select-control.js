@@ -40,7 +40,7 @@
             onSelectProjectChange();
         }
 
-        selectProject.addEventListener("change", onSelectTaskChange);
+        selectProject.addEventListener("change", onSelectProjectChange);
 
         function onSelectProjectChange() {
             do {
@@ -57,15 +57,9 @@
 
                 selectTask.add(option);
             }
-
-            onSelectTaskChange();
         }
 
-        selectTask.addEventListener("change", onSelectTaskChange);
-
-        function onSelectTaskChange() {
-            render.setSelectedSceneById(selectUser.value, selectProject.value, selectTask.value);
-        }
+        render.setSelectedSceneById(selectUser.value, selectProject.value, selectTask.value);
     };
 
     return {
