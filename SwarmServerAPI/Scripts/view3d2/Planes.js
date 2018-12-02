@@ -8,14 +8,19 @@
     var count = 0;
     var maxNumberSegmentsPerPlane = 200;
     var segmentHeight = 0.3;
+    var segmentWidth = 1;
+
+    var marginBottom = 0.5;
+    var marginWidth = 0.5;
+    var leftOver = 0.5;
 
     for (var f = 0; f < dataArray.length; f++) {
         var data = dataArray[f];
         var height = data.lines * maxNumberSegmentsPerPlane / groupAssembler.getMostHighFileLine();
 
-        var x = data.x;
+        var x = ((segmentWidth + marginWidth) * data.x) - leftOver;
         var z = data.z;
-        var y = 0;
+        var y = marginBottom;
 
         var originalColor = defaultColorPallate.colors.cube;
 
@@ -26,14 +31,14 @@
 
         for (var i = 0; i < height; i++) {
             vertices.push(x, y, z);
-            vertices.push(x + 1, y, z);
-            vertices.push(x + 1, y + segmentHeight, z);
+            vertices.push(x + segmentWidth, y, z);
+            vertices.push(x + segmentWidth, y + segmentHeight, z);
 
             colors.push(color.r, color.g, color.b);
             colors.push(color.r, color.g, color.b);
             colors.push(color.r, color.g, color.b);
 
-            vertices.push(x + 1, y + segmentHeight, z);
+            vertices.push(x + segmentWidth, y + segmentHeight, z);
             vertices.push(x, y + segmentHeight, z);
             vertices.push(x, y, z);
 
@@ -64,27 +69,7 @@
     material.opacity = 0.5;
     material.transparent = true;
 
-    //--------------------------------
-    //var squareSize = 1;
-
-        //mesh.name = 'Cube';
-
-    //var ySize = height;
-    //var xSize = squareSize;
-    //var zSize = squareSize;
-
-    //var adjustToZeroAxisY = ySize / 2
-    //var margin = 0.5;
-    //var sizeWithMargin = margin + squareSize;
-    //var marginBottom = 0.5;
-
-    //mesh.position.y = marginBottom + adjustToZeroAxisY;
-    //mesh.position.x = sizeWithMargin * data.x;
-    //mesh.position.z = zSize * data.z;
-
-    //var initialCalculatedPositionX = mesh.position.x;
-    //var initialCalculatedPositionZ = mesh.position.z;
-    //var initialCalculatedPositionY = adjustToZeroAxisY;
+    //mesh.name = 'Cube';
 
     internalAnimate();
 

@@ -61,6 +61,7 @@
                 //var cube = Cube(files[i]);
                 //scene.add(cube.mesh);
 
+                //TODO: remove later
                 //var plane = Plane(files[i]);
                 //scene.add(plane.mesh);
                 //scene.interceptables.push(plane.mesh);
