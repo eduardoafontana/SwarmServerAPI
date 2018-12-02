@@ -1385,7 +1385,11 @@ namespace SwarmServerAPI.AppCore.Service
 
                 session.sessionId = i;
                 session.name = String.Format("{0:yyyy-MM-ddTHH:mm:ssZ}", s.Started) + "  " + s.Description;
-                session.files = getFiles(i, s, s.CodeFiles.OrderBy(c => c.Created).ToList(), sessions.SelectMany(p => p.files).ToList(), generatedGroups);
+                session.files = getFiles(i, s, s.CodeFiles
+                    .GroupBy(c => c.Path.ToLower())
+                    .Select(c => c.FirstOrDefault())
+                    .OrderBy(c => c.Created)
+                    .ToList(), sessions.SelectMany(p => p.files).ToList(), generatedGroups);
                 session.pathnodes = getValidPathNodes(s, session.files);
 
                 sessions.Add(session);

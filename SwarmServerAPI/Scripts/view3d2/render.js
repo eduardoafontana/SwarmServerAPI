@@ -344,10 +344,6 @@
         font = pFont;
     };
 
-    var getRaycaster = function () {
-        return raycaster;
-    }
-
     return {
         initGraph: initGraph,
         getNewScene: getNewScene,
@@ -364,8 +360,7 @@
         getIntersectedObjectData: getIntersectedObjectData,
         getFont: getFont,
         setFont: setFont,
-        getSelectedColorPalette: getSelectedColorPalette,
-        getRaycaster: getRaycaster
+        getSelectedColorPalette: getSelectedColorPalette
     };
 
 }());

@@ -26,7 +26,7 @@
         var groups = [];
 
         for (var g = 0; g < task.groups.length; g++) {
-            //groups.push(Group(task.groups[g], task.sessions.length, groups[g - 1]));
+            groups.push(Group(task.groups[g], task.sessions.length, groups[g - 1]));
         }
 
         for (var g = 0; g < groups.length; g++) {
@@ -37,6 +37,9 @@
 
         groupAssembler.mountMostHighFileLine(task.sessions);
 
+        console.log('qtd sessões', task.sessions.length);
+        var fileDataArray = [];
+
         for (var s = 0; s < task.sessions.length; s++) {
             var files = task.sessions[s].files;
             var groups = task.groups;
@@ -44,14 +47,22 @@
             //generate infos x z positions and mostHighFileLine.
             groupAssembler.mountBySession(files, groups);
 
+            console.log('qtd arquivos', files.length);
             for (var i = 0; i < files.length; i++) {
+                fileDataArray.push({
+                    x: files[i].x,
+                    lines: files[i].lines,
+                    z: files[i].z,
+                });
+
+                console.log('file', files[i].x, files[i].lines, files[i].z);
 
                 //TODO: remove later
                 //var cube = Cube(files[i]);
                 //scene.add(cube.mesh);
 
-                var plane = Plane(files[i]);
-                scene.add(plane.mesh);
+                //var plane = Plane(files[i]);
+                //scene.add(plane.mesh);
                 //scene.interceptables.push(plane.mesh);
 
                 //var hidecube = HideCube(plane);
@@ -91,6 +102,10 @@
             //    scene.add(tube.mesh);
             //}
         }
+
+        var plane = Planes(fileDataArray);
+        scene.add(plane.mesh);
+        scene.interceptables.push(plane.mesh);
     };
 
     document.addEventListener("DOMContentLoaded", function () {
