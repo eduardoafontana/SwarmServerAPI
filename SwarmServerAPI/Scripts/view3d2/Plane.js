@@ -94,7 +94,16 @@ var Plane = function (data) {
         //TODO: review later
         //for (var i = 0; i < geometry.faces.length; i++) {
         //    geometry.faces[i].color.setHex(originalColor);
-        //}        
+        //}      
+
+        var intersects = render.getRaycaster().intersectObject(mesh);
+
+        if (intersects.length > 0) {
+            var overedObject = intersects[0].object;
+            infobox.setHtml('Catou.');
+        } else {
+            //infobox.setHtml('Descatou.');
+        }
 
         if (render.wasMouseOver(mesh)) {
             infobox.setHtml('Click to show the line code for this part of the file.');

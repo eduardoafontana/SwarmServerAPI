@@ -52,7 +52,7 @@
 
                 var plane = Plane(files[i]);
                 scene.add(plane.mesh);
-                scene.interceptables.push(plane.mesh);
+                //scene.interceptables.push(plane.mesh);
 
                 //var hidecube = HideCube(plane);
                 //scene.add(hidecube.mesh);
