@@ -69,8 +69,13 @@
         }
     };
 
+    var getColorPalleteFirst = function () {
+        return palettes[0];
+    };
+
     return {
         getColorPalatteArray: getColorPalatteArray,
-        getColorPalleteByName: getColorPalleteByName
+        getColorPalleteByName: getColorPalleteByName,
+        getColorPalleteFirst: getColorPalleteFirst
     };
 }());

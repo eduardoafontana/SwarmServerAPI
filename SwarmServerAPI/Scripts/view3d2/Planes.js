@@ -1,5 +1,7 @@
 ﻿var Planes = function (dataArray) {
 
+    var defaultColorPallate = colorPalette.getColorPalleteFirst();
+
     var vertices = [];
     var colors = [];
 
@@ -15,22 +17,29 @@
         var z = data.z;
         var y = 0;
 
+        var originalColor = defaultColorPallate.colors.cube;
+
+        if (data.z % 2 != 0)
+            originalColor = defaultColorPallate.colors.cubeContrast;
+
+        var color = new THREE.Color(originalColor);
+
         for (var i = 0; i < height; i++) {
             vertices.push(x, y, z);
             vertices.push(x + 1, y, z);
             vertices.push(x + 1, y + segmentHeight, z);
 
-            colors.push(0.3, 0.3, 0.3);
-            colors.push(0.3, 0.3, 0.3);
-            colors.push(0.3, 0.3, 0.3);
+            colors.push(color.r, color.g, color.b);
+            colors.push(color.r, color.g, color.b);
+            colors.push(color.r, color.g, color.b);
 
             vertices.push(x + 1, y + segmentHeight, z);
             vertices.push(x, y + segmentHeight, z);
             vertices.push(x, y, z);
 
-            colors.push(0.9, 0.9, 0.9);
-            colors.push(0.9, 0.9, 0.9);
-            colors.push(0.9, 0.9, 0.9);
+            colors.push(color.r, color.g, color.b);
+            colors.push(color.r, color.g, color.b);
+            colors.push(color.r, color.g, color.b);
 
             y += segmentHeight;
 
@@ -49,23 +58,20 @@
     geometry.addAttribute('position', new THREE.BufferAttribute(vertices, 3));
     geometry.addAttribute('color', new THREE.BufferAttribute(colors, 3));
 
-    var material = new THREE.MeshBasicMaterial({ color: 0xffff00, side: THREE.DoubleSide, vertexColors: THREE.VertexColors });
+    var material = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide, vertexColors: THREE.VertexColors });
     var mesh = new THREE.Mesh(geometry, material);
+
+    material.opacity = 0.5;
+    material.transparent = true;
 
     //--------------------------------
     //var squareSize = 1;
 
+        //mesh.name = 'Cube';
+
     //var ySize = height;
     //var xSize = squareSize;
     //var zSize = squareSize;
-
-    //var geometry = new THREE.PlaneBufferGeometry(xSize, ySize, 1, data.lines);
-    //var mesh = new THREE.Mesh(geometry, material);
-
-    //mesh.name = 'Cube';
-
-    //material.opacity = 0.5;
-    //material.transparent = true;
 
     //var adjustToZeroAxisY = ySize / 2
     //var margin = 0.5;
@@ -134,6 +140,28 @@
             geometry.attributes.color.array[index + 6] = color.r;
             geometry.attributes.color.array[index + 7] = color.g;
             geometry.attributes.color.array[index + 8] = color.b;
+
+            if (intersect.faceIndex % 2 === 0){
+                geometry.attributes.color.array[index + 9] = color.r;
+                geometry.attributes.color.array[index + 10] = color.g;
+                geometry.attributes.color.array[index + 11] = color.b;
+                geometry.attributes.color.array[index + 12] = color.r;
+                geometry.attributes.color.array[index + 13] = color.g;
+                geometry.attributes.color.array[index + 14] = color.b;
+                geometry.attributes.color.array[index + 15] = color.r;
+                geometry.attributes.color.array[index + 16] = color.g;
+                geometry.attributes.color.array[index + 17] = color.b;
+            } else {
+                geometry.attributes.color.array[index - 1] = color.b;
+                geometry.attributes.color.array[index - 2] = color.g;
+                geometry.attributes.color.array[index - 3] = color.r;
+                geometry.attributes.color.array[index - 4] = color.b;
+                geometry.attributes.color.array[index - 5] = color.g;
+                geometry.attributes.color.array[index - 6] = color.r;
+                geometry.attributes.color.array[index - 7] = color.b;
+                geometry.attributes.color.array[index - 8] = color.g;
+                geometry.attributes.color.array[index - 9] = color.r;
+            }
         }
     }
 
