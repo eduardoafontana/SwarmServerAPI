@@ -1,4 +1,29 @@
-﻿var Planes = function (dataArray) {
+﻿var PlanesDescriptor = (function () {
+    var maxNumberSegmentsPerPlane = 200;
+    var segmentHeight = 0.3;
+
+    var getHeight = function (dataLines) {
+        var height = dataLines * maxNumberSegmentsPerPlane / groupAssembler.getMostHighFileLine();
+
+        return (height * segmentHeight) + segmentHeight;
+    }
+
+    var getMaxNumberSegmentsPerPlane = function () {
+        return maxNumberSegmentsPerPlane;
+    }
+
+    var getSegmentHeight = function () {
+        return segmentHeight;
+    }
+
+    return {
+        getHeight: getHeight,
+        getMaxNumberSegmentsPerPlane: getMaxNumberSegmentsPerPlane,
+        getSegmentHeight: getSegmentHeight
+    };
+})();
+
+var Planes = function (dataArray) {
 
     var defaultColorPallate = colorPalette.getColorPalleteFirst();
 
@@ -6,8 +31,6 @@
     var colors = [];
 
     var count = 0;
-    var maxNumberSegmentsPerPlane = 200;
-    var segmentHeight = 0.3;
     var segmentWidth = 1;
 
     var marginBottom = 0.5;
@@ -16,7 +39,7 @@
 
     for (var f = 0; f < dataArray.length; f++) {
         var data = dataArray[f];
-        var height = data.lines * maxNumberSegmentsPerPlane / groupAssembler.getMostHighFileLine();
+        var height = data.lines * PlanesDescriptor.getMaxNumberSegmentsPerPlane() / groupAssembler.getMostHighFileLine();
 
         var x = ((segmentWidth + marginWidth) * data.x) - leftOver;
         var z = data.z;
@@ -32,27 +55,27 @@
         for (var i = 0; i < height; i++) {
             vertices.push(x, y, z);
             vertices.push(x + segmentWidth, y, z);
-            vertices.push(x + segmentWidth, y + segmentHeight, z);
+            vertices.push(x + segmentWidth, y + PlanesDescriptor.getSegmentHeight(), z);
 
             colors.push(color.r, color.g, color.b);
             colors.push(color.r, color.g, color.b);
             colors.push(color.r, color.g, color.b);
 
-            vertices.push(x + segmentWidth, y + segmentHeight, z);
-            vertices.push(x, y + segmentHeight, z);
+            vertices.push(x + segmentWidth, y + PlanesDescriptor.getSegmentHeight(), z);
+            vertices.push(x, y + PlanesDescriptor.getSegmentHeight(), z);
             vertices.push(x, y, z);
 
             colors.push(color.r, color.g, color.b);
             colors.push(color.r, color.g, color.b);
             colors.push(color.r, color.g, color.b);
 
-            y += segmentHeight;
+            y += PlanesDescriptor.getSegmentHeight();
 
             count++;
         }
     }
 
-    console.log('total segments', count);
+    //console.log('total segments', count);
 
     vertices = new Float32Array(vertices);
     colors = new Float32Array(colors);

@@ -1,5 +1,41 @@
-﻿var TitleCube = function (cube) {
+﻿var TitleCubeDescriptor = (function () {
+    var titlesGeometry = [];
 
+    var material = new THREE.MeshBasicMaterial();
+
+    var getMaterial = function () {
+        return material;
+    }
+
+    var createIfNotExist = function (data) {
+        var title = 'undefined';
+
+        if (data.fileName != undefined)
+            title = data.fileName;
+
+        var geometryFound = null;
+
+        for (var i = 0; i < titlesGeometry.length; i++) {
+            if (titlesGeometry[i].text == title)
+                geometryFound = titlesGeometry[i];
+        }
+
+        if (geometryFound != null)
+            return TitleCubeMesh(data, geometryFound.geometry);
+        
+        var newGeometry = TitleCubeGeometry(data);
+        titlesGeometry.push(newGeometry);
+
+        return TitleCubeMesh(data, newGeometry.geometry);
+    };
+
+    return {
+        getMaterial: getMaterial,
+        createIfNotExist: createIfNotExist
+    };
+})();
+
+var TitleCubeGeometry = function (data) {
     var parameters = {
         font: render.getFont(),
         size: 0.3,
@@ -8,22 +44,29 @@
         bevelEnabled: false
     };
 
-    var text = '';
+    var text = 'undefined';
 
-    if (cube.data.fileName != undefined)
-        text = cube.data.fileName;
+    if (data.fileName != undefined)
+        text = data.fileName;
 
     var geometry = new THREE.TextBufferGeometry(text, parameters);
+
+    return {
+        geometry: geometry,
+        text: text
+    };
+}
+
+var TitleCubeMesh = function (data, geometry) {
 
     //var edges = new THREE.EdgesGeometry(geometry);
     //var line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 10 }));
 
-    var material = new THREE.MeshBasicMaterial();
-    var mesh = new THREE.Mesh(geometry, material);
+    var mesh = new THREE.Mesh(geometry, TitleCubeDescriptor.getMaterial());
 
     //mesh.add(line);
 
-    var height = cube.mesh.geometry.parameters.height;
+    var height = PlanesDescriptor.getHeight(data.lines);
     var marginBottom = 0.5;
     var heightWithMargin = height + marginBottom;
     var topMargin = 0;
@@ -35,11 +78,11 @@
 
     var sizeWidth = box.getSize(center).x;
     var sizeWidthHalf = sizeWidth / 2;
-    var initialPositionX = cube.data.x * margin;
+    var initialPositionX = data.x * margin;
 
     mesh.position.y = topMargin + heightWithMargin;
     mesh.position.x = initialPositionX - sizeWidthHalf;
-    mesh.position.z = cube.data.z;
+    mesh.position.z = data.z;
 
     var initialCalculatedPositionX = initialPositionX;
     var initialCalculatedPositionZ = mesh.position.z;
@@ -53,7 +96,7 @@
         if (render.getSelectedScene() == null)
             return;
 
-        material.color.setHex(render.getSelectedColorPalette().titleTube);
+        TitleCubeDescriptor.getMaterial().color.setHex(render.getSelectedColorPalette().titleTube);
 
         mesh.visible = render.getSelectedScene().hideShowOptions.options.title;
 

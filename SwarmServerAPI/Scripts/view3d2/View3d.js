@@ -37,7 +37,7 @@
 
         groupAssembler.mountMostHighFileLine(task.sessions);
 
-        console.log('qtd sessões', task.sessions.length);
+        //console.log('qtd sessões', task.sessions.length);
         var fileDataArray = [];
 
         for (var s = 0; s < task.sessions.length; s++) {
@@ -47,15 +47,15 @@
             //generate infos x z positions and mostHighFileLine.
             groupAssembler.mountBySession(files, groups);
 
-            console.log('qtd arquivos', files.length);
+            //console.log('qtd arquivos', files.length);
             for (var i = 0; i < files.length; i++) {
                 fileDataArray.push({
                     x: files[i].x,
                     lines: files[i].lines,
-                    z: files[i].z,
+                    z: files[i].z
                 });
 
-                console.log('file', files[i].x, files[i].lines, files[i].z);
+                //console.log('file', files[i].x, files[i].lines, files[i].z);
 
                 //TODO: remove later
                 //var cube = Cube(files[i]);
@@ -70,8 +70,8 @@
                 //scene.add(hidecube.mesh);
                 //scene.interceptables.push(hidecube.mesh);
 
-                //var titlecube = TitleCube(plane);
-                //scene.add(titlecube.mesh);
+                var titleCube = TitleCubeDescriptor.createIfNotExist(files[i]);
+                scene.add(titleCube.mesh);
 
                 //for (var j = 0; j < files[i].breakpoints.length; j++) {
                 //    var torus = Torus(plane, files[i].breakpoints[j]);
