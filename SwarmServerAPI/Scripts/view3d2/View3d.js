@@ -80,15 +80,15 @@
                 //}
             }
 
-            //var pathnodes = task.sessions[s].pathnodes;
+            var pathnodes = task.sessions[s].pathnodes;
 
-            //if (pathnodes.length > 1) {
-            //    //generate infos x z positions on nodes
-            //    groupAssembler.mountNodesBySession(files, pathnodes);
+            if (pathnodes.length > 1) {
+                //generate infos x z positions on nodes
+                groupAssembler.mountNodesBySession(files, pathnodes);
 
-            //    var tube = Tube(pathnodes);
-            //    scene.add(tube.mesh);
-            //}
+                var tube = Tube(pathnodes);
+                scene.add(tube.mesh);
+            }
         }
 
         var plane = Planes(fileDataArray);

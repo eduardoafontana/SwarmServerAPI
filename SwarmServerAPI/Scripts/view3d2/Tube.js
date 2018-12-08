@@ -11,7 +11,7 @@
     }
 
     var curve = new THREE.CatmullRomCurve3(vertices, false, 'catmullrom', 0.2);
-    var geometry = new THREE.TubeGeometry(curve, 100, 0.1, 20, false);
+    var geometry = new THREE.TubeGeometry(curve, 20, 0.05, 5, false);
     var material = new THREE.MeshBasicMaterial();
     var mesh = new THREE.Mesh(geometry, material);
 
