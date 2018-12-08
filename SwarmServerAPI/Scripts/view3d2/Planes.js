@@ -30,7 +30,6 @@ var Planes = function (dataArray) {
     var vertices = [];
     var colors = [];
 
-    var count = 0;
     var segmentWidth = 1;
 
     var marginBottom = 0.5;
@@ -70,17 +69,14 @@ var Planes = function (dataArray) {
             colors.push(color.r, color.g, color.b);
 
             y += PlanesDescriptor.getSegmentHeight();
-
-            count++;
         }
     }
-
-    //console.log('total segments', count);
 
     vertices = new Float32Array(vertices);
     colors = new Float32Array(colors);
 
-    var orignalColors = colors.slice();
+    var originalColors = colors.slice();
+    var originalVertices = vertices.slice();
 
     var geometry = new THREE.BufferGeometry();
     geometry.addAttribute('position', new THREE.BufferAttribute(vertices, 3));
@@ -128,7 +124,7 @@ var Planes = function (dataArray) {
             boxMain.appendChild(wrapper);
         }
 
-        geometry.attributes.color.array = orignalColors.slice();
+        geometry.attributes.color.array = originalColors.slice();
         geometry.attributes.color.needsUpdate = true;
 
         if (render.wasMouseOver(mesh)) {
@@ -170,6 +166,29 @@ var Planes = function (dataArray) {
                 geometry.attributes.color.array[index - 8] = color.g;
                 geometry.attributes.color.array[index - 9] = color.r;
             }
+        }
+
+        var cubeSpace = render.getSelectedScene().scaleOptions.options.cubeSpace;
+        var sessionSpace = render.getSelectedScene().scaleOptions.options.sessionSpace;
+        
+        for (var i = 0; i < originalVertices.length; i += 18) {
+            //x
+            geometry.attributes.position.array[i] = originalVertices[i] * cubeSpace;
+            geometry.attributes.position.array[i + 3] = originalVertices[i + 3] * cubeSpace;
+            geometry.attributes.position.array[i + 6] = originalVertices[i + 6] * cubeSpace;
+            geometry.attributes.position.array[i + 9] = originalVertices[i + 9] * cubeSpace;
+            geometry.attributes.position.array[i + 12] = originalVertices[i + 12] * cubeSpace;
+            geometry.attributes.position.array[i + 15] = originalVertices[i + 15] * cubeSpace;
+
+            //z
+            geometry.attributes.position.array[i + 2] = originalVertices[i + 2] * sessionSpace;
+            geometry.attributes.position.array[i + 5] = originalVertices[i + 5] * sessionSpace;
+            geometry.attributes.position.array[i + 8] = originalVertices[i + 8] * sessionSpace;
+            geometry.attributes.position.array[i + 11] = originalVertices[i + 11] * sessionSpace;
+            geometry.attributes.position.array[i + 14] = originalVertices[i + 14] * sessionSpace;
+            geometry.attributes.position.array[i + 17] = originalVertices[i + 17] * sessionSpace;
+
+            geometry.attributes.position.needsUpdate = true;
         }
     }
 
