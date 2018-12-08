@@ -83,7 +83,7 @@ var Sphere = function (cube, data) {
         if (render.wasMouseOver(mesh)) {
             infobox.setHtml('Click to open breakpoint details on information window.');
 
-            SphereDescriptor.getMaterial().color.setHex(render.getSelectedColorPalette().pointOver);
+            //SphereDescriptor.getMaterial().color.setHex(render.getSelectedColorPalette().pointOver);
         } else {
             SphereDescriptor.getMaterial().color.setHex(render.getSelectedColorPalette().torus);
         }
