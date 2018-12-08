@@ -403,6 +403,7 @@
     <Content Include="Scripts\view3d2\scaleOptions.js" />
     <Content Include="Scripts\view3d2\select-control.js" />
     <Content Include="Scripts\view3d2\Square.js" />
+    <Content Include="Scripts\view3d2\Sphere.js" />
     <Content Include="Scripts\view3d2\Torus.js" />
     <Content Include="Scripts\view3d2\Grid.js" />
     <Content Include="Scripts\view3d2\Tube.js" />

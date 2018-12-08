@@ -37,7 +37,6 @@
 
         groupAssembler.mountMostHighFileLine(task.sessions);
 
-        //console.log('qtd sessões', task.sessions.length);
         var fileDataArray = [];
 
         for (var s = 0; s < task.sessions.length; s++) {
@@ -47,24 +46,12 @@
             //generate infos x z positions and mostHighFileLine.
             groupAssembler.mountBySession(files, groups);
 
-            //console.log('qtd arquivos', files.length);
             for (var i = 0; i < files.length; i++) {
                 fileDataArray.push({
                     x: files[i].x,
                     lines: files[i].lines,
                     z: files[i].z
                 });
-
-                //console.log('file', files[i].x, files[i].lines, files[i].z);
-
-                //TODO: remove later
-                //var cube = Cube(files[i]);
-                //scene.add(cube.mesh);
-
-                //TODO: remove later
-                //var plane = Plane(files[i]);
-                //scene.add(plane.mesh);
-                //scene.interceptables.push(plane.mesh);
 
                 //var hidecube = HideCube(plane);
                 //scene.add(hidecube.mesh);
@@ -73,11 +60,11 @@
                 var titleCube = TitleCubeDescriptor.createIfNotExist(files[i]);
                 scene.add(titleCube.mesh);
 
-                //for (var j = 0; j < files[i].breakpoints.length; j++) {
-                //    var torus = Torus(plane, files[i].breakpoints[j]);
-                //    scene.add(torus.mesh);
-                //    scene.interceptables.push(torus.mesh);
-                //}
+                for (var j = 0; j < files[i].breakpoints.length; j++) {
+                    var sphere = Sphere(files[i], files[i].breakpoints[j]);
+                    scene.add(sphere.mesh);
+                    scene.interceptables.push(sphere.mesh);
+                }
 
                 //for (var j = 0; j < files[i].events.length; j++) {
                 //    var square = Square(plane, files[i].events[j]);
