@@ -50,7 +50,8 @@
                 fileDataArray.push({
                     x: files[i].x,
                     lines: files[i].lines,
-                    z: files[i].z
+                    z: files[i].z,
+                    originalId : files[i].originalId
                 });
 
                 //var hidecube = HideCube(plane);

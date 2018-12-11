@@ -24,6 +24,7 @@ namespace SwarmServerAPI.AppCore.Service
 
         public class File
         {
+            public string originalId { get; set; }
             public string fileId { get; set; }
             public string fileName { get; set; }
             public string filePath { get; set; }
@@ -1275,6 +1276,26 @@ namespace SwarmServerAPI.AppCore.Service
             return users;
         }
 
+        public string GetView3dSourceCode(string originalId)
+        {
+            string sourceCode = "Something wrong on process source code search.";
+
+            if (String.IsNullOrWhiteSpace(originalId))
+                return sourceCode + " Original Id is null or empty.";
+
+            using (SwarmData context = new SwarmData())
+            {
+                sourceCode = context.CodeFiles.Where(c => c.Id.ToString() == originalId).Select(c => c.Content).FirstOrDefault();
+
+                if (String.IsNullOrWhiteSpace(sourceCode))
+                    return "No source code found.";
+
+                sourceCode = Base64StringZip.UnZipString(sourceCode);
+            }
+
+            return sourceCode;
+        }
+
         public List<User> LoadFilter()
         {
             return LoadFilter(String.Empty, String.Empty, String.Empty);
@@ -1407,6 +1428,7 @@ namespace SwarmServerAPI.AppCore.Service
                 CodeFile c = listCodeFiles[i];
 
                 File file = new File();
+                file.originalId = c.Id.ToString();
                 file.fileId = i.ToString();
                 file.fileName = System.IO.Path.GetFileName(c.Path);
                 file.filePath = c.Path;

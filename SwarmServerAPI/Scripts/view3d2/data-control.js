@@ -60,6 +60,24 @@
         xmlhttp.send();
     });
 
+    var getSourceCodeFromServer = (originalId) => new Promise(function (resolve, reject) {
+        var filter = '?originalId=' + encodeURI(originalId);
+
+        var xmlhttp = new XMLHttpRequest();
+        var url = location.origin + '/api/Visualization/SourceCode' + filter;
+
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var jsonData = JSON.parse(this.responseText);
+
+                resolve(jsonData);
+            }
+        };
+
+        xmlhttp.open('GET', url, true);
+        xmlhttp.send();
+    });
+
     var setFilter = function (data) {
         users = data;
     };
@@ -106,7 +124,8 @@
         setFilter: setFilter,
         setData: setData,
         getDataFilterFromServer: getDataFilterFromServer,
-        getDataFromServer: getDataFromServer
+        getDataFromServer: getDataFromServer,
+        getSourceCodeFromServer: getSourceCodeFromServer
     };
 
 }());

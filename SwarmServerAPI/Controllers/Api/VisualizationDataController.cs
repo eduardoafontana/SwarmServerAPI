@@ -796,5 +796,26 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
                 throw InternalError.ThrowError(ex);
             }
         }
+
+        [HttpGet]
+        [Route("api/Visualization/SourceCode")]
+        public HttpResponseMessage GetSourceCodeisualization(string originalId)
+        {
+            try
+            {
+                VisualizationService visualizationService = new VisualizationService();
+                var view3dData = visualizationService.GetView3dSourceCode(originalId);
+
+                var data = new JavaScriptSerializer().Serialize(view3dData);
+
+                var response = Request.CreateResponse(HttpStatusCode.OK);
+                response.Content = new StringContent(data, Encoding.UTF8, "application/json");
+                return response;
+            }
+            catch (Exception ex)
+            {
+                throw InternalError.ThrowError(ex);
+            }
+        }
     }
 }

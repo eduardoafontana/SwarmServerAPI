@@ -29,12 +29,15 @@ var Planes = function (dataArray) {
 
     var vertices = [];
     var colors = [];
+    var sourceCodeIds = [];
 
     var segmentWidth = 1;
 
     var marginBottom = 0.5;
     var marginWidth = 0.5;
     var leftOver = 0.5;
+
+    console.log(dataArray.length);
 
     for (var f = 0; f < dataArray.length; f++) {
         var data = dataArray[f];
@@ -52,6 +55,8 @@ var Planes = function (dataArray) {
         var color = new THREE.Color(originalColor);
 
         for (var i = 0; i < height; i++) {
+            sourceCodeIds.push(data.originalId);
+
             vertices.push(x, y, z);
             vertices.push(x + segmentWidth, y, z);
             vertices.push(x + segmentWidth, y + PlanesDescriptor.getSegmentHeight(), z);
@@ -119,6 +124,14 @@ var Planes = function (dataArray) {
 
             var wrapper = document.createElement('div');
             //wrapper.innerHTML = 'Do a backend request to get the code around line ' + line;
+
+            var originalId = '853C7A6B-2CB0-4E65-8805-922FD94570D7';
+
+            dataControl.getSourceCodeFromServer(originalId).then(function (dataFromServer) {
+
+                wrapper.innerHTML = dataFromServer;
+                
+            });
 
             boxMain.innerHTML = '';
             boxMain.appendChild(wrapper);
