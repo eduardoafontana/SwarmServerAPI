@@ -1,31 +1,31 @@
 ﻿var Square = function (cube, data) {
 
-    var topPosition = data.line * 50 / groupAssembler.getMostHighFileLine();
+    var height = data.line * 50 / groupAssembler.getMostHighFileLine();
 
-    var width = 1;
-    var height = 0.5;
-
+    var radius = 0.7;
     var topMargin = 0.5;
 
-    var geometry = new THREE.PlaneBufferGeometry(width, height, 1);
-    var material = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide });
+    var geometry = new THREE.TorusBufferGeometry(radius, 0.1, 100, 4);
+    var material = new THREE.MeshBasicMaterial();
     var mesh = new THREE.Mesh(geometry, material);
 
-    var marginWidth = 0.5;
-    var sizeWithMargin = marginWidth + width;
+    var margin = 0.1;
+    var torusSize = radius * 2; //diameter
+    var sizeWithMargin = margin + torusSize;
     var marginBottom = 0.5;
 
-    var heightWithMargin = topPosition + marginBottom;
+    var heightWithMargin = height + marginBottom;
 
     mesh.position.y = heightWithMargin;
-    mesh.position.x = sizeWithMargin * cube.x;
-    mesh.position.z = cube.z;
+    mesh.position.x = sizeWithMargin * cube.data.x;
+    mesh.position.z = cube.data.z;
 
-    mesh.rotation.x = 1.5; //flip to horizontal
+    mesh.rotation.x = 1.6; //flip to horizontal
+    mesh.rotation.z = 0.8; //rotate to equal cube node
 
     var initialCalculatedPositionX = mesh.position.x;
     var initialCalculatedPositionZ = mesh.position.z;
-    var initialHeight = topPosition;
+    var initialHeight = height;
 
     internalAnimate();
 
