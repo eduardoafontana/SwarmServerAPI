@@ -35,6 +35,10 @@
     text-align:center;
 }
 
+.detail-box-main pre {
+    color: #eee;
+}
+
 .fade-in {
     opacity: 1;
     animation-name: fadeInOpacity;

@@ -64,7 +64,13 @@
             line = Math.round(line);
 
             var wrapper = document.createElement('div');
-            wrapper.innerHTML = 'Do a backend request to get the code around line ' + line;
+            //wrapper.innerHTML = 'Do a backend request to get the code around line ' + line;
+
+            dataControl.getSourceCodeFromServer(data.originalId).then(function (dataFromServer) {
+
+                wrapper.innerHTML = '<pre>' + dataFromServer + '</pre>';
+
+            });
 
             boxMain.innerHTML = '';
             boxMain.appendChild(wrapper);
