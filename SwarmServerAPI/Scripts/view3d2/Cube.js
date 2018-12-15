@@ -19,7 +19,7 @@
     material.transparent = true;
 
     var adjustToZeroAxisY = ySize / 2
-    var margin = 0.5;
+    var margin = 2;
     var sizeWithMargin = margin + squareSize;
     var marginBottom = 0.5;
 

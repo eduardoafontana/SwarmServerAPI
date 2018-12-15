@@ -74,7 +74,7 @@ var TitleCubeMesh = function (data, geometry) {
     const center = new THREE.Vector3();
     var box = new THREE.Box3().setFromObject(mesh);
 
-    var margin = 1.5;//cubeMargin + cubeSize
+    var margin = 3;//cubeMargin + cubeSize
 
     var sizeWidth = box.getSize(center).x;
     var sizeWidthHalf = sizeWidth / 2;

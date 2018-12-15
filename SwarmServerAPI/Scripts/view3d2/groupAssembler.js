@@ -2,7 +2,7 @@
 
     var mostHighFileLine = 0;
     var sessionLine = 0;
-    var sessionMargin = 3;
+    var sessionMargin = 5;
 
     var mountBySession = function (files, groups) {
         function getFiles(groupId) {

@@ -1,11 +1,11 @@
 ﻿var Group = function (data, sessionsQuantity, groupParent) {
 
-    var sessionMargin = 3;
+    var sessionMargin = 5;
     var topBorder = 0.75;
     var bottomBorder = 0.75;
 
-    var cubesMargin = 1.5;
-    var rightOver = 0.5;//leftover on right
+    var cubesMargin = 3;
+    var rightOver = 1;//leftover on right
     var widthQuantity = data.maxIndexWidthQuantity + 1;
 
     var width = (widthQuantity * cubesMargin) - rightOver;
@@ -15,8 +15,8 @@
     var material = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide });
     var mesh = new THREE.Mesh(geometry, material);
 
-    var leftBorder = 0.5;
-    var groupMargin = 1;
+    var leftBorder = 1;
+    var groupMargin = 2;
     var adjustToZeroAxisX = width / 2;
     var leftPosition = adjustToZeroAxisX - leftBorder;
 

@@ -9,7 +9,7 @@
     var material = new THREE.MeshBasicMaterial();
     var mesh = new THREE.Mesh(geometry, material);
 
-    var margin = 0.1;
+    var margin = 1.6;
     var torusSize = radius * 2; //diameter
     var sizeWithMargin = margin + torusSize;
     var marginBottom = 0.5;
