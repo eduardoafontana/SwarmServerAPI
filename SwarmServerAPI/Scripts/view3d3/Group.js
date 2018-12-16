@@ -28,8 +28,9 @@
 
     var adjustToZeroAxisZ = height / 2;
     var topPosition = adjustToZeroAxisZ - topBorder;
+    var topHeightMargin = 0.5;
 
-    mesh.position.y = 0.5;
+    mesh.position.y = groupAssembler.getPositionTopBase() + topHeightMargin;
     mesh.position.x = leftPosition;
     mesh.position.z = topPosition;
 

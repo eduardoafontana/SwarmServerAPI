@@ -1,7 +1,7 @@
 ﻿var Cube = function (data) {
 
     var data = data;
-    var height = data.lines * 50 / groupAssembler.getMostHighFileLine();
+    var height = data.events.length;//data.lines * 50 / groupAssembler.getMostHighFileLine();
 
     var squareSize = 1;
 
@@ -18,12 +18,14 @@
     material.opacity = 0.5;
     material.transparent = true;
 
-    var adjustToZeroAxisY = ySize / 2
+    var adjustToZeroAxisY = (ySize / 2) * (-1);
     var margin = 2;
     var sizeWithMargin = margin + squareSize;
-    var marginBottom = 0.5;
+    //var marginBottom = 0.5;
+    var marginBottom = 0; //TODO: neste conceito de margin, pode-se pensar depois para margim top para reposicionar a algura para ficar alinhado com o pathnode do anterior.
+    var positionTopBase = groupAssembler.getPositionTopBase();
 
-    mesh.position.y = marginBottom + adjustToZeroAxisY;
+    mesh.position.y = marginBottom + adjustToZeroAxisY + positionTopBase;
     mesh.position.x = sizeWithMargin * data.x;
     mesh.position.z = zSize * data.z;
 
@@ -51,7 +53,7 @@
         mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.sessionSpace;
 
         mesh.scale.y = render.getSelectedScene().scaleOptions.options.heightScale;
-        mesh.position.y = (initialCalculatedPositionY * render.getSelectedScene().scaleOptions.options.heightScale) + marginBottom;
+        mesh.position.y = (initialCalculatedPositionY * render.getSelectedScene().scaleOptions.options.heightScale) + marginBottom + positionTopBase;
 
         if (render.wasClicked(mesh)) {
             var box = document.getElementsByClassName("detail-box")[0];
@@ -60,8 +62,8 @@
 
             var boxMain = box.getElementsByClassName("detail-box-main")[0];
 
-            var line = render.getIntersectedObjectData().point.y * geometry.parameters.heightSegments / (geometry.parameters.height + marginBottom);
-            line = Math.round(line);
+            //var line = render.getIntersectedObjectData().point.y * geometry.parameters.heightSegments / (geometry.parameters.height + marginBottom);
+            //line = Math.round(line);
 
             var wrapper = document.createElement('div');
             //wrapper.innerHTML = 'Do a backend request to get the code around line ' + line;

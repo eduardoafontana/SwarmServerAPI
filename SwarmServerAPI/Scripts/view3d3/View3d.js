@@ -37,8 +37,6 @@
 
         groupAssembler.mountMostHighFileLine(task.sessions);
 
-        //var fileDataArray = [];
-
         for (var s = 0; s < task.sessions.length; s++) {
             var files = task.sessions[s].files;
             var groups = task.groups;
@@ -47,23 +45,12 @@
             groupAssembler.mountBySession(files, groups);
 
             for (var i = 0; i < files.length; i++) {
-                //fileDataArray.push({
-                //    x: files[i].x,
-                //    lines: files[i].lines,
-                //    z: files[i].z,
-                //    originalId : files[i].originalId
-                //});
-
                 var cube = Cube(files[i]);
                 scene.add(cube.mesh);
                 scene.interceptables.push(cube.mesh);
 
-                //var hidecube = HideCube(plane);
-                //scene.add(hidecube.mesh);
-                //scene.interceptables.push(hidecube.mesh);
-
-                var titleCube = TitleCubeDescriptor.createIfNotExist(files[i]);
-                scene.add(titleCube.mesh);
+                //var titleCube = TitleCubeDescriptor.createIfNotExist(files[i]);
+                //scene.add(titleCube.mesh);
 
                 for (var j = 0; j < files[i].breakpoints.length; j++) {
                     var torus = Torus(cube, files[i].breakpoints[j]);
@@ -71,11 +58,11 @@
                     scene.interceptables.push(torus.mesh);
                 }
 
-                for (var j = 0; j < files[i].events.length; j++) {
-                    var square = Square(cube, files[i].events[j]);
-                    scene.add(square.mesh);
-                    scene.interceptables.push(square.mesh);
-                }
+                //for (var j = 0; j < files[i].events.length; j++) {
+                //    var square = Square(cube, files[i].events[j]);
+                //    scene.add(square.mesh);
+                //    scene.interceptables.push(square.mesh);
+                //}
 
                 //if (files[i].nodes != undefined) {
                 //    for (var j = 0; j < files[i].nodes.length; j++) {
@@ -85,20 +72,16 @@
                 //}
             }
 
-            var pathnodes = task.sessions[s].pathnodes;
+            //var pathnodes = task.sessions[s].pathnodes;
 
-            if (pathnodes.length > 1) {
-                //generate infos x z positions on nodes
-                groupAssembler.mountNodesBySession(files, pathnodes);
+            //if (pathnodes.length > 1) {
+            //    //generate infos x z positions on nodes
+            //    groupAssembler.mountNodesBySession(files, pathnodes);
 
-                var tube = Tube(pathnodes);
-                scene.add(tube.mesh);
-            }
+            //    var tube = Tube(pathnodes);
+            //    scene.add(tube.mesh);
+            //}
         }
-
-        //var plane = Planes(fileDataArray);
-        //scene.add(plane.mesh);
-        //scene.interceptables.push(plane.mesh);
     };
 
     document.addEventListener("DOMContentLoaded", function () {

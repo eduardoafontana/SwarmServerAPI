@@ -142,7 +142,7 @@
             pathNodePoints: true,
             architecture: true,
             grid: true,
-            axes: true,
+            axes: false,
         };
 
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'file');

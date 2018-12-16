@@ -3,6 +3,7 @@
     var mostHighFileLine = 0;
     var sessionLine = 0;
     var sessionMargin = 5;
+    var positionTopBase = 30;
 
     var mountBySession = function (files, groups) {
         function getFiles(groupId) {
@@ -72,12 +73,17 @@
         sessionLine = 0;
     };
 
+    var getPositionTopBase = function () {
+        return positionTopBase;
+    };
+
     return {
         getMostHighFileLine: getMostHighFileLine,
         mountMostHighFileLine: mountMostHighFileLine,
         mountBySession: mountBySession,
         mountNodesBySession: mountNodesBySession,
-        reset: reset
+        reset: reset,
+        getPositionTopBase: getPositionTopBase
     };
 
 }());
