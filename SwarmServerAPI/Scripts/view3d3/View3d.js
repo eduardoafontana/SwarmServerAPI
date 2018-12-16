@@ -49,8 +49,8 @@
                 scene.add(cube.mesh);
                 scene.interceptables.push(cube.mesh);
 
-                //var titleCube = TitleCubeDescriptor.createIfNotExist(files[i]);
-                //scene.add(titleCube.mesh);
+                var titleCube = TitleCubeDescriptor.createIfNotExist(files[i]);
+                scene.add(titleCube.mesh);
 
                 for (var j = 0; j < files[i].breakpoints.length; j++) {
                     var torus = Torus(cube, files[i].breakpoints[j], j);

@@ -66,10 +66,11 @@ var TitleCubeMesh = function (data, geometry) {
 
     //mesh.add(line);
 
-    var height = PlanesDescriptor.getHeight(data.lines);
-    var marginBottom = 0.5;
-    var heightWithMargin = height + marginBottom;
-    var topMargin = 0;
+    var height = data.events.length;
+    var positionTopBase = groupAssembler.getPositionTopBase();
+
+    var adjustToZeroAxisY = height * (-1);
+    var topMargin = -0.5;
 
     const center = new THREE.Vector3();
     var box = new THREE.Box3().setFromObject(mesh);
@@ -80,13 +81,13 @@ var TitleCubeMesh = function (data, geometry) {
     var sizeWidthHalf = sizeWidth / 2;
     var initialPositionX = data.x * margin;
 
-    mesh.position.y = topMargin + heightWithMargin;
+    mesh.position.y = topMargin + adjustToZeroAxisY + positionTopBase;
     mesh.position.x = initialPositionX - sizeWidthHalf;
     mesh.position.z = data.z;
 
     var initialCalculatedPositionX = initialPositionX;
     var initialCalculatedPositionZ = mesh.position.z;
-    var initialHeight = height;
+    var initialCalculatedPositionY = adjustToZeroAxisY;
 
     internalAnimate();
 
@@ -104,7 +105,7 @@ var TitleCubeMesh = function (data, geometry) {
 
         mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.sessionSpace;
 
-        mesh.position.y = (initialHeight * render.getSelectedScene().scaleOptions.options.heightScale) + topMargin + marginBottom;
+        mesh.position.y = (initialCalculatedPositionY * render.getSelectedScene().scaleOptions.options.heightScale) + topMargin + positionTopBase;
 
         var newScale = render.getSelectedScene().scaleOptions.options.titleScale;
         mesh.scale.set(newScale, newScale, newScale);
