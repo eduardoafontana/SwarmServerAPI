@@ -58,11 +58,11 @@
                     scene.interceptables.push(torus.mesh);
                 }
 
-                //for (var j = 0; j < files[i].events.length; j++) {
-                //    var square = Square(cube, files[i].events[j]);
-                //    scene.add(square.mesh);
-                //    scene.interceptables.push(square.mesh);
-                //}
+                for (var j = 0; j < files[i].events.length; j++) {
+                    var square = Square(cube, files[i].events[j], j);
+                    scene.add(square.mesh);
+                    scene.interceptables.push(square.mesh);
+                }
 
                 //if (files[i].nodes != undefined) {
                 //    for (var j = 0; j < files[i].nodes.length; j++) {
