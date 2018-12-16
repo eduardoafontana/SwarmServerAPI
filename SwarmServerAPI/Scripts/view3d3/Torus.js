@@ -1,6 +1,6 @@
-﻿var Torus = function (cube, data) {
+﻿var Torus = function (cube, data, orderIndex) {
 
-    var height = data.line * 50 / groupAssembler.getMostHighFileLine();
+    var height = orderIndex;//data.line * 50 / groupAssembler.getMostHighFileLine();
 
     var radius = 0.7;
     var topMargin = 0.5;
@@ -12,11 +12,10 @@
     var margin = 1.6;
     var torusSize = radius * 2; //diameter
     var sizeWithMargin = margin + torusSize;
-    var marginBottom = 0.5;
+    var topHeightMargin = -0.25;
+    var heightAdjustment = height * (-1);
 
-    var heightWithMargin = height + marginBottom;
-
-    mesh.position.y = heightWithMargin;
+    mesh.position.y = heightAdjustment + topHeightMargin + groupAssembler.getPositionTopBase();
     mesh.position.x = sizeWithMargin * cube.data.x;
     mesh.position.z = cube.data.z;
 
@@ -24,7 +23,7 @@
 
     var initialCalculatedPositionX = mesh.position.x;
     var initialCalculatedPositionZ = mesh.position.z;
-    var initialHeight = height;
+    var initialCalculatedPositionY = heightAdjustment;
 
     internalAnimate();
 
@@ -37,14 +36,12 @@
         mesh.visible = render.getSelectedScene().hideShowOptions.options.breakpoint;
 
         mesh.position.x = initialCalculatedPositionX * render.getSelectedScene().scaleOptions.options.cubeSpace;
-
         mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.sessionSpace;
+        mesh.position.y = (initialCalculatedPositionY * render.getSelectedScene().scaleOptions.options.heightScale) + topHeightMargin + groupAssembler.getPositionTopBase();
 
         mesh.scale.x = render.getSelectedScene().scaleOptions.options.breakpointScale;
         mesh.scale.y = render.getSelectedScene().scaleOptions.options.breakpointScale;
         mesh.scale.z = render.getSelectedScene().scaleOptions.options.breakpointScale;
-
-        mesh.position.y = (initialHeight * render.getSelectedScene().scaleOptions.options.heightScale) + marginBottom;
 
         if (render.wasClicked(mesh)) {
             var box = document.getElementsByClassName("detail-box")[0];

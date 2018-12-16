@@ -53,7 +53,7 @@
                 //scene.add(titleCube.mesh);
 
                 for (var j = 0; j < files[i].breakpoints.length; j++) {
-                    var torus = Torus(cube, files[i].breakpoints[j]);
+                    var torus = Torus(cube, files[i].breakpoints[j], j);
                     scene.add(torus.mesh);
                     scene.interceptables.push(torus.mesh);
                 }
