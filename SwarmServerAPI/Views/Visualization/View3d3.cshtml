@@ -1,0 +1,67 @@
+﻿
+@Styles.Render("~/Content/view3d")
+@Scripts.Render("~/bundles/threejs")
+@Scripts.Render("~/bundles/view3d3")
+
+<style>
+    body, html {
+        height: 100%;
+        padding-bottom: 50px;
+    }
+
+    html, body, .container-fluid, .row, main, .canvasRenderRelativeSize, .cssRenderRelativeSize {
+        height: 100%;
+    }
+
+    .cssRenderRelativeSize {
+        background-color: aliceblue;
+    }
+
+    .loadview-button-adjustment {
+        height:25px;
+        line-height:9px;
+    }
+</style>
+
+<script>
+
+</script>
+<h2 class="view3d-title">View 3D</h2>
+<label for="user-select">User: </label>
+<select id="user-select"></select>
+&nbsp;&nbsp;&nbsp;
+<label for="project-select">Projects: </label>
+<select id="project-select"></select>
+&nbsp;&nbsp;&nbsp;
+<label for="task-select">Tasks: </label>
+<select id="task-select"></select>
+&nbsp;&nbsp;&nbsp;
+<button type="button" class="btn btn-primary loadview-button-adjustment" id="loadview-button">Load View</button>
+<br />
+<div class="tool-box fade-in">
+    <div class="tool-box-header">
+        <i class="fas fa-arrows-alt" aria-hidden="true" title="Move box."></i>
+    </div>
+    <ul class="tool-box-main">
+        <li class="reset-camera-button"><i class="fas fa-undo fa-lg" title="Reset camera position"></i></li>
+        <li class="tool-scalechange"><i class="fas fa-compress fa-lg" title="Change scales"></i></li>
+        <li class="tool-hideshowchange"><i class="fas fa-eye fa-lg" title="Hide or show elements"></i></li>
+        <li class="tool-colorchange"><i class="fas fa-palette fa-lg" title="Select color palette"></i></li>
+        <li class="tooltip-info">
+            <i class="fas fa-info-circle fa-lg"></i>
+            <div class="tooltip-text">info info <br /> nova linha</div>
+        </li>
+    </ul>
+    <div class="tool-box-minimize">-</div>
+</div>
+<div class="detail-box fade-in">
+    <div class="detail-box-header">
+        <i class="fas fa-arrows-alt" aria-hidden="true"></i>
+        <div class="detail-box-minimize">-</div>
+    </div>
+    <div class="detail-box-main"></div>
+</div>
+<div class="info-box fade-in">
+</div>
+<div class="cssRenderRelativeSize"></div>
+<div class="canvasRenderRelativeSize"></div>

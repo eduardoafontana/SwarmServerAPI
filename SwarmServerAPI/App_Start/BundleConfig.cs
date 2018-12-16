@@ -113,6 +113,33 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
                       "~/Scripts/view3d2/select-control.js",
                       "~/Scripts/view3d2/View3d.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/view3d3").Include(
+                      "~/Scripts/view3d3/fontLoader.js",
+                      "~/Scripts/view3d3/detail-box.js",
+                      "~/Scripts/view3d3/info-box.js",
+                      "~/Scripts/view3d3/color-palette.js",
+                      "~/Scripts/view3d3/data-control.js",
+                      "~/Scripts/view3d3/scaleOptions.js",
+                      "~/Scripts/view3d3/hideShowOptions.js",
+                      "~/Scripts/view3d3/colorPaletteOptions.js",
+                      "~/Scripts/view3d3/render.js",
+                      "~/Scripts/view3d3/groupAssembler.js",
+                      "~/Scripts/view3d3/Group.js",
+                      "~/Scripts/view3d3/Cube.js",
+                      "~/Scripts/view3d3/Plane.js",
+                      "~/Scripts/view3d3/Planes.js",
+                      "~/Scripts/view3d3/HideCube.js",
+                      "~/Scripts/view3d3/TitleCube.js",
+                      "~/Scripts/view3d3/Torus.js",
+                      "~/Scripts/view3d3/Sphere.js",
+                      "~/Scripts/view3d3/Square.js",
+                      "~/Scripts/view3d3/TubeSphere.js",
+                      "~/Scripts/view3d3/Tube.js",
+                      "~/Scripts/view3d3/Grid.js",
+                      "~/Scripts/view3d3/Axes.js",
+                      "~/Scripts/view3d3/select-control.js",
+                      "~/Scripts/view3d3/View3d.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",

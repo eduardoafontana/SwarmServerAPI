@@ -51,5 +51,12 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 
             return View();
         }
+
+        public ActionResult View3d3()
+        {
+            ViewBag.Title = "View3d v3";
+
+            return View();
+        }
     }
 }

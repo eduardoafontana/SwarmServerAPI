@@ -384,6 +384,32 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Scripts\view3d3\Axes.js" />
+    <Content Include="Scripts\view3d3\color-palette.js" />
+    <Content Include="Scripts\view3d3\colorPaletteOptions.js" />
+    <Content Include="Scripts\view3d3\Cube.js" />
+    <Content Include="Scripts\view3d3\data-control.js" />
+    <Content Include="Scripts\view3d3\detail-box.js" />
+    <Content Include="Scripts\view3d3\fontLoader.js" />
+    <Content Include="Scripts\view3d3\Grid.js" />
+    <Content Include="Scripts\view3d3\Group.js" />
+    <Content Include="Scripts\view3d3\groupAssembler.js" />
+    <Content Include="Scripts\view3d3\HideCube.js" />
+    <Content Include="Scripts\view3d3\hideShowOptions.js" />
+    <Content Include="Scripts\view3d3\info-box.js" />
+    <Content Include="Scripts\view3d3\Plane.js" />
+    <Content Include="Scripts\view3d3\Planes.js" />
+    <Content Include="Scripts\view3d3\render.js" />
+    <Content Include="Scripts\view3d3\scaleOptions.js" />
+    <Content Include="Scripts\view3d3\select-control.js" />
+    <Content Include="Scripts\view3d3\Sphere.js" />
+    <Content Include="Scripts\view3d3\Square.js" />
+    <Content Include="Scripts\view3d3\TitleCube.js" />
+    <Content Include="Scripts\view3d3\Torus.js" />
+    <Content Include="Scripts\view3d3\Tube.js" />
+    <Content Include="Scripts\view3d3\TubeSphere.js" />
+    <Content Include="Scripts\view3d3\user-data.js" />
+    <Content Include="Scripts\view3d3\View3d.js" />
     <Content Include="Scripts\view3d2\Planes.js" />
     <Content Include="Scripts\view3d2\Plane.js" />
     <Content Include="Scripts\view3d2\fontLoader.js" />
@@ -464,6 +490,8 @@
     <Content Include="Views\Visualization\View3d.cshtml" />
     <Content Include="Views\Visualization\View3d2.cshtml" />
     <Content Include="Scripts\view3d2\fonts\helvetiker_regular.typeface.json" />
+    <Content Include="Scripts\view3d3\fonts\helvetiker_regular.typeface.json" />
+    <Content Include="Views\Visualization\View3d3.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
