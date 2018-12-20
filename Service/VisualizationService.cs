@@ -13,6 +13,7 @@ namespace SwarmServerAPI.AppCore.Service
         public class Breakpoint
         {
             public int line { get; set; }
+            public int positionIndex { get; set; }
             public string data { get; set; }
         }
 
@@ -1438,19 +1439,30 @@ namespace SwarmServerAPI.AppCore.Service
                 file.sessionId = sessionId;
                 file.lines = Regex.Matches(Base64StringZip.UnZipString(c.Content), Environment.NewLine, RegexOptions.Multiline).Count;
 
+                file.events = s.Events
+                                .Where(e => e.CodeFilePath.ToLower() == c.Path.ToLower())
+                                .Where(e => e.EventKind == "StepInto" || e.EventKind == "StepOver" || e.EventKind == "BreakpointHitted")
+                                .OrderBy(e => e.Created)
+                                .AsEnumerable()
+                                .Select(e => new { LineNumber = e.LineNumber } )
+                                .Distinct()
+                                .Select(e => new Event
+                                {
+                                    line = e.LineNumber ?? 0
+                                })
+                                .ToList();
+
                 file.breakpoints = s.Breakpoints
                                     .Where(b => b.CodeFilePath.ToLower() == c.Path.ToLower())
                                     .Select(b => new Breakpoint
                                     {
-                                        line = b.LineNumber ?? 0
+                                        line = b.LineNumber ?? 0,
+                                        positionIndex = file.events
+                                            .Select((e, index) => new { index = index, line = e.line })
+                                            .Where(e => e.line == b.LineNumber)
+                                            .Select(e => e.index)
+                                            .FirstOrDefault()
                                     }).ToList();
-
-                file.events = s.Events
-                                .Where(e => e.CodeFilePath.ToLower() == c.Path.ToLower())
-                                .Select(e => new Event
-                                {
-                                    line = e.LineNumber ?? 0
-                                }).ToList();
 
                 File alreadyExistFile = generetedFiles
                     .Where(f => f.filePath.ToLower() == c.Path.ToLower())

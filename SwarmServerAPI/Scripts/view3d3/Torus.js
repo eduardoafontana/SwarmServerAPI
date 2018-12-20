@@ -1,6 +1,6 @@
-﻿var Torus = function (cube, data, orderIndex) {
+﻿var Torus = function (cube, data) {
 
-    var height = orderIndex;//data.line * 50 / groupAssembler.getMostHighFileLine();
+    var height = data.positionIndex;//data.line * 50 / groupAssembler.getMostHighFileLine();
 
     var radius = 0.7;
     var topMargin = 0.5;
