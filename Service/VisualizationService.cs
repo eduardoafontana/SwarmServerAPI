@@ -21,8 +21,8 @@ namespace SwarmServerAPI.AppCore.Service
         {
             public int line { get; set; }
             public string data { get; set; }
+            public int positionIndex { get; set; }
             public string eventId { get; set; }
-            public int marginTop { get; set; }
         }
 
         public class File
@@ -35,7 +35,11 @@ namespace SwarmServerAPI.AppCore.Service
             public int groupId { get; set; }
             public int groupIndex { get; set; }
             public int lines { get; set; }
-            public int marginTop { get; set; }
+
+            public int nodePoints { get; set; }
+            public int nodeSpaceBefore { get; set; }
+            public int nodeSpaceAfter { get; set; }
+
             public List<Breakpoint> breakpoints { get; set; } = new List<Breakpoint>();
             public List<Event> events { get; set; } = new List<Event>();
             public List<Node> nodes { get; set; } = new List<Node>();
@@ -46,6 +50,7 @@ namespace SwarmServerAPI.AppCore.Service
             public string fileId { get; set; }
             public int line { get; set; }
             public string eventId { get; set; }
+            public bool evaluated { get; set; }
         }
 
         public class Session
@@ -1421,37 +1426,47 @@ namespace SwarmServerAPI.AppCore.Service
                     .ToList(), sessions.SelectMany(p => p.files).ToList(), generatedGroups);
                 session.pathnodes = getValidPathNodes(s, session.files);
 
-                //for (int f = 1; f < session.files.Count; f++)
-                //{
-                //    int countEventsFileBefore = 0;
-                //    for (int p = 0; p < session.pathnodes.Count; p++)
-                //    {
-                //        if (session.pathnodes[p].fileId == session.files[f].fileId)
-                //            break;
-                //        else
-                //            countEventsFileBefore++;
-                //    }
-
-                //    session.files[f].marginTop = countEventsFileBefore;
-                //}
-                //--
-                for (int f = 0; f < session.files.Count; f++)
+                foreach (var node in session.pathnodes)
                 {
-                    for (int e = 0; e < session.files[f].events.Count; e++)
+                    File file = session.files.Where(f => f.fileId == node.fileId).First();
+                    file.nodePoints++;
+
+                    node.evaluated = true;
+
+                    foreach (var fileItem in session.files.Where(f => f.fileId != file.fileId))
                     {
-                        for (int p = 0; p < session.pathnodes.Count; p++)
+                        if (fileItem.nodePoints == 0)
                         {
-                            if (session.files[f].events[e].eventId == session.pathnodes[p].eventId)
-                                session.files[f].events[e].marginTop = p;
+                            fileItem.nodeSpaceBefore++;
+                            continue;
                         }
+
+                        int remainNodes = session.pathnodes.Where(n => fileItem.fileId == n.fileId && n.evaluated == false).Count();
+
+                        if (remainNodes > 0)
+                            fileItem.nodeSpaceAfter++;
                     }
                 }
 
-                for (int f = 1; f < session.files.Count; f++)
+                foreach (var itemFile in session.files)
                 {
-                    session.files[f].marginTop = session.files[f].events.Select(e => e.marginTop).FirstOrDefault();
+                    foreach (var itemEvent in itemFile.events)
+                    {
+                        itemEvent.positionIndex = session.pathnodes
+                            .Select((pn, index) => new { index = index, eventId = pn.eventId })
+                            .Where(pn => pn.eventId == itemEvent.eventId)
+                            .Select(pn => pn.index)
+                            .FirstOrDefault();
+                    }
+
+                    foreach (var itemBreakpoint in itemFile.breakpoints)
+                    {
+                        itemBreakpoint.positionIndex = itemFile.events
+                            .Where(e => e.line == itemBreakpoint.line)
+                            .Select(e => e.positionIndex)
+                            .FirstOrDefault();
+                    }
                 }
-                //--
 
                 sessions.Add(session);
             }
@@ -1475,43 +1490,22 @@ namespace SwarmServerAPI.AppCore.Service
                 file.sessionId = sessionId;
                 file.lines = Regex.Matches(Base64StringZip.UnZipString(c.Content), Environment.NewLine, RegexOptions.Multiline).Count;
 
-                var events = s.Events
+                file.events = s.Events
                                 .Where(e => e.CodeFilePath.ToLower() == c.Path.ToLower())
                                 .Where(e => e.EventKind == "StepInto" || e.EventKind == "StepOver" || e.EventKind == "BreakpointHitted")
-                                .OrderBy(e => e.Created).ToList();
-
-                List<int?> alreadyAddedLineNumbers = new List<int?>();
-                foreach (var eventItem in events)
-                {
-                    if (alreadyAddedLineNumbers.Contains(eventItem.LineNumber))
-                        continue;
-
-                    file.events.Add(new Event { line = eventItem.LineNumber ?? 0, eventId = eventItem.Id.ToString() });
-                }
-
-                //file.events = s.Events
-                //                .Where(e => e.CodeFilePath.ToLower() == c.Path.ToLower())
-                //                .Where(e => e.EventKind == "StepInto" || e.EventKind == "StepOver" || e.EventKind == "BreakpointHitted")
-                //                .OrderBy(e => e.Created)
-                //                .AsEnumerable()
-                //                .Select(e => new { LineNumber = e.LineNumber } )
-                //                .Distinct()
-                //                .Select(e => new Event
-                //                {
-                //                    line = e.LineNumber ?? 0
-                //                })
-                //                .ToList();
+                                .OrderBy(e => e.Created)
+                                .Select(e => new Event
+                                {
+                                    line = e.LineNumber ?? 0,
+                                    eventId = e.Id.ToString()
+                                })
+                                .ToList();
 
                 file.breakpoints = s.Breakpoints
                                     .Where(b => b.CodeFilePath.ToLower() == c.Path.ToLower())
                                     .Select(b => new Breakpoint
                                     {
-                                        line = b.LineNumber ?? 0,
-                                        positionIndex = file.events
-                                            .Select((e, index) => new { index = index, line = e.line })
-                                            .Where(e => e.line == b.LineNumber)
-                                            .Select(e => e.index)
-                                            .FirstOrDefault()
+                                        line = b.LineNumber ?? 0
                                     }).ToList();
 
                 File alreadyExistFile = generetedFiles
@@ -1560,35 +1554,13 @@ namespace SwarmServerAPI.AppCore.Service
             List<Node> nodes = new List<Node>();
 
             List<PathNode> pathNodes = s.PathNodes.Where(pn => pn.Origin != "Trace").OrderBy(pn => pn.Created).ToList();
-            List<AppCode.Repository.Event> events = s.Events.OrderBy(pn => pn.Created).ToList();
-            List<CodeFile> codeFiles = s.CodeFiles.OrderBy(pn => pn.Created).ToList();
 
-            int startEvent = 0;
             foreach (var item in pathNodes)
             {
-                AppCode.Repository.Event eventFounded = null;
-
-                for (int i = startEvent; i < events.Count; i++)
-                {
-                    if (events[i].Namespace.ToLower() == item.Namespace.ToLower() &&
-                       events[i].Type.ToLower() == item.Type.ToLower() &&
-                       events[i].Method.ToLower() == item.Method.ToLower())
-                    {
-                        eventFounded = events[i];
-
-                        startEvent = ++i;
-                        break;
-                    }
-                }
+                AppCode.Repository.Event eventFounded = s.Events.Where(e => e.Id == item.Event_Id).FirstOrDefault();
 
                 if (eventFounded == null)
                     continue;
-
-                //TODO: remove later
-                //int? fileId = codeFiles
-                //    .Select((cf, i) => new { index = i, path = cf.Path })
-                //    .Where(o => o.path.ToLower() == eventFounded.CodeFilePath.ToLower())
-                //    .Select(o => o.index).FirstOrDefault();
 
                 string fileId = generetedFilesSession
                     .Where(gf => gf.filePath.ToLower() == eventFounded.CodeFilePath.ToLower())
@@ -1601,7 +1573,8 @@ namespace SwarmServerAPI.AppCore.Service
                 {
                     fileId = fileId,
                     line = eventFounded.LineNumber ?? 0,
-                    eventId = eventFounded.Id.ToString()
+                    eventId = item.Event_Id.ToString(),
+                    evaluated = false
                 });
             }
 

@@ -14,7 +14,7 @@
     var sizeWithMargin = margin + torusSize;
     var topHeightMargin = -0.25;
     var heightAdjustment = height * (-1);
-    var cubeMarginTop = cube.data.marginTop * (-1);
+    var cubeMarginTop = 0;//cube.data.marginTop * (-1);
 
     mesh.position.y = cubeMarginTop + heightAdjustment + topHeightMargin + groupAssembler.getPositionTopBase();
     mesh.position.x = sizeWithMargin * cube.data.x;

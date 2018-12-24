@@ -1,6 +1,6 @@
 ﻿var Square = function (cube, data) {
 
-    var height = data.marginTop; //orderIndex;//data.line * 50 / groupAssembler.getMostHighFileLine();
+    var height = data.positionIndex; //orderIndex;//data.line * 50 / groupAssembler.getMostHighFileLine();
 
     var radius = 0.7;
     var topMargin = 0.5;
