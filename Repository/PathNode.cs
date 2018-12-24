@@ -21,6 +21,7 @@ namespace SwarmServerAPI.AppCode.Repository
         public virtual ICollection<PathNodeParameter> Parameters { get; set; }
         public DateTime Created { get; set; }
         public CodeMetric MethodCodeMetric { get; set; }
+        public Guid Event_Id { get; set; }
 
         public Session Session { get; set; }
     }
