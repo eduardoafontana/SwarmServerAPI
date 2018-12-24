@@ -52,7 +52,7 @@
             var boxMain = box.getElementsByClassName("detail-box-main")[0];
 
             var wrapper = document.createElement('div');
-            wrapper.innerHTML = data.data;
+            wrapper.innerHTML = '<pre><code>' + JSON.stringify(JSON.parse(data.data), null, 4) + '</code></pre>';
 
             boxMain.innerHTML = '';
             boxMain.appendChild(wrapper);

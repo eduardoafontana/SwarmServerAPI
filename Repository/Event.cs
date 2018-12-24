@@ -5,6 +5,7 @@ namespace SwarmServerAPI.AppCode.Repository
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Web.Script.Serialization;
 
     public partial class Event
     {
@@ -25,6 +26,7 @@ namespace SwarmServerAPI.AppCode.Repository
         public string LineOfCode { get; set; }
         public DateTime Created { get; set; }
 
+        [ScriptIgnore]
         public Session Session { get; set; }
     }
 }

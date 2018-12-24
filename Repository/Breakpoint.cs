@@ -5,6 +5,7 @@ namespace SwarmServerAPI.AppCode.Repository
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Web.Script.Serialization;
 
     public partial class Breakpoint
     {
@@ -19,6 +20,7 @@ namespace SwarmServerAPI.AppCode.Repository
         public string Origin { get; set; }
         public DateTime Created { get; set; }
 
+        [ScriptIgnore]
         public Session Session { get; set; }
     }
 }

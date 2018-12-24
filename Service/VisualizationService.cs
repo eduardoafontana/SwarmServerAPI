@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
 using SwarmServerAPI.AppCode.Repository;
 
 namespace SwarmServerAPI.AppCore.Service
@@ -1497,7 +1498,8 @@ namespace SwarmServerAPI.AppCore.Service
                                 .Select(e => new Event
                                 {
                                     line = e.LineNumber ?? 0,
-                                    eventId = e.Id.ToString()
+                                    eventId = e.Id.ToString(),
+                                    data = new JavaScriptSerializer().Serialize(e)
                                 })
                                 .ToList();
 
@@ -1505,7 +1507,8 @@ namespace SwarmServerAPI.AppCore.Service
                                     .Where(b => b.CodeFilePath.ToLower() == c.Path.ToLower())
                                     .Select(b => new Breakpoint
                                     {
-                                        line = b.LineNumber ?? 0
+                                        line = b.LineNumber ?? 0,
+                                        data = new JavaScriptSerializer().Serialize(b)
                                     }).ToList();
 
                 File alreadyExistFile = generetedFiles
