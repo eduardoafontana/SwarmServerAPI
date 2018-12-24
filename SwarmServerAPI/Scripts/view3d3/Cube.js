@@ -22,7 +22,7 @@
     var margin = 2;
     var sizeWithMargin = margin + squareSize;
     //var marginBottom = 0.5;
-    var marginBottom = 0; //TODO: neste conceito de margin, pode-se pensar depois para margim top para reposicionar a algura para ficar alinhado com o pathnode do anterior.
+    var marginBottom = (-1) * data.marginTop; //TODO: neste conceito de margin, pode-se pensar depois para margim top para reposicionar a algura para ficar alinhado com o pathnode do anterior.
     var positionTopBase = groupAssembler.getPositionTopBase();
 
     mesh.position.y = marginBottom + adjustToZeroAxisY + positionTopBase;

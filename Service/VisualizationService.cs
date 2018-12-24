@@ -21,6 +21,8 @@ namespace SwarmServerAPI.AppCore.Service
         {
             public int line { get; set; }
             public string data { get; set; }
+            public string eventId { get; set; }
+            public int marginTop { get; set; }
         }
 
         public class File
@@ -33,6 +35,7 @@ namespace SwarmServerAPI.AppCore.Service
             public int groupId { get; set; }
             public int groupIndex { get; set; }
             public int lines { get; set; }
+            public int marginTop { get; set; }
             public List<Breakpoint> breakpoints { get; set; } = new List<Breakpoint>();
             public List<Event> events { get; set; } = new List<Event>();
             public List<Node> nodes { get; set; } = new List<Node>();
@@ -42,6 +45,7 @@ namespace SwarmServerAPI.AppCore.Service
         {
             public string fileId { get; set; }
             public int line { get; set; }
+            public string eventId { get; set; }
         }
 
         public class Session
@@ -1312,7 +1316,7 @@ namespace SwarmServerAPI.AppCore.Service
                     .Where(s => s.CodeFiles.Count() > 0)
                     .Where(s => developerName == String.Empty || (developerName != String.Empty && s.DeveloperName == developerName))
                     //.Where(s => s.DeveloperName.ToLower() == "MarcosN.B")
-                    .Where(s => s.DeveloperName.ToLower() == "Eduardo A. F.")
+                    //.Where(s => s.DeveloperName.ToLower() == "Eduardo A. F.")
                     .GroupBy(s => s.DeveloperName)
                     .Select(s => s.FirstOrDefault())
                     .Where(s => s.DeveloperName != null && s.DeveloperName.Trim() != string.Empty)
@@ -1325,7 +1329,7 @@ namespace SwarmServerAPI.AppCore.Service
                             .Where(s1 => s1.DeveloperName == s.DeveloperName)
                             .Where(s1 => projectName == String.Empty || (projectName != String.Empty && s1.ProjectName == projectName))
                             //.Where(s1 => s1.ProjectName.ToLower() == "SIRA.sln")
-                            .Where(s1 => s1.ProjectName.ToLower() == "ConsoleApp1.sln")
+                            //.Where(s1 => s1.ProjectName.ToLower() == "ConsoleApp1.sln")
                             .GroupBy(s1 => s1.ProjectName)
                             .Select(s1 => s1.FirstOrDefault())
                             .Where(s1 => s1.ProjectName != null && s1.ProjectName.Trim() != string.Empty)
@@ -1337,7 +1341,7 @@ namespace SwarmServerAPI.AppCore.Service
                                     .Where(s2 => s2.CodeFiles.Count() > 0)
                                     .Where(s2 => s2.DeveloperName == s1.DeveloperName && s2.ProjectName == s1.ProjectName)
                                     .Where(s2 => taskName == String.Empty || (taskName != String.Empty && s2.TaskName == taskName))
-                                    .Where(s2 => s2.TaskName.ToLower() == "simple example 6 - breakpoint bug fixed")
+                                    //.Where(s2 => s2.TaskName.ToLower() == "simple example 6 - breakpoint bug fixed")
                                     .GroupBy(s2 => s2.TaskName)
                                     .Select(s2 => s2.FirstOrDefault())
                                     .Where(s2 => s2.TaskName != null && s2.TaskName.Trim() != string.Empty)
@@ -1417,6 +1421,38 @@ namespace SwarmServerAPI.AppCore.Service
                     .ToList(), sessions.SelectMany(p => p.files).ToList(), generatedGroups);
                 session.pathnodes = getValidPathNodes(s, session.files);
 
+                //for (int f = 1; f < session.files.Count; f++)
+                //{
+                //    int countEventsFileBefore = 0;
+                //    for (int p = 0; p < session.pathnodes.Count; p++)
+                //    {
+                //        if (session.pathnodes[p].fileId == session.files[f].fileId)
+                //            break;
+                //        else
+                //            countEventsFileBefore++;
+                //    }
+
+                //    session.files[f].marginTop = countEventsFileBefore;
+                //}
+                //--
+                for (int f = 0; f < session.files.Count; f++)
+                {
+                    for (int e = 0; e < session.files[f].events.Count; e++)
+                    {
+                        for (int p = 0; p < session.pathnodes.Count; p++)
+                        {
+                            if (session.files[f].events[e].eventId == session.pathnodes[p].eventId)
+                                session.files[f].events[e].marginTop = p;
+                        }
+                    }
+                }
+
+                for (int f = 1; f < session.files.Count; f++)
+                {
+                    session.files[f].marginTop = session.files[f].events.Select(e => e.marginTop).FirstOrDefault();
+                }
+                //--
+
                 sessions.Add(session);
             }
 
@@ -1439,18 +1475,32 @@ namespace SwarmServerAPI.AppCore.Service
                 file.sessionId = sessionId;
                 file.lines = Regex.Matches(Base64StringZip.UnZipString(c.Content), Environment.NewLine, RegexOptions.Multiline).Count;
 
-                file.events = s.Events
+                var events = s.Events
                                 .Where(e => e.CodeFilePath.ToLower() == c.Path.ToLower())
                                 .Where(e => e.EventKind == "StepInto" || e.EventKind == "StepOver" || e.EventKind == "BreakpointHitted")
-                                .OrderBy(e => e.Created)
-                                .AsEnumerable()
-                                .Select(e => new { LineNumber = e.LineNumber } )
-                                .Distinct()
-                                .Select(e => new Event
-                                {
-                                    line = e.LineNumber ?? 0
-                                })
-                                .ToList();
+                                .OrderBy(e => e.Created).ToList();
+
+                List<int?> alreadyAddedLineNumbers = new List<int?>();
+                foreach (var eventItem in events)
+                {
+                    if (alreadyAddedLineNumbers.Contains(eventItem.LineNumber))
+                        continue;
+
+                    file.events.Add(new Event { line = eventItem.LineNumber ?? 0, eventId = eventItem.Id.ToString() });
+                }
+
+                //file.events = s.Events
+                //                .Where(e => e.CodeFilePath.ToLower() == c.Path.ToLower())
+                //                .Where(e => e.EventKind == "StepInto" || e.EventKind == "StepOver" || e.EventKind == "BreakpointHitted")
+                //                .OrderBy(e => e.Created)
+                //                .AsEnumerable()
+                //                .Select(e => new { LineNumber = e.LineNumber } )
+                //                .Distinct()
+                //                .Select(e => new Event
+                //                {
+                //                    line = e.LineNumber ?? 0
+                //                })
+                //                .ToList();
 
                 file.breakpoints = s.Breakpoints
                                     .Where(b => b.CodeFilePath.ToLower() == c.Path.ToLower())
@@ -1509,7 +1559,7 @@ namespace SwarmServerAPI.AppCore.Service
         {
             List<Node> nodes = new List<Node>();
 
-            List<PathNode> pathNodes = s.PathNodes.OrderBy(pn => pn.Created).ToList();
+            List<PathNode> pathNodes = s.PathNodes.Where(pn => pn.Origin != "Trace").OrderBy(pn => pn.Created).ToList();
             List<AppCode.Repository.Event> events = s.Events.OrderBy(pn => pn.Created).ToList();
             List<CodeFile> codeFiles = s.CodeFiles.OrderBy(pn => pn.Created).ToList();
 
@@ -1550,7 +1600,8 @@ namespace SwarmServerAPI.AppCore.Service
                 nodes.Add(new Node
                 {
                     fileId = fileId,
-                    line = eventFounded.LineNumber ?? 0
+                    line = eventFounded.LineNumber ?? 0,
+                    eventId = eventFounded.Id.ToString()
                 });
             }
 

@@ -14,8 +14,9 @@
     var sizeWithMargin = margin + torusSize;
     var topHeightMargin = -0.25;
     var heightAdjustment = height * (-1);
+    var cubeMarginTop = cube.data.marginTop * (-1);
 
-    mesh.position.y = heightAdjustment + topHeightMargin + groupAssembler.getPositionTopBase();
+    mesh.position.y = cubeMarginTop + heightAdjustment + topHeightMargin + groupAssembler.getPositionTopBase();
     mesh.position.x = sizeWithMargin * cube.data.x;
     mesh.position.z = cube.data.z;
 
@@ -37,7 +38,7 @@
 
         mesh.position.x = initialCalculatedPositionX * render.getSelectedScene().scaleOptions.options.cubeSpace;
         mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.sessionSpace;
-        mesh.position.y = (initialCalculatedPositionY * render.getSelectedScene().scaleOptions.options.heightScale) + topHeightMargin + groupAssembler.getPositionTopBase();
+        mesh.position.y = (initialCalculatedPositionY * render.getSelectedScene().scaleOptions.options.heightScale) + cubeMarginTop + topHeightMargin + groupAssembler.getPositionTopBase();
 
         mesh.scale.x = render.getSelectedScene().scaleOptions.options.breakpointScale;
         mesh.scale.y = render.getSelectedScene().scaleOptions.options.breakpointScale;

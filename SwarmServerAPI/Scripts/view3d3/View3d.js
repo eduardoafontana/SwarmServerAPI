@@ -59,7 +59,7 @@
                 }
 
                 for (var j = 0; j < files[i].events.length; j++) {
-                    var square = Square(cube, files[i].events[j], j);
+                    var square = Square(cube, files[i].events[j]);
                     scene.add(square.mesh);
                     scene.interceptables.push(square.mesh);
                 }
