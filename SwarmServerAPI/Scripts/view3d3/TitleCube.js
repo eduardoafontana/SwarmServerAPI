@@ -66,7 +66,7 @@ var TitleCubeMesh = function (data, geometry) {
 
     //mesh.add(line);
 
-    var height = data.events.length;
+    var height = data.nodePoints + data.nodeSpaceAfter + data.nodeSpaceBefore;//data.events.length;
     var positionTopBase = groupAssembler.getPositionTopBase();
 
     var adjustToZeroAxisY = height * (-1);

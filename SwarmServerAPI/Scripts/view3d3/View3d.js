@@ -23,6 +23,10 @@
         if (task.sessions == undefined)
             return;
 
+        groupAssembler.reset();
+        groupAssembler.mountMostHighFileSpacePoints(task.sessions);
+        groupAssembler.mountMostHighFileLine(task.sessions);
+
         var groups = [];
 
         for (var g = 0; g < task.groups.length; g++) {
@@ -32,10 +36,6 @@
         for (var g = 0; g < groups.length; g++) {
             scene.add(groups[g].mesh);
         }
-
-        groupAssembler.reset();
-
-        groupAssembler.mountMostHighFileLine(task.sessions);
 
         for (var s = 0; s < task.sessions.length; s++) {
             var files = task.sessions[s].files;

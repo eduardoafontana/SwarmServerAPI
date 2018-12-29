@@ -1,6 +1,7 @@
 ﻿var groupAssembler = (function () {
 
     var mostHighFileLine = 0;
+    var mostHighFileSpacePoints = 0;
     var sessionLine = 0;
     var sessionMargin = 5;
     var positionTopBase = 30;
@@ -64,12 +65,30 @@
         }
     };
 
+    var mountMostHighFileSpacePoints = function(sessions) {
+        for (var s = 0; s < sessions.length; s++) {
+            var files = sessions[s].files;
+
+            for (var i = 0; i < files.length; i++) {
+                var hightValue = files[i].nodePoints + files[i].nodeSpaceAfter + files[i].nodeSpaceBefore;
+
+                if (hightValue > mostHighFileSpacePoints)
+                    mostHighFileSpacePoints = hightValue;
+            }
+        }
+    };
+
     var getMostHighFileLine = function () {
         return mostHighFileLine;
     };
 
+    var getMostHighFileSpacePoints = function() {
+        return mostHighFileSpacePoints;
+    };
+
     var reset = function () {
         mostHighFileLine = 0;
+        mostHighFileSpacePoints = 0;
         sessionLine = 0;
     };
 
@@ -83,7 +102,9 @@
         mountBySession: mountBySession,
         mountNodesBySession: mountNodesBySession,
         reset: reset,
-        getPositionTopBase: getPositionTopBase
+        getPositionTopBase: getPositionTopBase,
+        mountMostHighFileSpacePoints: mountMostHighFileSpacePoints,
+        getMostHighFileSpacePoints: getMostHighFileSpacePoints
     };
 
 }());
