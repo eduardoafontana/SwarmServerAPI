@@ -405,6 +405,7 @@
     <Content Include="Scripts\view3d3\Sphere.js" />
     <Content Include="Scripts\view3d3\Square.js" />
     <Content Include="Scripts\view3d3\TitleCube.js" />
+    <Content Include="Scripts\view3d3\Arrow.js" />
     <Content Include="Scripts\view3d3\Torus.js" />
     <Content Include="Scripts\view3d3\Tube.js" />
     <Content Include="Scripts\view3d3\TubeSphere.js" />
