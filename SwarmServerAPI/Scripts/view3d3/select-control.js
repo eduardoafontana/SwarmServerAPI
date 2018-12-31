@@ -58,8 +58,6 @@
                 selectTask.add(option);
             }
         }
-
-        render.setSelectedSceneById(selectUser.value, selectProject.value, selectTask.value);
     };
 
     return {

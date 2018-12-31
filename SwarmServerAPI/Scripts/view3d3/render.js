@@ -87,7 +87,7 @@
         animate();
     };
 
-    var getNewScene = function (userIndex, projectIndex, taskIndex) {
+    var getNewScene = function(userIndex, projectIndex, taskIndex) {
         var scene = new THREE.Scene();
 
         scene.userIndex = userIndex;
@@ -98,6 +98,23 @@
         scene.add(Grid().mesh);
 
         scene.interceptables = [];
+
+        for (var i = 0; i < sceneArray.length; i++) {
+            if (sceneArray[i].userIndex === userIndex &&
+                sceneArray[i].projectIndex === projectIndex &&
+                sceneArray[i].taskIndex === taskIndex
+            ) {
+                scene.scaleOptions = sceneArray[i].scaleOptions;
+                scene.hideShowOptions = sceneArray[i].hideShowOptions;
+                scene.colorPaletteOptions = sceneArray[i].colorPaletteOptions;
+
+                sceneArray[i] = scene;
+
+                return scene;
+            }
+        }
+
+        //--Properties those are persistable on scene reload.
 
         //--
         scene.scaleOptions = new dat.GUI({ autoPlace: false });
@@ -217,25 +234,25 @@
     };
 
     var setSelectedSceneById = function (userIndex, projectIndex, taskIndex) {
-        if (userIndex == undefined || userIndex == '') {
+        if (userIndex === undefined || userIndex === '') {
             console.log('None userIndex loaded in user selector.');
             return;
         }
 
-        if (projectIndex == undefined || projectIndex == '') {
+        if (projectIndex === undefined || projectIndex === '') {
             console.log('None projectIndex loaded in project selector.');
             return;
         }
 
-        if (taskIndex == undefined || taskIndex == '') {
+        if (taskIndex === undefined || taskIndex === '') {
             console.log('None taskIndex loaded in task selector.');
             return;
         }
 
         for (var i = 0; i < sceneArray.length; i++) {
-            if (sceneArray[i].userIndex == userIndex &&
-                sceneArray[i].projectIndex == projectIndex && 
-                sceneArray[i].taskIndex == taskIndex
+            if (sceneArray[i].userIndex === userIndex &&
+                sceneArray[i].projectIndex === projectIndex && 
+                sceneArray[i].taskIndex === taskIndex
             ) {
                 selectedScene = sceneArray[i];
 
@@ -247,17 +264,6 @@
                 return;
             }
         }
-
-        view3d.sceneLoader(userIndex, projectIndex, taskIndex);
-
-        setSelectedSceneById(userIndex, projectIndex, taskIndex);
-    };
-
-    var setSelectedSceneFirst = function () {
-        selectedScene = sceneArray[0];
-        scaleOptions.setScaleOption(sceneArray[0].scaleOptions);
-        hideShowOptions.setHideShowOption(sceneArray[0].hideShowOptions);
-        colorPaletteOptions.setColorPaletteOption(sceneArray[0].colorPaletteOptions);
     };
 
     var getSelectedScene = function () {
@@ -348,7 +354,6 @@
         initGraph: initGraph,
         getNewScene: getNewScene,
         setSelectedSceneById: setSelectedSceneById,
-        setSelectedSceneFirst: setSelectedSceneFirst,
         getSelectedScene: getSelectedScene,
         onWindowResize: onWindowResize,
         resetCameraPosition: resetCameraPosition,

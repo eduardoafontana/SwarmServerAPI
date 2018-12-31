@@ -108,6 +108,7 @@
             dataControl.getDataFromServer(userName, projectName, taskName).then(function (dataFromServer) {
                 dataControl.setData(dataFromServer, selectUser.value, selectProject.value, selectTask.value);
 
+                sceneLoader(selectUser.value, selectProject.value, selectTask.value);
                 render.setSelectedSceneById(selectUser.value, selectProject.value, selectTask.value);
             });
         });
@@ -124,10 +125,10 @@
                 scaleOptions.init();
                 hideShowOptions.init();
                 colorPaletteOptions.init();
+                selectControl.init();
 
                 sceneLoader(0, 0, 0);
-
-                selectControl.init();
+                render.setSelectedSceneById(0, 0, 0);
 
                 window.addEventListener('resize', render.onWindowResize, false);
                 window.addEventListener('resize', infobox.init, false);
