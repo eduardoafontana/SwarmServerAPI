@@ -1,11 +1,11 @@
 ﻿var Square = function (cube, data) {
 
-    var height = data.positionIndex; //orderIndex;//data.line * 50 / groupAssembler.getMostHighFileLine();
+    var height = data.positionIndex;
 
     var radius = 0.7;
     var topMargin = 0.5;
 
-    var geometry = new THREE.TorusBufferGeometry(radius, 0.1, 4, 4);
+    var geometry = new THREE.TorusBufferGeometry(radius, 0.05, 4, 4);
     var material = new THREE.MeshBasicMaterial();
     var mesh = new THREE.Mesh(geometry, material);
 
@@ -14,7 +14,7 @@
     var sizeWithMargin = margin + torusSize;
     var topHeightMargin = -0.25;
     var heightAdjustment = height * (-1);
-    var cubeMarginTop = 0;//cube.data.marginTop * (-1);
+    var cubeMarginTop = 0;
 
     mesh.position.y = cubeMarginTop + heightAdjustment + topHeightMargin + groupAssembler.getPositionTopBase();
     mesh.position.x = sizeWithMargin * cube.data.x;

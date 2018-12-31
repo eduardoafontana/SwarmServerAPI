@@ -1,28 +1,32 @@
 ﻿var Torus = function (cube, data) {
 
-    var height = data.positionIndex;//data.line * 50 / groupAssembler.getMostHighFileLine();
+    var height = data.positionIndex;
 
-    var radius = 0.7;
+    var radius = 0.2;
     var topMargin = 0.5;
 
-    var geometry = new THREE.TorusBufferGeometry(radius, 0.1, 4, 10);
+    var geometry = new THREE.SphereBufferGeometry(radius, 10, 10);
     var material = new THREE.MeshBasicMaterial();
     var mesh = new THREE.Mesh(geometry, material);
 
-    var margin = 1.6;
     var torusSize = radius * 2; //diameter
+
+    var margin = 2.6;
+    var leftMargin = 0.7;
     var sizeWithMargin = margin + torusSize;
     var topHeightMargin = -0.25;
     var heightAdjustment = height * (-1);
-    var cubeMarginTop = 0;//cube.data.marginTop * (-1);
+    var cubeMarginTop = 0;
+
+    var positionX = sizeWithMargin * cube.data.x;
 
     mesh.position.y = cubeMarginTop + heightAdjustment + topHeightMargin + groupAssembler.getPositionTopBase();
-    mesh.position.x = sizeWithMargin * cube.data.x;
+    mesh.position.x = positionX + leftMargin;
     mesh.position.z = cube.data.z;
 
     mesh.rotation.x = 1.6; //flip to horizontal
 
-    var initialCalculatedPositionX = mesh.position.x;
+    var initialCalculatedPositionX = positionX;
     var initialCalculatedPositionZ = mesh.position.z;
     var initialCalculatedPositionY = heightAdjustment;
 
@@ -36,7 +40,7 @@
 
         mesh.visible = render.getSelectedScene().hideShowOptions.options.breakpoint;
 
-        mesh.position.x = initialCalculatedPositionX * render.getSelectedScene().scaleOptions.options.cubeSpace;
+        mesh.position.x = (initialCalculatedPositionX * render.getSelectedScene().scaleOptions.options.cubeSpace) + leftMargin;
         mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.sessionSpace;
         mesh.position.y = (initialCalculatedPositionY * render.getSelectedScene().scaleOptions.options.heightScale) + cubeMarginTop + topHeightMargin + groupAssembler.getPositionTopBase();
 
