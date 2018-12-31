@@ -1,7 +1,7 @@
 ﻿var Cube = function (data) {
 
     var data = data;
-    var height = data.nodePoints + data.nodeSpaceAfter;  //data.events.length;//data.lines * 50 / groupAssembler.getMostHighFileLine();
+    var height = data.nodePoints + data.nodeSpaceAfter; 
 
     var squareSize = 1;
 
@@ -21,8 +21,7 @@
     var adjustToZeroAxisY = (ySize / 2) * (-1);
     var margin = 2;
     var sizeWithMargin = margin + squareSize;
-    //var marginBottom = 0.5;
-    var marginBottom = (-1) * data.nodeSpaceBefore; //TODO: neste conceito de margin, pode-se pensar depois para margim top para reposicionar a algura para ficar alinhado com o pathnode do anterior.
+    var marginBottom = (-1) * data.nodeSpaceBefore;
     var positionTopBase = groupAssembler.getPositionTopBase();
 
     mesh.position.y = marginBottom + adjustToZeroAxisY + positionTopBase;
@@ -62,39 +61,22 @@
 
             var boxMain = box.getElementsByClassName("detail-box-main")[0];
 
-            //var line = render.getIntersectedObjectData().point.y * geometry.parameters.heightSegments / (geometry.parameters.height + marginBottom);
-            //line = Math.round(line);
-
             var wrapper = document.createElement('div');
-            //wrapper.innerHTML = 'Do a backend request to get the code around line ' + line;
 
             dataControl.getSourceCodeFromServer(data.originalId).then(function (dataFromServer) {
-
                 wrapper.innerHTML = '<pre>' + dataFromServer + '</pre>';
-
             });
 
             boxMain.innerHTML = '';
             boxMain.appendChild(wrapper);
         }
         
-        for (var i = 0; i < geometry.faces.length; i++) {
-            geometry.faces[i].color.setHex(originalColor);
-        }        
+        material.color.setHex(originalColor);
 
         if (render.wasMouseOver(mesh)) {
             infobox.setHtml('Click to show the line code for this part of the file.');
 
-            geometry.faces[render.getIntersectedObjectData().faceIndex].color.setHex(render.getSelectedColorPalette().pointOver);
-            //geometry.faces[geometry.faces[render.getIntersectedObjectData().faceIndex].a].color.setHex(0xff0000);
-            //geometry.faces[geometry.faces[render.getIntersectedObjectData().faceIndex].b].color.setHex(0xff0000);
-            //geometry.faces[geometry.faces[render.getIntersectedObjectData().faceIndex].c].color.setHex(0xff0000);
-            //TODO: review later
-
-            if (render.getIntersectedObjectData().faceIndex % 2 === 0)
-                geometry.faces[render.getIntersectedObjectData().faceIndex + 1].color.setHex(render.getSelectedColorPalette().pointOver);
-            else
-                geometry.faces[render.getIntersectedObjectData().faceIndex - 1].color.setHex(render.getSelectedColorPalette().pointOver);
+            material.color.setHex(render.getSelectedColorPalette().pointOver);
         }
 
         geometry.colorsNeedUpdate = true;
