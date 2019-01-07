@@ -81,7 +81,7 @@
                 var tube = Tube(pathnodes);
                 scene.add(tube.mesh);
 
-                var arrow = Arrow(tube.mesh);
+                var arrow = Arrow(tube);
                 scene.add(arrow.mesh);
             }
         }

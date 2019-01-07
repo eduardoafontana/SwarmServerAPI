@@ -1,13 +1,13 @@
-﻿var Arrow = function (tubeMesh) {
+﻿var Arrow = function (tube) {
 
     var verticeX = 0;
     var verticeY = 0;
     var verticeZ = 0;
 
-    if (tubeMesh.geometry.vertices.length > 0) {
-        var verticeX = tubeMesh.geometry.vertices[0].x;
-        var verticeY = tubeMesh.geometry.vertices[0].y;
-        var verticeZ = tubeMesh.geometry.vertices[0].z
+    if (tube.firstVertice != undefined && tube.firstVertice != null) {
+        verticeX = tube.firstVertice.x;
+        verticeY = tube.firstVertice.y;
+        verticeZ = tube.firstVertice.z;
     }
 
     var direction = new THREE.Vector3(1, -1, 1);

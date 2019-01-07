@@ -1,6 +1,7 @@
 ﻿var Tube = function (nodes) {
 
     var vertices = [];
+    var firstVertice = null;
     var topHeightMargin = -0.25;
     var topHeightMarginVariation = topHeightMargin + groupAssembler.getPositionTopBase();
 
@@ -25,6 +26,8 @@
         originalVertices.push({ x: mesh.geometry.vertices[i].x, z: mesh.geometry.vertices[i].z, y: mesh.geometry.vertices[i].y });
     }
 
+    if (mesh.geometry.vertices.length > 0)
+        firstVertice = { x: mesh.geometry.vertices[0].x, z: mesh.geometry.vertices[0].z, y: mesh.geometry.vertices[0].y };
 
     internalAnimate();
 
@@ -49,7 +52,8 @@
     }
 
     return {
-        mesh: mesh
+        mesh: mesh,
+        firstVertice: firstVertice
     };
 
 };
