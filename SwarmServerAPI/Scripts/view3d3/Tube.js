@@ -11,23 +11,21 @@
 
         var heightWithMargin = heightAdjustment + topHeightMarginVariation;
 
-        vertices.push(new THREE.Vector3(nodes[i].x * 3, heightWithMargin, nodes[i].z));
+        vertices.push(nodes[i].x * 3, heightWithMargin, nodes[i].z);
     }
 
-    var curve = new THREE.CatmullRomCurve3(vertices, false, 'catmullrom', 0.2);
-    var geometry = new THREE.TubeGeometry(curve, 20, 0.05, 5, false);
-    //TODO: review 20 and 5 on parameter in TubeGeometry
-    var material = new THREE.MeshBasicMaterial();
-    var mesh = new THREE.Mesh(geometry, material);
+    var geometry = new THREE.BufferGeometry();
 
-    var originalVertices = [];
+    var positions = new Float32Array(vertices);
+    geometry.addAttribute('position', new THREE.BufferAttribute(positions, 3));
 
-    for (var i = 0; i < mesh.geometry.vertices.length; i++) {
-        originalVertices.push({ x: mesh.geometry.vertices[i].x, z: mesh.geometry.vertices[i].z, y: mesh.geometry.vertices[i].y });
-    }
+    var material = new THREE.LineBasicMaterial({ linewidth: 5 });
+    var mesh = new THREE.Line(geometry, material);
 
-    if (mesh.geometry.vertices.length > 0)
-        firstVertice = { x: mesh.geometry.vertices[0].x, z: mesh.geometry.vertices[0].z, y: mesh.geometry.vertices[0].y };
+    var originalVertices = positions.slice();
+
+    if (originalVertices.length > 2)
+        firstVertice = { x: originalVertices[0], y: originalVertices[1], z: originalVertices[2] };
 
     internalAnimate();
 
@@ -41,14 +39,18 @@
 
         mesh.visible = render.getSelectedScene().hideShowOptions.options.pathNode;
 
-        for (var i = 0; i < mesh.geometry.vertices.length; i++) {
-            mesh.geometry.vertices[i].x = originalVertices[i].x * render.getSelectedScene().scaleOptions.options.cubeSpace;
-            mesh.geometry.vertices[i].z = originalVertices[i].z * render.getSelectedScene().scaleOptions.options.sessionSpace;
+        for (var i = 0; i < originalVertices.length; i += 3) {
+            //x
+            geometry.attributes.position.array[i] = originalVertices[i] * render.getSelectedScene().scaleOptions.options.cubeSpace;
 
-            mesh.geometry.vertices[i].y = ((originalVertices[i].y - topHeightMarginVariation) * render.getSelectedScene().scaleOptions.options.heightScale) + topHeightMarginVariation;
+            //y
+            geometry.attributes.position.array[i + 1] = ((originalVertices[i + 1] - topHeightMarginVariation) * render.getSelectedScene().scaleOptions.options.heightScale) + topHeightMarginVariation;
+
+            //z
+            geometry.attributes.position.array[i + 2] = originalVertices[i + 2] * render.getSelectedScene().scaleOptions.options.sessionSpace;
         }
 
-        mesh.geometry.verticesNeedUpdate = true;
+        geometry.attributes.position.needsUpdate = true;
     }
 
     return {
