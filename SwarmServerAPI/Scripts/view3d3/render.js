@@ -152,11 +152,12 @@
             //axes: true,
             file: true,
             title: true,
-            hideFile: false,
+            start: true,
+            //hideFile: false,
             breakpoint: true,
             event: true,
             pathNode: true,
-            pathNodePoints: true,
+            //pathNodePoints: true,
             architecture: true,
             grid: true,
             axes: false,
@@ -164,11 +165,12 @@
 
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'file');
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'title');
-        scene.hideShowOptions.add(scene.hideShowOptions.options, 'hideFile');
+        scene.hideShowOptions.add(scene.hideShowOptions.options, 'start');
+        //scene.hideShowOptions.add(scene.hideShowOptions.options, 'hideFile');
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'breakpoint');
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'event');
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'pathNode');
-        scene.hideShowOptions.add(scene.hideShowOptions.options, 'pathNodePoints');
+        //scene.hideShowOptions.add(scene.hideShowOptions.options, 'pathNodePoints');
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'architecture');
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'grid');
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'axes');

@@ -33,7 +33,7 @@
         if (render.getSelectedScene() == null)
             return;
 
-        //mesh.visible = render.getSelectedScene().hideShowOptions.options.breakpoint;
+        mesh.visible = render.getSelectedScene().hideShowOptions.options.start;
 
         mesh.position.x = (initialCalculatedPositionX * render.getSelectedScene().scaleOptions.options.cubeSpace) - positionAdjustment;
         mesh.position.z = (initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.sessionSpace) - positionAdjustment;
