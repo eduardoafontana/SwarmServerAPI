@@ -157,6 +157,7 @@
             breakpoint: true,
             event: true,
             pathNode: true,
+            baseArchitecture: true,
             //pathNodePoints: true,
             architecture: true,
             grid: true,
@@ -170,6 +171,7 @@
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'breakpoint');
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'event');
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'pathNode');
+        scene.hideShowOptions.add(scene.hideShowOptions.options, 'baseArchitecture');
         //scene.hideShowOptions.add(scene.hideShowOptions.options, 'pathNodePoints');
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'architecture');
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'grid');

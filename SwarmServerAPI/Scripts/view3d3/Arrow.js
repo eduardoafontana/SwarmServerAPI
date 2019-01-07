@@ -14,10 +14,10 @@
     direction.normalize();
 
     var positionAdjustment = 0.7;
-    var positionArray = new THREE.Vector3(verticeX - positionAdjustment, verticeY + positionAdjustment, verticeZ - positionAdjustment);
+    var topMargin = 0.2;
+    var positionArray = new THREE.Vector3(verticeX - positionAdjustment, verticeY + positionAdjustment + topMargin, verticeZ - positionAdjustment);
     var length = 1;
     var headLength = 0.4 * length;
-    var marginBottom = 10;
 
     var mesh = new THREE.ArrowHelper(direction, positionArray, length, 0xff0000, headLength)
 
