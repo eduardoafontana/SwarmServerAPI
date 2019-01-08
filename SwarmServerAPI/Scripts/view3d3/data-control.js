@@ -27,55 +27,31 @@
     };
 
     var getDataFilterFromServer = () => new Promise(function (resolve, reject) {
-        var xmlhttp = new XMLHttpRequest();
         var url = location.origin + '/api/Visualization/View3dFilter';
 
-        xmlhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                var jsonData = JSON.parse(this.responseText);
-                console.log(jsonData);
-                resolve(jsonData);
-            }
-        };
-
-        xmlhttp.open('GET', url, true);
-        xmlhttp.send();
+        $.get(url, function(responseJson) {
+            console.log(responseJson);
+            resolve(responseJson);
+        });
     });
 
     var getDataFromServer = (user, project, task) => new Promise(function (resolve, reject) {
         var filter = '?user=' + encodeURI(user) + '&project=' + encodeURI(project) + '&task=' + encodeURI(task);
-
-        var xmlhttp = new XMLHttpRequest();
         var url = location.origin + '/api/Visualization/View3d' + filter;
 
-        xmlhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                var jsonData = JSON.parse(this.responseText);
-                console.log(jsonData);
-                resolve(jsonData);
-            }
-        };
-
-        xmlhttp.open('GET', url, true);
-        xmlhttp.send();
+        $.get(url, function(responseJson) {
+            console.log(responseJson);
+            resolve(responseJson);
+        });
     });
 
     var getSourceCodeFromServer = (originalId) => new Promise(function (resolve, reject) {
         var filter = '?originalId=' + encodeURI(originalId);
-
-        var xmlhttp = new XMLHttpRequest();
         var url = location.origin + '/api/Visualization/SourceCode' + filter;
 
-        xmlhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                var jsonData = JSON.parse(this.responseText);
-
-                resolve(jsonData);
-            }
-        };
-
-        xmlhttp.open('GET', url, true);
-        xmlhttp.send();
+        $.get(url, function(responseJson) {
+            resolve(responseJson);
+        });
     });
 
     var setFilter = function (data) {
