@@ -49,6 +49,9 @@
                 scene.add(cube.mesh);
                 scene.interceptables.push(cube.mesh);
 
+                var cubeReflection = CubeReflection(files[i]);
+                scene.add(cubeReflection.mesh);
+
                 var titleCube = TitleCubeDescriptor.createIfNotExist(files[i]);
                 scene.add(titleCube.mesh);
 

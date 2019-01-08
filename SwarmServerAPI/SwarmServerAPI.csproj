@@ -387,6 +387,7 @@
     <Content Include="Scripts\view3d3\Axes.js" />
     <Content Include="Scripts\view3d3\color-palette.js" />
     <Content Include="Scripts\view3d3\colorPaletteOptions.js" />
+    <Content Include="Scripts\view3d3\CubeReflection.js" />
     <Content Include="Scripts\view3d3\Cylinder.js" />
     <Content Include="Scripts\view3d3\Cube.js" />
     <Content Include="Scripts\view3d3\data-control.js" />
