@@ -12,7 +12,7 @@
             lastFileData = files[i];
     }
 
-    var radius = 0.05;
+    var radius = 0.02;
     var marginLeft = 0.5;
     var marginRight = 0.5;
     var cubeSizePlusCubeMargin = 3;

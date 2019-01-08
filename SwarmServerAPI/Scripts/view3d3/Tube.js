@@ -11,6 +11,9 @@
 
         var heightWithMargin = heightAdjustment + topHeightMarginVariation;
 
+        if (i == 0)
+            vertices.push(nodes[i].x * 3, heightWithMargin + 0.3, nodes[i].z);
+
         vertices.push(nodes[i].x * 3, heightWithMargin, nodes[i].z);
     }
 
