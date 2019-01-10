@@ -12,6 +12,7 @@
     var selectedScene = null;
     var cssScene = null;
     var camera = null;
+    var orbit = null;
     var renderer = null;
     var cssRenderer = null;
     var mouse = null;
@@ -41,7 +42,7 @@
         var canvasRenderRelativeSize = document.body.getElementsByClassName("canvasRenderRelativeSize")[0];
         canvasRenderRelativeSize.appendChild(renderer.domElement);
 
-        var orbit = new THREE.OrbitControls(camera, renderer.domElement);
+        orbit = new THREE.OrbitControls(camera, renderer.domElement);
         orbit.enableZoom = true;
         orbit.maxPolarAngle = Math.PI * 0.5;
 
@@ -113,6 +114,10 @@
                 return scene;
             }
         }
+
+        //TODO: testing camera, remove later
+        //var helper = new THREE.CameraHelper(camera);
+        //scene.add(helper);
 
         //--Properties those are persistable on scene reload.
 
@@ -292,6 +297,7 @@
     var resetCameraPosition = function () {
         camera.position.set(60, 60, 60);
         camera.lookAt(new THREE.Vector3(0, 0, 0));
+        orbit.reset();
     }
 
     var getDimensions = function () {
