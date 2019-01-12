@@ -168,18 +168,8 @@
         scene.hideShowOptions = new dat.GUI({ autoPlace: false });
 
         scene.hideShowOptions.options = {
-            //file: true,
-            //title: false,
-            //hideFile: false,
-            //breakpoint: false,
-            //event: false,
-            //pathNode: false,
-            //pathNodePoints: false,
-            //architecture: false,
-            //grid: true,
-            //axes: true,
             file: true,
-            title: true,
+            title: false,
             start: true,
             //hideFile: false,
             breakpoint: true,

@@ -15,6 +15,10 @@
 
     mesh.name = 'Cube';
 
+    var fileName = 'undefined';
+    if (data.fileName != undefined)
+        fileName = data.fileName;
+
     material.opacity = 0.5;
     material.transparent = true;
 
@@ -74,7 +78,10 @@
         material.color.setHex(originalColor);
 
         if (render.wasMouseOver(mesh)) {
-            infobox.setHtml('Click to show the line code for this part of the file.');
+
+
+
+            infobox.setHtml('<b>' + fileName + '</b>' + '<br />Click to show the source code of this file.');
 
             material.color.setHex(render.getSelectedColorPalette().pointOver);
         }
