@@ -12,7 +12,7 @@
     var selectedScene = null;
     var cssScene = null;
     var camera = null;
-    var orbit = null;
+    var zoom = null;
     var renderer = null;
     var cssRenderer = null;
     var mouse = null;
@@ -24,8 +24,8 @@
     var font = null;
 
     var initGraph = function () {
-        camera = new THREE.PerspectiveCamera(45, getRelativeWidth() / getRelativeHeight(), 0.1, 50000);
-        //camera.position.set(6000, 6000, 6000);
+        camera = new THREE.OrthographicCamera(0, 0, 0, 0, 0.1, 50000);
+        
         camera.position.set(60, 60, 60);
         camera.lookAt(new THREE.Vector3(0, 0, 0));
 
@@ -42,9 +42,8 @@
         var canvasRenderRelativeSize = document.body.getElementsByClassName("canvasRenderRelativeSize")[0];
         canvasRenderRelativeSize.appendChild(renderer.domElement);
 
-        orbit = new THREE.OrbitControls(camera, renderer.domElement);
-        orbit.enableZoom = true;
-        orbit.maxPolarAngle = Math.PI * 0.5;
+        var view = d3.select(renderer.domElement);
+        zoom = d3.behavior.zoom().scaleExtent([0.2, 30]).on('zoom', funcaoZoom);	
 
         var stats = new Stats();
         canvasRenderRelativeSize.appendChild(stats.dom);
@@ -86,6 +85,35 @@
         };
 
         animate();
+
+        zoom.translate([getRelativeWidth() / 2, getRelativeHeight() / 2]);
+        funcaoZoom();
+
+        view.call(zoom);
+    };
+
+    var funcaoZoom = function () {
+        var width = getRelativeWidth();
+        var height = getRelativeHeight();
+        var aspect = width / height;
+        var DZOOM = 50;
+
+        var z = zoom.scale();
+        var _ref = zoom.translate();
+        var x = _ref[0];
+        var y = _ref[1];
+
+        x = x - width / 2;
+        y = y - height / 2;
+
+        var factorZoom = DZOOM / z;
+
+        camera.left = -factorZoom * aspect - x / width * factorZoom * 2 * aspect;
+        camera.right = factorZoom * aspect - x / width * factorZoom * 2 * aspect;
+        camera.top = factorZoom + y / height * factorZoom * 2;
+        camera.bottom = -factorZoom + y / height * factorZoom * 2;
+
+        camera.updateProjectionMatrix();
     };
 
     var getNewScene = function(userIndex, projectIndex, taskIndex) {
@@ -115,12 +143,7 @@
             }
         }
 
-        //TODO: testing camera, remove later
-        //var helper = new THREE.CameraHelper(camera);
-        //scene.add(helper);
-
         //--Properties those are persistable on scene reload.
-
         //--
         scene.scaleOptions = new dat.GUI({ autoPlace: false });
 
@@ -287,17 +310,15 @@
         canvasRenderRelativeSize.style.width = getRelativeWidth() + 'px';
         canvasRenderRelativeSize.style.height = getRelativeHeight() + 'px';
 
-        camera.aspect = getRelativeWidth() / getRelativeHeight();
-        camera.updateProjectionMatrix();
-
         renderer.setSize(getRelativeWidth(), getRelativeHeight());
         cssRenderer.setSize(getRelativeWidth(), getRelativeHeight());
+
+        funcaoZoom();
     };
 
     var resetCameraPosition = function () {
-        camera.position.set(60, 60, 60);
-        camera.lookAt(new THREE.Vector3(0, 0, 0));
-        orbit.reset();
+        zoom.translate([getRelativeWidth() / 2, getRelativeHeight() / 2]);
+        funcaoZoom();
     }
 
     var getDimensions = function () {
