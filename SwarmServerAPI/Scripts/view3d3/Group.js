@@ -1,6 +1,6 @@
 ﻿var Group = function (data, sessionsQuantity, groupParent) {
 
-    var sessionMargin = 5;
+    var sessionMargin = 8;
     var topBorder = 0.75;
     var bottomBorder = 0.75;
 

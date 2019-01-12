@@ -3,7 +3,7 @@
     var mostHighFileLine = 0;
     var mostHighFileSpacePoints = 0;
     var sessionLine = 0;
-    var sessionMargin = 5;
+    var sessionMargin = 8;
     var positionTopBase = 30;
 
     var mountBySession = function (files, groups) {
