@@ -47,7 +47,7 @@
 
         geometry.colorsNeedUpdate = true;
 
-        mesh.visible = render.getSelectedScene().hideShowOptions.options.file;
+        mesh.visible = render.getSelectedScene().hideShowOptions.options.shadow;
 
         mesh.position.x = initialCalculatedPositionX * render.getSelectedScene().scaleOptions.options.cubeSpace;
 

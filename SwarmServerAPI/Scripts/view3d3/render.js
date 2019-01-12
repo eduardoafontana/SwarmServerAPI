@@ -169,6 +169,7 @@
 
         scene.hideShowOptions.options = {
             file: true,
+            shadow: true,
             title: false,
             start: true,
             //hideFile: false,
@@ -183,6 +184,7 @@
         };
 
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'file');
+        scene.hideShowOptions.add(scene.hideShowOptions.options, 'shadow');
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'title');
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'start');
         //scene.hideShowOptions.add(scene.hideShowOptions.options, 'hideFile');
