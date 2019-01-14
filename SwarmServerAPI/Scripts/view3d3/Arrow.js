@@ -1,4 +1,4 @@
-﻿var Arrow = function (tube) {
+﻿var Arrow = function (tube, sessionId) {
 
     var verticeX = 0;
     var verticeY = 0;
@@ -33,7 +33,7 @@
         if (render.getSelectedScene() == null)
             return;
 
-        mesh.visible = render.getSelectedScene().hideShowOptions.options.start;
+        mesh.visible = sessionFilter.getVisible(sessionId, render.getSelectedScene().hideShowOptions.options.start);
 
         mesh.position.x = (initialCalculatedPositionX * render.getSelectedScene().scaleOptions.options.cubeSpace) - positionAdjustment;
         mesh.position.z = (initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.sessionSpace) - positionAdjustment;

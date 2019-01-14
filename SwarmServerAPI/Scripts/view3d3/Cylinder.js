@@ -1,4 +1,4 @@
-﻿var Cylinder = function (files) {
+﻿var Cylinder = function (files, sessionId) {
 
     if (files.length == 0) {
         console.log('Zero files array on Cylinder object.');
@@ -43,7 +43,7 @@
 
         material.color.setHex(render.getSelectedColorPalette().tube);
 
-        mesh.visible = render.getSelectedScene().hideShowOptions.options.baseArchitecture;
+        mesh.visible = sessionFilter.getVisible(sessionId, render.getSelectedScene().hideShowOptions.options.baseArchitecture);
 
         mesh.scale.y = render.getSelectedScene().scaleOptions.options.cubeSpace;
         mesh.position.x = (render.getSelectedScene().scaleOptions.options.cubeSpace * adjustToZeroAxisX) - marginLeft;

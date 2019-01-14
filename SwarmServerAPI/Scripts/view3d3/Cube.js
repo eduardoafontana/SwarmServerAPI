@@ -1,6 +1,8 @@
-﻿var Cube = function (data) {
+﻿var Cube = function (data, sessionId) {
 
     var data = data;
+    data.sessionId = sessionId;
+
     var height = data.nodePoints + data.nodeSpaceAfter; 
 
     var squareSize = 1;
@@ -49,7 +51,7 @@
         if (data.z % 2 != 0)
             originalColor = render.getSelectedColorPalette().cubeContrast;
 
-        mesh.visible = render.getSelectedScene().hideShowOptions.options.file;
+        mesh.visible = sessionFilter.getVisible(sessionId, render.getSelectedScene().hideShowOptions.options.file);
 
         mesh.position.x = initialCalculatedPositionX * render.getSelectedScene().scaleOptions.options.cubeSpace;
 

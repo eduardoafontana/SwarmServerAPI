@@ -7,7 +7,7 @@
         return material;
     }
 
-    var createIfNotExist = function (data) {
+    var createIfNotExist = function (data, sessionId) {
         var title = 'undefined';
 
         if (data.fileName != undefined)
@@ -21,12 +21,12 @@
         }
 
         if (geometryFound != null)
-            return TitleCubeMesh(data, geometryFound.geometry);
+            return TitleCubeMesh(data, geometryFound.geometry, sessionId);
         
         var newGeometry = TitleCubeGeometry(data);
         titlesGeometry.push(newGeometry);
 
-        return TitleCubeMesh(data, newGeometry.geometry);
+        return TitleCubeMesh(data, newGeometry.geometry, sessionId);
     };
 
     return {
@@ -57,7 +57,7 @@ var TitleCubeGeometry = function (data) {
     };
 }
 
-var TitleCubeMesh = function (data, geometry) {
+var TitleCubeMesh = function (data, geometry, sessionId) {
 
     //var edges = new THREE.EdgesGeometry(geometry);
     //var line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 10 }));
@@ -99,7 +99,7 @@ var TitleCubeMesh = function (data, geometry) {
 
         TitleCubeDescriptor.getMaterial().color.setHex(render.getSelectedColorPalette().titleTube);
 
-        mesh.visible = render.getSelectedScene().hideShowOptions.options.title;
+        mesh.visible = sessionFilter.getVisible(sessionId, render.getSelectedScene().hideShowOptions.options.title);
 
         mesh.position.x = (initialCalculatedPositionX * render.getSelectedScene().scaleOptions.options.cubeSpace) - sizeWidthHalf;
 

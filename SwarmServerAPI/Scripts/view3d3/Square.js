@@ -35,7 +35,7 @@
         if (render.getSelectedScene() == null)
             return;
 
-        mesh.visible = render.getSelectedScene().hideShowOptions.options.event;
+        mesh.visible = sessionFilter.getVisible(cube.data.sessionId, render.getSelectedScene().hideShowOptions.options.event);
 
         mesh.position.x = initialCalculatedPositionX * render.getSelectedScene().scaleOptions.options.cubeSpace;
         mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.sessionSpace;

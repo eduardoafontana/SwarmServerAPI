@@ -142,6 +142,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
                       "~/Scripts/view3d3/Grid.js",
                       "~/Scripts/view3d3/Axes.js",
                       "~/Scripts/view3d3/select-control.js",
+                      "~/Scripts/view3d3/sessionFilter.js",
                       "~/Scripts/view3d3/View3d.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

@@ -23,6 +23,8 @@
         if (task.sessions == undefined)
             return;
 
+        sessionFilter.init(task.sessions);
+
         groupAssembler.reset();
         groupAssembler.mountMostHighFileSpacePoints(task.sessions);
         groupAssembler.mountMostHighFileLine(task.sessions);
@@ -42,20 +44,21 @@
 
         for (var s = 0; s < task.sessions.length; s++) {
             var files = task.sessions[s].files;
+            var sessionId = task.sessions[s].sessionId;
             var groups = task.groups;
 
             //generate infos x z positions and mostHighFileLine.
             groupAssembler.mountBySession(files, groups);
 
             for (var i = 0; i < files.length; i++) {
-                var cube = Cube(files[i]);
+                var cube = Cube(files[i], sessionId);
                 scene.add(cube.mesh);
                 scene.interceptables.push(cube.mesh);
 
-                var cubeReflection = CubeReflection(files[i]);
+                var cubeReflection = CubeReflection(files[i], sessionId);
                 scene.add(cubeReflection.mesh);
 
-                var titleCube = TitleCubeDescriptor.createIfNotExist(files[i]);
+                var titleCube = TitleCubeDescriptor.createIfNotExist(files[i], sessionId);
                 scene.add(titleCube.mesh);
 
                 for (var j = 0; j < files[i].breakpoints.length; j++) {
@@ -84,13 +87,13 @@
                 //generate infos x z positions on nodes
                 groupAssembler.mountNodesBySession(files, pathnodes);
 
-                var tube = Tube(pathnodes);
+                var tube = Tube(pathnodes, sessionId);
                 scene.add(tube.mesh);
 
-                var cylinder = Cylinder(files);
+                var cylinder = Cylinder(files, sessionId);
                 scene.add(cylinder.mesh);
 
-                var arrow = Arrow(tube);
+                var arrow = Arrow(tube, sessionId);
                 scene.add(arrow.mesh);
             }
         }

@@ -1,4 +1,4 @@
-﻿var Tube = function (nodes) {
+﻿var Tube = function (nodes, sessionId) {
 
     var vertices = [];
     var firstVertice = null;
@@ -40,7 +40,7 @@
 
         material.color.setHex(render.getSelectedColorPalette().tube);
 
-        mesh.visible = render.getSelectedScene().hideShowOptions.options.pathNode;
+        mesh.visible = sessionFilter.getVisible(sessionId, render.getSelectedScene().hideShowOptions.options.pathNode);
 
         for (var i = 0; i < originalVertices.length; i += 3) {
             //x
