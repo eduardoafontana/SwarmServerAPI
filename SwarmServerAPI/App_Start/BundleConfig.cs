@@ -133,6 +133,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
                       "~/Scripts/view3d3/HideCube.js",
                       "~/Scripts/view3d3/TitleCube.js",
                       "~/Scripts/view3d3/Arrow.js",
+                      "~/Scripts/view3d3/ArrowHuge.js",
                       "~/Scripts/view3d3/Torus.js",
                       "~/Scripts/view3d3/Sphere.js",
                       "~/Scripts/view3d3/Square.js",

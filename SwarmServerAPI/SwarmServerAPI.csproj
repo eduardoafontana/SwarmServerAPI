@@ -384,6 +384,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Scripts\view3d3\ArrowHuge.js" />
     <Content Include="Scripts\view3d3\Axes.js" />
     <Content Include="Scripts\view3d3\color-palette.js" />
     <Content Include="Scripts\view3d3\colorPaletteOptions.js" />

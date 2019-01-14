@@ -96,6 +96,10 @@
         return positionTopBase;
     };
 
+    var getSessionMargin = function () {
+        return sessionMargin;
+    };
+
     return {
         getMostHighFileLine: getMostHighFileLine,
         mountMostHighFileLine: mountMostHighFileLine,
@@ -104,7 +108,8 @@
         reset: reset,
         getPositionTopBase: getPositionTopBase,
         mountMostHighFileSpacePoints: mountMostHighFileSpacePoints,
-        getMostHighFileSpacePoints: getMostHighFileSpacePoints
+        getMostHighFileSpacePoints: getMostHighFileSpacePoints,
+        getSessionMargin: getSessionMargin
     };
 
 }());

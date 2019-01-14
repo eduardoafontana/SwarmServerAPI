@@ -1,6 +1,5 @@
 ﻿var Group = function (data, sessionsQuantity, groupParent) {
 
-    var sessionMargin = 8;
     var topBorder = 0.75;
     var bottomBorder = 0.75;
 
@@ -9,7 +8,7 @@
     var widthQuantity = data.maxIndexWidthQuantity + 1;
 
     var width = (widthQuantity * cubesMargin) - rightOver;
-    var height = (sessionMargin * (sessionsQuantity - 1)) + topBorder + bottomBorder;
+    var height = (groupAssembler.getSessionMargin() * (sessionsQuantity - 1)) + topBorder + bottomBorder;
 
     var geometry = new THREE.PlaneBufferGeometry(width, height, 1);
     var material = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide });

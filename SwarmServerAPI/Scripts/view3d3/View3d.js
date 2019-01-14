@@ -37,6 +37,9 @@
             scene.add(groups[g].mesh);
         }
 
+        var arrowHuge = ArrowHuge(task.sessions.length);
+        scene.add(arrowHuge.mesh);
+
         for (var s = 0; s < task.sessions.length; s++) {
             var files = task.sessions[s].files;
             var groups = task.groups;
