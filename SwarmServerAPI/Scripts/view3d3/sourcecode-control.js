@@ -1,5 +1,27 @@
 ﻿var sourceCodeControl = (function () {
 
+    var fileInformationJson = {
+        fileOriginalId : '',
+        sessionId : ''
+    };
+
+    var elementInformationJson = {
+        fileOriginalId: '',
+        sessionId: '',
+        eventIndex: '',
+        breakpointIndex: ''
+    };
+
+    var setFileInformation = function (pFileInformationJson) {
+        fileInformationJson = pFileInformationJson;
+
+        elementInformationJson = {};
+    };
+
+    var setElementInformation = function (pElementInformationJson) {
+        elementInformationJson = pElementInformationJson;
+    };
+
     var loadSourceCode = (dataFromServer) => new Promise(function (resolve, reject) {
         var box = document.querySelector('.detail-box');
         box.style.visibility = 'visible';
@@ -7,8 +29,6 @@
         var boxMainPre = box.querySelector(".detail-box-main pre");
 
         var code = document.createElement('code');
-        //TODO: remove later
-        //wrapper.innerHTML = '<pre><code>' + JSON.stringify(JSON.parse(data.data), null, 4) + '</code></pre>';
 
         code.innerHTML = dataFromServer;
 
@@ -26,27 +46,6 @@
 
         setTimeout(function () { resolve(); }, 2000);
     });
-
-    //var loadEvents = (lineNumber) => new Promise(function (resolve, reject) {
-    //    var divOfLine = document.querySelector('div[data-line-number="' + lineNumber + '"]');
-
-    //    if (divOfLine === undefined || divOfLine === null)
-    //        return;
-
-    //    var tdOfLine = divOfLine.parentElement;
-
-    //    if (tdOfLine === undefined || tdOfLine === null)
-    //        return;
-
-    //    var trOfLine = tdOfLine.parentElement;
-
-    //    if (trOfLine === undefined || trOfLine === null)
-    //        return;
-
-    //    trOfLine.classList.add('source-code-event');
-
-    //    resolve();
-    //});
 
     function getLine(lineNumber) {
         var divOfLine = document.querySelector('div[data-line-number="' + lineNumber + '"]');
@@ -128,12 +127,30 @@
         preTag.scrollTo(0, positionY - offSetLine);
     };
 
+    var isSelectedFile = function (pFileInformationJson) {
+        var hash = JSON.stringify(pFileInformationJson);
+        var hashCurrent = JSON.stringify(fileInformationJson);
+
+        return hash === hashCurrent;
+    };
+
+    var isSelectedElement = function (pElementInformationJson) {
+        var hash = JSON.stringify(pElementInformationJson);
+        var hashCurrent = JSON.stringify(elementInformationJson);
+
+        return hash === hashCurrent;
+    };
+
     return {
         loadSourceCode: loadSourceCode,
         loadHighLight: loadHighLight,
         loadEvents: loadEvents,
         loadBreakpoints: loadBreakpoints,
-        loadSelected: loadSelected
+        loadSelected: loadSelected,
+        setFileInformation: setFileInformation,
+        isSelectedFile: isSelectedFile,
+        setElementInformation: setElementInformation,
+        isSelectedElement: isSelectedElement,
     };
 
 }());

@@ -1,5 +1,17 @@
 ﻿var Torus = function (cube, data, events, breakpoints) {
 
+    var sourceCodeFileInformationJson = {
+        fileOriginalId: cube.data.originalId,
+        sessionId: cube.data.sessionId
+    };
+
+    var sourceCodeElementInformationJson = {
+        fileOriginalId: cube.data.originalId,
+        sessionId: cube.data.sessionId,
+        eventIndex: data.positionIndex,
+        breakpointIndex: data.positionIndex
+    };
+
     var height = data.positionIndex;
 
     var radius = 0.2;
@@ -50,6 +62,9 @@
 
         if (render.wasClicked(mesh)) {
             dataControl.getSourceCodeFromServer(cube.data.originalId).then(function (dataFromServer) {
+                sourceCodeControl.setFileInformation(sourceCodeFileInformationJson);
+                sourceCodeControl.setElementInformation(sourceCodeElementInformationJson);
+
                 sourceCodeControl.loadSourceCode(dataFromServer).then(function () {
                     sourceCodeControl.loadHighLight().then(function () {
                         sourceCodeControl.loadEvents(events);
@@ -62,12 +77,16 @@
             });
         }
 
-        if (render.wasMouseOver(mesh)) {
-            infobox.setHtml('Click to open breakpoint details on information window.');
-
+        if (sourceCodeControl.isSelectedElement(sourceCodeElementInformationJson))
             material.color.setHex(render.getSelectedColorPalette().pointOver);
-        } else {
-            material.color.setHex(render.getSelectedColorPalette().torus);
+        else {
+            if (render.wasMouseOver(mesh)) {
+                infobox.setHtml('Click to open breakpoint details on information window.');
+
+                material.color.setHex(render.getSelectedColorPalette().pointOver);
+            } else {
+                material.color.setHex(render.getSelectedColorPalette().torus);
+            }
         }
     }
 

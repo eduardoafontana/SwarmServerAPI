@@ -3,6 +3,11 @@
     var data = data;
     data.sessionId = sessionId;
 
+    var sourceCodeFileInformationJson = {
+        fileOriginalId: data.originalId,
+        sessionId: data.sessionId
+    };
+
     var height = data.nodePoints + data.nodeSpaceAfter; 
 
     var squareSize = 1;
@@ -62,6 +67,7 @@
 
         if (render.wasClicked(mesh)) {
             dataControl.getSourceCodeFromServer(data.originalId).then(function (dataFromServer) {
+                sourceCodeControl.setFileInformation(sourceCodeFileInformationJson);
                 sourceCodeControl.loadSourceCode(dataFromServer).then(function () {
                     sourceCodeControl.loadHighLight().then(function () {
                         sourceCodeControl.loadEvents(data.events);
@@ -74,13 +80,13 @@
         material.color.setHex(originalColor);
 
         if (render.wasMouseOver(mesh)) {
-
-
-
             infobox.setHtml('<b>' + fileName + '</b>' + '<br />Click to show the source code of this file.');
 
             material.color.setHex(render.getSelectedColorPalette().pointOver);
         }
+
+        if (sourceCodeControl.isSelectedFile(sourceCodeFileInformationJson))
+            material.color.setHex(render.getSelectedColorPalette().pointOver);
 
         geometry.colorsNeedUpdate = true;
     }
