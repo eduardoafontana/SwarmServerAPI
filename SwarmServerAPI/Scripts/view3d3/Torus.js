@@ -1,4 +1,4 @@
-﻿var Torus = function (cube, data) {
+﻿var Torus = function (cube, data, events, breakpoints) {
 
     var height = data.positionIndex;
 
@@ -49,17 +49,17 @@
         mesh.scale.z = render.getSelectedScene().scaleOptions.options.breakpointScale;
 
         if (render.wasClicked(mesh)) {
-            var box = document.getElementsByClassName("detail-box")[0];
+            dataControl.getSourceCodeFromServer(cube.data.originalId).then(function (dataFromServer) {
+                sourceCodeControl.loadSourceCode(dataFromServer).then(function () {
+                    sourceCodeControl.loadHighLight().then(function () {
+                        sourceCodeControl.loadEvents(events);
+                        sourceCodeControl.loadBreakpoints(breakpoints);
 
-            box.style.visibility = 'visible';
-
-            var boxMain = box.getElementsByClassName("detail-box-main")[0];
-
-            var wrapper = document.createElement('div');
-            wrapper.innerHTML = '<pre><code>' + JSON.stringify(JSON.parse(data.data), null, 4) + '</code></pre>';
-
-            boxMain.innerHTML = '';
-            boxMain.appendChild(wrapper);
+                        var dataJson = JSON.parse(data.data);
+                        sourceCodeControl.loadSelected(dataJson.LineNumber);
+                    });
+                });
+            });
         }
 
         if (render.wasMouseOver(mesh)) {

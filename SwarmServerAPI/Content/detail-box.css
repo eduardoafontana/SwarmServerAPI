@@ -3,9 +3,12 @@
     border: 1px solid #224377;
     padding: 5px;
     background-color: rgba(0, 0, 0, 0.90);
+    /*
     color: #eee;
     font: 11px Lucida Grande,sans-serif;
     text-shadow: 0 -1px 0 #111;
+    */
+    font-size: 11px;
     transition: opacity .1s linear;
     transition: height .1s linear;
     resize: both;
@@ -35,8 +38,25 @@
     text-align:center;
 }
 
+/*
 .detail-box-main pre {
     color: #eee;
+}
+*/
+.source-code-event {
+    background-color: #7fffd4;
+}
+
+.source-code-selected {
+    background-color: #ffff00;
+}
+
+
+.source-code-breakpoint {
+    background-color: #ff0000;
+    width: 10px;
+    height: 16px;
+    float: left;
 }
 
 .fade-in {

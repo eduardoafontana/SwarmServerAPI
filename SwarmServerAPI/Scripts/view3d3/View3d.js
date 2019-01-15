@@ -62,13 +62,13 @@
                 scene.add(titleCube.mesh);
 
                 for (var j = 0; j < files[i].breakpoints.length; j++) {
-                    var torus = Torus(cube, files[i].breakpoints[j]);
+                    var torus = Torus(cube, files[i].breakpoints[j], files[i].events, files[i].breakpoints);
                     scene.add(torus.mesh);
                     scene.interceptables.push(torus.mesh);
                 }
 
                 for (var j = 0; j < files[i].events.length; j++) {
-                    var square = Square(cube, files[i].events[j]);
+                    var square = Square(cube, files[i].events[j], files[i].events, files[i].breakpoints);
                     scene.add(square.mesh);
                     scene.interceptables.push(square.mesh);
                 }

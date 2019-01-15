@@ -1,6 +1,7 @@
 var detailbox = (function () {
 
     var detailBoxHeight = '';
+    var detailBoxHeightPre = '';
     var detailBoxWidth = 400;
     var marginLeftHoldAdjustment = 20;
     var marginTopHoldAdjustment = 45;
@@ -9,10 +10,15 @@ var detailbox = (function () {
     function relocate() {
         var box = document.getElementsByClassName("detail-box")[0];
 
+        var height = render.getDimensions().height - marginTopHoldAdjustment
+
         box.style.width = detailBoxWidth + 'px';
-        box.style.height = (render.getDimensions().height - marginTopHoldAdjustment) + 'px';
+        box.style.height = height + 'px';
         box.style.top = detailBoxTop + 'px';
         box.style.left = (render.getDimensions().width - detailBoxWidth + marginLeftHoldAdjustment) + 'px';
+
+        var preTag = document.querySelector(".detail-box pre");
+        preTag.style.height = (height - 50) + 'px';
     }
 
     var init = function () {
@@ -24,20 +30,27 @@ var detailbox = (function () {
 
         document.getElementsByClassName("detail-box-minimize")[0].addEventListener("click", function () {
             var box = document.getElementsByClassName("detail-box")[0];
+            var preTag = document.querySelector(".detail-box pre");
 
             if (this.innerText == "-") {
                 this.innerText = '+';
 
                 detailBoxHeight = box.style.height;
+
                 box.style.height = '30px';
                 box.style.overflow = 'hidden';
                 box.style.resize = 'none';
+
+                detailBoxHeightPre = preTag.style.height;
+                preTag.style.height = '30px';
             } else {
                 this.innerText = '-';
 
                 box.style.height = detailBoxHeight;
                 box.style.resize = 'both';
                 box.style.overflow = 'auto';
+
+                preTag.style.height = detailBoxHeightPre;
             }
         });
     }

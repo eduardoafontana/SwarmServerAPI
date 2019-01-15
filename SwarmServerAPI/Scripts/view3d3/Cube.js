@@ -61,20 +61,14 @@
         mesh.position.y = (initialCalculatedPositionY * render.getSelectedScene().scaleOptions.options.heightScale) + marginBottom + positionTopBase;
 
         if (render.wasClicked(mesh)) {
-            var box = document.getElementsByClassName("detail-box")[0];
-
-            box.style.visibility = 'visible';
-
-            var boxMain = box.getElementsByClassName("detail-box-main")[0];
-
-            var wrapper = document.createElement('div');
-
             dataControl.getSourceCodeFromServer(data.originalId).then(function (dataFromServer) {
-                wrapper.innerHTML = '<pre>' + dataFromServer + '</pre>';
+                sourceCodeControl.loadSourceCode(dataFromServer).then(function () {
+                    sourceCodeControl.loadHighLight().then(function () {
+                        sourceCodeControl.loadEvents(data.events);
+                        sourceCodeControl.loadBreakpoints(data.breakpoints);
+                    });
+                });
             });
-
-            boxMain.innerHTML = '';
-            boxMain.appendChild(wrapper);
         }
         
         material.color.setHex(originalColor);

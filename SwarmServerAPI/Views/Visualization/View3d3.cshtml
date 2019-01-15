@@ -1,5 +1,9 @@
 ﻿<script src="http://d3js.org/d3.v3.min.js"></script>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.13.1/build/styles/default.min.css">
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.13.1/build/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.6.0/dist/highlightjs-line-numbers.min.js"></script>
+
 @Styles.Render("~/Content/view3d")
 @Scripts.Render("~/bundles/threejs")
 @Scripts.Render("~/bundles/view3d3")
@@ -66,7 +70,9 @@
         <i class="fas fa-arrows-alt" aria-hidden="true"></i>
         <div class="detail-box-minimize">-</div>
     </div>
-    <div class="detail-box-main"></div>
+    <div class="detail-box-main">
+        <pre id="current-source-code"></pre>
+    </div>
 </div>
 <div class="info-box fade-in">
 </div>
