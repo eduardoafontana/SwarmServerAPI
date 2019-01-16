@@ -18,7 +18,7 @@ var detailbox = (function () {
         box.style.left = (render.getDimensions().width - detailBoxWidth + marginLeftHoldAdjustment) + 'px';
 
         var preTag = document.querySelector(".detail-box pre");
-        preTag.style.height = (height - 50) + 'px';
+        preTag.style.height = (height - 80) + 'px';
     }
 
     var init = function () {

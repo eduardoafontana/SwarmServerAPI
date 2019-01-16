@@ -67,8 +67,7 @@
                         sourceCodeControl.loadEvents(events);
                         sourceCodeControl.loadBreakpoints(breakpoints);
 
-                        var dataJson = JSON.parse(data.data);
-                        sourceCodeControl.loadSelected(dataJson.LineNumber);
+                        sourceCodeControl.loadSelected(data);
                     });
                 });
             });

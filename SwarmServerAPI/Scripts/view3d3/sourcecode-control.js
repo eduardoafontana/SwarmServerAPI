@@ -12,6 +12,10 @@
         breakpointIndex: ''
     };
 
+    var events = [];
+    var breakpoints = [];
+    var currentElement = null;
+
     var setFileInformation = function (pFileInformationJson) {
         fileInformationJson = pFileInformationJson;
 
@@ -89,7 +93,9 @@
         tdCode.insertBefore(div, tdCode.childNodes[0]); 
     }
 
-    var loadEvents = function (events) {
+    var loadEvents = function (pEvents) {
+        events = pEvents;
+
         for (var i = 0; i < events.length; i++) {
             var event = events[i];
             var jsonData = JSON.parse(event.data);
@@ -98,7 +104,9 @@
         }
     };
 
-    var loadBreakpoints = function (breakpoints) {
+    var loadBreakpoints = function (pBreakpoints) {
+        breakpoints = pBreakpoints;
+
         for (var i = 0; i < breakpoints.length; i++) {
             var breakpoint = breakpoints[i];
             var jsonData = JSON.parse(breakpoint.data);
@@ -107,7 +115,18 @@
         }
     };
 
-    var loadSelected = function (lineNumber) {
+    var loadSelected = function (objetEventOrBreakpoint) {
+
+        currentElement = objetEventOrBreakpoint;
+
+        var lineNumber = currentElement.line;
+
+        //remove all selected styles
+        var allTrWithStyle = document.querySelectorAll(".source-code-selected");
+        for (var i = 0; i < allTrWithStyle.length; i++) {
+            allTrWithStyle[i].classList.remove('source-code-selected');
+        }
+
         //set style
         var trOfLine = getLine(lineNumber);
 
@@ -141,6 +160,47 @@
         return hash === hashCurrent;
     };
 
+    function processBackNextClick(orientation) {
+        var selectedElementIndex = null;
+
+        for (var i = 0; i < events.length; i++) {
+            if (events[i].positionIndex == currentElement.positionIndex) {
+                selectedElementIndex = i;
+            }
+        }
+
+        if (selectedElementIndex === null)
+            return;
+
+        var nextElement = undefined;
+
+        if (orientation === 'next')
+            nextElement = events[selectedElementIndex + 1];
+        else if (orientation === 'back')
+            nextElement = events[selectedElementIndex - 1];
+        
+        if (nextElement == undefined)
+            return;
+        
+        var sourceCodeElementInformationJson = {
+            fileOriginalId: elementInformationJson.fileOriginalId,
+            sessionId: elementInformationJson.sessionId,
+            eventIndex: nextElement.positionIndex,
+            breakpointIndex: nextElement.positionIndex
+        };
+
+        setElementInformation(sourceCodeElementInformationJson);
+        loadSelected(nextElement);
+    };
+
+    var backButtonClick = function () {
+        processBackNextClick('back');
+    };
+
+    var nextButtonClick = function () {
+        processBackNextClick('next');
+    };
+
     return {
         loadSourceCode: loadSourceCode,
         loadHighLight: loadHighLight,
@@ -151,6 +211,8 @@
         isSelectedFile: isSelectedFile,
         setElementInformation: setElementInformation,
         isSelectedElement: isSelectedElement,
+        backButtonClick: backButtonClick,
+        nextButtonClick: nextButtonClick
     };
 
 }());
