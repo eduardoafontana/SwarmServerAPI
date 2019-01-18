@@ -111,7 +111,6 @@
 
         document.getElementById('back-button').addEventListener('click', sourceCodeControl.backButtonClick);
         document.getElementById('next-button').addEventListener('click', sourceCodeControl.nextButtonClick);
-        document.getElementById('details-button').addEventListener('click', sourceCodeControl.detailsButtonClick);
 
         var loadviewButton = document.getElementById('loadview-button');
         loadviewButton.addEventListener('click', function () {
