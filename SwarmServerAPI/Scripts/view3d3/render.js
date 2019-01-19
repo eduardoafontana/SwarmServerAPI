@@ -200,7 +200,7 @@
         scene.colorPaletteOptions = new dat.GUI({ autoPlace: false });
         scene.colorPaletteOptions.options = {
             colorPalette: 'BlackToBlack',
-            backgroundColor: '#c4cbd1'
+            backgroundColor: '#ffffff'
         };
 
         scene.colorPaletteOptions.add(scene.colorPaletteOptions.options, 'colorPalette', colorPalette.getColorPalatteArray());
