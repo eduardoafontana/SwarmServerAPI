@@ -68,10 +68,11 @@
         if (render.wasClicked(mesh)) {
             dataControl.getSourceCodeFromServer(data.originalId).then(function (dataFromServer) {
                 sourceCodeControl.setFileInformation(sourceCodeFileInformationJson);
-                sourceCodeControl.loadSourceCode(dataFromServer).then(function () {
-                    sourceCodeControl.loadCodeStyle().then(function () {
-                        sourceCodeControl.loadLinesContrast(files, fileIndex);
-                    });
+
+                sourceCodeControl.loadSourceCode(dataFromServer);
+
+                sourceCodeControl.loadCodeStyle().then(function () {
+                    sourceCodeControl.loadLinesContrast(files, fileIndex);
                 });
             });
         }

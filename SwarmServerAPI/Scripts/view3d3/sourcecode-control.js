@@ -26,7 +26,7 @@
         elementInformationJson = pElementInformationJson;
     };
 
-    var loadSourceCode = (dataFromServer) => new Promise(function (resolve, reject) {
+    var loadSourceCode = function (dataFromServer) {
         var box = document.querySelector('.detail-box');
         box.style.visibility = 'visible';
 
@@ -37,18 +37,16 @@
         code.innerHTML = dataFromServer;
 
         boxMainPre.innerHTML = '';
-        boxMainPre.appendChild(code);        
-            
-        resolve();
-    });
+        boxMainPre.appendChild(code);
+    };
 
-    var loadHighLight = () => new Promise(function (resolve, reject) {
+    var loadCodeStyle = () => new Promise(function (resolve, reject) {
         var preTag = document.querySelector('#current-source-code');
 
         hljs.highlightBlock(preTag);
         hljs.lineNumbersBlock(preTag);
 
-        setTimeout(function () { resolve(); }, 2000);
+        setTimeout(function () { resolve(); }, 1500);
     });
 
     function getLine(lineNumber) {
@@ -210,12 +208,12 @@
                 sourceCodeControl.setFileInformation(sourceCodeFileInformationJson);
                 sourceCodeControl.setElementInformation(sourceCodeElementInformationJson);
 
-                sourceCodeControl.loadSourceCode(dataFromServer).then(function () {
-                    sourceCodeControl.loadHighLight().then(function () {
-                        sourceCodeControl.loadLinesContrast(null, nextFileIndex);
+                sourceCodeControl.loadSourceCode(dataFromServer);
 
-                        sourceCodeControl.loadSelected(nextEvent, nextFile);
-                    });
+                sourceCodeControl.loadCodeStyle().then(function () {
+                    sourceCodeControl.loadLinesContrast(null, nextFileIndex);
+
+                    sourceCodeControl.loadSelected(nextEvent, nextFile);
                 });
             });
         }      
@@ -231,7 +229,7 @@
 
     return {
         loadSourceCode: loadSourceCode,
-        loadHighLight: loadHighLight,
+        loadCodeStyle: loadCodeStyle,
         loadLinesContrast: loadLinesContrast,
         loadSelected: loadSelected,
         setFileInformation: setFileInformation,

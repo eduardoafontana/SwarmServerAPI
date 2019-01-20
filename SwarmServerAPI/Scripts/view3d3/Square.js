@@ -65,12 +65,12 @@
                 sourceCodeControl.setFileInformation(sourceCodeFileInformationJson);
                 sourceCodeControl.setElementInformation(sourceCodeElementInformationJson);
 
-                sourceCodeControl.loadSourceCode(dataFromServer).then(function () {
-                    sourceCodeControl.loadHighLight().then(function () {
-                        sourceCodeControl.loadLinesContrast(files, fileIndex);
+                sourceCodeControl.loadSourceCode(dataFromServer);
 
-                        sourceCodeControl.loadSelected(data, files[fileIndex]);
-                    });
+                sourceCodeControl.loadCodeStyle().then(function () {
+                    sourceCodeControl.loadLinesContrast(files, fileIndex);
+
+                    sourceCodeControl.loadSelected(data, files[fileIndex]);
                 });
             });
         }
