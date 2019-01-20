@@ -1,10 +1,10 @@
-﻿var Cube = function (data, sessionId) {
+﻿var Cube = function (fileIndex, files, sessionId) {
 
-    var data = data;
+    var data = files[fileIndex];
     data.sessionId = sessionId;
 
     var sourceCodeFileInformationJson = {
-        fileOriginalId: data.originalId,
+        fileIndex: fileIndex,
         sessionId: data.sessionId
     };
 
@@ -69,9 +69,8 @@
             dataControl.getSourceCodeFromServer(data.originalId).then(function (dataFromServer) {
                 sourceCodeControl.setFileInformation(sourceCodeFileInformationJson);
                 sourceCodeControl.loadSourceCode(dataFromServer).then(function () {
-                    sourceCodeControl.loadHighLight().then(function () {
-                        sourceCodeControl.loadEvents(data.events);
-                        sourceCodeControl.loadBreakpoints(data.breakpoints);
+                    sourceCodeControl.loadCodeStyle().then(function () {
+                        sourceCodeControl.loadLinesContrast(files, fileIndex);
                     });
                 });
             });

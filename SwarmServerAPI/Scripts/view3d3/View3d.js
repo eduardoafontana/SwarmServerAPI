@@ -51,7 +51,7 @@
             groupAssembler.mountBySession(files, groups);
 
             for (var i = 0; i < files.length; i++) {
-                var cube = Cube(files[i], sessionId);
+                var cube = Cube(i, files, sessionId);
                 scene.add(cube.mesh);
                 scene.interceptables.push(cube.mesh);
 
@@ -62,13 +62,13 @@
                 scene.add(titleCube.mesh);
 
                 for (var j = 0; j < files[i].breakpoints.length; j++) {
-                    var torus = Torus(cube, files[i].breakpoints[j], files[i].events, files[i].breakpoints);
+                    var torus = Torus(i, j, files);
                     scene.add(torus.mesh);
                     scene.interceptables.push(torus.mesh);
                 }
 
                 for (var j = 0; j < files[i].events.length; j++) {
-                    var square = Square(cube, files[i].events[j], files[i].events, files[i].breakpoints);
+                    var square = Square(i, j, files);
                     scene.add(square.mesh);
                     scene.interceptables.push(square.mesh);
                 }

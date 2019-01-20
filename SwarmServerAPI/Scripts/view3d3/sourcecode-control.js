@@ -1,20 +1,20 @@
 ﻿var sourceCodeControl = (function () {
 
     var fileInformationJson = {
-        fileOriginalId : '',
+        fileIndex : '',
         sessionId : ''
     };
 
     var elementInformationJson = {
-        fileOriginalId: '',
+        fileIndex: '',
         sessionId: '',
         eventIndex: '',
         breakpointIndex: ''
     };
 
-    var events = [];
-    var breakpoints = [];
+    var files = [];
     var currentElement = null;
+    var currentFile = null;
 
     var setFileInformation = function (pFileInformationJson) {
         fileInformationJson = pFileInformationJson;
@@ -93,31 +93,29 @@
         tdCode.insertBefore(div, tdCode.childNodes[0]); 
     }
 
-    var loadEvents = function (pEvents) {
-        events = pEvents;
+    var loadLinesContrast = function (pFiles, fileIndex) {
+        if (pFiles != null)
+            files = pFiles;
 
-        for (var i = 0; i < events.length; i++) {
-            var event = events[i];
+        for (var i = 0; i < files[fileIndex].events.length; i++) {
+            var event = files[fileIndex].events[i];
             var jsonData = JSON.parse(event.data);
 
             setEventStyle(jsonData.LineNumber);
         }
-    };
 
-    var loadBreakpoints = function (pBreakpoints) {
-        breakpoints = pBreakpoints;
-
-        for (var i = 0; i < breakpoints.length; i++) {
-            var breakpoint = breakpoints[i];
+        for (var i = 0; i < files[fileIndex].breakpoints.length; i++) {
+            var breakpoint = files[fileIndex].breakpoints[i];
             var jsonData = JSON.parse(breakpoint.data);
 
             setBreakpointStyle(jsonData.LineNumber);
         }
     };
 
-    var loadSelected = function (objetEventOrBreakpoint) {
+    var loadSelected = function (objetEventOrBreakpoint, file) {
 
         currentElement = objetEventOrBreakpoint;
+        currentFile = file;
 
         var lineNumber = currentElement.line;
 
@@ -161,36 +159,66 @@
     };
 
     function processBackNextClick(orientation) {
-        var selectedElementIndex = null;
+        var nextEventPositionIndex = currentElement.positionIndex;
 
-        for (var i = 0; i < events.length; i++) {
-            if (events[i].positionIndex == currentElement.positionIndex) {
-                selectedElementIndex = i;
+        if (orientation === 'next')
+            nextEventPositionIndex++;
+        else if (orientation === 'back')
+            nextEventPositionIndex--;
+
+        var nextEvent = undefined;
+        var nextFile = undefined;
+        var nextFileIndex = undefined;
+
+        for (var f = 0; f < files.length; f++) {
+            for (var e = 0; e < files[f].events.length; e++) {
+                if (files[f].events[e].positionIndex == nextEventPositionIndex) {
+                    nextFile = files[f];
+                    nextFileIndex = f;
+                    nextEvent = files[f].events[e];
+                    break;
+                }
             }
         }
 
-        if (selectedElementIndex === null)
+        if (nextEvent == undefined)
             return;
 
-        var nextElement = undefined;
-
-        if (orientation === 'next')
-            nextElement = events[selectedElementIndex + 1];
-        else if (orientation === 'back')
-            nextElement = events[selectedElementIndex - 1];
-        
-        if (nextElement == undefined)
+        if (nextFile == undefined)
             return;
-        
+
+        if (nextFileIndex == undefined)
+            return;
+
         var sourceCodeElementInformationJson = {
-            fileOriginalId: elementInformationJson.fileOriginalId,
-            sessionId: elementInformationJson.sessionId,
-            eventIndex: nextElement.positionIndex,
-            breakpointIndex: nextElement.positionIndex
+            fileIndex: nextFileIndex,
+            sessionId: nextFile.sessionId,
+            eventIndex: nextEvent.positionIndex,
+            breakpointIndex: nextEvent.positionIndex
         };
 
-        setElementInformation(sourceCodeElementInformationJson);
-        loadSelected(nextElement);
+        if (currentFile.fileId === nextFile.fileId) {
+            setElementInformation(sourceCodeElementInformationJson);
+            loadSelected(nextEvent, nextFile);
+        } else {
+            dataControl.getSourceCodeFromServer(nextFile.originalId).then(function (dataFromServer) {
+                var sourceCodeFileInformationJson = {
+                    fileIndex: nextFileIndex,
+                    sessionId: nextFile.sessionId
+                };
+
+                sourceCodeControl.setFileInformation(sourceCodeFileInformationJson);
+                sourceCodeControl.setElementInformation(sourceCodeElementInformationJson);
+
+                sourceCodeControl.loadSourceCode(dataFromServer).then(function () {
+                    sourceCodeControl.loadHighLight().then(function () {
+                        sourceCodeControl.loadLinesContrast(null, nextFileIndex);
+
+                        sourceCodeControl.loadSelected(nextEvent, nextFile);
+                    });
+                });
+            });
+        }      
     };
 
     var backButtonClick = function () {
@@ -204,8 +232,7 @@
     return {
         loadSourceCode: loadSourceCode,
         loadHighLight: loadHighLight,
-        loadEvents: loadEvents,
-        loadBreakpoints: loadBreakpoints,
+        loadLinesContrast: loadLinesContrast,
         loadSelected: loadSelected,
         setFileInformation: setFileInformation,
         isSelectedFile: isSelectedFile,

@@ -1,13 +1,16 @@
-﻿var Square = function (cube, data, events, breakpoints) {
+﻿var Square = function (fileIndex, eventIndex, files) {
+
+    var file = files[fileIndex];
+    var data = files[fileIndex].events[eventIndex];
 
     var sourceCodeFileInformationJson = {
-        fileOriginalId: cube.data.originalId,
-        sessionId: cube.data.sessionId
+        fileIndex: fileIndex,
+        sessionId: file.sessionId
     };
 
     var sourceCodeElementInformationJson = {
-        fileOriginalId: cube.data.originalId,
-        sessionId: cube.data.sessionId,
+        fileIndex: fileIndex,
+        sessionId: file.sessionId,
         eventIndex: data.positionIndex,
         breakpointIndex: data.positionIndex
     };
@@ -29,8 +32,8 @@
     var cubeMarginTop = 0;
 
     mesh.position.y = cubeMarginTop + heightAdjustment + topHeightMargin + groupAssembler.getPositionTopBase();
-    mesh.position.x = sizeWithMargin * cube.data.x;
-    mesh.position.z = cube.data.z;
+    mesh.position.x = sizeWithMargin * file.x;
+    mesh.position.z = file.z;
 
     mesh.rotation.x = 1.6; //flip to horizontal
     mesh.rotation.z = 0.8; //rotate to equal cube node
@@ -47,7 +50,7 @@
         if (render.getSelectedScene() == null)
             return;
 
-        mesh.visible = sessionFilter.getVisible(cube.data.sessionId, render.getSelectedScene().hideShowOptions.options.event);
+        mesh.visible = sessionFilter.getVisible(file.sessionId, render.getSelectedScene().hideShowOptions.options.event);
 
         mesh.position.x = initialCalculatedPositionX * render.getSelectedScene().scaleOptions.options.cubeSpace;
         mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.sessionSpace;
@@ -58,16 +61,15 @@
         mesh.scale.z = render.getSelectedScene().scaleOptions.options.eventScale;
 
         if (render.wasClicked(mesh)) {
-            dataControl.getSourceCodeFromServer(cube.data.originalId).then(function (dataFromServer) {
+            dataControl.getSourceCodeFromServer(file.originalId).then(function (dataFromServer) {
                 sourceCodeControl.setFileInformation(sourceCodeFileInformationJson);
                 sourceCodeControl.setElementInformation(sourceCodeElementInformationJson);
 
                 sourceCodeControl.loadSourceCode(dataFromServer).then(function () {
                     sourceCodeControl.loadHighLight().then(function () {
-                        sourceCodeControl.loadEvents(events);
-                        sourceCodeControl.loadBreakpoints(breakpoints);
+                        sourceCodeControl.loadLinesContrast(files, fileIndex);
 
-                        sourceCodeControl.loadSelected(data);
+                        sourceCodeControl.loadSelected(data, files[fileIndex]);
                     });
                 });
             });
