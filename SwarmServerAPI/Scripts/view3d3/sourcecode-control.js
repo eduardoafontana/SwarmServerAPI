@@ -205,15 +205,15 @@
                     sessionId: nextFile.sessionId
                 };
 
-                sourceCodeControl.setFileInformation(sourceCodeFileInformationJson);
-                sourceCodeControl.setElementInformation(sourceCodeElementInformationJson);
+                setFileInformation(sourceCodeFileInformationJson);
+                setElementInformation(sourceCodeElementInformationJson);
 
-                sourceCodeControl.loadSourceCode(dataFromServer);
+                loadSourceCode(dataFromServer);
 
-                sourceCodeControl.loadCodeStyle().then(function () {
-                    sourceCodeControl.loadLinesContrast(null, nextFileIndex);
+                loadCodeStyle().then(function () {
+                    loadLinesContrast(null, nextFileIndex);
 
-                    sourceCodeControl.loadSelected(nextEvent, nextFile);
+                    loadSelected(nextEvent, nextFile);
                 });
             });
         }      
