@@ -88,6 +88,12 @@ namespace SwarmServerAPI.AppCore.Service
             public List<Group> groups { get; set; } = new List<Group>();
         }
 
+        public class TaskProject
+        {
+            public string taskName { get; set; }
+            public string projectName { get; set; }
+        }
+
         public List<User> GetView3dDataFilter()
         {
             List<User> users = LoadFilter();
@@ -178,6 +184,30 @@ namespace SwarmServerAPI.AppCore.Service
                                         name = s2.TaskName,
                                     }).ToList()
                             }).ToList()
+                    }).ToList();
+            }
+
+            return users;
+        }
+
+        public object GetView3dTaskProjectDataFilter()
+        {
+            List<TaskProject> users = new List<TaskProject>();
+
+            using (SwarmData context = new SwarmData())
+            {
+                users = context.Sessions.Include("CodeFiles")
+                    .Where(s => s.CodeFiles.Count() > 0)
+                    .Where(s => s.DeveloperName != null && s.DeveloperName.Trim() != String.Empty)
+                    .Where(s => s.TaskName != null && s.TaskName.Trim() != String.Empty)
+                    .Where(s => s.ProjectName != null && s.ProjectName.Trim() != String.Empty)
+                    .GroupBy(s => s.TaskName)
+                    .Select(s => s.FirstOrDefault())
+                    .OrderByDescending(s => s.Started)
+                    .Select(s => new TaskProject
+                    {
+                        taskName = s.TaskName,
+                        projectName = s.ProjectName
                     }).ToList();
             }
 

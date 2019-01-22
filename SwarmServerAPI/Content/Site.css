@@ -99,3 +99,7 @@ main
 {
     margin-bottom: 20px;
 }
+
+#taskproject-list-div div.bootstrap-select.fit-width {
+    width: 290px !important;
+}

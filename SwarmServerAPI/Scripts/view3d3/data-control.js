@@ -93,6 +93,15 @@
         users[userIndex].projects[projectIndex].tasks[taskIndex] = data[0].projects[0].tasks[0];
     };
 
+    var getTaskProjectDataFilterFromServer = () => new Promise(function (resolve, reject) {
+        var url = location.origin + '/api/Visualization/View3dTaskProjectFilter';
+
+        $.get(url, function (responseJson) {
+            console.log(responseJson);
+            resolve(responseJson);
+        });
+    });
+
     return {
         getUsers: getUsers,
         getTasks: getTasks,
@@ -101,7 +110,8 @@
         setData: setData,
         getDataFilterFromServer: getDataFilterFromServer,
         getDataFromServer: getDataFromServer,
-        getSourceCodeFromServer: getSourceCodeFromServer
+        getSourceCodeFromServer: getSourceCodeFromServer,
+        getTaskProjectDataFilterFromServer: getTaskProjectDataFilterFromServer
     };
 
 }());

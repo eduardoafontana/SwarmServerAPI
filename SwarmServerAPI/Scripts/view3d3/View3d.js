@@ -133,10 +133,13 @@
             });
         });
 
-        dataControl.getDataFilterFromServer().then(function (dataFromServer) {
+        //dataControl.getDataFilterFromServer().then(function (dataFromServer) {
+        dataControl.getTaskProjectDataFilterFromServer().then(function (taskProjectDataFromServer) {
             FontLoader().then(function (font) {
 
-                dataControl.setFilter(dataFromServer);
+                taskProjectFilter.init(taskProjectDataFromServer);
+
+                //dataControl.setFilter(dataFromServer);
                 render.setFont(font);
 
                 render.initGraph();

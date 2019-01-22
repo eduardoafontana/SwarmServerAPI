@@ -88,15 +88,67 @@
                         </a>
                     </h6>
                     -->
+
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <span>Tasks / Projects</span>
+                    </h6>
+
+                    <div class="px-3" id="taskproject-list-div">
+                    </div>
+
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <span>Users</span>
+                    </h6>
+
+                    <div class="px-3" id="user-list-div">
+                        <select class="selectpicker" multiple data-live-search="true">
+                            <option>Mustard</option>
+                            <option>Ketchup</option>
+                            <option>Relish</option>
+                        </select>
+                    </div>
+
                     <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                         <span>Sessions</span>
-                        <a class="d-flex align-items-center text-muted" href="#">
-                            <span data-feather="plus-circle"></span>
-                        </a>
                     </h6>
 
                     <div class="px-3" id="session-list-div">
                     </div>
+
+                    <!--
+                    <ul class="nav flex-column mb-2">
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "Task" ? "active" : "")" href="@Url.Action("Task", "Visualization")">
+                                <i class="far fa-eye fa-lg feather"></i>
+                                Tasks
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "Session" ? "active" : "")" href="@Url.Action("Session", "Visualization")">
+                                <i class="far fa-eye fa-lg feather"></i>
+                                Sessions
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "Global" ? "active" : "")" href="@Url.Action("Global", "Visualization")">
+                                <i class="far fa-eye fa-lg feather"></i>
+                                Global
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "Prototype" ? "active" : "")" h
+
+<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+    <span></span>
+    <a class="d-flex align-items-center text-muted" href="#">
+        <span data-feather="plus-circle"></span>
+    </a>
+</h6>
+
+<div class="px-3" id="session-list-div">
+</div>
+
+
 
                     <!--
                     <ul class="nav flex-column mb-2">
