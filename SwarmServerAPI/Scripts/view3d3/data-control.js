@@ -102,6 +102,15 @@
         });
     });
 
+    var getUserDataFilteFromServer = (selectedList) => new Promise(function (resolve, reject) {
+        var url = location.origin + '/api/Visualization/View3dUserFilter';
+
+        $.post(url, { list: selectedList }).done(function (responseJson) {
+            console.log(responseJson);
+            resolve(responseJson);
+        });
+    });
+
     return {
         getUsers: getUsers,
         getTasks: getTasks,
@@ -111,7 +120,8 @@
         getDataFilterFromServer: getDataFilterFromServer,
         getDataFromServer: getDataFromServer,
         getSourceCodeFromServer: getSourceCodeFromServer,
-        getTaskProjectDataFilterFromServer: getTaskProjectDataFilterFromServer
+        getTaskProjectDataFilterFromServer: getTaskProjectDataFilterFromServer,
+        getUserDataFilteFromServer: getUserDataFilteFromServer
     };
 
 }());

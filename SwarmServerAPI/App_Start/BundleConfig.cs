@@ -144,6 +144,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
                       "~/Scripts/view3d3/select-control.js",
                       "~/Scripts/view3d3/sessionFilter.js",
                       "~/Scripts/view3d3/taskProjectFilter.js",
+                      "~/Scripts/view3d3/userFilter.js",
                       "~/Scripts/view3d3/sourceCode-control.js",
                       "~/Scripts/view3d3/View3d.js"));
 

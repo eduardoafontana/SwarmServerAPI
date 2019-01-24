@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using SwarmServerAPI.AppCode.Repository;
+using SwarmServerAPI.AppCore.Service.DTOModels;
 
 namespace SwarmServerAPI.AppCore.Service
 {
@@ -75,10 +76,15 @@ namespace SwarmServerAPI.AppCore.Service
             public List<Task> tasks { get; set; } = new List<Task>();
         }
 
-        public class User
+        public class UserRemove
         {
             public string name { get; set; }
             public List<Project> projects { get; set; } = new List<Project>();
+        }
+
+        public class User
+        {
+            public string name { get; set; }
         }
 
         public class Task
@@ -88,24 +94,18 @@ namespace SwarmServerAPI.AppCore.Service
             public List<Group> groups { get; set; } = new List<Group>();
         }
 
-        public class TaskProject
+        public List<UserRemove> GetView3dDataFilter()
         {
-            public string taskName { get; set; }
-            public string projectName { get; set; }
-        }
-
-        public List<User> GetView3dDataFilter()
-        {
-            List<User> users = LoadFilter();
+            List<UserRemove> users = LoadFilter();
 
             LoadView(users.FirstOrDefault());
 
             return users;
         }
 
-        public List<User> GetView3dData(string user, string project, string task)
+        public List<UserRemove> GetView3dData(string user, string project, string task)
         {
-            List<User> users = LoadFilter(user, project, task);
+            List<UserRemove> users = LoadFilter(user, project, task);
 
             LoadView(users.FirstOrDefault());
 
@@ -132,14 +132,14 @@ namespace SwarmServerAPI.AppCore.Service
             return sourceCode;
         }
 
-        public List<User> LoadFilter()
+        public List<UserRemove> LoadFilter()
         {
             return LoadFilter(String.Empty, String.Empty, String.Empty);
         }
 
-        public List<User> LoadFilter(string developerName, string projectName, string taskName)
+        public List<UserRemove> LoadFilter(string developerName, string projectName, string taskName)
         {
-            List<User> users = new List<User>();
+            List<UserRemove> users = new List<UserRemove>();
 
             using (SwarmData context = new SwarmData())
             {
@@ -152,7 +152,7 @@ namespace SwarmServerAPI.AppCore.Service
                     .Select(s => s.FirstOrDefault())
                     .Where(s => s.DeveloperName != null && s.DeveloperName.Trim() != string.Empty)
                     .OrderBy(s => s.DeveloperName)
-                    .Select(s => new User
+                    .Select(s => new UserRemove
                     {
                         name = s.DeveloperName,
                         projects = context.Sessions
@@ -192,11 +192,11 @@ namespace SwarmServerAPI.AppCore.Service
 
         public object GetView3dTaskProjectDataFilter()
         {
-            List<TaskProject> users = new List<TaskProject>();
+            List<TaskProjectModel.TaskProject> list = new List<TaskProjectModel.TaskProject>();
 
             using (SwarmData context = new SwarmData())
             {
-                users = context.Sessions.Include("CodeFiles")
+                list = context.Sessions.Include("CodeFiles")
                     .Where(s => s.CodeFiles.Count() > 0)
                     .Where(s => s.DeveloperName != null && s.DeveloperName.Trim() != String.Empty)
                     .Where(s => s.TaskName != null && s.TaskName.Trim() != String.Empty)
@@ -204,17 +204,43 @@ namespace SwarmServerAPI.AppCore.Service
                     .GroupBy(s => s.TaskName)
                     .Select(s => s.FirstOrDefault())
                     .OrderByDescending(s => s.Started)
-                    .Select(s => new TaskProject
+                    .Select(s => new TaskProjectModel.TaskProject
                     {
                         taskName = s.TaskName,
                         projectName = s.ProjectName
                     }).ToList();
             }
 
-            return users;
+            return list;
         }
 
-        private void LoadView(User user)
+        public object GetView3dUserDataFilter(TaskProjectModel filter)
+        {
+            string[] taskProjectTuple = filter.list.Select(x => x.taskName + "|" + x.projectName).ToArray();
+
+            List<User> list = new List<User>();
+
+            using (SwarmData context = new SwarmData())
+            {
+                list = context.Sessions.Include("CodeFiles")
+                    .Where(s => s.CodeFiles.Count() > 0)
+                    .Where(s => s.DeveloperName != null && s.DeveloperName.Trim() != String.Empty)
+                    .Where(s => s.TaskName != null && s.TaskName.Trim() != String.Empty)
+                    .Where(s => s.ProjectName != null && s.ProjectName.Trim() != String.Empty)
+                    .Where(s => taskProjectTuple.Contains(s.TaskName + "|" + s.ProjectName ))
+                    .GroupBy(s => s.DeveloperName)
+                    .Select(s => s.FirstOrDefault())
+                    .OrderByDescending(s => s.Started)
+                    .Select(s => new User
+                    {
+                        name = s.DeveloperName,
+                    }).ToList();
+            }
+
+            return list;
+        }
+
+        private void LoadView(UserRemove user)
         {
             if (user == null)
                 return;

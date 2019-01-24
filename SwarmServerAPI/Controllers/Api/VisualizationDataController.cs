@@ -152,6 +152,27 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("api/Visualization/View3dUserFilter")]
+        public HttpResponseMessage GetView3UserFilterVisualization(TaskProjectModel filter)
+        {
+            try
+            {
+                VisualizationService visualizationService = new VisualizationService();
+                var view3dData = visualizationService.GetView3dUserDataFilter(filter);
+
+                var data = new JavaScriptSerializer().Serialize(view3dData);
+
+                var response = Request.CreateResponse(HttpStatusCode.OK);
+                response.Content = new StringContent(data, Encoding.UTF8, "application/json");
+                return response;
+            }
+            catch (Exception ex)
+            {
+                throw InternalError.ThrowError(ex);
+            }
+        }
+
         [HttpGet]
         [Route("api/Visualization/View3d")]
         public HttpResponseMessage GetView3dVisualization(string user, string project, string task)
