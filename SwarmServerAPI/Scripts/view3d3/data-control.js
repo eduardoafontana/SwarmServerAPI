@@ -111,6 +111,15 @@
         });
     });
 
+    var getSessionDataFilteFromServer = (selectedList) => new Promise(function (resolve, reject) {
+        var url = location.origin + '/api/Visualization/View3dSessionFilter';
+
+        $.post(url, { list: selectedList }).done(function (responseJson) {
+            console.log(responseJson);
+            resolve(responseJson);
+        });
+    });
+
     return {
         getUsers: getUsers,
         getTasks: getTasks,
@@ -121,7 +130,8 @@
         getDataFromServer: getDataFromServer,
         getSourceCodeFromServer: getSourceCodeFromServer,
         getTaskProjectDataFilterFromServer: getTaskProjectDataFilterFromServer,
-        getUserDataFilteFromServer: getUserDataFilteFromServer
+        getUserDataFilteFromServer: getUserDataFilteFromServer,
+        getSessionDataFilteFromServer: getSessionDataFilteFromServer
     };
 
 }());

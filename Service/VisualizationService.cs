@@ -84,7 +84,9 @@ namespace SwarmServerAPI.AppCore.Service
 
         public class User
         {
-            public string name { get; set; }
+            public string userName { get; set; }
+            public string taskName { get; set; }
+            public string projectName { get; set; }
         }
 
         public class Task
@@ -92,6 +94,14 @@ namespace SwarmServerAPI.AppCore.Service
             public string name { get; set; }
             public List<Session> sessions { get; set; } = new List<Session>();
             public List<Group> groups { get; set; } = new List<Group>();
+        }
+
+        private class SessionFilter
+        {
+            public int sessionId { get; set; }
+            public string name { get; set; }
+            public int breakpointCount { get; set; }
+            public int eventCount { get; set; }
         }
 
         public List<UserRemove> GetView3dDataFilter()
@@ -216,9 +226,12 @@ namespace SwarmServerAPI.AppCore.Service
 
         public object GetView3dUserDataFilter(TaskProjectModel filter)
         {
-            string[] taskProjectTuple = filter.list.Select(x => x.taskName + "|" + x.projectName).ToArray();
-
             List<User> list = new List<User>();
+
+            if (filter == null)
+                return list;
+
+            string[] taskProjectTuple = filter.list.Select(x => x.taskName + "|" + x.projectName).ToArray();
 
             using (SwarmData context = new SwarmData())
             {
@@ -233,7 +246,49 @@ namespace SwarmServerAPI.AppCore.Service
                     .OrderByDescending(s => s.Started)
                     .Select(s => new User
                     {
-                        name = s.DeveloperName,
+                        userName = s.DeveloperName,
+                        taskName = s.TaskName,
+                        projectName = s.ProjectName
+                    }).ToList();
+            }
+
+            return list;
+        }
+
+        public object GetView3dSessionDataFilter(UserModel filter)
+        {
+            List<SessionFilter> list = new List<SessionFilter>();
+
+            if (filter == null)
+                return list;
+
+            string[] tuplesFilter = filter.list.Select(x => x.userName + "|" + x.taskName + "|" + x.projectName).ToArray();
+
+            using (SwarmData context = new SwarmData())
+            {
+                var sessions = context.Sessions
+                .Where(s => s.DeveloperName != null && s.DeveloperName.Trim() != String.Empty)
+                .Where(s => s.TaskName != null && s.TaskName.Trim() != String.Empty)
+                .Where(s => s.ProjectName != null && s.ProjectName.Trim() != String.Empty)
+                .Where(s => tuplesFilter.Contains(s.DeveloperName + "|" + s.TaskName + "|" + s.ProjectName))
+                .Select(s => s.Id)
+                .ToList();
+
+                list = context.Sessions
+                    .Include("CodeFiles")
+                    .Include("Breakpoints")
+                    .Include("Events")
+                    .Include("PathNodes")
+                    .Where(s => s.CodeFiles.Count() > 0)
+                    .Where(s => sessions.Contains(s.Id))
+                    .OrderBy(s => s.Started)
+                    .AsEnumerable()
+                    .Select((s, i) => new SessionFilter
+                    {
+                        sessionId = i,
+                        name = String.Format("{0:yyyy-MM-ddTHH:mm:ssZ}", s.Started),
+                        breakpointCount = s.Breakpoints.Count,
+                        eventCount = s.Events.Count
                     }).ToList();
             }
 

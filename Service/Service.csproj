@@ -58,6 +58,7 @@
     <Compile Include="DTOModels\PathNodeParameterModel.cs" />
     <Compile Include="DTOModels\SessionGridModel.cs" />
     <Compile Include="DTOModels\SessionModel.cs" />
+    <Compile Include="DTOModels\UserModel.cs" />
     <Compile Include="DTOModels\TaskProjectModel.cs" />
     <Compile Include="DTOModels\TaskGridModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

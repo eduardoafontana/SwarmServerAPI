@@ -23,8 +23,6 @@
         if (task.sessions == undefined)
             return;
 
-        sessionFilter.init(task.sessions);
-
         groupAssembler.reset();
         groupAssembler.mountMostHighFileSpacePoints(task.sessions);
         groupAssembler.mountMostHighFileLine(task.sessions);

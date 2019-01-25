@@ -12,16 +12,18 @@
 
         for (var i = 0; i < users.length; i++) {
             var option = document.createElement('option');
-            option.text = users[i].name;
+            option.text = users[i].userName;
+            option.setAttribute('taskName', users[i].taskName);
+            option.setAttribute('projectName', users[i].projectName);
             
             select.appendChild(option);
         }
 
         listDiv.appendChild(select);
 
-        $('.selectpicker').selectpicker({ width: 'fit' });
+        $('#user-list-div .selectpicker').selectpicker({ width: 'fit' });
 
-        $('.selectpicker').on('show.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+        $('#user-list-div .selectpicker').on('show.bs.select', function (e, clickedIndex, isSelected, previousValue) {
             var divDropdownMenu = document.querySelector('div.dropdown-menu');
             divDropdownMenu.style.minWidth = '290px';
             divDropdownMenu.style.width = '290px';
@@ -32,7 +34,7 @@
             ulDropdownMenu.style.fontSize = '0.8rem';
         });
 
-        $('div.bs-searchbox input').on('input', function () {
+        $('#user-list-div div.bs-searchbox input').on('input', function () {
             var divDropdownMenu = document.querySelector('div.dropdown-menu');
             divDropdownMenu.style.minWidth = '290px';
             divDropdownMenu.style.width = '290px';
@@ -45,14 +47,20 @@
 
         
 
-        $('.selectpicker').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+        $('#user-list-div .selectpicker').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
 
-            //TODO prepare filter
+            var selectedList = [];
 
-            //TODO get sessions
-            //dataControl.getUserDataFilterFromServer().then(function (userDataFromServer) {
-            //    userFilter.init(userDataFromServer);
-            //});
+            for (var i = 0; i < e.target.options.length; i++) {
+                if (e.target.options[i].selected == false)
+                    continue;
+
+                selectedList.push({ userName: e.target.options[i].text, taskName: e.target.options[i].getAttribute('taskName'), projectName: e.target.options[i].getAttribute('projectName') });
+            }
+
+            dataControl.getSessionDataFilteFromServer(selectedList).then(function (sessionDataFromServer) {
+                sessionFilter.init(sessionDataFromServer);
+            });
         });
     };
 
