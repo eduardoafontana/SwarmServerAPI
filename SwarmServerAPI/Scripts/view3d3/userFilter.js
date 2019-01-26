@@ -21,31 +21,23 @@
 
         listDiv.appendChild(select);
 
-        $('#user-list-div .selectpicker').selectpicker({ width: 'fit' });
+        $('#user-list-div .selectpicker').selectpicker({ width: '290px' });
 
         $('#user-list-div .selectpicker').on('show.bs.select', function (e, clickedIndex, isSelected, previousValue) {
-            var divDropdownMenu = document.querySelector('div.dropdown-menu');
-            divDropdownMenu.style.minWidth = '290px';
-            divDropdownMenu.style.width = '290px';
+            var divDropdownMenu = document.querySelector('#user-list-div div.dropdown-menu');
             divDropdownMenu.style.fontSize = '0.8rem';
-            divDropdownMenu.style.transform = 'translate3d(0px, 38px, 0px)';
 
-            var ulDropdownMenu = document.querySelector('ul.dropdown-menu');
+            var ulDropdownMenu = document.querySelector('#user-list-div ul.dropdown-menu');
             ulDropdownMenu.style.fontSize = '0.8rem';
         });
 
         $('#user-list-div div.bs-searchbox input').on('input', function () {
-            var divDropdownMenu = document.querySelector('div.dropdown-menu');
-            divDropdownMenu.style.minWidth = '290px';
-            divDropdownMenu.style.width = '290px';
+            var divDropdownMenu = document.querySelector('#user-list-div div.dropdown-menu');
             divDropdownMenu.style.fontSize = '0.8rem';
-            divDropdownMenu.style.transform = 'translate3d(0px, 38px, 0px)';
 
-            var ulDropdownMenu = document.querySelector('ul.dropdown-menu');
+            var ulDropdownMenu = document.querySelector('#user-list-div ul.dropdown-menu');
             ulDropdownMenu.style.fontSize = '0.8rem';
         });
-
-        
 
         $('#user-list-div .selectpicker').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
 

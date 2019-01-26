@@ -70,14 +70,22 @@ main {
     }
 }
 
+/*
 #taskproject-list-div div.bootstrap-select.fit-width {
     width: 290px !important;
+}
+*/
+
+/* session filter */
+#session-list-div {
+    height: calc(100vh - 325px);
+    overflow: auto;
 }
 
 /* session filter checkbox */
 .session-checkbox-visible + label {
     margin-left: 20px;
-    cursor:pointer;
+    cursor: pointer;
     margin-bottom: 5px;
 }
 .session-label-breakpoint {
