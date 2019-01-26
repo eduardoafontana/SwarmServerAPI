@@ -29,13 +29,38 @@
             checkboxVisible.value = sessions[s].sessionId;
             checkboxVisible.id = 'sessionId-checkbox-visible-id-' + sessions[s].sessionId;
             checkboxVisible.checked = true;
+            checkboxVisible.classList.add('session-checkbox-visible');
 
             div.appendChild(checkboxVisible);
+
+            var label = document.createElement('label')
+            label.htmlFor = checkboxVisible.id;
+
+            div.appendChild(label);
+
+            var span = document.createElement('i')
+            span.classList.add('far');
+            span.classList.add('fa-eye-slash');
+            span.classList.add('fa-lg');
+            span.classList.add('feather');
+            span.classList.add('unchecked');
+
+            label.appendChild(span);
+
+            var span = document.createElement('i')
+            span.classList.add('far');
+            span.classList.add('fa-eye');
+            span.classList.add('fa-lg');
+            span.classList.add('feather');
+            span.classList.add('checked');
+
+            label.appendChild(span);
 
             var label = document.createElement('label')
             label.appendChild(document.createTextNode(sessions[s].breakpointCount));
             label.title = 'Amount of breakpoints';
             label.classList.add('form-check-label');
+            label.classList.add('session-label-breakpoint');
 
             div.appendChild(label);
 
@@ -43,6 +68,7 @@
             label.appendChild(document.createTextNode(sessions[s].eventCount));
             label.title = 'Amount of events';
             label.classList.add('form-check-label');
+            label.classList.add('session-label-event');
 
             div.appendChild(label);
 
