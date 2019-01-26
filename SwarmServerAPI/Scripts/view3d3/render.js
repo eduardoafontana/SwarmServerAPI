@@ -1,20 +1,17 @@
 ﻿var render = (function () {
 
     function getRelativeHeight() {
-        return document.body.getElementsByClassName("cssRenderRelativeSize")[0].offsetHeight;
+        return document.body.getElementsByClassName("canvasRenderRelativeSize")[0].offsetHeight;
     }
 
     function getRelativeWidth() {
-        return document.body.getElementsByClassName("cssRenderRelativeSize")[0].offsetWidth;
+        return document.body.getElementsByClassName("canvasRenderRelativeSize")[0].offsetWidth;
     }
 
-    var sceneArray = [];
     var selectedScene = null;
-    var cssScene = null;
     var camera = null;
     var zoom = null;
     var renderer = null;
-    var cssRenderer = null;
     var mouse = null;
     var raycaster = null;
     var clickedObject = null;
@@ -31,10 +28,6 @@
 
         mouse = new THREE.Vector2();
         raycaster = new THREE.Raycaster();
-
-        cssRenderer = new THREE.CSS3DRenderer();
-        cssRenderer.setSize(getRelativeWidth(), getRelativeHeight());
-        document.querySelector('.cssRenderRelativeSize').appendChild(cssRenderer.domElement);
 
         renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
         renderer.setSize(getRelativeWidth(), getRelativeHeight());
@@ -56,9 +49,6 @@
 
         var animate = function () {
             requestAnimationFrame(animate);
-
-            if (cssScene != null)
-                cssRenderer.render(cssScene, camera);
 
             if (selectedScene == null)
                 return;
@@ -117,32 +107,12 @@
     };
 
     var getNewScene = function() {
-        //function (userIndex, projectIndex, taskIndex) {
         var scene = new THREE.Scene();
-
-        //scene.userIndex = userIndex;
-        //scene.projectIndex = projectIndex;
-        //scene.taskIndex = taskIndex;
 
         scene.add(Axes().mesh);
         scene.add(Grid().mesh);
 
         scene.interceptables = [];
-
-        //for (var i = 0; i < sceneArray.length; i++) {
-        //    if (sceneArray[i].userIndex === userIndex &&
-        //        sceneArray[i].projectIndex === projectIndex &&
-        //        sceneArray[i].taskIndex === taskIndex
-        //    ) {
-        //        scene.scaleOptions = sceneArray[i].scaleOptions;
-        //        scene.hideShowOptions = sceneArray[i].hideShowOptions;
-        //        scene.colorPaletteOptions = sceneArray[i].colorPaletteOptions;
-
-        //        sceneArray[i] = scene;
-
-        //        return scene;
-        //    }
-        //}
 
         //--Properties those are persistable on scene reload.
         //--
@@ -207,7 +177,11 @@
         scene.colorPaletteOptions.add(scene.colorPaletteOptions.options, 'colorPalette', colorPalette.getColorPalatteArray());
         scene.colorPaletteOptions.addColor(scene.colorPaletteOptions.options, 'backgroundColor');
 
-        sceneArray[0] = scene;
+        selectedScene = scene;
+
+        scaleOptions.setScaleOption(selectedScene.scaleOptions);
+        hideShowOptions.setHideShowOption(selectedScene.hideShowOptions);
+        colorPaletteOptions.setColorPaletteOption(selectedScene.colorPaletteOptions);
 
         return scene;
     };
@@ -216,98 +190,12 @@
         return colorPalette.getColorPalleteByName(getSelectedScene().colorPaletteOptions.options.colorPalette);
     };
 
-    function mountCssCodeParts() {
-        cssScene = new THREE.Scene();
-
-        selectedScene.traverse(function (cube) {
-            if (cube.name != 'Cube')
-                return;
-
-            var element = document.createElement('div');
-            element.style.width = cube.geometry.parameters.width + 'px';
-            element.style.height = cube.geometry.parameters.height + 'px';
-            //console.log(cube.geometry.parameters.width + 'px', cube.geometry.parameters.height + 'px');
-            element.style.background = new THREE.Color('blue').getStyle();
-            //element.textContent = '<p style="font-size: 3px;">' + cube.id + '</p>';
-            element.innerHTML = '<p style="font-size: 12px">' + cube.id + '</p>';
-            //element.textContent = cube.id;
-            //element.setAttribute('contenteditable', '');
-
-            var domObject = new THREE.CSS3DObject(element);
-            domObject.position.x = cube.position.x;
-            domObject.position.y = cube.position.y;
-            domObject.position.z = cube.position.z;
-            cssScene.add(domObject);
-
-            var materialPlane = new THREE.MeshPhongMaterial({
-                opacity: 0.5,
-                color: new THREE.Color('blue'),
-                blending: THREE.NoBlending,
-                side: THREE.DoubleSide,
-            });
-
-            var geometryPlane = new THREE.PlaneGeometry(cube.geometry.parameters.width, cube.geometry.parameters.height);
-            var meshPlane = new THREE.Mesh(geometryPlane, materialPlane);
-            meshPlane.position.x = domObject.position.x;
-            meshPlane.position.y = domObject.position.y;
-            meshPlane.position.z = domObject.position.z;
-            meshPlane.castShadow = false;
-            meshPlane.receiveShadow = true;
-
-            selectedScene.add(meshPlane);
-        });
-    };
-
-    var setSelectedSceneById = function () {
-        //TODO: review and remove later
-
-        //function (userIndex, projectIndex, taskIndex) {
-        //if (userIndex === undefined || userIndex === '') {
-        //    console.log('None userIndex loaded in user selector.');
-        //    return;
-        //}
-
-        //if (projectIndex === undefined || projectIndex === '') {
-        //    console.log('None projectIndex loaded in project selector.');
-        //    return;
-        //}
-
-        //if (taskIndex === undefined || taskIndex === '') {
-        //    console.log('None taskIndex loaded in task selector.');
-        //    return;
-        //}
-
-        //for (var i = 0; i < sceneArray.length; i++) {
-        //    if (sceneArray[i].userIndex === userIndex &&
-        //        sceneArray[i].projectIndex === projectIndex && 
-        //        sceneArray[i].taskIndex === taskIndex
-        //    ) {
-                selectedScene = sceneArray[0];
-
-                scaleOptions.setScaleOption(selectedScene.scaleOptions);
-                hideShowOptions.setHideShowOption(selectedScene.hideShowOptions);
-                colorPaletteOptions.setColorPaletteOption(selectedScene.colorPaletteOptions);
-                //mountCssCodeParts();
-                //TODO: enable here to render css parts
-                return;
-        //}
-        //}
-    };
-
     var getSelectedScene = function () {
         return selectedScene;
     };
 
     var onWindowResize = function () {
-
-        var canvasRenderRelativeSize = document.querySelector('.canvasRenderRelativeSize');
-        canvasRenderRelativeSize.style.position = 'absolute';
-        canvasRenderRelativeSize.style.top = '148px';
-        canvasRenderRelativeSize.style.width = getRelativeWidth() + 'px';
-        canvasRenderRelativeSize.style.height = getRelativeHeight() + 'px';
-
         renderer.setSize(getRelativeWidth(), getRelativeHeight());
-        cssRenderer.setSize(getRelativeWidth(), getRelativeHeight());
 
         funcaoZoom();
     };
@@ -380,7 +268,6 @@
     return {
         initGraph: initGraph,
         getNewScene: getNewScene,
-        setSelectedSceneById: setSelectedSceneById,
         getSelectedScene: getSelectedScene,
         onWindowResize: onWindowResize,
         resetCameraPosition: resetCameraPosition,

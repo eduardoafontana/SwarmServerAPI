@@ -5,7 +5,7 @@ var detailbox = (function () {
     var detailBoxWidth = 400;
     var marginLeftHoldAdjustment = 20;
     var marginTopHoldAdjustment = 45;
-    var detailBoxTop = 185;
+    var detailBoxTop = 120;
 
     function relocate() {
         var box = document.getElementsByClassName("detail-box")[0];

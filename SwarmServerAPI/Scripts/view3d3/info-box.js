@@ -3,7 +3,7 @@ var infobox = (function () {
     var infoBoxHeight = 30;
     var infoBoxWidth = 400;
     var infoMarginLeftHoldAdjustment = 20;
-    var infoBoxTop = 150;
+    var infoBoxTop = 85;
 
     function relocate() {
         var box = document.getElementsByClassName("info-box")[0];

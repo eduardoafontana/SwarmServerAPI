@@ -90,38 +90,23 @@
     };
 
     document.addEventListener("DOMContentLoaded", function () {
-
-        var cssRenderRelativeSize = document.querySelector('.cssRenderRelativeSize');
-
-        var canvasRenderRelativeSize = document.querySelector('.canvasRenderRelativeSize');
-        canvasRenderRelativeSize.style.position = 'absolute';
-        canvasRenderRelativeSize.style.top = '148px';
-        canvasRenderRelativeSize.style.width = cssRenderRelativeSize.offsetWidth + 'px';
-        canvasRenderRelativeSize.style.height = cssRenderRelativeSize.offsetHeight + 'px';
-
         document.getElementById('back-button').addEventListener('click', sourceCodeControl.backButtonClick);
         document.getElementById('next-button').addEventListener('click', sourceCodeControl.nextButtonClick);
 
         var loadviewButton = document.getElementById('loadview-button');
         loadviewButton.addEventListener('click', function () {
-
-            document.getElementById('loadview-text').style.visibility = "hidden";
-
             dataControl.getDataFromServer(sessionFilter.getSelectedSessions()).then(function (dataFromServer) {
                 dataControl.setView(dataFromServer);
 
                 sceneLoader();
-                render.setSelectedSceneById();
             });
         });
 
-        //dataControl.getDataFilterFromServer().then(function (dataFromServer) {
         dataControl.getTaskProjectDataFilterFromServer().then(function (taskProjectDataFromServer) {
             FontLoader().then(function (font) {
 
                 taskProjectFilter.init(taskProjectDataFromServer);
 
-                //dataControl.setFilter(dataFromServer);
                 render.setFont(font);
 
                 render.initGraph();
@@ -130,7 +115,6 @@
                 scaleOptions.init();
                 hideShowOptions.init();
                 colorPaletteOptions.init();
-                //selectControl.init();
 
                 window.addEventListener('resize', render.onWindowResize, false);
                 window.addEventListener('resize', infobox.init, false);

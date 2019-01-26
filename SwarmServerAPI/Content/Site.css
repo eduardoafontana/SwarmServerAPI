@@ -1,28 +1,4 @@
-﻿/*
-body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-}
-*/
-
-/* Set padding to keep content from hitting the edges */
-/*
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-*/
-
-/* Set width on the form input elements since they're 100% wide by default */
-/*
-input,
-select,
-textarea {
-    max-width: 280px;
-}
-*/
-
-/* ag-grid view eye icon */
+﻿/* ag-grid view eye icon */
 .view-button-eye {
     cursor: pointer;
     font-size: 18px;
@@ -93,11 +69,6 @@ main
     .modal-dialog {
         max-width : 100%;
     }
-}
-
-.view3d-title
-{
-    margin-bottom: 20px;
 }
 
 #taskproject-list-div div.bootstrap-select.fit-width {
