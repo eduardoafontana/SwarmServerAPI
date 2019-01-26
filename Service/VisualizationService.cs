@@ -76,12 +76,6 @@ namespace SwarmServerAPI.AppCore.Service
             public List<Task> tasks { get; set; } = new List<Task>();
         }
 
-        public class UserRemove
-        {
-            public string name { get; set; }
-            public List<Project> projects { get; set; } = new List<Project>();
-        }
-
         public class User
         {
             public string userName { get; set; }
@@ -98,28 +92,56 @@ namespace SwarmServerAPI.AppCore.Service
 
         private class SessionFilter
         {
+            public string originalId { get; set; }
             public int sessionId { get; set; }
             public string name { get; set; }
             public int breakpointCount { get; set; }
             public int eventCount { get; set; }
         }
 
-        public List<UserRemove> GetView3dDataFilter()
+        public class View
         {
-            List<UserRemove> users = LoadFilter();
-
-            LoadView(users.FirstOrDefault());
-
-            return users;
+            public List<Session> sessions { get; set; } = new List<Session>();
+            public List<Group> groups { get; set; } = new List<Group>();
         }
 
-        public List<UserRemove> GetView3dData(string user, string project, string task)
+        public View GetView3dData(SessionFilterModel filter)
         {
-            List<UserRemove> users = LoadFilter(user, project, task);
+            View view = new View { sessions = new List<Session>(), groups = new List<Group>() };
 
-            LoadView(users.FirstOrDefault());
+            if (filter == null)
+                return view;
 
-            return users;
+            Guid[] idsList = filter.list.Select(x => Guid.Parse(x.id)).ToArray();
+
+            using (SwarmData context = new SwarmData())
+            {
+                var sessions = context.Sessions
+                .Where(s => idsList.Contains(s.Id))
+                .OrderBy(s => s.Started)
+                .Select(s => s.Id)
+                .ToList();
+
+                view.groups = context.CodeFiles
+                    .Where(c => sessions.Contains(c.Session.Id))
+                    .OrderBy(c => c.Created)
+                    .AsEnumerable()
+                    .Select(c => new { pathOnly = System.IO.Path.GetDirectoryName(c.Path).ToLower() })
+                    .Distinct()
+                    .Select((po, i) => new Group { groupId = i, maxIndexWidthQuantity = 0, path = po.pathOnly })
+                    .ToList();
+
+                view.sessions = getSessions(context.Sessions
+                        .Include("CodeFiles")
+                        .Include("Breakpoints")
+                        .Include("Events")
+                        .Include("PathNodes")
+                        .Where(s => sessions.Contains(s.Id))
+                        .OrderBy(s => s.Started).ToList(),
+                    view.groups);
+            }
+
+            return view;
         }
 
         public string GetView3dSourceCode(string originalId)
@@ -142,63 +164,59 @@ namespace SwarmServerAPI.AppCore.Service
             return sourceCode;
         }
 
-        public List<UserRemove> LoadFilter()
-        {
-            return LoadFilter(String.Empty, String.Empty, String.Empty);
-        }
+        //TODO remove later
+        //public List<UserRemove> LoadFilter(string developerName, string projectName, string taskName)
+        //{
+        //    List<UserRemove> users = new List<UserRemove>();
 
-        public List<UserRemove> LoadFilter(string developerName, string projectName, string taskName)
-        {
-            List<UserRemove> users = new List<UserRemove>();
+        //    using (SwarmData context = new SwarmData())
+        //    {
+        //        users = context.Sessions.Include("CodeFiles")
+        //            .Where(s => s.CodeFiles.Count() > 0)
+        //            .Where(s => developerName == String.Empty || (developerName != String.Empty && s.DeveloperName == developerName))
+        //            //.Where(s => s.DeveloperName.ToLower() == "MarcosN.B")
+        //            //.Where(s => s.DeveloperName.ToLower() == "Eduardo A. F.")
+        //            .GroupBy(s => s.DeveloperName)
+        //            .Select(s => s.FirstOrDefault())
+        //            .Where(s => s.DeveloperName != null && s.DeveloperName.Trim() != string.Empty)
+        //            .OrderBy(s => s.DeveloperName)
+        //            .Select(s => new UserRemove
+        //            {
+        //                name = s.DeveloperName,
+        //                projects = context.Sessions
+        //                    .Where(s1 => s1.CodeFiles.Count() > 0)
+        //                    .Where(s1 => s1.DeveloperName == s.DeveloperName)
+        //                    .Where(s1 => projectName == String.Empty || (projectName != String.Empty && s1.ProjectName == projectName))
+        //                    //.Where(s1 => s1.ProjectName.ToLower() == "SIRA.sln")
+        //                    //.Where(s1 => s1.ProjectName.ToLower() == "ConsoleApp1.sln")
+        //                    .GroupBy(s1 => s1.ProjectName)
+        //                    .Select(s1 => s1.FirstOrDefault())
+        //                    .Where(s1 => s1.ProjectName != null && s1.ProjectName.Trim() != string.Empty)
+        //                    .OrderBy(s1 => s1.ProjectName)
+        //                    .Select(s1 => new Project
+        //                    {
+        //                        name = s1.ProjectName,
+        //                        tasks = context.Sessions
+        //                            .Where(s2 => s2.CodeFiles.Count() > 0)
+        //                            .Where(s2 => s2.DeveloperName == s1.DeveloperName && s2.ProjectName == s1.ProjectName)
+        //                            .Where(s2 => taskName == String.Empty || (taskName != String.Empty && s2.TaskName == taskName))
+        //                            //.Where(s2 => s2.TaskName.ToLower() == "simple example 6 - breakpoint bug fixed")
+        //                            //.Where(s2 => s2.TaskName.ToLower() == "Teste Reload")
+        //                            //.Where(s2 => s2.TaskName.ToLower() == "Teste PN Event_Id")
+        //                            .GroupBy(s2 => s2.TaskName)
+        //                            .Select(s2 => s2.FirstOrDefault())
+        //                            .Where(s2 => s2.TaskName != null && s2.TaskName.Trim() != string.Empty)
+        //                            .OrderBy(s2 => s2.TaskName)
+        //                            .Select(s2 => new Task
+        //                            {
+        //                                name = s2.TaskName,
+        //                            }).ToList()
+        //                    }).ToList()
+        //            }).ToList();
+        //    }
 
-            using (SwarmData context = new SwarmData())
-            {
-                users = context.Sessions.Include("CodeFiles")
-                    .Where(s => s.CodeFiles.Count() > 0)
-                    .Where(s => developerName == String.Empty || (developerName != String.Empty && s.DeveloperName == developerName))
-                    //.Where(s => s.DeveloperName.ToLower() == "MarcosN.B")
-                    //.Where(s => s.DeveloperName.ToLower() == "Eduardo A. F.")
-                    .GroupBy(s => s.DeveloperName)
-                    .Select(s => s.FirstOrDefault())
-                    .Where(s => s.DeveloperName != null && s.DeveloperName.Trim() != string.Empty)
-                    .OrderBy(s => s.DeveloperName)
-                    .Select(s => new UserRemove
-                    {
-                        name = s.DeveloperName,
-                        projects = context.Sessions
-                            .Where(s1 => s1.CodeFiles.Count() > 0)
-                            .Where(s1 => s1.DeveloperName == s.DeveloperName)
-                            .Where(s1 => projectName == String.Empty || (projectName != String.Empty && s1.ProjectName == projectName))
-                            //.Where(s1 => s1.ProjectName.ToLower() == "SIRA.sln")
-                            //.Where(s1 => s1.ProjectName.ToLower() == "ConsoleApp1.sln")
-                            .GroupBy(s1 => s1.ProjectName)
-                            .Select(s1 => s1.FirstOrDefault())
-                            .Where(s1 => s1.ProjectName != null && s1.ProjectName.Trim() != string.Empty)
-                            .OrderBy(s1 => s1.ProjectName)
-                            .Select(s1 => new Project
-                            {
-                                name = s1.ProjectName,
-                                tasks = context.Sessions
-                                    .Where(s2 => s2.CodeFiles.Count() > 0)
-                                    .Where(s2 => s2.DeveloperName == s1.DeveloperName && s2.ProjectName == s1.ProjectName)
-                                    .Where(s2 => taskName == String.Empty || (taskName != String.Empty && s2.TaskName == taskName))
-                                    //.Where(s2 => s2.TaskName.ToLower() == "simple example 6 - breakpoint bug fixed")
-                                    //.Where(s2 => s2.TaskName.ToLower() == "Teste Reload")
-                                    //.Where(s2 => s2.TaskName.ToLower() == "Teste PN Event_Id")
-                                    .GroupBy(s2 => s2.TaskName)
-                                    .Select(s2 => s2.FirstOrDefault())
-                                    .Where(s2 => s2.TaskName != null && s2.TaskName.Trim() != string.Empty)
-                                    .OrderBy(s2 => s2.TaskName)
-                                    .Select(s2 => new Task
-                                    {
-                                        name = s2.TaskName,
-                                    }).ToList()
-                            }).ToList()
-                    }).ToList();
-            }
-
-            return users;
-        }
+        //    return users;
+        //}
 
         public object GetView3dTaskProjectDataFilter()
         {
@@ -285,6 +303,7 @@ namespace SwarmServerAPI.AppCore.Service
                     .AsEnumerable()
                     .Select((s, i) => new SessionFilter
                     {
+                        originalId = s.Id.ToString(),
                         sessionId = i,
                         name = String.Format("{0:yyyy-MM-ddTHH:mm:ssZ}", s.Started),
                         breakpointCount = s.Breakpoints.Count,
@@ -293,51 +312,6 @@ namespace SwarmServerAPI.AppCore.Service
             }
 
             return list;
-        }
-
-        private void LoadView(UserRemove user)
-        {
-            if (user == null)
-                return;
-
-            Project project = user.projects.FirstOrDefault();
-
-            if (project == null)
-                return;
-
-            Task task = project.tasks.FirstOrDefault();
-
-            if (task == null)
-                return;
-
-            using (SwarmData context = new SwarmData())
-            {
-                var sessions = context.Sessions
-                .Where(s => s.TaskName == task.name &&
-                    s.ProjectName == project.name &&
-                    s.DeveloperName == user.name)
-                .OrderBy(s => s.Started)
-                .Select(s => s.Id)
-                .ToList();
-
-                task.groups = context.CodeFiles
-                    .Where(c => sessions.Contains(c.Session.Id))
-                    .OrderBy(c => c.Created)
-                    .AsEnumerable()
-                    .Select(c => new { pathOnly = System.IO.Path.GetDirectoryName(c.Path).ToLower() })
-                    .Distinct()
-                    .Select((po, i) => new Group { groupId = i, maxIndexWidthQuantity = 0, path = po.pathOnly })
-                    .ToList();
-
-                task.sessions = getSessions(context.Sessions
-                        .Include("CodeFiles")
-                        .Include("Breakpoints")
-                        .Include("Events")
-                        .Include("PathNodes")
-                        .Where(s => sessions.Contains(s.Id))
-                        .OrderBy(s => s.Started).ToList(),
-                    task.groups);
-            }
         }
 
         private List<Session> getSessions(List<AppCode.Repository.Session> listSession, List<Group> generatedGroups)

@@ -1,49 +1,41 @@
 ﻿var view3d = (function () {
 
-    var sceneLoader = function (userIndex, projectIndex, taskIndex) {
+    var sceneLoader = function () {
 
-        var users = dataControl.getUsers();
+        var view = dataControl.getView();
 
-        if (typeof users[userIndex] === 'undefined')
+        if (view == null)
             return;
 
-        if (typeof users[userIndex].projects[projectIndex] === 'undefined')
+        var scene = render.getNewScene();
+
+        if (view.groups == undefined)
             return;
 
-        if (typeof users[userIndex].projects[projectIndex].tasks[taskIndex] === 'undefined')
-            return;
-
-        var task = users[userIndex].projects[projectIndex].tasks[taskIndex];
-
-        var scene = render.getNewScene(userIndex, projectIndex, taskIndex);
-
-        if (task.groups == undefined)
-            return;
-
-        if (task.sessions == undefined)
+        if (view.sessions == undefined)
             return;
 
         groupAssembler.reset();
-        groupAssembler.mountMostHighFileSpacePoints(task.sessions);
-        groupAssembler.mountMostHighFileLine(task.sessions);
+        groupAssembler.mountMostHighFileSpacePoints(view.sessions);
+        groupAssembler.mountMostHighFileLine(view.sessions);
 
         var groups = [];
 
-        for (var g = 0; g < task.groups.length; g++) {
-            groups.push(Group(task.groups[g], task.sessions.length, groups[g - 1]));
+        for (var g = 0; g < view.groups.length; g++) {
+            groups.push(Group(view.groups[g], view.sessions.length, groups[g - 1]));
         }
 
         for (var g = 0; g < groups.length; g++) {
             scene.add(groups[g].mesh);
         }
 
-        var arrowHuge = ArrowHuge(task.sessions.length);
+        var arrowHuge = ArrowHuge(view.sessions.length);
         scene.add(arrowHuge.mesh);
 
-        for (var s = 0; s < task.sessions.length; s++) {
-            var files = task.sessions[s].files;
-            var sessionId = task.sessions[s].sessionId;
-            var groups = task.groups;
+        for (var s = 0; s < view.sessions.length; s++) {
+            var files = view.sessions[s].files;
+            var sessionId = view.sessions[s].sessionId;
+            var groups = view.groups;
 
             //generate infos x z positions and mostHighFileLine.
             groupAssembler.mountBySession(files, groups);
@@ -79,7 +71,7 @@
                 //}
             }
 
-            var pathnodes = task.sessions[s].pathnodes;
+            var pathnodes = view.sessions[s].pathnodes;
 
             if (pathnodes.length > 1) {
                 //generate infos x z positions on nodes
@@ -113,21 +105,13 @@
         var loadviewButton = document.getElementById('loadview-button');
         loadviewButton.addEventListener('click', function () {
 
-            var selectUser = document.getElementById('user-select');
-            var selectProject = document.getElementById('project-select');
-            var selectTask = document.getElementById('task-select');
-
-            var userName = selectUser.options[selectUser.selectedIndex].text;
-            var projectName = selectProject.options[selectProject.selectedIndex].text;
-            var taskName = selectTask.options[selectTask.selectedIndex].text;
-
             document.getElementById('loadview-text').style.visibility = "hidden";
 
-            dataControl.getDataFromServer(userName, projectName, taskName).then(function (dataFromServer) {
-                dataControl.setData(dataFromServer, selectUser.value, selectProject.value, selectTask.value);
+            dataControl.getDataFromServer(sessionFilter.getSelectedSessions()).then(function (dataFromServer) {
+                dataControl.setView(dataFromServer);
 
-                sceneLoader(selectUser.value, selectProject.value, selectTask.value);
-                render.setSelectedSceneById(selectUser.value, selectProject.value, selectTask.value);
+                sceneLoader();
+                render.setSelectedSceneById();
             });
         });
 
@@ -146,7 +130,7 @@
                 scaleOptions.init();
                 hideShowOptions.init();
                 colorPaletteOptions.init();
-                selectControl.init();
+                //selectControl.init();
 
                 window.addEventListener('resize', render.onWindowResize, false);
                 window.addEventListener('resize', infobox.init, false);

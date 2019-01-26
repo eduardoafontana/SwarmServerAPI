@@ -116,32 +116,33 @@
         camera.updateProjectionMatrix();
     };
 
-    var getNewScene = function(userIndex, projectIndex, taskIndex) {
+    var getNewScene = function() {
+        //function (userIndex, projectIndex, taskIndex) {
         var scene = new THREE.Scene();
 
-        scene.userIndex = userIndex;
-        scene.projectIndex = projectIndex;
-        scene.taskIndex = taskIndex;
+        //scene.userIndex = userIndex;
+        //scene.projectIndex = projectIndex;
+        //scene.taskIndex = taskIndex;
 
         scene.add(Axes().mesh);
         scene.add(Grid().mesh);
 
         scene.interceptables = [];
 
-        for (var i = 0; i < sceneArray.length; i++) {
-            if (sceneArray[i].userIndex === userIndex &&
-                sceneArray[i].projectIndex === projectIndex &&
-                sceneArray[i].taskIndex === taskIndex
-            ) {
-                scene.scaleOptions = sceneArray[i].scaleOptions;
-                scene.hideShowOptions = sceneArray[i].hideShowOptions;
-                scene.colorPaletteOptions = sceneArray[i].colorPaletteOptions;
+        //for (var i = 0; i < sceneArray.length; i++) {
+        //    if (sceneArray[i].userIndex === userIndex &&
+        //        sceneArray[i].projectIndex === projectIndex &&
+        //        sceneArray[i].taskIndex === taskIndex
+        //    ) {
+        //        scene.scaleOptions = sceneArray[i].scaleOptions;
+        //        scene.hideShowOptions = sceneArray[i].hideShowOptions;
+        //        scene.colorPaletteOptions = sceneArray[i].colorPaletteOptions;
 
-                sceneArray[i] = scene;
+        //        sceneArray[i] = scene;
 
-                return scene;
-            }
-        }
+        //        return scene;
+        //    }
+        //}
 
         //--Properties those are persistable on scene reload.
         //--
@@ -206,7 +207,7 @@
         scene.colorPaletteOptions.add(scene.colorPaletteOptions.options, 'colorPalette', colorPalette.getColorPalatteArray());
         scene.colorPaletteOptions.addColor(scene.colorPaletteOptions.options, 'backgroundColor');
 
-        sceneArray.push(scene);
+        sceneArray[0] = scene;
 
         return scene;
     };
@@ -257,28 +258,31 @@
         });
     };
 
-    var setSelectedSceneById = function (userIndex, projectIndex, taskIndex) {
-        if (userIndex === undefined || userIndex === '') {
-            console.log('None userIndex loaded in user selector.');
-            return;
-        }
+    var setSelectedSceneById = function () {
+        //TODO: review and remove later
 
-        if (projectIndex === undefined || projectIndex === '') {
-            console.log('None projectIndex loaded in project selector.');
-            return;
-        }
+        //function (userIndex, projectIndex, taskIndex) {
+        //if (userIndex === undefined || userIndex === '') {
+        //    console.log('None userIndex loaded in user selector.');
+        //    return;
+        //}
 
-        if (taskIndex === undefined || taskIndex === '') {
-            console.log('None taskIndex loaded in task selector.');
-            return;
-        }
+        //if (projectIndex === undefined || projectIndex === '') {
+        //    console.log('None projectIndex loaded in project selector.');
+        //    return;
+        //}
 
-        for (var i = 0; i < sceneArray.length; i++) {
-            if (sceneArray[i].userIndex === userIndex &&
-                sceneArray[i].projectIndex === projectIndex && 
-                sceneArray[i].taskIndex === taskIndex
-            ) {
-                selectedScene = sceneArray[i];
+        //if (taskIndex === undefined || taskIndex === '') {
+        //    console.log('None taskIndex loaded in task selector.');
+        //    return;
+        //}
+
+        //for (var i = 0; i < sceneArray.length; i++) {
+        //    if (sceneArray[i].userIndex === userIndex &&
+        //        sceneArray[i].projectIndex === projectIndex && 
+        //        sceneArray[i].taskIndex === taskIndex
+        //    ) {
+                selectedScene = sceneArray[0];
 
                 scaleOptions.setScaleOption(selectedScene.scaleOptions);
                 hideShowOptions.setHideShowOption(selectedScene.hideShowOptions);
@@ -286,8 +290,8 @@
                 //mountCssCodeParts();
                 //TODO: enable here to render css parts
                 return;
-            }
-        }
+        //}
+        //}
     };
 
     var getSelectedScene = function () {

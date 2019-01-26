@@ -8,9 +8,8 @@
             var checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
             checkbox.name = 'session-checkbox';
-            checkbox.value = sessions[s].sessionId;
-            checkbox.id = 'sessionId-checkbox-id-' + sessions[s].sessionId;
-            checkbox.checked = true;
+            checkbox.value = sessions[s].originalId;
+            checkbox.checked = false;
             checkbox.classList.add('form-check-input');
 
             var label = document.createElement('label')
@@ -29,7 +28,7 @@
             checkboxVisible.name = 'session-checkbox-visible';
             checkboxVisible.value = sessions[s].sessionId;
             checkboxVisible.id = 'sessionId-checkbox-visible-id-' + sessions[s].sessionId;
-            checkboxVisible.checked = false;
+            checkboxVisible.checked = true;
 
             div.appendChild(checkboxVisible);
 
@@ -51,6 +50,18 @@
         }
     };
 
+    var getSelectedSessions = function () {
+        var selectedList = [];
+
+        var selectedSessions = document.querySelectorAll('input[name="session-checkbox"]:checked');
+
+        for (var i = 0; i < selectedSessions.length; i++) {
+            selectedList.push({ id: selectedSessions[i].value });
+        }
+
+        return selectedList;
+    };
+
     var getVisible = function (sessionId, internalControlVisible) {
         var visible = false;
 
@@ -69,6 +80,7 @@
 
     return {
         init: init,
-        getVisible: getVisible
+        getVisible: getVisible,
+        getSelectedSessions: getSelectedSessions
     };
 })();

@@ -110,26 +110,27 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("api/Visualization/View3dFilter")]
-        public HttpResponseMessage GetView3dFilterVisualization()
-        {
-            try
-            {
-                VisualizationService visualizationService = new VisualizationService();
-                var view3dData = visualizationService.GetView3dDataFilter();
+        //TODO: remove later
+        //[HttpGet]
+        //[Route("api/Visualization/View3dFilter")]
+        //public HttpResponseMessage GetView3dFilterVisualization()
+        //{
+        //    try
+        //    {
+        //        VisualizationService visualizationService = new VisualizationService();
+        //        var view3dData = visualizationService.GetView3dDataFilter();
 
-                var data = new JavaScriptSerializer().Serialize(view3dData);
+        //        var data = new JavaScriptSerializer().Serialize(view3dData);
 
-                var response = Request.CreateResponse(HttpStatusCode.OK);
-                response.Content = new StringContent(data, Encoding.UTF8, "application/json");
-                return response;
-            }
-            catch (Exception ex)
-            {
-                throw InternalError.ThrowError(ex);
-            }
-        }
+        //        var response = Request.CreateResponse(HttpStatusCode.OK);
+        //        response.Content = new StringContent(data, Encoding.UTF8, "application/json");
+        //        return response;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw InternalError.ThrowError(ex);
+        //    }
+        //}
 
         [HttpGet]
         [Route("api/Visualization/View3dTaskProjectFilter")]
@@ -194,14 +195,14 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("api/Visualization/View3d")]
-        public HttpResponseMessage GetView3dVisualization(string user, string project, string task)
+        public HttpResponseMessage GetView3dVisualization(SessionFilterModel filter)
         {
             try
             {
                 VisualizationService visualizationService = new VisualizationService();
-                var view3dData = visualizationService.GetView3dData(user, project, task);
+                var view3dData = visualizationService.GetView3dData(filter);
 
                 var data = new JavaScriptSerializer().Serialize(view3dData);
 
