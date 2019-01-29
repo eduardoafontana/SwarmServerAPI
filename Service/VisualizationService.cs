@@ -232,7 +232,7 @@ namespace SwarmServerAPI.AppCore.Service
                     .Include("PathNodes")
                     .Where(s => s.CodeFiles.Count() > 0)
                     .Where(s => sessions.Contains(s.Id))
-                    .OrderBy(s => s.Started)
+                    .OrderByDescending(s => s.Started)
                     .AsEnumerable()
                     .Select((s, i) => new SessionFilter
                     {
