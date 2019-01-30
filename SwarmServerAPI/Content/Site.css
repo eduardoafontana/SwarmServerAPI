@@ -83,8 +83,10 @@ main {
 }
 
 /* session filter checkbox */
-.session-checkbox-visible + label {
+.form-check-label {
     margin-left: 20px;
+}
+.session-checkbox-visible + label {
     cursor: pointer;
     margin-bottom: 5px;
 }

@@ -7,6 +7,9 @@
         createSelectAll(sessions.length);
 
         for (var s = 0; s < sessions.length; s++) {
+            var div = document.createElement('div');
+            div.classList.add('form-check');
+
             var checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
             checkbox.name = 'session-checkbox';
@@ -14,16 +17,7 @@
             checkbox.checked = false;
             checkbox.classList.add('form-check-input');
 
-            var label = document.createElement('label')
-            label.htmlFor = checkbox.id;
-            label.appendChild(document.createTextNode(sessions[s].name));
-            label.classList.add('form-check-label');
-
-            var div = document.createElement('div');
-            div.classList.add('form-check');
-
             div.appendChild(checkbox);
-            div.appendChild(label);
 
             var checkboxVisible = document.createElement('input');
             checkboxVisible.type = 'checkbox';
@@ -74,6 +68,13 @@
 
             div.appendChild(label);
 
+            var label = document.createElement('label')
+            label.htmlFor = checkbox.id;
+            label.appendChild(document.createTextNode(sessions[s].name));
+            label.classList.add('form-check-label');
+
+            div.appendChild(label);
+
             sessionListDiv.appendChild(div);
         }
     };
@@ -95,7 +96,7 @@
         var label = document.createElement('label')
         label.htmlFor = checkbox.id;
         label.appendChild(document.createTextNode('Select All'));
-        label.classList.add('form-check-label');
+        label.classList.add('form-check-label-selectall');
 
         div.appendChild(checkbox);
         div.appendChild(label);

@@ -238,7 +238,7 @@ namespace SwarmServerAPI.AppCore.Service
                     {
                         originalId = s.Id.ToString(),
                         sessionId = i,
-                        name = String.Format("{0:yyyy-MM-ddTHH:mm:ssZ}", s.Started),
+                        name = String.Format("{0:dd/MM/yyyy HH:mm:ssZ}", s.Started),
                         breakpointCount = s.Breakpoints.Count,
                         eventCount = s.Events.Where(e => e.EventKind == "StepInto" || e.EventKind == "StepOver" || e.EventKind == "BreakpointHitted").Count()
                     }).ToList();
