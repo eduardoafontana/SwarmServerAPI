@@ -4,6 +4,8 @@
         var sessionListDiv = document.querySelector('#session-list-div');
         sessionListDiv.innerHTML = '';
 
+        createSelectAll(sessions.length);
+
         for (var s = 0; s < sessions.length; s++) {
             var checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
@@ -75,6 +77,42 @@
             sessionListDiv.appendChild(div);
         }
     };
+
+    function createSelectAll(sessionsLength) {
+        if (sessionsLength == 0)
+            return;
+
+        var div = document.createElement('div');
+        div.classList.add('form-check');
+
+        var checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.name = 'session-checkbox-selectall';
+        checkbox.id = 'session-checkbox-selectall';
+        checkbox.checked = false;
+        checkbox.classList.add('form-check-input');
+
+        var label = document.createElement('label')
+        label.htmlFor = checkbox.id;
+        label.appendChild(document.createTextNode('Select All'));
+        label.classList.add('form-check-label');
+
+        div.appendChild(checkbox);
+        div.appendChild(label);
+
+        var sessionListDiv = document.querySelector('#session-list-div');
+        sessionListDiv.appendChild(div);
+
+        $('#session-checkbox-selectall').on('change', function () {
+            var options = document.querySelectorAll('input[name="session-checkbox"]');
+
+            var checked = $('#session-checkbox-selectall')[0].checked;
+
+            for (var i = 0; i < options.length; i++) {
+                options[i].checked = checked;
+            }
+        });
+    }
 
     var getSelectedSessions = function () {
         var selectedList = [];
