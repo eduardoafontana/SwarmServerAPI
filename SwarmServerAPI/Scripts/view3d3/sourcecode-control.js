@@ -38,6 +38,9 @@
 
         boxMainPre.innerHTML = '';
         boxMainPre.appendChild(code);
+
+        document.getElementById('next-button').disabled = true;
+        document.getElementById('back-button').disabled = true;
     };
 
     var loadCodeStyle = () => new Promise(function (resolve, reject) {
@@ -46,7 +49,7 @@
         hljs.highlightBlock(preTag);
         hljs.lineNumbersBlock(preTag);
 
-        setTimeout(function () { resolve(); }, 1500);
+        setTimeout(function () { resolve(); }, 500);
     });
 
     function getLine(lineNumber) {
@@ -110,8 +113,35 @@
         }
     };
 
-    var loadSelected = function (objetEventOrBreakpoint, file) {
+    function verifyBackNextButon() {
+        var nextEventPositionIndex = currentElement.positionIndex + 1;
+        var backEventPositionIndex = currentElement.positionIndex - 1;
 
+        var notEndNext = true;
+        var notEndBack = true;
+
+        var foundNext = false;
+        var foundBack = false;
+
+        for (var f = 0; f < files.length; f++) {
+            for (var e = 0; e < files[f].events.length; e++) {
+                if (files[f].events[e].positionIndex == nextEventPositionIndex && notEndNext) {
+                    notEndNext = false;
+                    foundNext = true;
+                }
+
+                if (files[f].events[e].positionIndex == backEventPositionIndex && notEndBack) {
+                    notEndBack = false;
+                    foundBack = true;
+                }
+            }
+        }
+
+        document.getElementById('next-button').disabled = !foundNext;
+        document.getElementById('back-button').disabled = !foundBack;
+    };
+
+    var loadSelected = function (objetEventOrBreakpoint, file) {
         currentElement = objetEventOrBreakpoint;
         currentFile = file;
 
@@ -140,6 +170,8 @@
         var offSetLine = 56;
 
         preTag.scrollTo(0, positionY - offSetLine);
+
+        verifyBackNextButon();
     };
 
     var isSelectedFile = function (pFileInformationJson) {
