@@ -158,6 +158,7 @@ namespace SwarmServerAPI.AppCore.Service
             using (SwarmData context = new SwarmData())
             {
                 list = context.Sessions.Include("CodeFiles")
+                    .Where(s => s.Started >= new DateTime(2018, 12, 25, 0, 0, 0))
                     .Where(s => s.CodeFiles.Count() > 0)
                     .Where(s => s.DeveloperName != null && s.DeveloperName.Trim() != String.Empty)
                     .Where(s => s.TaskName != null && s.TaskName.Trim() != String.Empty)
@@ -187,6 +188,7 @@ namespace SwarmServerAPI.AppCore.Service
             using (SwarmData context = new SwarmData())
             {
                 list = context.Sessions.Include("CodeFiles")
+                    .Where(s => s.Started >= new DateTime(2018, 12, 25, 0, 0, 0))
                     .Where(s => s.CodeFiles.Count() > 0)
                     .Where(s => s.DeveloperName != null && s.DeveloperName.Trim() != String.Empty)
                     .Where(s => s.TaskName != null && s.TaskName.Trim() != String.Empty)
@@ -218,6 +220,7 @@ namespace SwarmServerAPI.AppCore.Service
             using (SwarmData context = new SwarmData())
             {
                 var sessions = context.Sessions
+                .Where(s => s.Started >= new DateTime(2018, 12, 25, 0, 0, 0))
                 .Where(s => s.DeveloperName != null && s.DeveloperName.Trim() != String.Empty)
                 .Where(s => s.TaskName != null && s.TaskName.Trim() != String.Empty)
                 .Where(s => s.ProjectName != null && s.ProjectName.Trim() != String.Empty)
