@@ -18,42 +18,44 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/umd/popper.js",
-                      "~/Scripts/bootstrap.js",
+                      //TODO: Removed to bug fix de double click of selectpicker for filters. Maybe review later.
+                      //"~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js",
-                      "~/Scripts/bootstrap-select.js",
-                      "~/Scripts/bootstrap.bundle.js"
+                      "~/Scripts/bootstrap.bundle.js",
+                      "~/Scripts/bootstrap-select.js"
                       ));
 
-            bundles.Add(new ScriptBundle("~/bundles/data-session")
-                .Include("~/Scripts/ag-grid-hack.js")
-                .Include("~/Scripts/data-session.js"));
+            //TODO: Remove this old code later.
+            //bundles.Add(new ScriptBundle("~/bundles/data-session")
+            //    .Include("~/Scripts/ag-grid-hack.js")
+            //    .Include("~/Scripts/data-session.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/data-task")
-                .Include("~/Scripts/ag-grid-hack.js")
-                .Include("~/Scripts/data-task.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/data-task")
+            //    .Include("~/Scripts/ag-grid-hack.js")
+            //    .Include("~/Scripts/data-task.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/data-tasktime").Include(
-                      "~/Scripts/data-tasktime.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/data-tasktime").Include(
+            //          "~/Scripts/data-tasktime.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/data-codemetric").Include(
-                      "~/Scripts/data-codemetric.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/data-codemetric").Include(
+            //          "~/Scripts/data-codemetric.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/cytoscape").Include(
-                      "~/Scripts/cytoscape.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/cytoscape").Include(
+            //          "~/Scripts/cytoscape.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/dagre").Include(
-                      "~/Scripts/dagre.min.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/dagre").Include(
+            //          "~/Scripts/dagre.min.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/cytoscape-dagre").Include(
-                      "~/Scripts/cytoscape-dagre.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/cytoscape-dagre").Include(
+            //          "~/Scripts/cytoscape-dagre.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/cytoscape-qtip").Include(
-                      "~/Scripts/jquery.qtip.js",
-                      "~/Scripts/cytoscape-qtip.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/cytoscape-qtip").Include(
+            //          "~/Scripts/jquery.qtip.js",
+            //          "~/Scripts/cytoscape-qtip.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/threejs").Include(
                       "~/Scripts/three.js/build/three.min.js",
-                      "~/Scripts/three.js/CSS3DRenderer.js",
+                      //"~/Scripts/three.js/CSS3DRenderer.js",
                       "~/Scripts/three.js/OrbitControls.js",
                       "~/Scripts/three.js/dat.gui.min.js",
                       "~/Scripts/three.js/stats.min.js"));
