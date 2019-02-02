@@ -13,7 +13,7 @@
             var checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
             checkbox.name = 'session-checkbox';
-            checkbox.value = sessions[s].originalId;
+            checkbox.value = sessions[s].sessionId;
             checkbox.checked = false;
             checkbox.classList.add('form-check-input');
 

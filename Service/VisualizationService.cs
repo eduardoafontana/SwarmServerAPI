@@ -33,7 +33,7 @@ namespace SwarmServerAPI.AppCore.Service
             public string fileId { get; set; }
             public string fileName { get; set; }
             public string filePath { get; set; }
-            public int sessionId { get; set; }
+            public string sessionId { get; set; }
             public int groupId { get; set; }
             public int groupIndex { get; set; }
             public int lines { get; set; }
@@ -57,7 +57,7 @@ namespace SwarmServerAPI.AppCore.Service
 
         public class Session
         {
-            public int sessionId { get; set; }
+            public string sessionId { get; set; }
             public string name { get; set; }
             public List<File> files { get; set; } = new List<File>();
             public List<Node> pathnodes { get; set; } = new List<Node>();
@@ -79,8 +79,7 @@ namespace SwarmServerAPI.AppCore.Service
 
         private class SessionFilter
         {
-            public string originalId { get; set; }
-            public int sessionId { get; set; }
+            public string sessionId { get; set; }
             public string name { get; set; }
             public int breakpointCount { get; set; }
             public int eventCount { get; set; }
@@ -239,8 +238,7 @@ namespace SwarmServerAPI.AppCore.Service
                     .AsEnumerable()
                     .Select((s, i) => new SessionFilter
                     {
-                        originalId = s.Id.ToString(),
-                        sessionId = i,
+                        sessionId = s.Id.ToString(),
                         name = String.Format("{0:dd/MM/yyyy HH:mm:ssZ}", s.Started),
                         breakpointCount = s.Breakpoints.Count,
                         eventCount = s.Events.Where(e => e.EventKind == "StepInto" || e.EventKind == "StepOver" || e.EventKind == "BreakpointHitted").Count()
@@ -260,9 +258,9 @@ namespace SwarmServerAPI.AppCore.Service
 
                 Session session = new Session();
 
-                session.sessionId = i;
+                session.sessionId = s.Id.ToString();
                 session.name = String.Format("{0:yyyy-MM-ddTHH:mm:ssZ}", s.Started) + "  " + s.Description;
-                session.files = getFiles(i, s, s.CodeFiles
+                session.files = getFiles(s, s.CodeFiles
                     .GroupBy(c => c.Path.ToLower())
                     .Select(c => c.FirstOrDefault())
                     .OrderBy(c => c.Created)
@@ -317,7 +315,7 @@ namespace SwarmServerAPI.AppCore.Service
             return sessions;
         }
 
-        private List<File> getFiles(int sessionId, AppCode.Repository.Session s, List<CodeFile> listCodeFiles, List<File> generetedFiles, List<Group> generatedGroups)
+        private List<File> getFiles(AppCode.Repository.Session s, List<CodeFile> listCodeFiles, List<File> generetedFiles, List<Group> generatedGroups)
         {
             List<File> files = new List<File>();
 
@@ -330,7 +328,7 @@ namespace SwarmServerAPI.AppCore.Service
                 file.fileId = i.ToString();
                 file.fileName = System.IO.Path.GetFileName(c.Path);
                 file.filePath = c.Path;
-                file.sessionId = sessionId;
+                file.sessionId = s.Id.ToString();
                 file.lines = Regex.Matches(Base64StringZip.UnZipString(c.Content), Environment.NewLine, RegexOptions.Multiline).Count;
 
                 file.events = s.Events

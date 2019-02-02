@@ -1,4 +1,4 @@
-﻿var CubeReflection = function (data, sessionId) {
+﻿var CubeReflection = function (data) {
 
     var data = data;
 
@@ -47,7 +47,7 @@
 
         geometry.colorsNeedUpdate = true;
 
-        mesh.visible = sessionFilter.getVisible(sessionId, render.getSelectedScene().hideShowOptions.options.shadow);
+        mesh.visible = sessionFilter.getVisible(data.sessionId, render.getSelectedScene().hideShowOptions.options.shadow);
 
         mesh.position.x = initialCalculatedPositionX * render.getSelectedScene().scaleOptions.options.cubeSpace;
 

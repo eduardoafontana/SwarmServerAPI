@@ -1,7 +1,6 @@
-﻿var Cube = function (fileIndex, files, sessionId) {
+﻿var Cube = function (fileIndex, files) {
 
     var data = files[fileIndex];
-    data.sessionId = sessionId;
 
     var sourceCodeFileInformationJson = {
         fileIndex: fileIndex,
@@ -56,7 +55,7 @@
         if (data.z % 2 != 0)
             originalColor = render.getSelectedColorPalette().cubeContrast;
 
-        mesh.visible = sessionFilter.getVisible(sessionId, render.getSelectedScene().hideShowOptions.options.file);
+        mesh.visible = sessionFilter.getVisible(data.sessionId, render.getSelectedScene().hideShowOptions.options.file);
 
         mesh.position.x = initialCalculatedPositionX * render.getSelectedScene().scaleOptions.options.cubeSpace;
 

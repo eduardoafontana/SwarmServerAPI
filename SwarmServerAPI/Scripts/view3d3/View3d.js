@@ -41,14 +41,14 @@
             groupAssembler.mountBySession(files, groups);
 
             for (var i = 0; i < files.length; i++) {
-                var cube = Cube(i, files, sessionId);
+                var cube = Cube(i, files);
                 scene.add(cube.mesh);
                 scene.interceptables.push(cube.mesh);
 
-                var cubeReflection = CubeReflection(files[i], sessionId);
+                var cubeReflection = CubeReflection(files[i]);
                 scene.add(cubeReflection.mesh);
 
-                var titleCube = TitleCubeDescriptor.createIfNotExist(files[i], sessionId);
+                var titleCube = TitleCubeDescriptor.createIfNotExist(files[i]);
                 scene.add(titleCube.mesh);
 
                 for (var j = 0; j < files[i].breakpoints.length; j++) {
