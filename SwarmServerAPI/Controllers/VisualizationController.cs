@@ -38,9 +38,9 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
             return View();
         }
 
-        public ActionResult View3d3()
+        public ActionResult View3d()
         {
-            ViewBag.Title = "View3d v3";
+            ViewBag.Title = "Swarm Debugger Visualization";
 
             return View();
         }
