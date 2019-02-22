@@ -25,6 +25,7 @@ namespace SwarmServerAPI.AppCore.Service
             public string data { get; set; }
             public int positionIndex { get; set; }
             public string eventId { get; set; }
+            public bool hasBreakpoint { get; set; }
         }
 
         public class File
@@ -300,13 +301,21 @@ namespace SwarmServerAPI.AppCore.Service
                             .FirstOrDefault();
                     }
 
+                    int notHittedCount = 0;
                     foreach (var itemBreakpoint in itemFile.breakpoints)
                     {
-                        itemBreakpoint.positionIndex = itemFile.events
+                        Event eventInFile = itemFile.events
                             .Where(e => e.line == itemBreakpoint.line)
-                            .Select(e => e.positionIndex)
                             .FirstOrDefault();
+
+                        if (eventInFile == null)
+                            notHittedCount--;
+
+                        itemBreakpoint.positionIndex = eventInFile == null ? notHittedCount : eventInFile.positionIndex;
                     }
+
+                    //--Problem of Continue not has breakpoint associeted on graph
+                    itemFile.events.Where(e => itemFile.breakpoints.Any(b => b.line == e.line)).Select(e => e.hasBreakpoint = true);
                 }
 
                 sessions.Add(session);
