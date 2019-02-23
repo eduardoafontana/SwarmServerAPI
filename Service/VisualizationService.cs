@@ -25,7 +25,6 @@ namespace SwarmServerAPI.AppCore.Service
             public string data { get; set; }
             public int positionIndex { get; set; }
             public string eventId { get; set; }
-            public bool hasBreakpoint { get; set; }
         }
 
         public class File
@@ -314,8 +313,22 @@ namespace SwarmServerAPI.AppCore.Service
                         itemBreakpoint.positionIndex = eventInFile == null ? notHittedCount : eventInFile.positionIndex;
                     }
 
-                    //--Problem of Continue not has breakpoint associeted on graph
-                    itemFile.events.Where(e => itemFile.breakpoints.Any(b => b.line == e.line)).Select(e => e.hasBreakpoint = true);
+                    //--Problem of Continue has no breakpoint associeted on graph
+                    //setar no evento que este tem breakpoint associado
+                    var eventsWithOutBreakpoints = itemFile.events
+                        .Where(e => itemFile.breakpoints.Any(b => b.line == e.line && b.positionIndex != e.positionIndex))
+                        .Select(e => { return e; }).ToList();
+
+                    foreach(var e in eventsWithOutBreakpoints)
+                    {
+                        Breakpoint breakpoint = itemFile.breakpoints.Where(b => b.line == e.line).First();
+                        itemFile.breakpoints.Add(new Breakpoint()
+                        {
+                            data = breakpoint.data,
+                            line = breakpoint.line,
+                            positionIndex = e.positionIndex
+                        });
+                    }
                 }
 
                 sessions.Add(session);
@@ -343,6 +356,7 @@ namespace SwarmServerAPI.AppCore.Service
                 file.events = s.Events
                                 .Where(e => e.CodeFilePath.ToLower() == c.Path.ToLower())
                                 .Where(e => e.EventKind == "StepInto" || e.EventKind == "StepOver" || e.EventKind == "BreakpointHitted")
+                                .Where(e => s.PathNodes.Any(pn => pn.Event_Id == e.Id && pn.Origin != "Trace"))
                                 .OrderBy(e => e.Created)
                                 .Select(e => new Event
                                 {
