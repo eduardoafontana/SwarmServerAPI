@@ -82,8 +82,7 @@
             material.color.setHex(render.getSelectedColorPalette().pointOver);
         else {
             if (render.wasMouseOver(mesh)) {
-                //infobox.setHtml('Click to open breakpoint details on information window.');
-                infobox.setHtml(data.line);
+                infobox.setHtml('Line: ' + data.line + ' PositionIndex: ' + data.positionIndex + '<br />Click to open breakpoint details on information window.');
 
                 material.color.setHex(render.getSelectedColorPalette().pointOver);
             } else {
