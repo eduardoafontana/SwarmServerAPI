@@ -49,7 +49,7 @@
         hljs.highlightBlock(preTag);
         hljs.lineNumbersBlock(preTag);
 
-        setTimeout(function () { resolve(); }, 500);
+        setTimeout(function () { resolve(); }, 1000);
     });
 
     function getLine(lineNumber) {
