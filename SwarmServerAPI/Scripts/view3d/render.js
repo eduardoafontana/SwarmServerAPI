@@ -21,7 +21,7 @@
     var font = null;
 
     var initGraph = function () {
-        camera = new THREE.OrthographicCamera(0, 0, 0, 0, 0.1, 50000);
+        camera = new THREE.OrthographicCamera(0, 0, 0, 0, -50000, 50000);
         
         camera.position.set(60, 60, 60);
         camera.lookAt(new THREE.Vector3(0, 0, 0));
