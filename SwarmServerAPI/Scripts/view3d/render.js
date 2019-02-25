@@ -20,6 +20,11 @@
     var intersectedObjectData = null;
     var font = null;
 
+    var mouseVariation = 45;
+    var dir = true;
+    var speedRotation = 30;
+    var isMouseRightButtonDown = false;
+
     var initGraph = function () {
         camera = new THREE.OrthographicCamera(0, 0, 0, 0, -50000, 50000);
         
@@ -83,6 +88,9 @@
     };
 
     var funcaoZoom = function () {
+        if (isMouseRightButtonDown)
+            return;
+
         var width = getRelativeWidth();
         var height = getRelativeHeight();
         var aspect = width / height;
@@ -212,18 +220,43 @@
         };
     };
 
-    var onDocumentMouseMove = function (event) {
+    var setMouseCoordinates = function (event) {
         var positions = document.body.getElementsByClassName("canvasRenderRelativeSize")[0].getBoundingClientRect();
 
         mouse.x = ((event.clientX - positions.x) / getRelativeWidth()) * 2 - 1;
         mouse.y = - ((event.clientY - positions.y) / getRelativeHeight()) * 2 + 1;
     };
 
-    var onDocumentMouseDown = function (event) {
-        var positions = document.body.getElementsByClassName("canvasRenderRelativeSize")[0].getBoundingClientRect();
+    var onDocumentMouseMove = function (event) {
+        if (isMouseRightButtonDown == false) {
+            setMouseCoordinates(event);
+            return;
+        }
 
-        mouse.x = ((event.clientX - positions.x) / getRelativeWidth()) * 2 - 1;
-        mouse.y = - ((event.clientY - positions.y) / getRelativeHeight()) * 2 + 1;
+        var oldMouseX = mouse.x;
+        var oldDir = dir;
+
+        setMouseCoordinates(event);
+
+        if (mouse.x > oldMouseX)
+            dir = true;
+        else
+            dir = false;
+
+        if (dir !== oldDir)
+            mouseInitial = (mouse.x / speedRotation);
+
+        mouseVariation = mouseVariation + (mouse.x / speedRotation) - mouseInitial;
+
+        camera.position.x = Math.sin(mouseVariation) * 60;
+        camera.position.z = Math.cos(mouseVariation) * 60;
+        camera.lookAt(new THREE.Vector3(0, 0, 0));
+    };
+
+    var onDocumentMouseDown = function (event) {
+        setMouseCoordinates(event);
+
+        setMouseRightButtonManipulation(event);
 
         raycaster.setFromCamera(mouse, camera);
 
@@ -238,6 +271,26 @@
             clickedObject = intersectedObjectData.object;
             hasClickedOject = true;
         }
+    };
+
+    var onDocumentMouseUp = function (event) {
+        if (event.which != 3)
+            return;
+
+        //event.preventDefault();
+
+        isMouseRightButtonDown = false;
+    };
+
+    var setMouseRightButtonManipulation = function (event) {
+        if (event.which != 3)
+            return;
+
+        //event.preventDefault();
+
+        isMouseRightButtonDown = true;
+
+        mouseInitial = (mouse.x / speedRotation);
     };
 
     var wasClicked = function (object) {
@@ -274,6 +327,7 @@
         getDimensions: getDimensions,
         onDocumentMouseMove: onDocumentMouseMove,
         onDocumentMouseDown: onDocumentMouseDown,
+        onDocumentMouseUp: onDocumentMouseUp,
         wasClicked: wasClicked,
         wasMouseOver: wasMouseOver,
         getIntersectedObjectData: getIntersectedObjectData,

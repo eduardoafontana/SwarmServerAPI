@@ -122,6 +122,8 @@
                 document.getElementsByClassName('reset-camera-button')[0].addEventListener('click', render.resetCameraPosition);
                 document.getElementsByClassName("canvasRenderRelativeSize")[0].addEventListener('mousemove', render.onDocumentMouseMove, false);
                 document.addEventListener('mousedown', render.onDocumentMouseDown, false);
+                document.addEventListener('mouseup', render.onDocumentMouseUp, false);
+                document.addEventListener('contextmenu', function (e) { e.preventDefault(); });
             });
         });
     });
