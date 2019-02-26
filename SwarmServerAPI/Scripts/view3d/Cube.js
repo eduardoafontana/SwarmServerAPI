@@ -62,7 +62,7 @@
         mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.sessionSpace;
 
         mesh.scale.y = render.getSelectedScene().scaleOptions.options.heightScale;
-        mesh.position.y = (initialCalculatedPositionY * render.getSelectedScene().scaleOptions.options.heightScale) + marginBottom + positionTopBase;
+        mesh.position.y = (initialCalculatedPositionY * render.getSelectedScene().scaleOptions.options.heightScale) + (marginBottom * render.getSelectedScene().scaleOptions.options.heightScale) + positionTopBase;
 
         if (render.wasClicked(mesh)) {
             dataControl.getSourceCodeFromServer(data.originalId).then(function (dataFromServer) {
