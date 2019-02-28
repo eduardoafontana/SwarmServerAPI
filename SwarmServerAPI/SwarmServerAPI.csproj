@@ -379,6 +379,7 @@
     <Content Include="Scripts\view3d\ArrowHuge.js" />
     <Content Include="Scripts\view3d\Axes.js" />
     <Content Include="Scripts\view3d\color-palette.js" />
+    <Content Include="Scripts\view3d\detail-box-additional.js" />
     <Content Include="Scripts\view3d\userFilter.js" />
     <Content Include="Scripts\view3d\taskProjectFilter.js" />
     <Content Include="Scripts\view3d\sourceCode-control.js" />

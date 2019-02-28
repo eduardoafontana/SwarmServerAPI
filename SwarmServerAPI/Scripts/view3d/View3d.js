@@ -112,6 +112,7 @@
                 render.initGraph();
                 infobox.init();
                 detailbox.init();
+                detailboxAdditional.init();
                 scaleOptions.init();
                 hideShowOptions.init();
                 colorPaletteOptions.init();
@@ -119,6 +120,7 @@
                 window.addEventListener('resize', render.onWindowResize, false);
                 window.addEventListener('resize', infobox.init, false);
                 window.addEventListener('resize', detailbox.init, false);
+                window.addEventListener('resize', detailboxAdditional.init, false);
                 document.getElementsByClassName('reset-camera-button')[0].addEventListener('click', render.resetCameraPosition);
                 document.getElementsByClassName("canvasRenderRelativeSize")[0].addEventListener('mousemove', render.onDocumentMouseMove, false);
                 document.addEventListener('mousedown', render.onDocumentMouseDown, false);

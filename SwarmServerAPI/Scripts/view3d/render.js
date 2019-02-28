@@ -51,6 +51,7 @@
         stats.dom.style.left = 'auto';
         stats.dom.style.float = 'left';
         stats.dom.style.marginTop = '-55px';
+        stats.dom.style.marginLeft = '305px';
 
         var animate = function () {
             requestAnimationFrame(animate);

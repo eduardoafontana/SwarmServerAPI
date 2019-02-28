@@ -77,6 +77,46 @@
     }
 }
 
+/*detail-box-additional**/
+.detail-box-additional {
+    display: block;
+    border: 1px solid #224377;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.90);
+    color: #eee;
+    font: 11px Lucida Grande,sans-serif;
+    /*text-shadow: 0 -1px 0 #111;*/
+    font-size: 11px;
+    transition: opacity .1s linear;
+    transition: height .1s linear;
+    resize: both;
+    overflow: auto;
+    position: absolute;
+    visibility: visible;
+    border-radius: 1px;
+    z-index: 2;
+}
+
+    .detail-box-additional hr {
+        border: 1px solid;
+    }
+
+.detail-box-additional-header {
+    padding: 2px;
+    cursor: move;
+    background-color: #224377;
+    color: #fff;
+    border-radius: 3px;
+}
+
+.detail-box-additional-minimize {
+    float: right;
+    width: 20px;
+    cursor: pointer;
+    text-align: center;
+}
+
+
 /*tool-box*/
 .tool-box {
     display: block;
