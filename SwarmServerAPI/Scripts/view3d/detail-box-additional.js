@@ -15,10 +15,8 @@ var detailboxAdditional = (function () {
         box.style.top = (render.getDimensions().height - detailBoxHeightInitial + marginTopHoldAdjustment) + 'px';
         box.style.left = marginLeftHoldAdjustment + 'px';
 
-        console.log(box.style.top);
-
         var preTag = document.querySelector(".detail-box-additional pre");
-        preTag.style.height = (detailBoxHeightInitial - 80) + 'px';
+        preTag.style.height = (detailBoxHeightInitial - 40) + 'px';
     }
 
     var init = function () {
@@ -97,9 +95,19 @@ var detailboxAdditional = (function () {
         }
     }
 
+    var setHtml = function (html) {
+        var code = document.createElement('code');
+        code.innerHTML = html;
+
+        var boxMainPre = document.querySelector(".detail-box-additional-main pre");
+        boxMainPre.innerHTML = '';
+        boxMainPre.appendChild(code);
+    };
+
     return {
         init: init,
         relocate: relocate,
+        setHtml: setHtml
     };
 
 }());

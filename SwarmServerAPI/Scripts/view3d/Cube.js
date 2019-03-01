@@ -79,7 +79,9 @@
         material.color.setHex(originalColor);
 
         if (render.wasMouseOver(mesh)) {
-            infobox.setHtml('<b>' + fileName + '</b>' + '<br />Click to show the source code of this file.');
+            infobox.setHtml('Click to show the source code of this file.');
+
+            detailboxAdditional.setHtml(JSON.stringify(data, null, 4));
 
             material.color.setHex(render.getSelectedColorPalette().pointOver);
         }

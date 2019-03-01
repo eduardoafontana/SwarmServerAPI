@@ -79,7 +79,9 @@
             material.color.setHex(0xffff00);
         else {
             if (render.wasMouseOver(mesh)) {
-                infobox.setHtml('Line: ' + data.line + ' PositionIndex: ' + data.positionIndex + '<br />Click to open event details on information window.');
+                infobox.setHtml('Click to open event details on information window.');
+
+                detailboxAdditional.setHtml(JSON.stringify(data, null, 4));
 
                 material.color.setHex(render.getSelectedColorPalette().pointOver);
             } else {
