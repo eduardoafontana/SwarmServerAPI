@@ -42,6 +42,7 @@
 
     var initialCalculatedPositionX = mesh.position.x;
     var initialCalculatedPositionZ = mesh.position.z;
+    var initialCalculatedPositionY = groupAssembler.getMostHighFileSpacePoints();
 
     internalAnimate();
 
@@ -60,6 +61,7 @@
 
         mesh.scale.z = render.getSelectedScene().scaleOptions.options.sessionSpace;
         mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.sessionSpace;
+        mesh.position.y = ((initialCalculatedPositionY * render.getSelectedScene().scaleOptions.options.heightScale + topHeightMargin) * (-1)) + positionTopBase;
     }
 
     return {
