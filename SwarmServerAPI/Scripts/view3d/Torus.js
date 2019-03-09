@@ -84,7 +84,7 @@
             if (render.wasMouseOver(mesh)) {
                 infobox.setHtml('Click to open breakpoint details on information window.');
 
-                detailboxAdditional.setHtml(JSON.stringify(data, null, 4));
+                detailboxAdditional.setHtml(data);
 
                 material.color.setHex(render.getSelectedColorPalette().pointOver);
             } else {

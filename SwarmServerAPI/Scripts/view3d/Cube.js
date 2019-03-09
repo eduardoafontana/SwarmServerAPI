@@ -81,7 +81,7 @@
         if (render.wasMouseOver(mesh)) {
             infobox.setHtml('Click to show the source code of this file.');
 
-            detailboxAdditional.setHtml(JSON.stringify(data, null, 4));
+            detailboxAdditional.setHtml(data);
 
             material.color.setHex(render.getSelectedColorPalette().pointOver);
         }

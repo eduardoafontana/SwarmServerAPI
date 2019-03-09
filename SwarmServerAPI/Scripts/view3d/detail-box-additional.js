@@ -15,8 +15,8 @@ var detailboxAdditional = (function () {
         box.style.top = (render.getDimensions().height - detailBoxHeightInitial + marginTopHoldAdjustment) + 'px';
         box.style.left = marginLeftHoldAdjustment + 'px';
 
-        var preTag = document.querySelector(".detail-box-additional pre");
-        preTag.style.height = (detailBoxHeightInitial - 40) + 'px';
+        //var preTag = document.querySelector(".detail-box-additional pre");
+        //preTag.style.height = (detailBoxHeightInitial - 40) + 'px';
     }
 
     var init = function () {
@@ -39,8 +39,8 @@ var detailboxAdditional = (function () {
                 box.style.overflow = 'hidden';
                 box.style.resize = 'none';
 
-                detailBoxHeightPre = preTag.style.height;
-                preTag.style.height = '30px';
+                //detailBoxHeightPre = preTag.style.height;
+                //preTag.style.height = '30px';
             } else {
                 this.innerText = '-';
 
@@ -48,7 +48,7 @@ var detailboxAdditional = (function () {
                 box.style.resize = 'both';
                 box.style.overflow = 'auto';
 
-                preTag.style.height = detailBoxHeightPre;
+                //preTag.style.height = detailBoxHeightPre;
             }
         });
     }
@@ -95,7 +95,28 @@ var detailboxAdditional = (function () {
         }
     }
 
-    var setHtml = function (html) {
+    var setHtml = function (data) {
+        var stringCopyOfData = JSON.stringify(data, null, 4);
+        var copyOfData = JSON.parse(stringCopyOfData);
+
+        if (copyOfData.breakpoints != undefined) {
+            for (var i = 0; i < copyOfData.breakpoints.length; i++) {
+                copyOfData.breakpoints[i].data = JSON.parse(copyOfData.breakpoints[i].data);
+            }
+        }
+
+        if (copyOfData.events != undefined) {
+            for (var i = 0; i < copyOfData.events.length; i++) {
+                copyOfData.events[i].data = JSON.parse(copyOfData.events[i].data);
+            }
+        }
+
+        if (copyOfData.data != undefined) {
+            copyOfData.data = JSON.parse(copyOfData.data);
+        }
+
+        var html = JSON.stringify(copyOfData, null, 4);
+
         var code = document.createElement('code');
         code.innerHTML = html;
 
