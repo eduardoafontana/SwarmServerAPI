@@ -53,7 +53,10 @@
         if (render.getSelectedScene() == null)
             return;
 
-        mesh.visible = sessionFilter.getVisible(file.sessionId, render.getSelectedScene().hideShowOptions.options.breakpoint);
+        if (data.positionIndex >= 0)
+            mesh.visible = sessionFilter.getVisible(file.sessionId, render.getSelectedScene().hideShowOptions.options.breakpoint)
+        else
+            mesh.visible = sessionFilter.getVisible(file.sessionId, render.getSelectedScene().hideShowOptions.options.breakpointNotHitted)
 
         mesh.position.x = (initialCalculatedPositionX * render.getSelectedScene().scaleOptions.options.cubeSpace) + leftMargin;
         mesh.position.z = initialCalculatedPositionZ * render.getSelectedScene().scaleOptions.options.sessionSpace;

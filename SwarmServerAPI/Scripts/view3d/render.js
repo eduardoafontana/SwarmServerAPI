@@ -154,6 +154,7 @@
             start: true,
             //hideFile: false,
             breakpoint: true,
+            breakpointNotHitted: false,
             event: true,
             pathNode: true,
             baseArchitecture: true,
@@ -169,6 +170,7 @@
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'start');
         //scene.hideShowOptions.add(scene.hideShowOptions.options, 'hideFile');
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'breakpoint');
+        scene.hideShowOptions.add(scene.hideShowOptions.options, 'breakpointNotHitted');
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'event');
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'pathNode');
         scene.hideShowOptions.add(scene.hideShowOptions.options, 'baseArchitecture');
