@@ -160,7 +160,7 @@
             baseArchitecture: true,
             //pathNodePoints: true,
             architecture: true,
-            grid: true,
+            grid: false,
             axes: false,
         };
 
