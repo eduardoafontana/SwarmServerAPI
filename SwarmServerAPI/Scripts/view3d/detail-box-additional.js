@@ -96,6 +96,54 @@ var detailboxAdditional = (function () {
     }
 
     var setHtml = function (data) {
+
+        function getHtmlFromObject(obj, padding) {
+            var html = '';
+            var nextPadding = padding + 1;
+
+            for (var property in obj) {
+                var value = obj[property];
+
+                if (obj[property] instanceof Array) {
+                    value = 'Array(' + obj[property].length + ')';
+
+                    for (var item in obj[property]) 
+                        value += getHtmlFromObject(obj[property][item], nextPadding);
+                }
+
+                if (property == 'data')
+                    value = getHtmlFromObject(JSON.parse(obj[property]), nextPadding);
+
+                if (property == 'Created') {
+                    obj[property].match(/\d+/)[0];
+                    obj[property].match(/\d+/)[0];
+                    value = new Date(obj[property].match(/\d+/)[0] * 1);
+                    value = value.toLocaleString();
+                }
+
+                if (property == 'CodeFilePath' || property == 'filePath') {
+                    var pathArray = obj[property].split('\\');
+                    var file = '';
+                    var path = '';
+
+                    if (pathArray.length >= 1)
+                        file = pathArray[pathArray.length - 1];
+
+                    if (pathArray.length >= 2)
+                        path = pathArray[pathArray.length - 2];
+
+                    value = path + '\\' + file; 
+                }
+
+                html += '<p style="padding-left: ' + (padding * 10) + 'px"><span>' + property + '</span>:&nbsp;<span>' + value + '</span></p>';
+            }
+
+            return html;
+        }
+
+        var html = getHtmlFromObject(data, 0);
+
+        /*
         var stringCopyOfData = JSON.stringify(data, null, 4);
         var copyOfData = JSON.parse(stringCopyOfData);
 
@@ -116,7 +164,7 @@ var detailboxAdditional = (function () {
         }
 
         var html = JSON.stringify(copyOfData, null, 4);
-
+        */
         var code = document.createElement('code');
         code.innerHTML = html;
 

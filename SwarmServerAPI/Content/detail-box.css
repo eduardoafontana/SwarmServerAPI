@@ -107,6 +107,10 @@
     margin-bottom:5px;
 }
 
+.detail-box-additional-main pre code p {
+    margin: 3px 0px 3px 10px;
+}
+
 .detail-box-additional-header {
     padding: 2px;
     cursor: move;
