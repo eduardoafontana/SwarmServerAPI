@@ -7,6 +7,8 @@ var detailbox = (function () {
     var marginTopHoldAdjustment = 45;
     var detailBoxTop = 120;
 
+    var detailBoxBody;
+
     function relocate() {
         var box = document.getElementsByClassName("detail-box")[0];
 
@@ -27,6 +29,55 @@ var detailbox = (function () {
         detailbox.relocate();
 
         dragElement(box, "detail-box-header");
+
+        document.getElementsByClassName("detail-box-tab")[0].addEventListener("click", function () {
+            var newWindow = window.open();
+            detailBoxBody = newWindow.document.getElementsByTagName('body')[0];
+
+            var detailBoxDiv = document.createElement('div');
+            detailBoxDiv.classList.add('detail-box');
+
+            var detailBoxMainDiv = document.createElement('div');
+            detailBoxMainDiv.classList.add('detail-box-main');
+
+            var preTag = document.createElement('pre');
+            preTag.id = 'current-source-code';
+
+            var buttonBack = document.createElement('button');
+            buttonBack.id = 'back-button';
+            buttonBack.type = 'button';
+            buttonBack.innerHTML = '< Back';
+            buttonBack.classList.add('loadview-button-adjustment');
+
+            var buttonNext = document.createElement('button');
+            buttonNext.id = 'next-button';
+            buttonNext.type = 'button';
+            buttonNext.innerHTML = 'Next >';
+            buttonNext.classList.add('loadview-button-adjustment');
+
+            detailBoxMainDiv.appendChild(preTag);
+            detailBoxDiv.appendChild(detailBoxMainDiv);
+            detailBoxDiv.appendChild(buttonBack);
+            detailBoxDiv.appendChild(buttonNext);
+            detailBoxBody.appendChild(detailBoxDiv);
+
+            var detailBoxHead = newWindow.document.getElementsByTagName('head')[0];
+
+            var linkBootstrap = document.createElement('link');
+            linkBootstrap.setAttribute('rel', 'stylesheet');
+            linkBootstrap.setAttribute('href', 'http://localhost:54686/Content/bootstrap.css');
+
+            var linkDetailBoxTab = document.createElement('link');
+            linkDetailBoxTab.setAttribute('rel', 'stylesheet');
+            linkDetailBoxTab.setAttribute('href', 'http://localhost:54686/Content/detail-box-tab.css');
+
+            detailBoxHead.appendChild(linkBootstrap);
+            detailBoxHead.appendChild(linkDetailBoxTab);
+
+            //dizer para o sourcecode control reencher ela com os dados que já possui.
+
+            //fechar a detail-box interna. tornar visible false talvez
+        });
 
         document.getElementsByClassName("detail-box-minimize")[0].addEventListener("click", function () {
             var box = document.getElementsByClassName("detail-box")[0];

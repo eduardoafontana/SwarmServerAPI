@@ -38,6 +38,13 @@
     text-align:center;
 }
 
+.detail-box-tab {
+    float: right;
+    width: 20px;
+    cursor: pointer;
+    text-align: center;
+}
+
 /*
 .detail-box-main pre {
     color: #eee;
