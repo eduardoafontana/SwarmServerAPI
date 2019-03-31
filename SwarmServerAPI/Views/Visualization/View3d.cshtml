@@ -17,11 +17,6 @@
     html, body, .container-fluid, .row, main, .canvasRenderRelativeSize {
         height: 100%;
     }
-
-    .loadview-button-adjustment {
-        height:25px;
-        line-height:9px;
-    }
 </style>
 
 <script>
@@ -48,13 +43,15 @@
     <div class="detail-box-header">
         <i class="fas fa-arrows-alt" aria-hidden="true"></i>
         <div class="detail-box-minimize" title="Minimize / Maximize">-</div>
-        <div class="detail-box-tab" title="Open new tab">#</div>
     </div>
     <div class="detail-box-main">
         <pre id="current-source-code"></pre>
     </div>
     <button type="button" class="btn btn-primary loadview-button-adjustment" id="back-button">< Back</button>
     <button type="button" class="btn btn-primary loadview-button-adjustment" id="next-button">Next ></button>
+    <button type="button" class="btn btn-primary loadview-button-adjustment tab-button" id="open-new-tab-button" title="Open new tab">
+        <i class="fas fa-window-restore"></i>
+    </button>
 </div>
 <div class="detail-box-additional fade-in">
     <div class="detail-box-additional-header">

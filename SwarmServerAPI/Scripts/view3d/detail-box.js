@@ -7,7 +7,7 @@ var detailbox = (function () {
     var marginTopHoldAdjustment = 45;
     var detailBoxTop = 120;
 
-    var detailBoxBody;
+    var newWindow;
 
     function relocate() {
         var box = document.getElementsByClassName("detail-box")[0];
@@ -23,61 +23,114 @@ var detailbox = (function () {
         preTag.style.height = (height - 80) + 'px';
     }
 
+    var openNewTab = function () {
+        newWindow = window.open();
+        var detailBoxBody = newWindow.document.getElementsByTagName('body')[0];
+
+        var detailBoxDiv = document.createElement('div');
+        detailBoxDiv.classList.add('detail-box');
+
+        var detailBoxMainDiv = document.createElement('div');
+        detailBoxMainDiv.classList.add('detail-box-main');
+
+        var preTag = document.createElement('pre');
+        preTag.id = 'current-source-code';
+
+        var buttonBack = document.createElement('button');
+        buttonBack.id = 'back-button';
+        buttonBack.type = 'button';
+        buttonBack.innerHTML = '< Back';
+        buttonBack.classList.add('loadview-button-adjustment');
+        buttonBack.classList.add('btn');
+        buttonBack.classList.add('btn-primary');
+        buttonBack.addEventListener('click', sourceCodeControl.backButtonClick);
+
+        var buttonNext = document.createElement('button');
+        buttonNext.id = 'next-button';
+        buttonNext.type = 'button';
+        buttonNext.innerHTML = 'Next >';
+        buttonNext.classList.add('loadview-button-adjustment');
+        buttonNext.classList.add('btn');
+        buttonNext.classList.add('btn-primary');
+        buttonNext.classList.add('btn-next');
+        buttonNext.addEventListener('click', sourceCodeControl.nextButtonClick);
+
+        var buttonCloseI = document.createElement('i');
+        buttonCloseI.classList.add('fas');
+        buttonCloseI.classList.add('fa-window-restore');
+
+        var buttonClose = document.createElement('button');
+        buttonClose.id = 'close-button';
+        buttonClose.type = 'button';
+        buttonClose.classList.add('loadview-button-adjustment');
+        buttonClose.classList.add('btn');
+        buttonClose.classList.add('btn-primary');
+        buttonClose.classList.add('tab-button');
+        buttonClose.setAttribute('title', 'Close new tab');
+        buttonClose.addEventListener('click', detailbox.closeNewTab);
+        buttonClose.appendChild(buttonCloseI);
+
+        detailBoxMainDiv.appendChild(preTag);
+        detailBoxDiv.appendChild(detailBoxMainDiv);
+        detailBoxDiv.appendChild(buttonBack);
+        detailBoxDiv.appendChild(buttonNext);
+        detailBoxDiv.appendChild(buttonClose);
+        detailBoxBody.appendChild(detailBoxDiv);
+
+        var detailBoxHead = newWindow.document.getElementsByTagName('head')[0];
+
+        var linkHighlight = document.createElement('link');
+        linkHighlight.setAttribute('rel', 'stylesheet');
+        linkHighlight.setAttribute('href', 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.13.1/build/styles/default.min.css');
+
+        var scriptHighlight1 = document.createElement('script');
+        scriptHighlight1.setAttribute('src', 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.13.1/build/highlight.min.js');
+
+        var scriptHighlight2 = document.createElement('script');
+        scriptHighlight2.setAttribute('src', 'https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.6.0/dist/highlightjs-line-numbers.min.js');
+
+        var scriptFontAwesome = document.createElement('script');
+        scriptFontAwesome.setAttribute('src', 'https://use.fontawesome.com/releases/v5.0.13/js/all.js');
+        scriptFontAwesome.setAttribute('integrity', 'sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe');
+        scriptFontAwesome.setAttribute('crossorigin', 'anonymous');
+        scriptFontAwesome.setAttribute('defer', '');
+
+        var linkBootstrap = document.createElement('link');
+        linkBootstrap.setAttribute('rel', 'stylesheet');
+        linkBootstrap.setAttribute('href', location.origin + '/Content/bootstrap.css');
+
+        var linkDetailBoxTab = document.createElement('link');
+        linkDetailBoxTab.setAttribute('rel', 'stylesheet');
+        linkDetailBoxTab.setAttribute('href', location.origin + '/Content/detail-box-tab.css');
+
+        detailBoxHead.appendChild(linkHighlight);
+        detailBoxHead.appendChild(scriptHighlight1);
+        detailBoxHead.appendChild(scriptHighlight2);
+        detailBoxHead.appendChild(scriptFontAwesome);
+        detailBoxHead.appendChild(linkBootstrap);
+        detailBoxHead.appendChild(linkDetailBoxTab);
+
+        sourceCodeControl.reloadContext(detailBoxDiv);
+
+        var box = document.querySelector('.detail-box');
+        box.style.visibility = 'hidden';
+    }
+
+    var closeNewTab = function () {
+        newWindow.close();
+
+        var box = document.querySelector('.detail-box');
+        box.style.visibility = 'visible';
+
+        sourceCodeControl.reloadContext(box);
+    }
+
     var init = function () {
         var box = document.getElementsByClassName("detail-box")[0];
 
         detailbox.relocate();
 
         dragElement(box, "detail-box-header");
-
-        document.getElementsByClassName("detail-box-tab")[0].addEventListener("click", function () {
-            var newWindow = window.open();
-            detailBoxBody = newWindow.document.getElementsByTagName('body')[0];
-
-            var detailBoxDiv = document.createElement('div');
-            detailBoxDiv.classList.add('detail-box');
-
-            var detailBoxMainDiv = document.createElement('div');
-            detailBoxMainDiv.classList.add('detail-box-main');
-
-            var preTag = document.createElement('pre');
-            preTag.id = 'current-source-code';
-
-            var buttonBack = document.createElement('button');
-            buttonBack.id = 'back-button';
-            buttonBack.type = 'button';
-            buttonBack.innerHTML = '< Back';
-            buttonBack.classList.add('loadview-button-adjustment');
-
-            var buttonNext = document.createElement('button');
-            buttonNext.id = 'next-button';
-            buttonNext.type = 'button';
-            buttonNext.innerHTML = 'Next >';
-            buttonNext.classList.add('loadview-button-adjustment');
-
-            detailBoxMainDiv.appendChild(preTag);
-            detailBoxDiv.appendChild(detailBoxMainDiv);
-            detailBoxDiv.appendChild(buttonBack);
-            detailBoxDiv.appendChild(buttonNext);
-            detailBoxBody.appendChild(detailBoxDiv);
-
-            var detailBoxHead = newWindow.document.getElementsByTagName('head')[0];
-
-            var linkBootstrap = document.createElement('link');
-            linkBootstrap.setAttribute('rel', 'stylesheet');
-            linkBootstrap.setAttribute('href', 'http://localhost:54686/Content/bootstrap.css');
-
-            var linkDetailBoxTab = document.createElement('link');
-            linkDetailBoxTab.setAttribute('rel', 'stylesheet');
-            linkDetailBoxTab.setAttribute('href', 'http://localhost:54686/Content/detail-box-tab.css');
-
-            detailBoxHead.appendChild(linkBootstrap);
-            detailBoxHead.appendChild(linkDetailBoxTab);
-
-            //dizer para o sourcecode control reencher ela com os dados que já possui.
-
-            //fechar a detail-box interna. tornar visible false talvez
-        });
 
         document.getElementsByClassName("detail-box-minimize")[0].addEventListener("click", function () {
             var box = document.getElementsByClassName("detail-box")[0];
@@ -176,6 +229,8 @@ var detailbox = (function () {
     return {
         init: init,
         relocate: relocate,
+        openNewTab: openNewTab,
+        closeNewTab: closeNewTab
     };
 
 }());

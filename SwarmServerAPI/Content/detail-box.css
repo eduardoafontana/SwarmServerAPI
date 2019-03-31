@@ -38,18 +38,6 @@
     text-align:center;
 }
 
-.detail-box-tab {
-    float: right;
-    width: 20px;
-    cursor: pointer;
-    text-align: center;
-}
-
-/*
-.detail-box-main pre {
-    color: #eee;
-}
-*/
 .source-code-event {
     background-color: #7fffd4;
 }
@@ -64,6 +52,19 @@
     width: 10px;
     height: 16px;
     float: left;
+}
+
+.tab-button {
+    float: right;
+}
+
+.detail-box-main pre {
+    margin-bottom: 8px;
+}
+
+.loadview-button-adjustment {
+    height: 30px;
+    line-height: 12px;
 }
 
 .fade-in {

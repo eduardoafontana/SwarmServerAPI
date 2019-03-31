@@ -16,35 +16,41 @@
     var currentElement = null;
     var currentFile = null;
 
+    var detailBoxDiv = null;
+    var dataFromServer = null;
+
     var setFileInformation = function (pFileInformationJson) {
         fileInformationJson = pFileInformationJson;
 
-        elementInformationJson = {};
+        elementInformationJson = null;
     };
 
     var setElementInformation = function (pElementInformationJson) {
         elementInformationJson = pElementInformationJson;
     };
 
-    var loadSourceCode = function (dataFromServer) {
-        var box = document.querySelector('.detail-box');
-        box.style.visibility = 'visible';
+    var loadSourceCode = function (pDataFromServer) {
+        if (pDataFromServer != undefined && pDataFromServer != null)
+            dataFromServer = pDataFromServer;
 
-        var boxMainPre = box.querySelector(".detail-box-main pre");
+        if (detailBoxDiv == null) {
+            detailBoxDiv = document.querySelector('.detail-box');
+            detailBoxDiv.style.visibility = 'visible';
+        }
 
         var code = document.createElement('code');
-
         code.innerHTML = dataFromServer;
 
+        var boxMainPre = detailBoxDiv.querySelector(".detail-box-main pre");
         boxMainPre.innerHTML = '';
         boxMainPre.appendChild(code);
 
-        document.getElementById('next-button').disabled = true;
-        document.getElementById('back-button').disabled = true;
+        detailBoxDiv.querySelector('#next-button').disabled = true;
+        detailBoxDiv.querySelector('#back-button').disabled = true;
     };
 
     var loadCodeStyle = () => new Promise(function (resolve, reject) {
-        var preTag = document.querySelector('#current-source-code');
+        var preTag = detailBoxDiv.querySelector('#current-source-code');
 
         hljs.highlightBlock(preTag);
         hljs.lineNumbersBlock(preTag);
@@ -53,7 +59,7 @@
     });
 
     function getLine(lineNumber) {
-        var divOfLine = document.querySelector('div[data-line-number="' + lineNumber + '"]');
+        var divOfLine = detailBoxDiv.querySelector('div[data-line-number="' + lineNumber + '"]');
 
         if (divOfLine === undefined || divOfLine === null)
             return null;
@@ -137,8 +143,8 @@
             }
         }
 
-        document.getElementById('next-button').disabled = !foundNext;
-        document.getElementById('back-button').disabled = !foundBack;
+        detailBoxDiv.querySelector('#next-button').disabled = !foundNext;
+        detailBoxDiv.querySelector('#back-button').disabled = !foundBack;
     };
 
     var loadSelected = function (objetEventOrBreakpoint, file) {
@@ -148,7 +154,7 @@
         var lineNumber = currentElement.line;
 
         //remove all selected styles
-        var allTrWithStyle = document.querySelectorAll(".source-code-selected");
+        var allTrWithStyle = detailBoxDiv.querySelectorAll(".source-code-selected");
         for (var i = 0; i < allTrWithStyle.length; i++) {
             allTrWithStyle[i].classList.remove('source-code-selected');
         }
@@ -162,7 +168,7 @@
         trOfLine.classList.add('source-code-selected');
 
         //set scroll position
-        var preTag = document.querySelector(".detail-box-main pre");
+        var preTag = detailBoxDiv.querySelector(".detail-box-main pre");
 
         var totalOfLines = preTag.querySelectorAll(".hljs-ln-numbers").length;
 
@@ -259,6 +265,21 @@
         processBackNextClick('next');
     };
 
+    var reloadContext = function (pDetailBoxDiv) {
+        detailBoxDiv = pDetailBoxDiv;
+
+        loadSourceCode();
+
+        var preTag = detailBoxDiv.querySelector('#current-source-code');
+
+        loadCodeStyle().then(function () {
+            loadLinesContrast(files, fileInformationJson.fileIndex);
+
+            if (elementInformationJson != null)
+                loadSelected(currentElement, currentFile);
+        });
+    };
+
     return {
         loadSourceCode: loadSourceCode,
         loadCodeStyle: loadCodeStyle,
@@ -269,7 +290,8 @@
         setElementInformation: setElementInformation,
         isSelectedElement: isSelectedElement,
         backButtonClick: backButtonClick,
-        nextButtonClick: nextButtonClick
+        nextButtonClick: nextButtonClick,
+        reloadContext: reloadContext
     };
 
 }());

@@ -92,6 +92,7 @@
     document.addEventListener("DOMContentLoaded", function () {
         document.getElementById('back-button').addEventListener('click', sourceCodeControl.backButtonClick);
         document.getElementById('next-button').addEventListener('click', sourceCodeControl.nextButtonClick);
+        document.getElementById('open-new-tab-button').addEventListener('click', detailbox.openNewTab);
 
         var loadviewButton = document.getElementById('loadview-button');
         loadviewButton.addEventListener('click', function () {
