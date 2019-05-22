@@ -158,6 +158,16 @@ namespace SwarmServerAPI.AppCore.Service
             {
                 list = context.Sessions.Include("CodeFiles")
                     .Where(s => s.Started >= new DateTime(2018, 12, 25, 0, 0, 0))
+
+                    .Where(s => s.TaskName.Trim().ToLower() != "jhjh".ToLower())
+                    .Where(s => s.TaskName.Trim().ToLower() != "Tarefa genérica V2".ToLower())
+                    .Where(s => s.TaskName.Trim().ToLower() != "Atividades".ToLower())
+                    .Where(s => s.TaskName.Trim().ToLower() != "Contencioso".ToLower())
+                    .Where(s => s.TaskName.Trim().ToLower() != "Tarefa generica v2".ToLower())
+                    .Where(s => s.TaskName.Trim().ToLower() != "Generic task v2".ToLower())
+                    .Where(s => s.TaskName.Trim().ToLower() != "Reload Test".ToLower())
+                    .Where(s => s.TaskName.Trim().ToLower() != "PN Event_Id Test".ToLower())
+
                     .Where(s => s.CodeFiles.Count() > 0)
                     .Where(s => s.DeveloperName != null && s.DeveloperName.Trim() != String.Empty)
                     .Where(s => s.TaskName != null && s.TaskName.Trim() != String.Empty)
