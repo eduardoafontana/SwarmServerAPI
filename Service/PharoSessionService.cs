@@ -20,6 +20,8 @@ namespace SwarmServerAPI.AppCore.Service
                 {
                     Id = s.Id,
                     Description = s.Description,
+                    Started = s.Started,
+                    Finished = s.Finished
                 }).ToList();
 
                 return sessionModelCollection;

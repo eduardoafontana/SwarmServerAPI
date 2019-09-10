@@ -7,5 +7,7 @@ namespace SwarmServerAPI.AppCore.Service.DTOModels
     {
         public Guid Id { get; set; }
         public string Description { get; set; }
+        public DateTime Started { get; set; }
+        public DateTime? Finished { get; set; }
     }
 }

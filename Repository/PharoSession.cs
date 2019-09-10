@@ -11,5 +11,7 @@ namespace SwarmServerAPI.AppCode.Repository
         [Key]
         public Guid Id { get; set; }
         public string Description { get; set; }
+        public DateTime Started { get; set; }
+        public DateTime? Finished { get; set; }
     }
 }
