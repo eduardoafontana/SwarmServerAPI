@@ -92,29 +92,33 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
                                 {
                                     context.Entry(original).CurrentValues.SetValues(session);
 
-                                    foreach (Breakpoint item in session.Breakpoints)
-                                    {
-                                        if (!original.Breakpoints.Any(x => x.Id == item.Id))
-                                            original.Breakpoints.Add(item);
-                                    }
+                                    if (session.Breakpoints != null)
+                                        foreach (Breakpoint item in session.Breakpoints)
+                                        {
+                                            if (!original.Breakpoints.Any(x => x.Id == item.Id))
+                                                original.Breakpoints.Add(item);
+                                        }
 
-                                    foreach (CodeFile item in session.CodeFiles)
-                                    {
-                                        if (!original.CodeFiles.Any(x => x.Id == item.Id))
-                                            original.CodeFiles.Add(item);
-                                    }
+                                    if (session.CodeFiles != null)
+                                        foreach (CodeFile item in session.CodeFiles)
+                                        {
+                                            if (!original.CodeFiles.Any(x => x.Id == item.Id))
+                                                original.CodeFiles.Add(item);
+                                        }
 
-                                    foreach (Event item in session.Events)
-                                    {
-                                        if (!original.Events.Any(x => x.Id == item.Id))
-                                            original.Events.Add(item);
-                                    }
+                                    if (session.Events != null)
+                                        foreach (Event item in session.Events)
+                                        {
+                                            if (!original.Events.Any(x => x.Id == item.Id))
+                                                original.Events.Add(item);
+                                        }
 
-                                    foreach (PathNode item in session.PathNodes)
-                                    {
-                                        if (!original.PathNodes.Any(x => x.Id == item.Id))
-                                            original.PathNodes.Add(item);
-                                    }
+                                    if (session.PathNodes != null)
+                                        foreach (PathNode item in session.PathNodes)
+                                        {
+                                            if (!original.PathNodes.Any(x => x.Id == item.Id))
+                                                original.PathNodes.Add(item);
+                                        }
                                 }
 
                                 context.SaveChanges();
