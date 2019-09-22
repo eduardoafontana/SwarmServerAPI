@@ -139,15 +139,31 @@ namespace SwarmServerAPI.AppCore.Service
 
             using (SwarmData context = new SwarmData())
             {
-                sourceCode = context.CodeFiles.Where(c => c.Id.ToString() == originalId).Select(c => c.Content).FirstOrDefault();
+                CodeFile codeFile = context.CodeFiles.Include("Session").Where(c => c.Id.ToString() == originalId).FirstOrDefault();
+                sourceCode = codeFile.Content;
 
                 if (String.IsNullOrWhiteSpace(sourceCode))
                     return "No source code found.";
 
-                sourceCode = Base64StringZip.UnZipString(sourceCode);
+                sourceCode = ProcessUnzipString(codeFile.Session.ProjectName, sourceCode);
             }
 
             return sourceCode;
+        }
+
+        private string ProcessUnzipString(string from, string content)
+        {
+            if (String.IsNullOrWhiteSpace(from))
+                return Base64StringZip.UnZipString(content);
+
+            if (from.Equals("Swarm on Pharo"))
+            {
+                byte[] gzBuffer = Convert.FromBase64String(content);
+
+                return Encoding.Default.GetString(gzBuffer);
+            }
+
+            return Base64StringZip.UnZipString(content);
         }
 
         public object GetView3dTaskProjectDataFilter()
@@ -361,7 +377,7 @@ namespace SwarmServerAPI.AppCore.Service
                 file.fileName = System.IO.Path.GetFileName(c.Path);
                 file.filePath = c.Path;
                 file.sessionId = s.Id.ToString();
-                file.lines = Regex.Matches(Base64StringZip.UnZipString(c.Content), Environment.NewLine, RegexOptions.Multiline).Count;
+                file.lines = Regex.Matches(ProcessUnzipString(s.ProjectName, c.Content), Environment.NewLine, RegexOptions.Multiline).Count;
 
                 file.events = s.Events
                                 .Where(e => e.CodeFilePath.ToLower() == c.Path.ToLower())
