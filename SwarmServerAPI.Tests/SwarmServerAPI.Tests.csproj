@@ -98,6 +98,7 @@
     <Reference Include="System.Net.Http.WebRequest" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\GzipTest.cs" />
     <Compile Include="Controllers\PostApiTest.cs" />
     <Compile Include="Controllers\PostApiPharoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
