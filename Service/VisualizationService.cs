@@ -145,7 +145,7 @@ namespace SwarmServerAPI.AppCore.Service
                 if (String.IsNullOrWhiteSpace(sourceCode))
                     return "No source code found.";
 
-                sourceCode = ProcessUnzipString(codeFile.Session.ProjectName, sourceCode);
+                sourceCode = ProcessUnzipString(codeFile.Session.Description, sourceCode);
             }
 
             return sourceCode;
