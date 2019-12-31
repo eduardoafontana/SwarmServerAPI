@@ -377,7 +377,7 @@ namespace SwarmServerAPI.AppCore.Service
                 file.fileName = System.IO.Path.GetFileName(c.Path);
                 file.filePath = c.Path;
                 file.sessionId = s.Id.ToString();
-                file.lines = Regex.Matches(ProcessUnzipString(s.ProjectName, c.Content), Environment.NewLine, RegexOptions.Multiline).Count;
+                file.lines = Regex.Matches(ProcessUnzipString(s.Description, c.Content), Environment.NewLine, RegexOptions.Multiline).Count;
 
                 file.events = s.Events
                                 .Where(e => e.CodeFilePath.ToLower() == c.Path.ToLower())
