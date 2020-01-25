@@ -71,15 +71,6 @@ namespace SwarmServerAPI.AppCore.Service
                         Namespace = p.Namespace,
                         Hash = p.Hash,
                         Method = p.Method,
-                        MethodCodeMetric = p.MethodCodeMetric != null ? new CodeMetricModel
-                        {
-                            Id = p.MethodCodeMetric.Id,
-                            ClassCoupling = p.MethodCodeMetric.ClassCoupling,
-                            CyclomaticComplexity = p.MethodCodeMetric.CyclomaticComplexity,
-                            Hash = p.MethodCodeMetric.Hash,
-                            LineOfCode = p.MethodCodeMetric.LineOfCode,
-                            MaintainabilityIndex = p.MethodCodeMetric.MaintainabilityIndex
-                        } : null,
                         Origin = p.Origin,
                         Parameters = p.Parameters.Select(pp => new PathNodeParameterModel
                         {

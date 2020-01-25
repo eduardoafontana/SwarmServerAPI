@@ -19,6 +19,5 @@ namespace SwarmServerAPI.AppCore.Service.DTOModels
         public string ReturnType { get; set; }
         public List<PathNodeParameterModel> Parameters { get; set; } = new List<PathNodeParameterModel>();
         public DateTime Created { get; set; }
-        public CodeMetricModel MethodCodeMetric { get; set; }
     }
 }

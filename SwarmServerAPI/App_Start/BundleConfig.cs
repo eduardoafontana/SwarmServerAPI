@@ -37,9 +37,6 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
             //bundles.Add(new ScriptBundle("~/bundles/data-tasktime").Include(
             //          "~/Scripts/data-tasktime.js"));
 
-            //bundles.Add(new ScriptBundle("~/bundles/data-codemetric").Include(
-            //          "~/Scripts/data-codemetric.js"));
-
             //bundles.Add(new ScriptBundle("~/bundles/cytoscape").Include(
             //          "~/Scripts/cytoscape.js"));
 

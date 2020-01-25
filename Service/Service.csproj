@@ -51,7 +51,6 @@
     <Compile Include="Base64StringZip.cs" />
     <Compile Include="DTOModels\CodeFileModel.cs" />
     <Compile Include="DTOModels\BreakpointModel.cs" />
-    <Compile Include="DTOModels\CodeMetricModel.cs" />
     <Compile Include="DTOModels\ElementModel.cs" />
     <Compile Include="DTOModels\EventModel.cs" />
     <Compile Include="DTOModels\PathNodeModel.cs" />

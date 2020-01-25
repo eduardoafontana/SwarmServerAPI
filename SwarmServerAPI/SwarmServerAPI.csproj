@@ -159,17 +159,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Api\PharoSessionController.cs" />
-    <Compile Include="Controllers\CodeMetricsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImportSessionFilesController.cs" />
     <Compile Include="Controllers\ImportSessionsController.cs" />
     <Compile Include="Controllers\Api\SessionController.cs" />
     <Compile Include="Controllers\Api\VisualizationDataController.cs" />
-    <Compile Include="Controllers\Api\CodeMetricGridDataController.cs" />
     <Compile Include="Controllers\Api\TaskTimeGridDataController.cs" />
     <Compile Include="Controllers\VisualizationController.cs" />
     <Compile Include="General\InternalError.cs" />
-    <Compile Include="Models\CodeMetricGridModel.cs" />
     <Compile Include="Models\ImportSessionModel.cs" />
     <Compile Include="Controllers\TasksTimeController.cs" />
     <Compile Include="Controllers\Api\ValuesController.cs" />
@@ -216,7 +213,6 @@
     <Content Include="Scripts\cytoscape.js" />
     <Content Include="Scripts\cytoscape.min.js" />
     <Content Include="Scripts\dagre.min.js" />
-    <Content Include="Scripts\data-codemetric.js" />
     <Content Include="Scripts\cytoscape-dagre.js" />
     <Content Include="Scripts\ag-grid-hack.js" />
     <Content Include="Scripts\data-task.js" />
@@ -378,7 +374,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\CodeMetrics\Index.cshtml" />
     <Content Include="Views\TasksTime\Index.cshtml" />
     <Content Include="Views\ImportSessions\Index.cshtml" />
     <Content Include="Views\Visualization\Session.cshtml" />
