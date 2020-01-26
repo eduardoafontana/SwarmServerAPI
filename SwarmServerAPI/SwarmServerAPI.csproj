@@ -160,14 +160,11 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Api\PharoSessionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ImportSessionFilesController.cs" />
-    <Compile Include="Controllers\ImportSessionsController.cs" />
     <Compile Include="Controllers\Api\SessionController.cs" />
     <Compile Include="Controllers\Api\VisualizationDataController.cs" />
     <Compile Include="Controllers\Api\TaskTimeGridDataController.cs" />
     <Compile Include="Controllers\VisualizationController.cs" />
     <Compile Include="General\InternalError.cs" />
-    <Compile Include="Models\ImportSessionModel.cs" />
     <Compile Include="Controllers\TasksTimeController.cs" />
     <Compile Include="Controllers\Api\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -366,7 +363,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\TasksTime\Index.cshtml" />
-    <Content Include="Views\ImportSessions\Index.cshtml" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <Content Include="Scripts\umd\popper.min.js.map" />
@@ -383,6 +379,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
