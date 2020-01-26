@@ -25,30 +25,8 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
                       "~/Scripts/bootstrap-select.js"
                       ));
 
-            //TODO: Remove this old code later.
-            //bundles.Add(new ScriptBundle("~/bundles/data-session")
-            //    .Include("~/Scripts/ag-grid-hack.js")
-            //    .Include("~/Scripts/data-session.js"));
-
-            //bundles.Add(new ScriptBundle("~/bundles/data-task")
-            //    .Include("~/Scripts/ag-grid-hack.js")
-            //    .Include("~/Scripts/data-task.js"));
-
             //bundles.Add(new ScriptBundle("~/bundles/data-tasktime").Include(
             //          "~/Scripts/data-tasktime.js"));
-
-            //bundles.Add(new ScriptBundle("~/bundles/cytoscape").Include(
-            //          "~/Scripts/cytoscape.js"));
-
-            //bundles.Add(new ScriptBundle("~/bundles/dagre").Include(
-            //          "~/Scripts/dagre.min.js"));
-
-            //bundles.Add(new ScriptBundle("~/bundles/cytoscape-dagre").Include(
-            //          "~/Scripts/cytoscape-dagre.js"));
-
-            //bundles.Add(new ScriptBundle("~/bundles/cytoscape-qtip").Include(
-            //          "~/Scripts/jquery.qtip.js",
-            //          "~/Scripts/cytoscape-qtip.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/threejs").Include(
                       "~/Scripts/three.js/build/three.min.js",

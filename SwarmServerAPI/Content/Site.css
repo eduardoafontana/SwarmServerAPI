@@ -1,16 +1,4 @@
-﻿/* ag-grid view eye icon */
-.view-button-eye {
-    cursor: pointer;
-    font-size: 18px;
-    color: #3498db;
-}
-
-    .view-button-eye:hover {
-        font-size: 20px;
-    }
-/* ag-grid view eye icon - end*/
-
-/* Loader component */
+﻿/* Loader component */
 #loading {
     width: 100%;
     height: 100%;
@@ -46,19 +34,6 @@
 }
 /* Loader Component - End*/
 
-/* cytoscape visualization */
-#cy {
-    height: 100%;
-    display: block;
-    border: 1px solid #c3c3c3;
-}
-
-.qtip {
-    max-width: none !important;
-    font-size: 12px;
-}
-/* cytoscape visualization - end */
-
 main {
     padding-top: 60px !important;
 }
@@ -69,12 +44,6 @@ main {
         max-width: 100%;
     }
 }
-
-/*
-#taskproject-list-div div.bootstrap-select.fit-width {
-    width: 290px !important;
-}
-*/
 
 /* session filter */
 #session-list-div {
