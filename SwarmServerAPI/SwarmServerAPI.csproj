@@ -162,7 +162,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Api\SessionController.cs" />
     <Compile Include="Controllers\Api\VisualizationDataController.cs" />
-    <Compile Include="Controllers\Api\TaskTimeGridDataController.cs" />
     <Compile Include="Controllers\VisualizationController.cs" />
     <Compile Include="General\InternalError.cs" />
     <Compile Include="Controllers\TasksTimeController.cs" />
@@ -206,7 +205,6 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\data-tasktime.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -362,7 +360,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\TasksTime\Index.cshtml" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <Content Include="Scripts\umd\popper.min.js.map" />

@@ -25,9 +25,6 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
                       "~/Scripts/bootstrap-select.js"
                       ));
 
-            //bundles.Add(new ScriptBundle("~/bundles/data-tasktime").Include(
-            //          "~/Scripts/data-tasktime.js"));
-
             bundles.Add(new ScriptBundle("~/bundles/threejs").Include(
                       "~/Scripts/three.js/build/three.min.js",
                       //"~/Scripts/three.js/CSS3DRenderer.js",
