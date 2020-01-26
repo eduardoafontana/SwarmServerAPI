@@ -74,7 +74,8 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
                       "~/Content/bootstrap-select.css",
                       "~/Content/bootstrap-grid.css",
                       "~/Content/bootstrap-reboot.css",
-                      "~/Content/dashboard.css"));
+                      "~/Content/dashboard.css"
+                      ));
 
             bundles.Add(new StyleBundle("~/Content/view3d").Include(
                       "~/Content/detail-box.css"));
