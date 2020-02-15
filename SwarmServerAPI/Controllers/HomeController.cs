@@ -10,11 +10,9 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
     {
         public ActionResult Index()
         {
-            //return View();
-
             ViewBag.Title = "Swarm Debugger Visualization";
 
-            return RedirectToAction("View3d", "Visualization");
+            return View();
         }
     }
 }

@@ -162,7 +162,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Api\SessionController.cs" />
     <Compile Include="Controllers\Api\VisualizationDataController.cs" />
-    <Compile Include="Controllers\VisualizationController.cs" />
     <Compile Include="General\InternalError.cs" />
     <Compile Include="Controllers\TasksTimeController.cs" />
     <Compile Include="Controllers\Api\ValuesController.cs" />
@@ -284,7 +283,6 @@
     <Content Include="Scripts\umd\popper-utils.js.map" />
     <Content Include="Scripts\README.md" />
     <Content Include="Scripts\view3d\fonts\helvetiker_regular.typeface.json" />
-    <Content Include="Views\Visualization\View3d.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
