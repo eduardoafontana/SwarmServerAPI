@@ -77,6 +77,10 @@
 
             sessionListDiv.appendChild(div);
         }
+
+        $('.form-check-input').on('change', function () {
+            tourInstructions.goTo(4);
+        });
     };
 
     function createSelectAll(sessionsLength) {

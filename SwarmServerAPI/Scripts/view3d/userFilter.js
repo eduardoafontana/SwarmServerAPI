@@ -31,6 +31,10 @@
             ulDropdownMenu.style.fontSize = '0.8rem';
         });
 
+        $('#user-list-div .selectpicker').on('hide.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+            tourInstructions.goTo(3);
+        });
+
         $('#user-list-div div.bs-searchbox input').on('input', function () {
             var divDropdownMenu = document.querySelector('#user-list-div div.dropdown-menu');
             divDropdownMenu.style.fontSize = '0.8rem';

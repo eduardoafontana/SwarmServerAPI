@@ -101,6 +101,8 @@
 
                 sceneLoader();
             });
+
+            tourInstructions.endTour();
         });
 
         dataControl.getTaskProjectDataFilterFromServer().then(function (taskProjectDataFromServer) {

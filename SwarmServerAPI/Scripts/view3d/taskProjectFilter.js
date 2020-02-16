@@ -29,6 +29,12 @@
 
             var ulDropdownMenu = document.querySelector('#taskproject-list-div ul.dropdown-menu');
             ulDropdownMenu.style.fontSize = '0.8rem';
+
+            tourInstructions.goTo(1);
+        });
+
+        $('#taskproject-list-div .selectpicker').on('hide.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+            tourInstructions.goTo(2);
         });
 
         $('#taskproject-list-div div.bs-searchbox input').on('input', function () {
@@ -38,8 +44,6 @@
             var ulDropdownMenu = document.querySelector('#taskproject-list-div ul.dropdown-menu');
             ulDropdownMenu.style.fontSize = '0.8rem';
         });
-
-        
 
         $('#taskproject-list-div .selectpicker').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
 
