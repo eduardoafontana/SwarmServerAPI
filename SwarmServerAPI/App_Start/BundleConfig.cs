@@ -22,7 +22,8 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
                       //"~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js",
                       "~/Scripts/bootstrap.bundle.js",
-                      "~/Scripts/bootstrap-select.js"
+                      "~/Scripts/bootstrap-select.js",
+                      "~/Scripts/bootstrap-tour-standalone.js"
                       ));
 
             bundles.Add(new ScriptBundle("~/bundles/threejs").Include(
@@ -65,6 +66,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
                       "~/Scripts/view3d/taskProjectFilter.js",
                       "~/Scripts/view3d/userFilter.js",
                       "~/Scripts/view3d/sourceCode-control.js",
+                      "~/Scripts/view3d/tour-instructions.js",
                       "~/Scripts/view3d/View3d.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
@@ -74,6 +76,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI
                       "~/Content/bootstrap-select.css",
                       "~/Content/bootstrap-grid.css",
                       "~/Content/bootstrap-reboot.css",
+                      "~/Content/bootstrap-tour-standalone.css",
                       "~/Content/dashboard.css"
                       ));
 

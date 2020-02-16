@@ -177,6 +177,8 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap-select.css" />
     <Content Include="Content\bootstrap-select.min.css" />
+    <Content Include="Content\bootstrap-tour-standalone.css" />
+    <Content Include="Content\bootstrap-tour-standalone.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\detail-box-tab.css" />
@@ -200,6 +202,8 @@
     <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="Properties\PublishProfiles\SwarmServer - Web Deploy.pubxml" />
     <Content Include="Scripts\bootstrap-select.js.map" />
+    <Content Include="Scripts\bootstrap-tour-standalone.js" />
+    <Content Include="Scripts\bootstrap-tour-standalone.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -259,6 +263,7 @@
     <Content Include="Scripts\view3d\Torus.js" />
     <Content Include="Scripts\view3d\Tube.js" />
     <Content Include="Scripts\view3d\TubeSphere.js" />
+    <Content Include="Scripts\view3d\tour-instructions.js" />
     <Content Include="Scripts\view3d\View3d.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

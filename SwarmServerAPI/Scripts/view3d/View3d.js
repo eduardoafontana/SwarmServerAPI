@@ -129,6 +129,8 @@
                 document.addEventListener('contextmenu', function (e) { e.preventDefault(); });
             });
         });
+
+        tourInstructions.startTour();
     });
 
     return {
