@@ -165,7 +165,26 @@
         if (trOfLine == null)
             return;
 
-        trOfLine.classList.add('source-code-selected');
+        //Old way!
+        //trOfLine.classList.add('source-code-selected');
+
+        //New feature: highlight the part of the line.
+        var tdHljsLnCode = trOfLine.querySelector('td.hljs-ln-code');
+
+        if (tdHljsLnCode === undefined || tdHljsLnCode === null)
+            return;
+
+        var divHljsLnLine = tdHljsLnCode.querySelector('div.hljs-ln-line');
+
+        if (divHljsLnLine === undefined || divHljsLnLine === null)
+            return;
+
+        var jsonData = JSON.parse(currentElement.data);
+
+        var divTextContent = divHljsLnLine.innerText;
+        var divTextHighlighted = divTextContent.replace(jsonData.LineOfCode, '<span class="source-code-selected">' + jsonData.LineOfCode + '</span>');
+
+        divHljsLnLine.innerHTML = divTextHighlighted;
 
         //set scroll position
         var preTag = detailBoxDiv.querySelector(".detail-box-main pre");
