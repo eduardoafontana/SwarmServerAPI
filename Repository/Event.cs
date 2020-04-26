@@ -25,6 +25,9 @@ namespace SwarmServerAPI.AppCode.Repository
         public int? LineNumber { get; set; }
         public string LineOfCode { get; set; }
         public DateTime Created { get; set; }
+        public string ObjectId { get; set; }
+        public string VariableName { get; set; }
+        public string VariableValue { get; set; }
 
         [ScriptIgnore]
         public Session Session { get; set; }

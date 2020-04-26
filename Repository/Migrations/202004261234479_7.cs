@@ -1,0 +1,24 @@
+namespace SwarmServerAPI.AppCore.Repository.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class _7 : DbMigration
+    {
+        public override void Up()
+        {
+            AddColumn("dbo.Breakpoints", "ObjectId", c => c.String());
+            AddColumn("dbo.Events", "ObjectId", c => c.String());
+            AddColumn("dbo.Events", "VariableName", c => c.String());
+            AddColumn("dbo.Events", "VariableValue", c => c.String());
+        }
+        
+        public override void Down()
+        {
+            DropColumn("dbo.Events", "VariableValue");
+            DropColumn("dbo.Events", "VariableName");
+            DropColumn("dbo.Events", "ObjectId");
+            DropColumn("dbo.Breakpoints", "ObjectId");
+        }
+    }
+}

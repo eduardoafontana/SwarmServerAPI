@@ -19,6 +19,7 @@ namespace SwarmServerAPI.AppCode.Repository
         public string LineOfCode { get; set; }
         public string Origin { get; set; }
         public DateTime Created { get; set; }
+        public string ObjectId { get; set; }
 
         [ScriptIgnore]
         public Session Session { get; set; }
