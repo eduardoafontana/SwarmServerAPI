@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json.Linq;
 using SwarmServerAPI.AppCode.Repository;
@@ -111,6 +112,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
         }
 
         [HttpGet]
+        [EnableCors(origins: "*", headers: "*", methods: "GET")]
         [Route("api/Visualization/View3dTaskProjectFilter")]
         public HttpResponseMessage GetView3dTaskProjectFilterVisualization()
         {
@@ -133,6 +135,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 
         [HttpPost]
         [Route("api/Visualization/View3dUserFilter")]
+        [EnableCors(origins: "*", headers: "*", methods: "GET")]
         public HttpResponseMessage GetView3UserFilterVisualization(TaskProjectModel filter)
         {
             try
@@ -154,6 +157,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 
         [HttpPost]
         [Route("api/Visualization/View3dSessionFilter")]
+        [EnableCors(origins: "*", headers: "*", methods: "GET")]
         public HttpResponseMessage GetView3SessionFilterVisualization(UserModel filter)
         {
             try
@@ -175,6 +179,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 
         [HttpPost]
         [Route("api/Visualization/View3d")]
+        [EnableCors(origins: "*", headers: "*", methods: "GET")]
         public HttpResponseMessage GetView3dVisualization(SessionFilterModel filter)
         {
             try
@@ -196,6 +201,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 
         [HttpGet]
         [Route("api/Visualization/SourceCode")]
+        [EnableCors(origins: "*", headers: "*", methods: "GET")]
         public HttpResponseMessage GetSourceCodeisualization(string originalId)
         {
             try
