@@ -135,7 +135,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 
         [HttpPost]
         [Route("api/Visualization/View3dUserFilter")]
-        [EnableCors(origins: "*", headers: "*", methods: "GET")]
+        [EnableCors(origins: "*", headers: "*", methods: "POST")]
         public HttpResponseMessage GetView3UserFilterVisualization(TaskProjectModel filter)
         {
             try
@@ -157,7 +157,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 
         [HttpPost]
         [Route("api/Visualization/View3dSessionFilter")]
-        [EnableCors(origins: "*", headers: "*", methods: "GET")]
+        [EnableCors(origins: "*", headers: "*", methods: "POST")]
         public HttpResponseMessage GetView3SessionFilterVisualization(UserModel filter)
         {
             try
@@ -179,7 +179,7 @@ namespace SwarmServerAPI.UI.SwarmServerAPI.Controllers
 
         [HttpPost]
         [Route("api/Visualization/View3d")]
-        [EnableCors(origins: "*", headers: "*", methods: "GET")]
+        [EnableCors(origins: "*", headers: "*", methods: "POST")]
         public HttpResponseMessage GetView3dVisualization(SessionFilterModel filter)
         {
             try
